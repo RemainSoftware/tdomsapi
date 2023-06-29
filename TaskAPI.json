@@ -1,0 +1,1978 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "TD/OMS - Task API",
+    "description" : "The TD/OMS Task API allows you to interact with a task. You can Create, Change or Delete a task. Also other actions like Copy, Connect, Disconnect, Ratify, Complete and Status Recalculations are available.",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License ",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "library" : "V15T0201",
+      "file" : "ChangeAPI.json",
+      "srclibrary" : "V15T0201S",
+      "object" : "OMQRTA",
+      "additionalBindingDirs" : "OMRESTUTIL",
+      "includeLogging" : "*YES"
+    }
+  },
+  "servers" : [ {
+    "url" : "https://{host}:{port}/{library}/OMQRTA",
+    "description" : "A dynamic https host",
+    "variables" : {
+      "host" : {
+        "description" : "The host serving the API",
+        "default" : "plato.remainsoftware.com"
+      },
+      "port" : {
+        "description" : "The port to which the server is listening",
+        "default" : "45211"
+      },
+      "library" : {
+        "description" : "The TD/OMS library",
+        "default" : "V150TST"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/add" : {
+      "summary" : "add",
+      "description" : "Add task",
+      "post" : {
+        "summary" : "Add task operation",
+        "description" : "Add task operation",
+        "operationId" : "addTask",
+        "requestBody" : {
+          "description" : "The add task request",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/addTaskRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/taskResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : false
+        }
+      }
+    },
+    "/change" : {
+      "summary" : "change",
+      "description" : "Change task definition",
+      "post" : {
+        "summary" : "Change task operation",
+        "description" : "Change task operation",
+        "operationId" : "changeTask",
+        "requestBody" : {
+          "description" : "The change task request",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/changeTaskRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/taskResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "02",
+          "generate" : false
+        }
+      }
+    },
+    "/complete" : {
+      "summary" : "complete",
+      "description" : "Complete task",
+      "post" : {
+        "summary" : "Complete task operation",
+        "description" : "Complete task operation",
+        "operationId" : "completeTask",
+        "requestBody" : {
+          "description" : "The complete task request",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/completeTaskRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/taskResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "03",
+          "generate" : false
+        }
+      }
+    },
+    "/connect" : {
+      "summary" : "connect",
+      "description" : "Connect task",
+      "post" : {
+        "summary" : "Connect task operation",
+        "description" : "Connect task operation",
+        "operationId" : "connectTask",
+        "requestBody" : {
+          "description" : "The connect task request",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/connectTaskRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/taskResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "04",
+          "generate" : false
+        }
+      }
+    },
+    "/disconnect" : {
+      "summary" : "disconnect",
+      "description" : "Disconnect task",
+      "post" : {
+        "summary" : "Disconnect task operation",
+        "description" : "Disconnect task operation",
+        "operationId" : "disconnectTask",
+        "requestBody" : {
+          "description" : "The disconnect task request",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/disconnectTaskRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/taskResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "07",
+          "generate" : false
+        }
+      }
+    },
+    "/copy" : {
+      "summary" : "copy",
+      "description" : "Copy task",
+      "post" : {
+        "summary" : "Copy task operation",
+        "description" : "Copy task operation",
+        "operationId" : "copyTask",
+        "requestBody" : {
+          "description" : "The copy task request",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/copyTaskRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/taskResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "05",
+          "generate" : false
+        }
+      }
+    },
+    "/delete" : {
+      "summary" : "delete",
+      "description" : "Delete task",
+      "post" : {
+        "summary" : "Delete task operation",
+        "description" : "Delete task operation",
+        "operationId" : "deleteTask",
+        "requestBody" : {
+          "description" : "The delete task request",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/deleteTaskRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/taskResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "06",
+          "generate" : false
+        }
+      }
+    },
+    "/ratify" : {
+      "summary" : "ratify",
+      "description" : "Ratify Task",
+      "post" : {
+        "summary" : "Ratify task operation",
+        "description" : "Ratify task operation",
+        "operationId" : "ratifyTask",
+        "requestBody" : {
+          "description" : "The ratify task request",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ratifyTaskRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/taskResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "08",
+          "generate" : false
+        }
+      }
+    },
+    "/status" : {
+      "summary" : "status",
+      "description" : "Recalculate status",
+      "post" : {
+        "summary" : "Status task operation",
+        "description" : "Status task operation",
+        "operationId" : "statusTask",
+        "requestBody" : {
+          "description" : "The status task request",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/statusTaskRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/taskResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "09",
+          "generate" : false
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "taskResponse" : {
+        "type" : "object",
+        "properties" : {
+          "messages" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "The return status which can be *NORM or *TERM. In case of *TERM look at the messages for more information."
+          },
+          "taskResponseData" : {
+            "$ref" : "#/components/schemas/taskResponseData"
+          },
+          "longDescription" : {
+            "maxLength" : 65535,
+            "type" : "string",
+            "description" : "Long description"
+          }
+        },
+        "description" : "The task response"
+      },
+      "extendedMessage" : {
+        "required" : [ "field", "messageData", "messageFile", "messageID", "messageType" ],
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The IBM i message file"
+          },
+          "messageID" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "The message ID"
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The message type\r\n"
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "The message substitution data"
+          },
+          "field" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "The field in error"
+          },
+          "messageText" : {
+            "maxLength" : 512,
+            "type" : "string",
+            "description" : "The human readable message text."
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "The return message"
+      },
+      "message" : {
+        "type" : "string",
+        "description" : "simple return message"
+      },
+      "taskResponseData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code"
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Fix number"
+          },
+          "fixType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Fix type"
+          },
+          "release" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Release"
+          },
+          "developmentExitCount" : {
+            "type" : "number",
+            "description" : "Development exit count",
+            "format" : "packed(3:0)"
+          },
+          "reasonCode" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Reason code"
+          },
+          "fixStatus" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Fix status"
+          },
+          "priorityNumeric" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Priority numeric"
+          },
+          "programmer" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Programmer"
+          },
+          "expectedStartDate" : {
+            "maximum" : 7,
+            "type" : "number",
+            "description" : "Expected start date",
+            "format" : "zoned(7:0)"
+          },
+          "realizedStartDate" : {
+            "maximum" : 7,
+            "type" : "number",
+            "description" : "Realized start date",
+            "format" : "zoned(7:0)"
+          },
+          "expectedCompletionDate" : {
+            "maximum" : 7,
+            "type" : "number",
+            "description" : "Expected completion date",
+            "format" : "zoned(7:0)"
+          },
+          "realizedCompletionDate" : {
+            "maximum" : 7,
+            "type" : "number",
+            "description" : "Realized completion date",
+            "format" : "zoned(7:0)"
+          },
+          "expectedDevEndDate" : {
+            "maximum" : 7,
+            "type" : "number",
+            "description" : "Expected dev end date",
+            "format" : "zoned(7:0)"
+          },
+          "realizedDevEndDate" : {
+            "maximum" : 7,
+            "type" : "number",
+            "description" : "Realized dev end date",
+            "format" : "zoned(7:0)"
+          },
+          "expectedNumberOfHours" : {
+            "type" : "number",
+            "description" : "Expected number of hours",
+            "format" : "packed(5:2)"
+          },
+          "realizedNumberOfHours" : {
+            "type" : "number",
+            "description" : "Realized number of hours",
+            "format" : "packed(5:2)"
+          },
+          "shortFixDescription" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "Short fix description"
+          },
+          "numberOfRatificationGrps" : {
+            "type" : "number",
+            "description" : "Number Of RatificationGrps",
+            "format" : "packed(3:0)"
+          },
+          "ratificationCount" : {
+            "type" : "number",
+            "description" : "Ratification count",
+            "format" : "packed(3:0)"
+          },
+          "rejectedIndicator" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Rejected indicator"
+          },
+          "freeUserSpace" : {
+            "maxLength" : 64,
+            "type" : "string",
+            "description" : "Free user space"
+          },
+          "pathCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Path code"
+          },
+          "commentCount" : {
+            "type" : "number",
+            "description" : "Comment count",
+            "format" : "packed(5:0)"
+          },
+          "completedSolutionsCount" : {
+            "type" : "number",
+            "description" : "Completed solutions count",
+            "format" : "packed(5:0)"
+          },
+          "activeSolutionCount" : {
+            "type" : "number",
+            "description" : "Active solution count",
+            "format" : "packed(5:0)"
+          },
+          "linkedItemsCount" : {
+            "type" : "number",
+            "description" : "Linked items count",
+            "format" : "packed(5:0)"
+          },
+          "linkedRequestsCount" : {
+            "type" : "number",
+            "description" : "Linked requests count",
+            "format" : "packed(5:0)"
+          },
+          "priorityValueDescription" : {
+            "maxLength" : 62,
+            "type" : "string",
+            "description" : "Priority value description"
+          },
+          "typeValueDescription" : {
+            "maxLength" : 62,
+            "type" : "string",
+            "description" : "Type value description"
+          },
+          "reasonValueDescription" : {
+            "maxLength" : 62,
+            "type" : "string",
+            "description" : "Reason value description"
+          },
+          "taskURI" : {
+            "maxLength" : 150,
+            "type" : "string",
+            "description" : "task URI"
+          },
+          "activeJobsCount" : {
+            "type" : "number",
+            "description" : "Active jobs count",
+            "format" : "packed(5:0)"
+          }
+        },
+        "description" : "Task response data",
+        "x-pfname" : "OMERS",
+        "x-fieldSchemaNameType" : "Normalized",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato"
+      },
+      "addData" : {
+        "required" : [ "applicationCode", "shortFixDescription" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Application_code_fix_(APPL)"
+            },
+            "x-column" : "RSAPPC",
+            "x-sequence" : "10"
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Fix number",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
+            },
+            "default" : "*GEN",
+            "enum" : [ "*GEN" ],
+            "x-column" : "RSFIX#",
+            "x-sequence" : "20"
+          },
+          "fixType" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Fix type",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_type_(FIXT)_3"
+            },
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*DFT" ],
+            "x-column" : "RSFIXT",
+            "x-sequence" : "30"
+          },
+          "release" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Release",
+            "externalDocs" : {
+              "description" : "*SAME Use this value to indicate that the release number\r\ndoes not change. TD/OMS will try to find the best value for the element if a new fix is added and the\r\nvalue *SAME is used. \r\n*CURRUNT Use this value to indicate that the release of the fix is the current release from the application definition.                              ",
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Release_number_(RLS)"
+            },
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*CURRENT" ],
+            "x-column" : "RSRLS#",
+            "x-sequence" : "40"
+          },
+          "priorityNumeric" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Priority numeric",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Priority_code_(PRIC)"
+            },
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*DFT" ],
+            "x-column" : "RSPRIN",
+            "x-sequence" : "80"
+          },
+          "programmer" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Programmer",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Programmer_(PGMR)_3"
+            },
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*CURRENT", "*PGMR" ],
+            "x-column" : "RSPGMR",
+            "x-sequence" : "90"
+          },
+          "expectedStartDate" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Expected start date",
+            "format" : "zoned(7:0)",
+            "externalDocs" : {
+              "description" : "-1 the value does not change (*SAME)\r\n-2 Use the current date (*CURRENT)\r\n0 do not set a date ",
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Expected_start_date_(ESDT)_2"
+            },
+            "default" : -1.0,
+            "enum" : [ 0.0, -1.0, -2.0 ],
+            "x-column" : "RSESDT",
+            "x-sequence" : "100"
+          },
+          "expectedCompletionDate" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Expected completion date",
+            "format" : "zoned(7:0)",
+            "externalDocs" : {
+              "description" : "-1 the value does not change (*SAME)\r\n-2 Use the current date (*CURRENT)\r\n0 do not set a date ",
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Expected_completion_date_(ECDT)_2"
+            },
+            "default" : -1.0,
+            "enum" : [ 0.0, -1.0, -2.0 ],
+            "x-column" : "RSECDT",
+            "x-sequence" : "120"
+          },
+          "expectedDevEndDate" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Expected dev. end date",
+            "format" : "zoned(7:0)",
+            "externalDocs" : {
+              "description" : "-1 the value does not change (*SAME)\r\n-2 Use the current date (*CURRENT)\r\n0 do not set a date ",
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Expected_development_end_date_(EDDT)_2"
+            },
+            "default" : -1.0,
+            "enum" : [ 0.0, -1.0, -2.0 ],
+            "x-column" : "RSEDDT",
+            "x-sequence" : "140"
+          },
+          "expectedNumberOfHours" : {
+            "maxLength" : 5,
+            "type" : "number",
+            "description" : "Expected number of hours",
+            "format" : "packed(5:2)",
+            "externalDocs" : {
+              "description" : "-1 the value does not change (*SAME)",
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Expected_number_of_hours_(EHR)"
+            },
+            "default" : -1.0,
+            "enum" : [ -1.0 ],
+            "x-column" : "RSEPH#",
+            "x-sequence" : "160"
+          },
+          "shortFixDescription" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "Short fix description",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Short_fix_description_(SHFD)_2"
+            },
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "RSSHFD",
+            "x-sequence" : "180"
+          },
+          "freeUserSpace" : {
+            "maxLength" : 32,
+            "type" : "string",
+            "description" : "Free user space",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Free_user_text_(FREE)"
+            },
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "RSFREE",
+            "x-sequence" : "220"
+          },
+          "pathCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Path code",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Transfer_Path_(PTH)"
+            },
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*DFT" ],
+            "x-column" : "RSPATH",
+            "x-sequence" : "230"
+          },
+          "longDescription" : {
+            "maxLength" : 65535,
+            "type" : "string",
+            "description" : "Long description"
+          }
+        },
+        "description" : "Input data for action add",
+        "x-pfname" : "OMERS",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "addProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "sendMessageToProgrammer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Send a message to the programmer when assigning or reassigning with '1'. Use '0' to not send a message.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Input processing options for action add"
+      },
+      "addTaskRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V3R0M0",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "addProcessingOptions" : {
+            "$ref" : "#/components/schemas/addProcessingOptions"
+          },
+          "addData" : {
+            "$ref" : "#/components/schemas/addData"
+          }
+        },
+        "description" : "Input schema for action add"
+      },
+      "changeData" : {
+        "required" : [ "applicationCode", "fixNumber" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Application_code_fix_(APPL)"
+            },
+            "x-column" : "RSAPPC",
+            "x-sequence" : "10"
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Fix number",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
+            },
+            "default" : "string",
+            "enum" : [ "*GEN" ],
+            "x-column" : "RSFIX#",
+            "x-sequence" : "20"
+          },
+          "fixType" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Fix type",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_type_(FIXT)_3"
+            },
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*DFT" ],
+            "x-column" : "RSFIXT",
+            "x-sequence" : "30"
+          },
+          "release" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Release",
+            "externalDocs" : {
+              "description" : "*SAME Use this value to indicate that the release number\r\ndoes not change. TD/OMS will try to find the best value for the element if a new fix is added and the\r\nvalue *SAME is used. \r\n*CURRUNT Use this value to indicate that the release of the fix is the current release from the application definition.                              ",
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Release_number_(RLS)"
+            },
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*CURRENT" ],
+            "x-column" : "RSRLS#",
+            "x-sequence" : "40"
+          },
+          "priorityNumeric" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Priority numeric",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Priority_code_(PRIC)"
+            },
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*DFT" ],
+            "x-column" : "RSPRIN",
+            "x-sequence" : "80"
+          },
+          "programmer" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Programmer",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*CURRENT", "*PGMR" ],
+            "x-column" : "RSPGMR",
+            "x-sequence" : "90"
+          },
+          "expectedStartDate" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Expected start date",
+            "format" : "zoned(7:0)",
+            "externalDocs" : {
+              "description" : "-1 the value does not change (*SAME)\r\n-2 Use the current date (*CURRENT)\r\n0 do not set a date ",
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Expected_start_date_(ESDT)_2"
+            },
+            "default" : -1.0,
+            "enum" : [ 0.0, -1.0, -2.0 ],
+            "x-column" : "RSESDT",
+            "x-sequence" : "100"
+          },
+          "expectedCompletionDate" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Expected completion date",
+            "format" : "zoned(7:0)",
+            "externalDocs" : {
+              "description" : "-1 the value does not change (*SAME)\r\n-2 Use the current date (*CURRENT)\r\n0 do not set a date ",
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Expected_completion_date_(ECDT)_2"
+            },
+            "default" : -1.0,
+            "enum" : [ 0.0, -1.0, -2.0 ],
+            "x-column" : "RSECDT",
+            "x-sequence" : "120"
+          },
+          "expectedDevEndDate" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Expected dev. end date",
+            "format" : "zoned(7:0)",
+            "externalDocs" : {
+              "description" : "-1 the value does not change (*SAME)\r\n-2 Use the current date (*CURRENT)\r\n0 do not set a date ",
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Expected_development_end_date_(EDDT)_2"
+            },
+            "default" : -1.0,
+            "enum" : [ 0.0, -1.0, -2.0 ],
+            "x-column" : "RSEDDT",
+            "x-sequence" : "140"
+          },
+          "expectedNumberOfHours" : {
+            "maxLength" : 5,
+            "type" : "number",
+            "description" : "Expected number of hours",
+            "format" : "packed(5:2)",
+            "externalDocs" : {
+              "description" : "-1 the value does not change (*SAME)",
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Expected_number_of_hours_(EHR)"
+            },
+            "default" : -1.0,
+            "enum" : [ -1.0 ],
+            "x-column" : "RSEPH#",
+            "x-sequence" : "160"
+          },
+          "realizedNumberOfHours" : {
+            "maxLength" : 5,
+            "type" : "number",
+            "description" : "Realized number of hours",
+            "format" : "packed(5:2)",
+            "externalDocs" : {
+              "description" : "-1 the value does not change (*SAME)\r\n0 number of hours will not be filled (*NONE) ",
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Realized_number_of_hours_(RHR)"
+            },
+            "default" : -1.0,
+            "enum" : [ 0.0, -1.0 ],
+            "x-column" : "RSERH#",
+            "x-sequence" : "170"
+          },
+          "shortFixDescription" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "Short fix description",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Short_fix_description_(SHFD)_2"
+            },
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "RSSHFD",
+            "x-sequence" : "180"
+          },
+          "freeUserSpace" : {
+            "maxLength" : 32,
+            "type" : "string",
+            "description" : "Free user space",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Free_user_text_(FREE)"
+            },
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "RSFREE",
+            "x-sequence" : "220"
+          },
+          "pathCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Path code",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Transfer_Path_(PTH)"
+            },
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*DFT" ],
+            "x-column" : "RSPATH",
+            "x-sequence" : "230"
+          },
+          "longDescription" : {
+            "maxLength" : 65535,
+            "type" : "string",
+            "description" : "Long description",
+            "externalDocs" : {
+              "description" : "Use this value to indicate that the long description does not change."
+            },
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          }
+        },
+        "description" : "Input data for action change",
+        "externalDocs" : {
+          "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Programmer_(PGMR)_3"
+        },
+        "x-pfname" : "OMERS",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "changeTaskRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V3R0M0",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "changeProcessingOptions" : {
+            "$ref" : "#/components/schemas/changeProcessingOptions"
+          },
+          "changeData" : {
+            "$ref" : "#/components/schemas/changeData"
+          }
+        },
+        "description" : "Input schema for action change"
+      },
+      "changeProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "hourCounter" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' if you want to add the hours, '2' if you want to substract the hours and '0' to replace the hours.",
+            "default" : "0",
+            "enum" : [ "0", "1", "2" ]
+          },
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Input processing options for action change"
+      },
+      "completeData" : {
+        "required" : [ "applicationCode", "fixNumber" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Application_code_fix_(APPL)"
+            },
+            "x-column" : "RSAPPC",
+            "x-sequence" : "10"
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Fix number",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
+            },
+            "default" : "string",
+            "enum" : [ "*GEN" ],
+            "x-column" : "RSFIX#",
+            "x-sequence" : "20"
+          },
+          "reasonCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Reason code",
+            "externalDocs" : {
+              "description" : "*SAME Use this value to indicate that the reason code does not change. TD/OMS will try to find the best value for the element if a fix is completed and the value *SAME is used.\r\n*DFT Use this value to indicate that the default reason code is to be used to complete the fix. The default reason code is user-defined.",
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Reason_code_(REAC)_2"
+            },
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*DFT" ],
+            "x-column" : "RSREAC",
+            "x-sequence" : "60"
+          }
+        },
+        "description" : "Input data for action complete",
+        "x-pfname" : "OMERS",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "completeTaskRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V3R0M0",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "completeProcessingOptions" : {
+            "$ref" : "#/components/schemas/completeProcessingOptions"
+          },
+          "completeData" : {
+            "$ref" : "#/components/schemas/completeData"
+          }
+        },
+        "description" : "Input schema for action complete"
+      },
+      "completeProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Input processing options for action complete"
+      },
+      "connectData" : {
+        "required" : [ "applicationCode", "fixNumber" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "RSAPPC",
+            "x-sequence" : "10"
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Fix number",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
+            },
+            "default" : "string",
+            "enum" : [ "*GEN" ],
+            "x-column" : "RSFIX#",
+            "x-sequence" : "20"
+          }
+        },
+        "description" : "Input data for action connect",
+        "externalDocs" : {
+          "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Application_code_fix_(APPL)"
+        },
+        "x-pfname" : "OMERS",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "connectProcessingOptions" : {
+        "required" : [ "requestCode" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCodeRequest" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code request",
+            "default" : "*APPL",
+            "enum" : [ "*APPL" ]
+          },
+          "requestCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Request code",
+            "default" : "string",
+            "enum" : [ "*ALL" ]
+          },
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Input processing option for action connect"
+      },
+      "connectTaskRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V3R0M0",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "connectProcessingOptions" : {
+            "$ref" : "#/components/schemas/connectProcessingOptions"
+          },
+          "connectData" : {
+            "$ref" : "#/components/schemas/connectData"
+          }
+        },
+        "description" : "Input schema for action connect"
+      },
+      "disconnectData" : {
+        "required" : [ "applicationCode", "fixNumber" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Application_code_fix_(APPL)"
+            },
+            "x-column" : "RSAPPC",
+            "x-sequence" : "10"
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Fix number",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
+            },
+            "default" : "string",
+            "enum" : [ "*GEN" ],
+            "x-column" : "RSFIX#",
+            "x-sequence" : "20"
+          }
+        },
+        "description" : "Input data for action disconnect",
+        "x-pfname" : "OMERS",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "disconnectProcessingOptions" : {
+        "required" : [ "requestCode" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCodeRequest" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code request",
+            "default" : "*ALL",
+            "enum" : [ "*ALL" ]
+          },
+          "requestCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Request code",
+            "default" : "string",
+            "enum" : [ "*ALL" ]
+          },
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Input processing options for action disconnect"
+      },
+      "disconnectTaskRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V3R0M0",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "disconnectProcessingOptions" : {
+            "$ref" : "#/components/schemas/disconnectProcessingOptions"
+          },
+          "disconnectData" : {
+            "$ref" : "#/components/schemas/disconnectData"
+          }
+        },
+        "description" : "Input schema for action disconnect"
+      },
+      "copyData" : {
+        "required" : [ "applicationCode", "fixNumber" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Application_code_fix_(APPL)"
+            },
+            "x-column" : "RSAPPC",
+            "x-sequence" : "10"
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Fix number",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
+            },
+            "default" : "string",
+            "enum" : [ "*GEN" ],
+            "x-column" : "RSFIX#",
+            "x-sequence" : "20"
+          }
+        },
+        "description" : "Input data for action copy",
+        "x-pfname" : "OMERS",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "copyProcessingOptions" : {
+        "required" : [ "toApplicationCode", "toFixNumber" ],
+        "type" : "object",
+        "properties" : {
+          "copySolutions" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "When Copy, specify '1' if you want to place the solutions of the copied task  into the connection list of the new task.",
+            "default" : "0",
+            "enum" : [ "0", "1" ]
+          },
+          "toApplicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Target application code"
+          },
+          "toFixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Target fix number",
+            "default" : "string",
+            "enum" : [ "*GEN" ]
+          },
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Input processing options for action copy"
+      },
+      "copyTaskRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V3R0M0",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "copyProcessingOptions" : {
+            "$ref" : "#/components/schemas/copyProcessingOptions"
+          },
+          "copyData" : {
+            "$ref" : "#/components/schemas/copyData"
+          }
+        },
+        "description" : "Input schema for action copy"
+      },
+      "deleteData" : {
+        "required" : [ "applicationCode", "fixNumber" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Application_code_fix_(APPL)"
+            },
+            "x-column" : "RSAPPC",
+            "x-sequence" : "10"
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Fix number",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
+            },
+            "default" : "string",
+            "enum" : [ "*GEN" ],
+            "x-column" : "RSFIX#",
+            "x-sequence" : "20"
+          }
+        },
+        "description" : "Input data for action delete",
+        "x-pfname" : "OMERS",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "deleteProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Input processing options for action delete"
+      },
+      "deleteTaskRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V3R0M0",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "deleteProcessingOptions" : {
+            "$ref" : "#/components/schemas/deleteProcessingOptions"
+          },
+          "deleteData" : {
+            "$ref" : "#/components/schemas/deleteData"
+          }
+        },
+        "description" : "Input schema for action delete"
+      },
+      "ratifyData" : {
+        "required" : [ "applicationCode", "fixNumber" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Application_code_fix_(APPL)"
+            },
+            "x-column" : "RSAPPC",
+            "x-sequence" : "10"
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Fix number",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
+            },
+            "default" : "string",
+            "enum" : [ "*GEN" ],
+            "x-column" : "RSFIX#",
+            "x-sequence" : "20"
+          }
+        },
+        "description" : "Input data for action ratify",
+        "x-pfname" : "OMERS",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "ratifyProcessingOptions" : {
+        "required" : [ "ratificationGroup" ],
+        "type" : "object",
+        "properties" : {
+          "ratificationCode" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' for a positive ratification and '0 'for a negative ratification.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "ratificationGroup" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Ratification group"
+          },
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Input processing options for action ratify"
+      },
+      "ratifyTaskRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V3R0M0",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "ratifyProcessingOptions" : {
+            "$ref" : "#/components/schemas/ratifyProcessingOptions"
+          },
+          "ratifyData" : {
+            "$ref" : "#/components/schemas/ratifyData"
+          }
+        },
+        "description" : "Input schema for action ratify"
+      },
+      "statusData" : {
+        "required" : [ "applicationCode", "fixNumber" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Application_code_fix_(APPL)"
+            },
+            "x-column" : "RSAPPC",
+            "x-sequence" : "10"
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Fix number",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
+            },
+            "default" : "string",
+            "enum" : [ "*GEN" ],
+            "x-column" : "RSFIX#",
+            "x-sequence" : "20"
+          }
+        },
+        "description" : "Input data for action status",
+        "x-pfname" : "OMERS",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "statusProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Input processing options for action status"
+      },
+      "statusTaskRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V3R0M0",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "statusProcessingOptions" : {
+            "$ref" : "#/components/schemas/statusProcessingOptions"
+          },
+          "statusData" : {
+            "$ref" : "#/components/schemas/statusData"
+          }
+        },
+        "description" : "Input schema for action status"
+      }
+    },
+    "responses" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "The HTTP API Token",
+        "name" : "JWT",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
