@@ -1,0 +1,234 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "TD/OMS Dashboard Service",
+    "description" : "This API will fetch the dashboard information.",
+    "contact" : {
+      "name" : "Remainsoftware",
+      "url" : "https://remainsoftware.com",
+      "email" : "info@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remainsoftware Licnesing",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "1.0",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "object" : "OMRDASH",
+      "library" : "V150DEV",
+      "srclibrary" : "V150DEV"
+    }
+  },
+  "servers" : [ {
+    "url" : "{protocol}://{host}:{port}/V150TST/OMRDASH",
+    "description" : "TD/OMS Dashboard server",
+    "variables" : {
+      "protocol" : {
+        "default" : "https",
+        "enum" : [ "http", "https" ]
+      },
+      "port" : {
+        "default" : "45211"
+      },
+      "host" : {
+        "default" : "plato.remainsoftware.com"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "tags" : [ {
+    "name" : "DashboardService"
+  } ],
+  "paths" : {
+    "/dashboard/execute/query" : {
+      "summary" : "Execute  the dashboard query",
+      "post" : {
+        "summary" : "Returns the query result as an array of rows",
+        "description" : "Returns the query result as an array of rows",
+        "operationId" : "executeQuery",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "examples" : {
+                "example" : {
+                  "value" : "{\"UUID\":\"16\"}"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/listResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid Input",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "bearer" : [ ]
+        } ],
+        "x-securityExamples" : {
+          "bearerExample" : {
+            "bearer" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJSZW1haW4gU29mdHdhcmUiLCJzdWIiOiJUQUFPUyIsImV4cCI6MTY4Mzg5NTExNS4wLCJuYmYiOjE2ODM4MDg3MTUuMCwiaWF0IjoxNjgzODA4NzE1LjAsImp0aSI6NzIwLjB9.tmlwNWPGTi0V49LlA6vsWTRsPsDAqtUtMQ_pQZZ8MfQ"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "returnStatus" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string",
+            "description" : "Return status. See the description of the operation to see what values can be returned."
+          },
+          "messages" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "General error messages",
+            "items" : {
+              "$ref" : "#/components/schemas/message"
+            }
+          }
+        },
+        "description" : "The return status object"
+      },
+      "message" : {
+        "type" : "object",
+        "properties" : {
+          "messageText" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "It contains the first level message text."
+          },
+          "messageID" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "It contains the message id of the message : Example - CPF0000"
+          },
+          "messageTextExtended" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "It contains the additional message information"
+          }
+        },
+        "description" : "message object"
+      },
+      "listInput" : {
+        "type" : "object",
+        "properties" : {
+          "UUID" : {
+            "type" : "string",
+            "description" : "The uuid of the chart to get the data for."
+          }
+        },
+        "description" : "The list input"
+      },
+      "listResponse" : {
+        "type" : "object",
+        "properties" : {
+          "returnStatus" : {
+            "$ref" : "#/components/schemas/returnStatus"
+          },
+          "rows" : {
+            "maxItems" : 100,
+            "type" : "array",
+            "description" : "An array of chart rows.",
+            "items" : {
+              "$ref" : "#/components/schemas/row"
+            }
+          }
+        }
+      },
+      "column" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "The name of the column"
+          },
+          "value" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "The value of the column"
+          }
+        },
+        "description" : "This is a dynamic json object  that contains x number of key value pairs representing the information in the chart.\r\n\r\nExample:"
+      },
+      "row" : {
+        "type" : "object",
+        "properties" : {
+          "columns" : {
+            "maxItems" : 256,
+            "type" : "array",
+            "description" : "An array of columns",
+            "items" : {
+              "$ref" : "#/components/schemas/column"
+            }
+          }
+        },
+        "description" : "The row of the chart"
+      }
+    },
+    "responses" : {
+      "401" : {
+        "description" : "Unauthorized",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/message"
+            }
+          }
+        }
+      }
+    },
+    "parameters" : { },
+    "requestBodies" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "JWT Validation",
+        "name" : "JWT",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      },
+      "bearer" : {
+        "type" : "http",
+        "name" : "bearer",
+        "scheme" : "bearer"
+      }
+    },
+    "callbacks" : { }
+  }
+}
