@@ -1,0 +1,638 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "TD/OMS Transfer Objects API    ",
+    "description" : "This API is used to transfer the objects.",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License ",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "library" : "V15T0286",
+      "file" : "RequestAPI.json",
+      "srclibrary" : "V15T0286S",
+      "object" : "OMQRTO"
+    }
+  },
+  "servers" : [ {
+    "url" : "http://plato:45635/V15T0286/OMQRTO",
+    "description" : "plato.prod"
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/select" : {
+      "summary" : "select the environments",
+      "description" : "select the environments",
+      "post" : {
+        "summary" : "select the environment",
+        "operationId" : "select",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/selectRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/targets"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorMessages"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Authorization information is missing or invalid.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : false
+        }
+      }
+    },
+    "/prepare" : {
+      "summary" : "prepare the transfer",
+      "description" : "prepare the transfer",
+      "post" : {
+        "summary" : "prepare the transfer",
+        "description" : "prepare the transfer",
+        "operationId" : "prepare",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/prepareRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/transferNumber"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorMessages"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Authorization information is missing or invalid.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorMessage"
+                }
+              }
+            }
+          },
+          "409" : {
+            "description" : "Conflict in pre transfer check file OMPTT",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/transferNumber"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "02",
+          "generate" : false
+        }
+      }
+    },
+    "/execute" : {
+      "summary" : "Transfer the object",
+      "description" : "Transfer the object",
+      "post" : {
+        "summary" : "Transfer the objects",
+        "description" : "Transfer the objects",
+        "operationId" : "execute",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/executeRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/executeResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorMessages"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "03",
+          "generate" : false
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "requestProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "endOfProcessing" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Closes the underlying API after calling. Keep open with '0'if you have to call the API in quick succession. Make sure to close on the last call with '1'",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Enter processing array input here"
+      },
+      "extendedMessage" : {
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The IBM i message file"
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "The message ID"
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The message type"
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "The message substitution data"
+          },
+          "field" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Field in error"
+          },
+          "messageText" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "The human readable message text"
+          }
+        },
+        "description" : "It contains all the error messages returned by the API."
+      },
+      "objectDetail" : {
+        "type" : "object",
+        "properties" : {
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Object name"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Object Type"
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Member Code"
+          },
+          "routeCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Route Code"
+          },
+          "pathExtensionpCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Path Extension Code"
+          },
+          "transferable" : {
+            "type" : "boolean"
+          },
+          "reason" : {
+            "$ref" : "#/components/schemas/errorMessage"
+          }
+        },
+        "description" : "Object detail"
+      },
+      "errorMessage" : {
+        "type" : "object",
+        "properties" : {
+          "messageText" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Message Text"
+          },
+          "messageID" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "Message ID"
+          },
+          "messageTextExtended" : {
+            "maxLength" : 512,
+            "type" : "string",
+            "description" : "It contains the additional message information based on the value of the request."
+          }
+        },
+        "description" : "Error message"
+      },
+      "prepareRequest" : {
+        "type" : "object",
+        "properties" : {
+          "action" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Move, Copy"
+          },
+          "application" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application name"
+          },
+          "taskNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Task Number"
+          },
+          "fromEnvironment" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "From Environment"
+          },
+          "toEnvironment" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "To environments"
+          },
+          "objects" : {
+            "maxItems" : 100,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/objectInfo"
+            }
+          },
+          "targetSubEnviornments" : {
+            "maxItems" : 1000,
+            "type" : "array",
+            "description" : "Target subenvironments",
+            "items" : {
+              "type" : "integer"
+            }
+          },
+          "confimation" : {
+            "type" : "boolean",
+            "description" : "Pre transfer check confirmation"
+          }
+        },
+        "description" : "Prepare the transfer request"
+      },
+      "target" : {
+        "type" : "object",
+        "properties" : {
+          "fromEnvironment" : {
+            "maxLength" : 5,
+            "type" : "string"
+          },
+          "fromEnvironmentDescription" : {
+            "maxLength" : 50,
+            "type" : "string"
+          },
+          "toEnvironment" : {
+            "maxLength" : 5,
+            "type" : "string"
+          },
+          "toEnvironmentDescription" : {
+            "maxLength" : 50,
+            "type" : "string"
+          },
+          "default" : {
+            "type" : "boolean"
+          },
+          "subEnvironments" : {
+            "maxItems" : 1000,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/subEnvironment"
+            }
+          },
+          "reason" : {
+            "$ref" : "#/components/schemas/errorMessage"
+          },
+          "objects" : {
+            "maxItems" : 100,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/objectDetail"
+            }
+          },
+          "fixedNumberofSubEnvironments" : {
+            "type" : "number",
+            "description" : "If > 0 then this number of sub-environments must be selected. If 0 then the user may decide how many sub-environments are selected. If -1 then there is no selection required on sub-environments.",
+            "format" : "packed(5:0)"
+          }
+        }
+      },
+      "subEnvironment" : {
+        "type" : "object",
+        "properties" : {
+          "sequenceNumber" : {
+            "type" : "number",
+            "format" : "packed(5:0)"
+          },
+          "description" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "Description of subenvironment."
+          },
+          "fallbackActive" : {
+            "type" : "boolean"
+          },
+          "remote" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "0=Local   1=Both         2=Remote    "
+          },
+          "status" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "You can use the Status option to disable    \r\nthis target or to mark it as a branching    \r\ntemplate.                                   \r\n                                            \r\n0=Active                                    \r\n    The sub-environment is used normaly when\r\n    transfering objects.                    \r\n\r\n 1=Disabled                              \r\n     The sub-environment is not used when\r\n     transfering objects.                \r\n                                         \r\n 2=Template                              \r\n     The sub-environment is a branching  \r\n     template."
+          }
+        }
+      },
+      "address" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 10,
+            "type" : "string"
+          },
+          "description" : {
+            "maxLength" : 50,
+            "type" : "string"
+          },
+          "jobDescriptions" : {
+            "maxItems" : 100,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/jobDescription"
+            }
+          }
+        },
+        "description" : "Address"
+      },
+      "jobDescription" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 10,
+            "type" : "string"
+          },
+          "description" : {
+            "maxLength" : 50,
+            "type" : "string"
+          },
+          "default" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "errorMessages" : {
+        "maxItems" : 100,
+        "type" : "array",
+        "description" : "Error messages",
+        "items" : {
+          "$ref" : "#/components/schemas/errorMessage"
+        }
+      },
+      "targets" : {
+        "type" : "object",
+        "properties" : {
+          "targets" : {
+            "maxItems" : 20,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/target"
+            }
+          }
+        }
+      },
+      "selectRequest" : {
+        "type" : "object",
+        "properties" : {
+          "action" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Checkout, Promote, Transfer"
+          },
+          "taskNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Task Number"
+          },
+          "application" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application name"
+          },
+          "fromEnvironment" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "From Environment"
+          }
+        },
+        "description" : "Prepare the transfer request"
+      },
+      "objectInfo" : {
+        "type" : "object",
+        "properties" : {
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Member Code"
+          },
+          "routeCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Route Code"
+          },
+          "pathExtensionpCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Path Extension Code"
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Object name"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Object Type"
+          }
+        },
+        "description" : "Object information"
+      },
+      "transferNumber" : {
+        "maxLength" : 8,
+        "type" : "string",
+        "description" : "Transfer Number"
+      },
+      "executeRequest" : {
+        "type" : "object",
+        "properties" : {
+          "transferNumber" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Transfer number"
+          }
+        },
+        "description" : "Execute the request input"
+      },
+      "executeResponse" : {
+        "type" : "object",
+        "properties" : {
+          "job" : {
+            "$ref" : "#/components/schemas/job"
+          },
+          "transferNumber" : {
+            "maxLength" : 8,
+            "type" : "string"
+          }
+        },
+        "description" : "Execute response"
+      },
+      "job" : {
+        "type" : "object",
+        "properties" : {
+          "jobName" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Job "
+          },
+          "userName" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "User Name"
+          },
+          "jobNumber" : {
+            "type" : "number",
+            "description" : "Job number",
+            "format" : "zoned(6:0)"
+          }
+        }
+      }
+    },
+    "responses" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "http JWT token",
+        "name" : "JWT",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
