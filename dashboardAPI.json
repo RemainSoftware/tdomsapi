@@ -219,13 +219,11 @@
       "JWT" : {
         "type" : "http",
         "description" : "JWT Validation",
-        "name" : "JWT",
         "scheme" : "bearer",
         "bearerFormat" : "JWT"
       },
       "bearer" : {
         "type" : "http",
-        "name" : "bearer",
         "scheme" : "bearer"
       }
     },
