@@ -1,0 +1,159 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "TD/OMS Information Service API",
+    "termsOfService" : "https://remainsoftware.com/octo-terms-and-conditions",
+    "contact" : {
+      "name" : "Remain BV",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software License",
+      "url" : "https://remainsoftware.com/octo-terms-and-conditions"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "object" : "OMSINFO",
+      "library" : "V15T0311",
+      "srclibrary" : "V15T0311S",
+      "file" : "infoService.json"
+    }
+  },
+  "servers" : [ {
+    "url" : "https://plato.remainsoftware.com:{port}/{library}/OMSINFO",
+    "description" : "plato.prod",
+    "variables" : {
+      "library" : {
+        "description" : "",
+        "default" : "V15T0311"
+      },
+      "port" : {
+        "description" : "",
+        "default" : "45211"
+      }
+    }
+  } ],
+  "paths" : {
+    "/license" : {
+      "summary" : "Get the OMS Information to test the rest server",
+      "description" : "Test the TD/OMS information",
+      "get" : {
+        "summary" : "TD/OMS Information Service API",
+        "description" : "operation description",
+        "operationId" : "license",
+        "responses" : {
+          "200" : {
+            "description" : "return code 200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/licenseInfo"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : false
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "module" : {
+        "type" : "object",
+        "properties" : {
+          "moduleCode" : {
+            "type" : "string",
+            "description" : "The module code"
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "The module description"
+          },
+          "version" : {
+            "type" : "string",
+            "description" : "The module version"
+          },
+          "buildDate" : {
+            "type" : "string",
+            "description" : "The build date of the module"
+          },
+          "numberOfUsers" : {
+            "type" : "integer",
+            "description" : "The number of users for this module"
+          },
+          "LicenseEndDate" : {
+            "type" : "string",
+            "description" : "Module License end date in the format CYYMMDD where C=1=2000"
+          }
+        },
+        "description" : "The module object"
+      },
+      "licenseInfo" : {
+        "type" : "object",
+        "properties" : {
+          "version" : {
+            "type" : "string",
+            "description" : "Kernel Version"
+          },
+          "productLibrary" : {
+            "type" : "string",
+            "description" : "The TD/OMS product library"
+          },
+          "message" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "A message"
+          },
+          "licenseType" : {
+            "type" : "string",
+            "description" : "The license type, *COMBINED, *NAMED, *UNLIMITED"
+          },
+          "lpar" : {
+            "type" : "integer",
+            "description" : "The LPAR number"
+          },
+          "namedUsers" : {
+            "type" : "integer",
+            "description" : "Number of named users"
+          },
+          "floatingUsers" : {
+            "type" : "integer",
+            "description" : "Number of floating users"
+          },
+          "serialNumber" : {
+            "type" : "string",
+            "description" : "The serial number"
+          },
+          "processorFeatureCode" : {
+            "type" : "string",
+            "description" : "The processor feature code"
+          },
+          "licenseEndDate" : {
+            "type" : "string",
+            "description" : "License end date in the format CYYMMDD where C=1=2000"
+          },
+          "modules" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "The active modules",
+            "items" : {
+              "$ref" : "#/components/schemas/module"
+            }
+          }
+        },
+        "description" : "The information schema."
+      }
+    },
+    "responses" : { },
+    "callbacks" : { }
+  }
+}
