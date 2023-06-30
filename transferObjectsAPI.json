@@ -628,7 +628,6 @@
       "JWT" : {
         "type" : "http",
         "description" : "http JWT token",
-        "name" : "JWT",
         "scheme" : "bearer",
         "bearerFormat" : "JWT"
       }
