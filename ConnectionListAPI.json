@@ -1,0 +1,539 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "TD/OMS Connection List API",
+    "description" : "The TD/OMS Connection List API allows you to interact with a connection list. You can Add, Process and Delete the connection list.",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License ",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "library" : "V15T0294",
+      "file" : "ConnectionListAPI.json",
+      "srclibrary" : "V15T0294S",
+      "object" : "OMQRCL"
+    }
+  },
+  "servers" : [ {
+    "url" : "https://plato.remainsoftware.com:45211/V15T0294/OMQRCL",
+    "description" : "plato.prod"
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/add" : {
+      "summary" : "addConnectionList",
+      "description" : "addConnectionList",
+      "post" : {
+        "summary" : "TD/OMS Connection List API",
+        "description" : "add connection list",
+        "operationId" : "addConnecitonList",
+        "requestBody" : {
+          "description" : "addConnectionList",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/addConnectionListRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "return code 200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/connectionListResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request from Client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "suffix" : "01",
+          "generate" : "true"
+        }
+      }
+    },
+    "/process" : {
+      "summary" : "processConnectionList",
+      "description" : "processConnectionList",
+      "post" : {
+        "summary" : "TD/OMS Connection List API",
+        "description" : "process connection list",
+        "operationId" : "processConnecitonList",
+        "requestBody" : {
+          "description" : "processConnectionList",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/processConnectionListRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "return code 200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/connectionListResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request from Client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "02",
+          "generate" : true
+        }
+      }
+    },
+    "/delete" : {
+      "summary" : "deleteConnectionList",
+      "description" : "deleteConnectionList",
+      "post" : {
+        "summary" : "TD/OMS Connection List API",
+        "description" : "delete connection list",
+        "operationId" : "deleteConnecitonList",
+        "requestBody" : {
+          "description" : "deleteConnectionList",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/deleteConnectionListRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "return code 200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/connectionListResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request from Client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "03",
+          "generate" : true
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "addData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application Code"
+          },
+          "connectionListCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Connection List Code",
+            "default" : "*USER",
+            "enum" : [ "*USER" ]
+          },
+          "taskNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Task Number",
+            "default" : "*BLANKS",
+            "enum" : [ "*BLANKS" ]
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Object Code",
+            "default" : "*ALL",
+            "enum" : [ "*ALL", "*IFSOBJ" ]
+          },
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Object Library"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Object Type"
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Member Code",
+            "default" : "*NONE",
+            "enum" : [ "*NONE" ]
+          },
+          "ifsObject" : {
+            "maxLength" : 642,
+            "type" : "string",
+            "description" : "Enter IFS object path name here. Full path name includes the directory location concatenated by full name of the file.",
+            "default" : "*OBJC",
+            "enum" : [ "*OBJC" ]
+          },
+          "solutionType" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Solution Type",
+            "default" : "*CHANGE",
+            "enum" : [ "*CHANGE", "*COMPILE", "*TERMINATE" ]
+          }
+        },
+        "description" : "input schema for add"
+      },
+      "connectionListResponse" : {
+        "type" : "object",
+        "properties" : {
+          "messages" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "The return status which can be *NORM or *TERM. In case of *TERM look at the messages for more information."
+          }
+        },
+        "description" : "Output schema for connectionList"
+      },
+      "message" : {
+        "type" : "string",
+        "description" : "message"
+      },
+      "extendedMessage" : {
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The IBM i message file."
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "The message id."
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The message type."
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "The message substitution data."
+          },
+          "field" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The field in error"
+          },
+          "messageText" : {
+            "maxLength" : 512,
+            "type" : "string",
+            "description" : "The human readable message text."
+          }
+        },
+        "description" : "Extended Message"
+      },
+      "addProcessingOption" : {
+        "type" : "object",
+        "properties" : {
+          "connectWithRules" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Connect With Rules",
+            "default" : "0",
+            "enum" : [ "0", "1" ]
+          },
+          "applicationRelation" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Application Relation",
+            "default" : "0",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Add Processing Options"
+      },
+      "addConnectionListRequest" : {
+        "type" : "object",
+        "properties" : {
+          "addProcessingOption" : {
+            "$ref" : "#/components/schemas/addProcessingOption"
+          },
+          "addData" : {
+            "$ref" : "#/components/schemas/addData"
+          }
+        },
+        "description" : "addConnectionListRequest"
+      },
+      "processData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application Code"
+          },
+          "connectionListCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Connection List Code",
+            "default" : "*USER",
+            "enum" : [ "*USER" ]
+          },
+          "taskNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Task Number",
+            "default" : "*BLANKS",
+            "enum" : [ "*BLANKS" ]
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Object Code",
+            "default" : "*ALL",
+            "enum" : [ "*ALL", "*IFSOBJ" ]
+          },
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Object Library"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Object Type"
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "detail",
+            "default" : "*NONE",
+            "enum" : [ "*NONE" ]
+          },
+          "ifsObject" : {
+            "maxLength" : 642,
+            "type" : "string",
+            "description" : "Enter IFS object path name here. Full path name includes the directory location concatenated by full name of the file.",
+            "default" : "*OBJC",
+            "enum" : [ "*OBJC" ]
+          }
+        },
+        "description" : "input schema for processing the conenction list"
+      },
+      "processProcessingOption" : {
+        "type" : "object",
+        "properties" : {
+          "promptOnConflicts" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Prompt On Conflicts",
+            "default" : "0",
+            "enum" : [ "0", "1" ]
+          },
+          "forced" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Enter Yes if you want to complete the action forcefully.",
+            "default" : "0",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Process Processing Options"
+      },
+      "processConnectionListRequest" : {
+        "type" : "object",
+        "properties" : {
+          "processProcessingOption" : {
+            "$ref" : "#/components/schemas/processProcessingOption"
+          },
+          "processData" : {
+            "$ref" : "#/components/schemas/processData"
+          }
+        },
+        "description" : "Process Connection List Request"
+      },
+      "deleteConnectionListRequest" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application Code"
+          },
+          "connectionListCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Connection List Code",
+            "default" : "*USER",
+            "enum" : [ "*USER" ]
+          },
+          "taskNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Task Number",
+            "default" : "*BLANKS",
+            "enum" : [ "*BLANKS" ]
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Object Code",
+            "default" : "*ALL",
+            "enum" : [ "*ALL", "*IFSOBJ" ]
+          },
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Object Library"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Object Type"
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "detail",
+            "default" : "*NONE",
+            "enum" : [ "*NONE" ]
+          }
+        },
+        "description" : "input schema for deleting the connection list."
+      }
+    },
+    "responses" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "http JWT token",
+        "name" : "JWT",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
