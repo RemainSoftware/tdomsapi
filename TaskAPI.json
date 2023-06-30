@@ -49,8 +49,8 @@
       "summary" : "add",
       "description" : "Add task",
       "post" : {
-        "summary" : "Add task operation",
-        "description" : "Add task operation",
+        "summary" : "Add task",
+        "description" : "Add task",
         "operationId" : "addTask",
         "requestBody" : {
           "description" : "The add task request",
@@ -118,8 +118,8 @@
       "summary" : "change",
       "description" : "Change task definition",
       "post" : {
-        "summary" : "Change task operation",
-        "description" : "Change task operation",
+        "summary" : "Change task",
+        "description" : "Change task",
         "operationId" : "changeTask",
         "requestBody" : {
           "description" : "The change task request",
@@ -187,8 +187,8 @@
       "summary" : "complete",
       "description" : "Complete task",
       "post" : {
-        "summary" : "Complete task operation",
-        "description" : "Complete task operation",
+        "summary" : "Complete task",
+        "description" : "Complete task",
         "operationId" : "completeTask",
         "requestBody" : {
           "description" : "The complete task request",
@@ -256,8 +256,8 @@
       "summary" : "connect",
       "description" : "Connect task",
       "post" : {
-        "summary" : "Connect task operation",
-        "description" : "Connect task operation",
+        "summary" : "Connect task",
+        "description" : "Connect task",
         "operationId" : "connectTask",
         "requestBody" : {
           "description" : "The connect task request",
@@ -325,8 +325,8 @@
       "summary" : "disconnect",
       "description" : "Disconnect task",
       "post" : {
-        "summary" : "Disconnect task operation",
-        "description" : "Disconnect task operation",
+        "summary" : "Disconnect task",
+        "description" : "Disconnect task",
         "operationId" : "disconnectTask",
         "requestBody" : {
           "description" : "The disconnect task request",
@@ -394,8 +394,8 @@
       "summary" : "copy",
       "description" : "Copy task",
       "post" : {
-        "summary" : "Copy task operation",
-        "description" : "Copy task operation",
+        "summary" : "Copy task",
+        "description" : "Copy task",
         "operationId" : "copyTask",
         "requestBody" : {
           "description" : "The copy task request",
@@ -463,8 +463,8 @@
       "summary" : "delete",
       "description" : "Delete task",
       "post" : {
-        "summary" : "Delete task operation",
-        "description" : "Delete task operation",
+        "summary" : "Delete task",
+        "description" : "Delete task",
         "operationId" : "deleteTask",
         "requestBody" : {
           "description" : "The delete task request",
@@ -532,8 +532,8 @@
       "summary" : "ratify",
       "description" : "Ratify Task",
       "post" : {
-        "summary" : "Ratify task operation",
-        "description" : "Ratify task operation",
+        "summary" : "Ratify task",
+        "description" : "Ratify task",
         "operationId" : "ratifyTask",
         "requestBody" : {
           "description" : "The ratify task request",
@@ -601,8 +601,8 @@
       "summary" : "status",
       "description" : "Recalculate status",
       "post" : {
-        "summary" : "Status task operation",
-        "description" : "Status task operation",
+        "summary" : "Status task",
+        "description" : "Status task",
         "operationId" : "statusTask",
         "requestBody" : {
           "description" : "The status task request",
@@ -1083,7 +1083,7 @@
           "longDescription" : {
             "maxLength" : 65535,
             "type" : "string",
-            "description" : "Long description"
+            "description" : "Specify the long description."
           }
         },
         "description" : "Input data for action add",
@@ -1159,7 +1159,7 @@
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
             },
-            "default" : "string",
+            "default" : "*GEN",
             "enum" : [ "*GEN" ],
             "x-column" : "RSFIX#",
             "x-sequence" : "20"
@@ -1319,10 +1319,7 @@
           "longDescription" : {
             "maxLength" : 65535,
             "type" : "string",
-            "description" : "Long description",
-            "externalDocs" : {
-              "description" : "Use this value to indicate that the long description does not change."
-            },
+            "description" : "*SAME Use this value to indicate that long description does not change.",
             "default" : "*SAME",
             "enum" : [ "*SAME" ]
           }
@@ -1403,7 +1400,7 @@
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
             },
-            "default" : "string",
+            "default" : "*GEN",
             "enum" : [ "*GEN" ],
             "x-column" : "RSFIX#",
             "x-sequence" : "20"
@@ -1485,7 +1482,7 @@
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
             },
-            "default" : "string",
+            "default" : "*GEN",
             "enum" : [ "*GEN" ],
             "x-column" : "RSFIX#",
             "x-sequence" : "20"
@@ -1508,6 +1505,9 @@
             "maxLength" : 5,
             "type" : "string",
             "description" : "Application code request",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Application_of_request_(RAPL)"
+            },
             "default" : "*APPL",
             "enum" : [ "*APPL" ]
           },
@@ -1515,7 +1515,10 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Request code",
-            "default" : "string",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Request_number_(REQ)"
+            },
+            "default" : "*ALL",
             "enum" : [ "*ALL" ]
           },
           "updateDb" : {
@@ -1575,7 +1578,7 @@
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
             },
-            "default" : "string",
+            "default" : "*GEN",
             "enum" : [ "*GEN" ],
             "x-column" : "RSFIX#",
             "x-sequence" : "20"
@@ -1595,6 +1598,9 @@
             "maxLength" : 5,
             "type" : "string",
             "description" : "Application code request",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Application_of_request_(RAPL)"
+            },
             "default" : "*ALL",
             "enum" : [ "*ALL" ]
           },
@@ -1602,7 +1608,10 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Request code",
-            "default" : "string",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Request_number_(REQ)"
+            },
+            "default" : "*ALL",
             "enum" : [ "*ALL" ]
           },
           "updateDb" : {
@@ -1662,7 +1671,7 @@
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
             },
-            "default" : "string",
+            "default" : "*GEN",
             "enum" : [ "*GEN" ],
             "x-column" : "RSFIX#",
             "x-sequence" : "20"
@@ -1688,13 +1697,16 @@
           "toApplicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Target application code"
+            "description" : "Used for copying a fix to another application."
           },
           "toFixNumber" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "Target fix number",
-            "default" : "string",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Target_fix_(TFIX)"
+            },
+            "default" : "*GEN",
             "enum" : [ "*GEN" ]
           },
           "updateDb" : {
@@ -1754,7 +1766,7 @@
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
             },
-            "default" : "string",
+            "default" : "*GEN",
             "enum" : [ "*GEN" ],
             "x-column" : "RSFIX#",
             "x-sequence" : "20"
@@ -1826,7 +1838,7 @@
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
             },
-            "default" : "string",
+            "default" : "*GEN",
             "enum" : [ "*GEN" ],
             "x-column" : "RSFIX#",
             "x-sequence" : "20"
@@ -1852,7 +1864,7 @@
           "ratificationGroup" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Ratification group"
+            "description" : "Enter the ratification group for which you want to do the ratification. You must be a member of the ratification group. Otherwise, your ratification is not accepted."
           },
           "updateDb" : {
             "maxLength" : 1,
@@ -1911,7 +1923,7 @@
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
             },
-            "default" : "string",
+            "default" : "*GEN",
             "enum" : [ "*GEN" ],
             "x-column" : "RSFIX#",
             "x-sequence" : "20"
@@ -1968,7 +1980,6 @@
       "JWT" : {
         "type" : "http",
         "description" : "The HTTP API Token",
-        "name" : "JWT",
         "scheme" : "bearer",
         "bearerFormat" : "JWT"
       }
