@@ -1,0 +1,1149 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Octo KanBan Provider",
+    "description" : "An API defining the KanBan provider that can feed Octo KanBan UI.",
+    "contact" : {
+      "name" : "Remain B.V. (RemainSoftware.com)",
+      "url" : "https://www.remainsoftware.com",
+      "email" : "info@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "(C) 2022 Remain BV, Nieuwegein. This API is licensed under the MIT",
+      "url" : "https://snyk.io/learn/what-is-mit-license/"
+    },
+    "version" : "1.0.0",
+    "x-restgeninfo" : {
+      "server" : "http://plato:45210/generator",
+      "object" : "OMKBAN",
+      "library" : "v150dev",
+      "srclibrary" : "v150dev"
+    }
+  },
+  "servers" : [ {
+    "url" : "https://{host}:{port}/{library}/omkban",
+    "description" : "The server to contact the API on",
+    "variables" : {
+      "host" : {
+        "description" : "The host of this API",
+        "default" : "plato"
+      },
+      "port" : {
+        "default" : "45211"
+      },
+      "library" : {
+        "description" : "The library",
+        "default" : "v150dev"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JsonWebToken" : [ ]
+  } ],
+  "tags" : [ {
+    "name" : "Cards"
+  }, {
+    "name" : "Boards"
+  }, {
+    "name" : "Providers"
+  }, {
+    "name" : "Description"
+  }, {
+    "name" : "Comments"
+  }, {
+    "name" : "Authorization"
+  }, {
+    "name" : "Avatar"
+  } ],
+  "paths" : {
+    "/provider/boards/cards/move" : {
+      "summary" : "A path for moving cards between columns",
+      "description" : "A path that handle cards moving/transfer between columns",
+      "post" : {
+        "tags" : [ "Cards" ],
+        "summary" : "Move a Kanban card to another column",
+        "description" : "Move a Kanban card to from one to another column",
+        "operationId" : "MoveCard",
+        "requestBody" : {
+          "description" : "Move a Kanban card to another column",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CardMoveRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CardMoveResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/422"
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : true,
+          "jwtlogin" : false,
+          "suffix" : "07",
+          "generate" : false
+        }
+      }
+    },
+    "/provider" : {
+      "summary" : "Octo Kanban providers path",
+      "description" : "A path that handle  Octo Kanban providers",
+      "get" : {
+        "tags" : [ "Providers" ],
+        "summary" : "Get the Kanban provider",
+        "description" : "Get the Kanban provider available at this path",
+        "operationId" : "GetProvider",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Provider"
+                }
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/422"
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : true,
+          "jwtlogin" : false,
+          "suffix" : "02",
+          "generate" : false
+        }
+      }
+    },
+    "/provider/boards/cards" : {
+      "summary" : "Path  to handle cards",
+      "description" : "Path  to handle cards",
+      "post" : {
+        "tags" : [ "Cards" ],
+        "summary" : "Create a Kanban card",
+        "description" : "Create a new Kanban card with the incoming data",
+        "operationId" : "CreateCard",
+        "requestBody" : {
+          "description" : "Create a new Kanban card",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Card"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Card"
+                }
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/422"
+          }
+        },
+        "callbacks" : { }
+      }
+    },
+    "/provider/boards/{board_id}/cards" : {
+      "summary" : "Get cards  by board id",
+      "description" : "Get cards of the board by its given id",
+      "get" : {
+        "tags" : [ "Cards" ],
+        "summary" : "Get cards by board id",
+        "description" : "Get all cards of a board given its id",
+        "operationId" : "GetCardsByBoardId",
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/board_id"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "maxItems" : 500,
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Card"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/422"
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "06",
+          "generate" : false
+        }
+      }
+    },
+    "/provider/boards/{board_id}/cards/{card_id}/delete" : {
+      "summary" : "A path that handle cards deletion by id",
+      "description" : "A path that handle deletion of board cards by id",
+      "delete" : {
+        "tags" : [ "Cards" ],
+        "summary" : "Delete card with the given id from the board with the given id",
+        "description" : "Delete card with the given id from the board with the given id",
+        "operationId" : "DeleteCard",
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/board_id"
+        }, {
+          "$ref" : "#/components/parameters/card_id"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DeletionResult"
+                }
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/422"
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "03",
+          "generate" : false
+        }
+      },
+      "parameters" : [ {
+        "$ref" : "#/components/parameters/board_id"
+      }, {
+        "$ref" : "#/components/parameters/card_id"
+      } ]
+    },
+    "/provider/boards/{board_id}/cards/{card_id}/description" : {
+      "summary" : "Get the description of the given card",
+      "description" : "Get the description of the given card id and board id",
+      "get" : {
+        "tags" : [ "Cards", "Description" ],
+        "summary" : "Get the description of the given card",
+        "description" : "Get the description of the board id and card id's",
+        "operationId" : "GetCardDescription",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Description"
+                }
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/422"
+          }
+        },
+        "callbacks" : { }
+      },
+      "put" : {
+        "tags" : [ "Cards", "Description" ],
+        "summary" : "Update card description",
+        "description" : "Update a card description given its id",
+        "operationId" : "UpdateCardDescription",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UpdateResult"
+                }
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/422"
+          }
+        },
+        "callbacks" : { }
+      },
+      "post" : {
+        "tags" : [ "Cards", "Description" ],
+        "summary" : "Add a new description to a card",
+        "description" : "Add a new description to a card given its id",
+        "operationId" : "CreateCardDescription",
+        "requestBody" : {
+          "description" : "Add a new description to a card given its id",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Description"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OkMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/422"
+          }
+        },
+        "callbacks" : { }
+      },
+      "parameters" : [ {
+        "$ref" : "#/components/parameters/board_id"
+      }, {
+        "$ref" : "#/components/parameters/card_id"
+      } ]
+    },
+    "/provider/boards/{board_id}/cards/{card_id}/comments" : {
+      "summary" : "Commens path",
+      "description" : "A path to handle a Kanban boards comments",
+      "get" : {
+        "tags" : [ "Cards", "Comments" ],
+        "summary" : "Get card comments",
+        "description" : "Get comments of the card with the given board and cards ids",
+        "operationId" : "GetCardComments",
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/board_id"
+        }, {
+          "$ref" : "#/components/parameters/card_id"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "description" : "A list of a card comments. A comment may have a subcomment",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Comment"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/422"
+          }
+        },
+        "callbacks" : { }
+      },
+      "put" : {
+        "tags" : [ "Cards", "Comments" ],
+        "summary" : "Update card comment",
+        "description" : "Update a card comments given card and comments  id",
+        "operationId" : "UpdateCardComment",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Comment"
+                }
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/422"
+          }
+        },
+        "callbacks" : { }
+      },
+      "post" : {
+        "tags" : [ "Cards", "Comments" ],
+        "summary" : "Add new comment to a card",
+        "description" : "Add new comment to a card given its id",
+        "operationId" : "CreateCardComment",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Comment"
+                }
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/422"
+          }
+        },
+        "callbacks" : { }
+      },
+      "parameters" : [ {
+        "$ref" : "#/components/parameters/board_id"
+      }, {
+        "$ref" : "#/components/parameters/card_id"
+      } ]
+    },
+    "/provider/signin" : {
+      "summary" : "Signin",
+      "description" : "Path to intially sign to get the Json Web Token to used for other requests",
+      "post" : {
+        "tags" : [ "Authorization" ],
+        "summary" : "Sign in to request  JWT",
+        "description" : "Only used to initially sign in to get the JWT token which will be  subsequently used for all other requests",
+        "operationId" : "Signin",
+        "requestBody" : {
+          "description" : "Sign in to request a Json web token to be used for other subsequent requests",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SignIn"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/JWT"
+                }
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/422"
+          }
+        },
+        "callbacks" : { },
+        "security" : [ {
+          "Basic" : [ ]
+        } ],
+        "x-generate" : {
+          "session" : true,
+          "jwtlogin" : true,
+          "suffix" : "01",
+          "generate" : false
+        }
+      }
+    },
+    "/provider/boards/{board_id}/cards/{card_id}/comments/count" : {
+      "summary" : "Count card comments",
+      "description" : "Count the comments of the card with the given board card ids",
+      "get" : {
+        "tags" : [ "Cards", "Comments" ],
+        "summary" : "Get card comments count",
+        "description" : "Get the count of the comments of the card with the given board and card ids",
+        "operationId" : "GetCardCommentsCount",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CountResult"
+                }
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/422"
+          }
+        },
+        "callbacks" : { }
+      },
+      "parameters" : [ {
+        "$ref" : "#/components/parameters/board_id"
+      }, {
+        "$ref" : "#/components/parameters/card_id"
+      } ]
+    },
+    "/provider/boards/{board_id}/cards/{card_id}/attachments/count" : {
+      "summary" : "Count card attachments",
+      "description" : "Count the attachments of the card with the given board card ids",
+      "get" : {
+        "tags" : [ "Cards", "Attachments" ],
+        "summary" : "Get card attachments count",
+        "description" : "Get the count of the attachments of the card with the given board and card ids",
+        "operationId" : "GetCardAttachmentsCount",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CountResult"
+                }
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/422"
+          }
+        },
+        "callbacks" : { }
+      },
+      "parameters" : [ {
+        "$ref" : "#/components/parameters/board_id"
+      }, {
+        "$ref" : "#/components/parameters/card_id"
+      } ]
+    },
+    "/provider/avatars/{user_id}" : {
+      "summary" : "Path for avatars handling",
+      "description" : "Path to request a user avatar from.",
+      "get" : {
+        "tags" : [ "Avatar" ],
+        "summary" : "Get user avatar",
+        "description" : "Get a user avatar given the user id",
+        "operationId" : "GetUserAvatar",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "description" : "The user id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "description" : "The id of the user whose avatar to be fetched"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Avatar"
+                }
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/422"
+          }
+        },
+        "callbacks" : { }
+      }
+    },
+    "/provider/boards" : {
+      "summary" : "A path that handle all boards",
+      "description" : "A path that handle all available Kanban boards",
+      "get" : {
+        "tags" : [ "Boards" ],
+        "summary" : "Get all boards",
+        "description" : "Get all available Kanban boards",
+        "operationId" : "GetAllKanBanBoards",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "maxItems" : 250,
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Board"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/422"
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "05",
+          "generate" : false
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "CardMoveRequest" : {
+        "required" : [ "board_id", "card_id", "current_column_id", "target_column_id" ],
+        "type" : "object",
+        "properties" : {
+          "board_id" : {
+            "type" : "string",
+            "nullable" : false
+          },
+          "card_id" : {
+            "type" : "string",
+            "description" : "The id of the card to move",
+            "nullable" : false
+          },
+          "current_column_id" : {
+            "type" : "string",
+            "description" : "The id of the current column containing the card",
+            "nullable" : false
+          },
+          "target_column_id" : {
+            "type" : "string",
+            "description" : "The id of the target column to move the card to.",
+            "nullable" : false
+          }
+        },
+        "description" : "Contains request data for a card move from one column to another"
+      },
+      "CardMoveResponse" : {
+        "required" : [ "is_success", "msg", "updated_card" ],
+        "type" : "object",
+        "properties" : {
+          "msg" : {
+            "type" : "string",
+            "description" : "The response message",
+            "readOnly" : true
+          },
+          "is_success" : {
+            "type" : "boolean",
+            "description" : "Wether the move request was successful",
+            "nullable" : false,
+            "readOnly" : true
+          },
+          "updated_card" : {
+            "$ref" : "#/components/schemas/Card"
+          }
+        },
+        "description" : "Contains response data of a card move  request"
+      },
+      "Card" : {
+        "required" : [ "assignee_id", "assignee_name", "attachments_count", "cardboard_id", "column_id", "column_name", "comments_count", "creation_date", "creator_id", "creator_name", "id", "title" ],
+        "type" : "object",
+        "properties" : {
+          "severity" : {
+            "type" : "string",
+            "description" : "The severity of this Kanban card"
+          },
+          "workflow_name" : {
+            "type" : "string",
+            "description" : "The name of the workflow this Kanban card belongs to."
+          },
+          "column_name" : {
+            "type" : "string",
+            "description" : "The name of the column this Kanban card belongs to.",
+            "nullable" : false
+          },
+          "title" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "The  Kanban card title",
+            "nullable" : false
+          },
+          "assignee_name" : {
+            "type" : "string",
+            "description" : "The name of the user this Kanban card is assigned to."
+          },
+          "column_id" : {
+            "type" : "string",
+            "description" : "The id of the Kanban column this card belongs to.",
+            "nullable" : false
+          },
+          "app_name" : {
+            "type" : "string",
+            "description" : "The name of the application this Kanban card belongs to."
+          },
+          "creator_id" : {
+            "type" : "string",
+            "description" : "The id of the creator of this Kanban card.",
+            "nullable" : false
+          },
+          "creator_name" : {
+            "type" : "string",
+            "description" : "The name of the creator of this Kanban card in mills."
+          },
+          "id" : {
+            "type" : "string",
+            "description" : "The Kanban card id",
+            "nullable" : false
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "The status of this Kanban card"
+          },
+          "assignee_id" : {
+            "type" : "string",
+            "description" : "The id of the user this Kanban card is assigned to."
+          },
+          "title_url" : {
+            "maxLength" : 250,
+            "type" : "string",
+            "description" : "An optional URL linking the card title"
+          },
+          "cardboard_id" : {
+            "type" : "string",
+            "description" : "The name of the board this Kanban card belongs to.",
+            "nullable" : false
+          },
+          "priority" : {
+            "type" : "string",
+            "description" : "The Kanban card priority"
+          },
+          "commentCount" : {
+            "type" : "integer",
+            "description" : "The count of comments belonging to this card.\r\nReturn the value -1 in the response to instruct Octo to fetch this count using a separate call to \"/provider/boards/{board_id}/cards/{card_id}/comments/count\" as described in the paths section. "
+          },
+          "attachmentCount" : {
+            "type" : "integer",
+            "description" : "The count of attachments belonging to this card. \r\nReturn  the value -1 in the response to instruct Octo to fetch this count using a separate requet call to \"/provider/boards/{board_id}/cards/{card_id}/attachments/count\" as described in the paths section."
+          },
+          "link" : {
+            "type" : "string",
+            "description" : "The weblink of the card",
+            "format" : "uri"
+          },
+          "creation_date" : {
+            "type" : "string",
+            "description" : "The creation date of of this Kanban card.",
+            "format" : "date-time"
+          },
+          "update_date" : {
+            "type" : "string",
+            "description" : "The update date of of this Kanban card in mills.",
+            "format" : "date-time"
+          },
+          "creator_avatar_url" : {
+            "type" : "string",
+            "description" : "An optional URL of this card creator avatar. Omit this property or return null in the response to instruct Octo to generate a letter-based avatar.\r\nReturn the string value \"-1\" in the response to instruct Octo to fetch this avatar URL using a separate call to \"/provider/avatars/{user_id}\" as described in the paths section."
+          },
+          "assignee_avatar_url" : {
+            "type" : "string",
+            "description" : "An optional URL of this card asignee avatar. Omit this property or return null in the response to instruct Octo to generate a letter-based avatar.\r\nReturn the string value \"-1\" in the response to instruct Octo to fetch this avatar URL using a separate call to \"/provider/avatars/{user_id}\" as described in the paths section."
+          }
+        },
+        "description" : "A KanBan board card model"
+      },
+      "Board" : {
+        "required" : [ "cardboard_id", "columns_names", "name", "provider_id" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "description" : "The name of the Kanban board",
+            "nullable" : false
+          },
+          "provider_id" : {
+            "type" : "string",
+            "description" : "The id of the provider of this Kanban board",
+            "nullable" : false
+          },
+          "cardboard_id" : {
+            "type" : "string",
+            "description" : "The id of the Kanban board",
+            "nullable" : false
+          },
+          "columns" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Column"
+            }
+          },
+          "title" : {
+            "type" : "string",
+            "description" : "The description of this Kanban board"
+          }
+        },
+        "description" : "A KanBan board model"
+      },
+      "Provider" : {
+        "required" : [ "creator_name", "id", "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "minLength" : 2,
+            "type" : "string",
+            "description" : "The name of the KanBan provider to be displayed by  Octo",
+            "nullable" : false,
+            "readOnly" : true
+          },
+          "creator_name" : {
+            "type" : "string",
+            "description" : "The name of the person who created the KanBan boards provider",
+            "nullable" : false
+          },
+          "id" : {
+            "type" : "string",
+            "description" : "The ID of the KanBan boards provider",
+            "nullable" : false
+          }
+        },
+        "description" : "A model containing the main info about an Octo KanBan provider service."
+      },
+      "DeletionResult" : {
+        "required" : [ "deletedCount", "n", "ok" ],
+        "type" : "object",
+        "properties" : {
+          "deletedCount" : {
+            "type" : "integer",
+            "description" : "It denotes how many documents were deleted.",
+            "nullable" : true,
+            "readOnly" : true
+          },
+          "ok" : {
+            "type" : "integer",
+            "description" : "It denotes whether the  deletion operation was successful. 1= success. 0=failure.",
+            "nullable" : false,
+            "readOnly" : true
+          },
+          "n" : {
+            "type" : "integer",
+            "description" : "It denotes how many documents were matched.",
+            "nullable" : false,
+            "readOnly" : true
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "A result of a deletion request",
+        "example" : {
+          "deletedCount" : 0,
+          "ok" : 6,
+          "n" : 1
+        }
+      },
+      "Error" : {
+        "type" : "object",
+        "properties" : {
+          "err_msg" : {
+            "type" : "string",
+            "description" : "The error message",
+            "default" : "Unauthorized or expired token. Please login again..."
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "The error response"
+      },
+      "Column" : {
+        "required" : [ "column_id", "title" ],
+        "type" : "object",
+        "properties" : {
+          "title" : {
+            "type" : "string",
+            "description" : "The column header title"
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "The column description"
+          },
+          "column_id" : {
+            "type" : "string",
+            "description" : "The column id"
+          }
+        },
+        "description" : "A Kanban board column"
+      },
+      "Description" : {
+        "required" : [ "description" ],
+        "type" : "object",
+        "properties" : {
+          "description" : {
+            "type" : "string",
+            "description" : "The description"
+          }
+        },
+        "description" : "An  entity description"
+      },
+      "Comment" : {
+        "required" : [ "creation_date", "creator_name", "id", "title" ],
+        "type" : "object",
+        "properties" : {
+          "creator_name" : {
+            "type" : "string",
+            "description" : "The user who created this comment",
+            "nullable" : false
+          },
+          "creation_date" : {
+            "type" : "integer",
+            "description" : "The comment creation date",
+            "format" : "int64"
+          },
+          "title" : {
+            "type" : "string",
+            "description" : "The comment title",
+            "nullable" : false
+          },
+          "content" : {
+            "type" : "string",
+            "description" : "The comment content (the comment itself)"
+          },
+          "id" : {
+            "type" : "string",
+            "description" : "The comment id",
+            "nullable" : false
+          },
+          "update_date" : {
+            "type" : "integer",
+            "description" : "The comment update date",
+            "format" : "int64"
+          },
+          "creator_id" : {
+            "type" : "string",
+            "description" : "The id of the comment creator"
+          },
+          "card_id" : {
+            "type" : "string",
+            "description" : "The id of the card the comments belong to."
+          },
+          "board_id" : {
+            "type" : "string",
+            "description" : "The id of the board this comment belongs to"
+          },
+          "sub_comments" : {
+            "type" : "array",
+            "description" : "A list of sub comments",
+            "items" : {
+              "$ref" : "#/components/schemas/Comment"
+            }
+          }
+        },
+        "description" : "A comment"
+      },
+      "UpdateResult" : {
+        "required" : [ "matchedCount", "modifiedCount" ],
+        "type" : "object",
+        "properties" : {
+          "modifiedCount" : {
+            "type" : "string",
+            "description" : "It represents the number of entities modified by an update request",
+            "nullable" : false,
+            "readOnly" : true
+          },
+          "matchedCount" : {
+            "type" : "string",
+            "description" : "It represents the number of entities matched by an update request",
+            "nullable" : false,
+            "readOnly" : true
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "A representation of an update request",
+        "nullable" : false,
+        "readOnly" : true
+      },
+      "OkMessage" : {
+        "required" : [ "msg" ],
+        "type" : "object",
+        "properties" : {
+          "msg" : {
+            "type" : "string",
+            "description" : "The message content of this message object",
+            "nullable" : false,
+            "readOnly" : true
+          }
+        },
+        "description" : "A message schema for extra info for an OK response."
+      },
+      "JWT" : {
+        "type" : "object",
+        "properties" : {
+          "token" : {
+            "maxLength" : 2048,
+            "type" : "string",
+            "description" : "The Json web token to be used to authorize requests"
+          }
+        },
+        "description" : "The Json web token to be used to authorize requests",
+        "externalDocs" : {
+          "description" : "JSON web tokens site",
+          "url" : "https://jwt.io"
+        }
+      },
+      "SignIn" : {
+        "required" : [ "email_or_username", "password" ],
+        "type" : "object",
+        "properties" : {
+          "password" : {
+            "minLength" : 3,
+            "type" : "string",
+            "nullable" : false,
+            "writeOnly" : true
+          },
+          "email_or_username" : {
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Sign in with email or username",
+            "nullable" : false,
+            "writeOnly" : true
+          }
+        },
+        "description" : "Object sent to sign in to the Octo server"
+      },
+      "CountResult" : {
+        "required" : [ "count" ],
+        "type" : "object",
+        "properties" : {
+          "count" : {
+            "type" : "integer",
+            "description" : "A count",
+            "format" : "int32",
+            "nullable" : false,
+            "readOnly" : true
+          }
+        },
+        "description" : "A result of count request"
+      },
+      "Avatar" : {
+        "required" : [ "url" ],
+        "type" : "object",
+        "properties" : {
+          "url" : {
+            "type" : "string",
+            "description" : "The user public avatar URL"
+          }
+        },
+        "description" : "It contains a user avatar info"
+      }
+    },
+    "responses" : {
+      "401" : {
+        "description" : "Unauthorized",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "422" : {
+        "description" : "Unprocessable Entity",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Error"
+            }
+          }
+        }
+      }
+    },
+    "parameters" : {
+      "card_id" : {
+        "name" : "card_id",
+        "in" : "path",
+        "description" : "The Kanban card id",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "string"
+        }
+      },
+      "board_id" : {
+        "name" : "board_id",
+        "in" : "path",
+        "description" : "The Kanban board id",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "string"
+        }
+      }
+    },
+    "securitySchemes" : {
+      "Basic" : {
+        "type" : "http",
+        "description" : "Only used to initially sign in to get the JWT token which will be  subsequently used for all other requests",
+        "scheme" : "basic"
+      },
+      "JsonWebToken" : {
+        "type" : "http",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
