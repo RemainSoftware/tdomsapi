@@ -1,0 +1,455 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "TD/OMS Source API",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "info@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software License",
+      "url" : "https://remainsoftware.com/remain-api-studio-terms-and-conditions"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "library" : "V15T0323",
+      "file" : "sourcefileAPI.json",
+      "srclibrary" : "V15T0323S",
+      "object" : "OMRSRC",
+      "additionalBindingDirs" : "OMRESTUTIL"
+    }
+  },
+  "servers" : [ {
+    "url" : "https://{host}:{port}/{library}/OMRSRC",
+    "description" : "Source service",
+    "variables" : {
+      "host" : {
+        "default" : "plato.remainsoftware.com"
+      },
+      "port" : {
+        "default" : "45111"
+      },
+      "library" : {
+        "default" : "v150dev"
+      }
+    }
+  } ],
+  "security" : [ {
+    "jwt" : [ ]
+  } ],
+  "tags" : [ {
+    "name" : "Source",
+    "description" : "Source related operations"
+  } ],
+  "paths" : {
+    "/source/get" : {
+      "summary" : "Get the contents of a source member",
+      "description" : "Fetches a source",
+      "post" : {
+        "tags" : [ "Source" ],
+        "summary" : "Get the sourcelines",
+        "description" : "Gets the sourcelines from the member",
+        "operationId" : "getSource",
+        "requestBody" : {
+          "description" : "Get Source",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/listInput"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "return code 200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/listResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "General error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "1",
+          "generate" : false
+        }
+      }
+    },
+    "/object/get" : {
+      "summary" : "Get the source from an object",
+      "description" : "This returns one or more sources from a TD/OMS object. Optionally, also the copymembers are fetched.",
+      "post" : {
+        "summary" : "Gets one or more sources from an object",
+        "description" : "Gets one or more sources from an object",
+        "operationId" : "objectGet",
+        "requestBody" : {
+          "description" : "The object source request.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/sourceRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/sourceReply"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request not valid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "3",
+          "generate" : false
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "listInput" : {
+        "required" : [ "sourceFile", "sourceFileLibrary", "sourceFileMember" ],
+        "type" : "object",
+        "properties" : {
+          "pageNumber" : {
+            "exclusiveMaximum" : true,
+            "type" : "integer",
+            "description" : "The page number to view.\r\nIf the file contains 100 records and you want 10 records back then you can specify the page number e.g. 1 to get records 1 to 10.",
+            "default" : 1
+          },
+          "returnTotalRecords" : {
+            "type" : "boolean",
+            "description" : "Return total number of records.",
+            "default" : true
+          },
+          "recordsPerPage" : {
+            "maximum" : 1000,
+            "type" : "integer",
+            "description" : "The number of records to be returned per request.",
+            "nullable" : true,
+            "default" : 1000
+          },
+          "returnFields" : {
+            "maxItems" : 3,
+            "type" : "array",
+            "description" : "Fields to be returned, default is to return all fields.",
+            "items" : {
+              "type" : "string"
+            },
+            "enum" : [ "SRCSEQ", "SRCDAT", "SRCDTA" ]
+          },
+          "sourceFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The name of the source file"
+          },
+          "sourceFileLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The name of the source file library"
+          },
+          "sourceFileMember" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The name of the member"
+          },
+          "path" : {
+            "maxLength" : 640,
+            "type" : "string",
+            "description" : "The path of the target."
+          }
+        },
+        "description" : "Common input items across all APIs"
+      },
+      "listResponse" : {
+        "required" : [ "recordsReturned", "sourceRecords", "status" ],
+        "type" : "object",
+        "properties" : {
+          "totalRecords" : {
+            "type" : "integer",
+            "description" : "Total available records. \r\nThis will be returned only if requested in the request."
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "The return status of the call",
+            "default" : "*NORM",
+            "enum" : [ "*NORM", "*TERM" ]
+          },
+          "sourceRecords" : {
+            "maxItems" : 1000,
+            "type" : "array",
+            "description" : "The source records",
+            "items" : {
+              "$ref" : "#/components/schemas/sourceRecord"
+            }
+          },
+          "recordsReturned" : {
+            "type" : "integer",
+            "description" : "Page number to return."
+          },
+          "sourceAttribute" : {
+            "type" : "string",
+            "description" : "The source attribute of the member"
+          }
+        },
+        "description" : "Common response to all list Apis"
+      },
+      "message" : {
+        "type" : "object",
+        "properties" : {
+          "messageText" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "It contains the first level message text."
+          },
+          "messageID" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "It contains the message id of the message : Example - CPF0000"
+          },
+          "messageTextExtended" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "It contains the additional message information based on the value of the request."
+          }
+        },
+        "description" : "message object"
+      },
+      "listOutput" : {
+        "type" : "object",
+        "properties" : {
+          "taskNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Task Number\r\n"
+          },
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application Code\r\n"
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Object Code\r\n"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Object Type\r\n"
+          },
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Object Type"
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Member Code\r\n"
+          },
+          "sourceFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Source File"
+          },
+          "sourceLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Source Library\r\n"
+          },
+          "sourceMember" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Source Member"
+          },
+          "sourcePath" : {
+            "type" : "string",
+            "description" : "Source Path"
+          },
+          "sourceRecords" : {
+            "maxItems" : 32000,
+            "type" : "array",
+            "description" : "The source lines",
+            "items" : {
+              "$ref" : "#/components/schemas/sourceRecord"
+            }
+          }
+        },
+        "description" : "The list output for save"
+      },
+      "sourceRecord" : {
+        "type" : "object",
+        "properties" : {
+          "SRCDAT" : {
+            "maxLength" : 6,
+            "type" : "number",
+            "format" : "zoned(6:0)",
+            "x-column" : "SRCDAT",
+            "x-sequence" : "20"
+          },
+          "SRCDTA" : {
+            "maxLength" : 150,
+            "type" : "string",
+            "x-column" : "SRCDTA",
+            "x-sequence" : "30"
+          },
+          "SRCSEQ" : {
+            "maxLength" : 6,
+            "type" : "number",
+            "format" : "zoned(6:2)",
+            "x-column" : "SRCSEQ",
+            "x-sequence" : "10"
+          }
+        },
+        "description" : "A Source Line",
+        "x-pfname" : "QRPGLESRC",
+        "x-fieldSchemaNameType" : "Normalized",
+        "x-library" : "V150KEPSRC"
+      },
+      "sourceRequest" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "type" : "string",
+            "description" : "The application code."
+          },
+          "taskNumber" : {
+            "type" : "string",
+            "description" : "The task number."
+          },
+          "path" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "The location of the IFS file to read."
+          }
+        },
+        "description" : "The request for a source",
+        "x-pfname" : "OMOBJ",
+        "x-library" : "V150KEP",
+        "x-host" : "plato.remain.local"
+      },
+      "sourceReply" : {
+        "type" : "object",
+        "properties" : {
+          "canEdit" : {
+            "type" : "boolean",
+            "description" : "True if the source can be saved back or false if it is view only."
+          },
+          "sourceCode" : {
+            "maxLength" : 65535,
+            "type" : "string",
+            "description" : "The source code"
+          },
+          "includes" : {
+            "maxItems" : 1024,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ifsPath"
+            }
+          },
+          "references" : {
+            "maxItems" : 1024,
+            "type" : "array",
+            "description" : "An array of non source references",
+            "items" : {
+              "$ref" : "#/components/schemas/ifsPath"
+            }
+          }
+        },
+        "description" : "The reply to the source request"
+      },
+      "ifsPath" : {
+        "type" : "object",
+        "properties" : {
+          "path" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "The path of the object"
+          }
+        },
+        "description" : "The path to an IFS object"
+      }
+    },
+    "responses" : { },
+    "securitySchemes" : {
+      "jwt" : {
+        "type" : "http",
+        "description" : "JWT Token",
+        "name" : "jwt",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
