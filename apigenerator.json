@@ -1,0 +1,229 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "OMS - Remain API Generator",
+    "termsOfService" : "https://remainsoftware.com/terms-and-conditions",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "info@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com/terms-and-conditions"
+    },
+    "version" : "TD/OMS 11.0 Milestone 1 - Pre"
+  },
+  "servers" : [ {
+    "url" : "http://plato:5010/generator",
+    "description" : "plato"
+  } ],
+  "paths" : {
+    "/ExtendedPath" : {
+      "summary" : "OMS - API Generator",
+      "post" : {
+        "tags" : [ "OMN001" ],
+        "summary" : "Remain API Generator",
+        "description" : "GET: your description here",
+        "operationId" : "OMN001",
+        "requestBody" : {
+          "description" : "Post Method",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/input"
+              }
+            }
+          },
+          "required" : false
+        },
+        "responses" : {
+          "200" : {
+            "description" : "return code 200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/result"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request from Client GET request"
+          },
+          "500" : {
+            "description" : "Internal server error"
+          },
+          "default" : {
+            "description" : "Unexpected error occured"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "result" : {
+        "type" : "object",
+        "properties" : {
+          "objects" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/object"
+            }
+          },
+          "message" : {
+            "maxLength" : 500,
+            "type" : "string",
+            "description" : "Application code"
+          },
+          "status" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Result status. \r\n\r\n*NORM - Normal ending\r\n*TERM - Failed. See the message for the cause",
+            "default" : "*NORM"
+          }
+        },
+        "description" : "Result of the API call"
+      },
+      "input" : {
+        "type" : "object",
+        "properties" : {
+          "generate" : {
+            "type" : "boolean",
+            "description" : "Generate the main program skeleton."
+          },
+          "object" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "The mask of the generated program. For example OMS012."
+          },
+          "library" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "target object library"
+          },
+          "sourceLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The name of the source library, in case the library is omitted, the object library will be used as the source library."
+          },
+          "specification" : {
+            "maxLength" : 9999999,
+            "type" : "string",
+            "description" : "This will keep the open api specification. Mutually exclusive with specificationPath."
+          },
+          "sourcePath" : {
+            "maxLength" : 640,
+            "type" : "string",
+            "description" : "The path of the generated source in case the source must be generated in the IFS. "
+          },
+          "specificationPath" : {
+            "maxLength" : 640,
+            "type" : "string",
+            "description" : "This will keep the open api specification location path. Mutually exclusive with specification."
+          },
+          "description" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "Description of generated \r\nsource member.",
+            "default" : "Program description"
+          },
+          "pathName" : {
+            "maxLength" : 500,
+            "type" : "string",
+            "description" : "This will keep the specific path name to be generate among the multiple paths."
+          },
+          "callType" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "This will keep the callType deatils.It has two values either CGI or ILEASTIC.",
+            "enum" : [ "CGI", "ILEASTIC" ]
+          },
+          "generationType" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "It will keep the generationType details. It has two values either CLIENT or SERVER.",
+            "enum" : [ "CLIENT", "SERVER" ]
+          }
+        },
+        "description" : "Input for the API generator."
+      },
+      "object" : {
+        "type" : "object",
+        "properties" : {
+          "detail" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "This is filled in case it is a member or a message"
+          },
+          "ifsSource" : {
+            "maxLength" : 500,
+            "type" : "string",
+            "description" : "The source of the object in case it is generated it in the IFS."
+          },
+          "library" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The library of the generated object."
+          },
+          "name" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The name of the generated object"
+          },
+          "sourceFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The sourcefile of the generated object (can be blanks)\r\n"
+          },
+          "sourceLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The source library of the generated object (can be blanks)"
+          },
+          "sourceMember" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The source memberof the generated object (can be blanks)"
+          },
+          "ifsObject" : {
+            "maxLength" : 640,
+            "type" : "string",
+            "description" : "Full IFS path name"
+          },
+          "type" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Type of the generated object."
+          },
+          "generated" : {
+            "type" : "boolean",
+            "description" : "True if the object was generated"
+          }
+        },
+        "description" : "Object Schema"
+      }
+    },
+    "parameters" : { },
+    "examples" : {
+      "example71" : {
+        "summary" : "example",
+        "value" : {
+          "library" : "www",
+          "prototypeSourceFile" : "www",
+          "specification" : "string",
+          "specificationPath" : "string",
+          "description" : "string",
+          "sourceLibrary" : "string",
+          "generate" : true,
+          "sourceFile" : "wwww",
+          "freeFormat" : true,
+          "sourcePath" : "string",
+          "object" : "sss"
+        }
+      }
+    },
+    "requestBodies" : { }
+  }
+}
