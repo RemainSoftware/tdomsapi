@@ -12,7 +12,7 @@
     },
     "version" : "0.0.1",
     "x-restgeninfo" : {
-      "server" : "http://plato:45040/generator",
+      "server" : "https://plato.remainsoftware.com:45110/generator",
       "library" : "V150DEV",
       "file" : "Login.json",
       "srclibrary" : "V150DEV",
