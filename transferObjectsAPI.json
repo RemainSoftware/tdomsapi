@@ -22,7 +22,7 @@
     }
   },
   "servers" : [ {
-    "url" : "https://{host}:{port}/{library}/OMQRTA",
+    "url" : "https://{host}:{port}/{library}/OMQRTO",
     "description" : "A dynamic https host",
     "variables" : {
       "host" : {
