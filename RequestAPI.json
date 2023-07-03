@@ -1,0 +1,1757 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "TD/OMS Request API",
+    "description" : "The TD/OMS Request API allows you to interact with a request. You can Create, Change or Delete a request. Also other actions like Copy, Connect, Disconnect, Ratify, Complete and Status are available.",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "library" : "V15T0280",
+      "file" : "RequestAPI.json",
+      "srclibrary" : "V15T0280S",
+      "object" : "OMQRRE"
+    }
+  },
+  "servers" : [ {
+    "url" : "https://{host}:{port}/{library}/OMQRRE",
+    "description" : "A dynamic https host",
+    "variables" : {
+      "host" : {
+        "description" : "The host serving the API",
+        "default" : "plato.remainsoftware.com"
+      },
+      "port" : {
+        "description" : "The port to which the server is listening",
+        "default" : "45211"
+      },
+      "library" : {
+        "description" : "The TD/OMS library",
+        "default" : "V150TST"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/add" : {
+      "summary" : "add request",
+      "description" : "add request",
+      "post" : {
+        "summary" : "Add a request",
+        "description" : "A new request is added using this path.",
+        "operationId" : "addRequest",
+        "requestBody" : {
+          "description" : "Add Request",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/addRequestRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/requestResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : false
+        }
+      }
+    },
+    "/change" : {
+      "summary" : "change request",
+      "description" : "change request",
+      "post" : {
+        "summary" : "Change a request",
+        "description" : "An existing request is changed using this path.",
+        "operationId" : "changeRequest",
+        "requestBody" : {
+          "description" : "Change Request",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/changeRequestRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/requestResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "02",
+          "generate" : true
+        }
+      }
+    },
+    "/connect" : {
+      "summary" : "connect task",
+      "description" : "connect task",
+      "post" : {
+        "summary" : "Connect a task",
+        "description" : "A task is connected to the request using this path.",
+        "operationId" : "connectTask",
+        "requestBody" : {
+          "description" : "Connect Task",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/connectTaskRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/requestResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "04",
+          "generate" : true
+        }
+      }
+    },
+    "/delete" : {
+      "summary" : "deleteRequest",
+      "description" : "deleteRequest",
+      "post" : {
+        "summary" : "delete a Request",
+        "description" : "A task is deleted using this path.",
+        "operationId" : "deleteRequest",
+        "requestBody" : {
+          "description" : "Delete Request",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/deleteRequestRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/requestResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "06",
+          "generate" : true
+        }
+      }
+    },
+    "/complete" : {
+      "summary" : "complete task",
+      "description" : "complete task",
+      "post" : {
+        "summary" : "complete a request",
+        "description" : "A request is completed using this path.",
+        "operationId" : "completeRequest",
+        "requestBody" : {
+          "description" : "Complete Task",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/completeRequestRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/requestResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "03",
+          "generate" : true
+        }
+      }
+    },
+    "/disconnect" : {
+      "summary" : "Disconnect Request",
+      "description" : "Disconnect Request",
+      "post" : {
+        "summary" : "Disconnect a Request",
+        "description" : "Disconnect a Request",
+        "operationId" : "disconnectRequest",
+        "requestBody" : {
+          "description" : "Disconnect Request",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/disconnectRequestRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/requestResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "something went wring",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "07",
+          "generate" : true
+        }
+      }
+    },
+    "/ratify" : {
+      "summary" : "Ratify Request",
+      "description" : "Ratify Request",
+      "post" : {
+        "summary" : "Ratify a Request",
+        "description" : "Ratify a Request",
+        "operationId" : "ratifyRequest",
+        "requestBody" : {
+          "description" : "Ratify Request",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ratifyRequestRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/requestResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "something went wring",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "08",
+          "generate" : true
+        }
+      }
+    },
+    "/rename" : {
+      "summary" : "Rename a Request",
+      "description" : "Rename a Request",
+      "post" : {
+        "summary" : "Rename a Request",
+        "description" : "Rename a Request",
+        "operationId" : "renameRequest",
+        "requestBody" : {
+          "description" : "Rename Request",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/renameRequestRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/requestResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "something went wring",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "09",
+          "generate" : true
+        }
+      }
+    },
+    "/status" : {
+      "summary" : "Calculate a reuqest status",
+      "description" : "Calculate a reuqest status",
+      "post" : {
+        "summary" : "Caluclate a request status",
+        "description" : "Caluclate a request status",
+        "operationId" : "statusRequest",
+        "requestBody" : {
+          "description" : "Status Request",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/statusRequestRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/requestResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "something went wring",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "10",
+          "generate" : true
+        }
+      }
+    },
+    "/copy" : {
+      "summary" : "copyRequest",
+      "description" : "copyRequest",
+      "post" : {
+        "summary" : "copy a Request",
+        "description" : "A task is copied using this path.",
+        "operationId" : "copyRequest",
+        "requestBody" : {
+          "description" : "Copy  Request",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/copyRequestRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/requestResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "05",
+          "generate" : true
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "extendedMessage" : {
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The IBM i message file"
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "The message ID"
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The message type"
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "The message substitution data"
+          },
+          "field" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "Field in error"
+          },
+          "messageText" : {
+            "maxLength" : 512,
+            "type" : "string",
+            "description" : "The human readable message text"
+          }
+        },
+        "description" : "It contains all the error messages returned by the API."
+      },
+      "requestResponse" : {
+        "type" : "object",
+        "properties" : {
+          "messages" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status which can be *NORM or *TERM. In case of *TERM look at the messages for more information."
+          },
+          "requestResponseData" : {
+            "$ref" : "#/components/schemas/requestResponseData"
+          },
+          "longDescription" : {
+            "maxLength" : 65535,
+            "type" : "string",
+            "description" : "Long Description"
+          }
+        },
+        "description" : "dsdgsgd",
+        "x-pfname" : "OMERR",
+        "x-fieldSchemaNameType" : "Normalized",
+        "x-library" : "OMSRUN51"
+      },
+      "requestResponseData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application Code"
+          },
+          "requestNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Request Number"
+          },
+          "requestType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Request Type"
+          },
+          "environmentCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Environment Code"
+          },
+          "reasonCode" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Reason Code"
+          },
+          "priorityNumeric" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Priority Numeric"
+          },
+          "userIDOrUserClass" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "UserID Or UserClass"
+          },
+          "userAddressDistribution" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "User Address Distribution"
+          },
+          "distributedUserID" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Distributed UserID"
+          },
+          "telephoneNumber" : {
+            "maxLength" : 15,
+            "type" : "string",
+            "description" : "Telephone Number"
+          },
+          "requestedCompletionDate" : {
+            "type" : "number",
+            "description" : "Requested Completion Date",
+            "format" : "zoned(7:0)"
+          },
+          "realizedCompletionDate" : {
+            "type" : "number",
+            "description" : "Realized Completion Date",
+            "format" : "zoned(7:0)"
+          },
+          "incomeDate" : {
+            "type" : "number",
+            "description" : "Income Date",
+            "format" : "zoned(7:0)"
+          },
+          "incomeTime" : {
+            "type" : "number",
+            "description" : "Income Time",
+            "format" : "zoned(6:0)"
+          },
+          "shortRequestDescription" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "Short Request Description"
+          },
+          "numberOfAccordees" : {
+            "type" : "number",
+            "description" : "Number Of Accordees",
+            "format" : "packed(3:0)"
+          },
+          "accordanceCount" : {
+            "type" : "number",
+            "description" : "Accordance Count",
+            "format" : "packed(3:0)"
+          },
+          "rejectedIndicator" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Rejected Indicator"
+          },
+          "freeUserSpace" : {
+            "maxLength" : 32,
+            "type" : "string",
+            "description" : "Free User Space"
+          }
+        },
+        "description" : "Contains all output fields"
+      },
+      "message" : {
+        "type" : "string",
+        "description" : "message"
+      },
+      "addProcessingOption" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "sendMessageToProgrammer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Send a message to the programmer when assigning or reassigning with '1'. Use '0' to not send a message.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Enter processing array input here for add request"
+      },
+      "addRequestRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V3R0M0",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "addProcessingOption" : {
+            "$ref" : "#/components/schemas/addProcessingOption"
+          },
+          "addRequest" : {
+            "$ref" : "#/components/schemas/addData"
+          }
+        },
+        "description" : "Input schema for adding a new request"
+      },
+      "changeData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "RRAPPC",
+            "x-sequence" : "10"
+          },
+          "requestNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Request number",
+            "x-column" : "RRERR#",
+            "x-sequence" : "20"
+          },
+          "requestType" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Request type",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*DFT" ],
+            "x-column" : "RRERRT",
+            "x-sequence" : "30"
+          },
+          "priorityNumeric" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Priority numeric",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*DFT" ],
+            "x-column" : "RRPRIN",
+            "x-sequence" : "60"
+          },
+          "userIdOrUserClass" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "User i.d., or user class",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*CURRENT" ],
+            "x-column" : "RRUSID",
+            "x-sequence" : "70"
+          },
+          "userAddressDistribution" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "User address, distribution",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "RRADDR",
+            "x-sequence" : "80"
+          },
+          "distributedUserId" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Distributed user i.d.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "RRUSRI",
+            "x-sequence" : "90"
+          },
+          "telephoneNumber" : {
+            "maxLength" : 15,
+            "type" : "string",
+            "description" : "Telephone number",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "RRTEL#",
+            "x-sequence" : "100"
+          },
+          "requestedCompletionDate" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Requested completion date",
+            "format" : "zoned(7:0)",
+            "default" : -1.0,
+            "enum" : [ 0.0, -1.0, -2.0 ],
+            "x-column" : "RRWCDT",
+            "x-sequence" : "110"
+          },
+          "shortRequestDescription" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "Short request description",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "RRSHED",
+            "x-sequence" : "150"
+          },
+          "longDescription" : {
+            "maxLength" : 65535,
+            "type" : "string",
+            "description" : "longDescription",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          }
+        },
+        "description" : "A request is changed using this input schema.",
+        "x-pfname" : "OMERR",
+        "x-fieldSchemaNameType" : "Normalized",
+        "x-host" : "plato.prod",
+        "x-library" : "OMSRUN51"
+      },
+      "changeRequestRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Interface Level",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "changeRequest" : {
+            "$ref" : "#/components/schemas/changeData"
+          },
+          "changeProcessingOption" : {
+            "$ref" : "#/components/schemas/changeProcessingOption"
+          }
+        },
+        "description" : "A request is changed using this schema."
+      },
+      "connectData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "application code"
+          },
+          "requestCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "request Code"
+          }
+        },
+        "description" : "schema to connect the task with request."
+      },
+      "connectProcessingOption" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCodeFix" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "application Code Fix",
+            "default" : "*APPL",
+            "enum" : [ "*APPL" ]
+          },
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Enter processing array input here for connect request"
+      },
+      "connectTaskRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V3R0M0",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "connectProcessingOption" : {
+            "$ref" : "#/components/schemas/connectProcessingOption"
+          },
+          "connectData" : {
+            "$ref" : "#/components/schemas/connectData"
+          }
+        },
+        "description" : "Input schema for connecting a task to the request"
+      },
+      "completeData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "RRAPPC",
+            "x-sequence" : "10"
+          },
+          "requestNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Request number",
+            "x-column" : "RRERR#",
+            "x-sequence" : "20"
+          },
+          "reasonCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "reason Code",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*DFT" ]
+          }
+        },
+        "description" : "A request is completed using this input schema.",
+        "x-pfname" : "OMERR",
+        "x-fieldSchemaNameType" : "Normalized",
+        "x-host" : "plato.prod",
+        "x-library" : "OMSRUN51"
+      },
+      "completeProcessingOption" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Enter processing array input here for complete request"
+      },
+      "completeRequestRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V3R0M0",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "completeProcessingOption" : {
+            "$ref" : "#/components/schemas/completeProcessingOption"
+          },
+          "completeData" : {
+            "$ref" : "#/components/schemas/completeData"
+          }
+        },
+        "description" : "Input schema for completing a request"
+      },
+      "copyData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "RRAPPC",
+            "x-sequence" : "10"
+          },
+          "requestNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Request number",
+            "x-column" : "RRERR#",
+            "x-sequence" : "20"
+          }
+        },
+        "description" : "A request is copied using this input schema.",
+        "x-pfname" : "OMERR",
+        "x-fieldSchemaNameType" : "Normalized",
+        "x-host" : "plato.prod",
+        "x-library" : "OMSRUN51"
+      },
+      "copyProcessingOption" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "toApplicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "To Application Code"
+          },
+          "toRequestNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "To Request Number"
+          }
+        },
+        "description" : "Enter processing array input here for copy request"
+      },
+      "disconnectData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "RRAPPC",
+            "x-sequence" : "10"
+          },
+          "requestNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Request number",
+            "x-column" : "RRERR#",
+            "x-sequence" : "20"
+          }
+        },
+        "description" : "A request is disconnected using this input schema.",
+        "x-pfname" : "OMERR",
+        "x-fieldSchemaNameType" : "Normalized",
+        "x-host" : "plato.prod",
+        "x-library" : "OMSRUN51"
+      },
+      "disconnectProcessingOption" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "applicationCodeTask" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Enter application code associated to the task",
+            "default" : "*APPL",
+            "enum" : [ "*APPL" ]
+          },
+          "taskCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Enter the task code"
+          }
+        },
+        "description" : "Enter processing array input here for disconnect request"
+      },
+      "disconnectRequestRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Interface Level",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "disconnectProcessingOption" : {
+            "$ref" : "#/components/schemas/disconnectProcessingOption"
+          },
+          "disconnectData" : {
+            "$ref" : "#/components/schemas/disconnectData"
+          }
+        },
+        "description" : "Input schema for disconnecting the request"
+      },
+      "ratifyData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "RRAPPC",
+            "x-sequence" : "10"
+          },
+          "requestNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Request number",
+            "x-column" : "RRERR#",
+            "x-sequence" : "20"
+          }
+        },
+        "description" : "A request is ratified using this input schema.",
+        "x-pfname" : "OMERR",
+        "x-fieldSchemaNameType" : "Normalized",
+        "x-host" : "plato.prod",
+        "x-library" : "OMSRUN51"
+      },
+      "ratifyProcessingOption" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "ratificationGroupCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "ratification Group Code"
+          },
+          "ratificationCode" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Ratification Code",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Enter processing array input here for ratify request"
+      },
+      "ratifyRequestRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Interface Level",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "ratifyProcessingOption" : {
+            "$ref" : "#/components/schemas/ratifyProcessingOption"
+          },
+          "ratifyData" : {
+            "$ref" : "#/components/schemas/ratifyData"
+          }
+        },
+        "description" : "Input schema for ratify the request"
+      },
+      "renameData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "RRAPPC",
+            "x-sequence" : "10"
+          },
+          "requestNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Request number",
+            "x-column" : "RRERR#",
+            "x-sequence" : "20"
+          }
+        },
+        "description" : "A request is renamed using this input schema.",
+        "x-pfname" : "OMERR",
+        "x-fieldSchemaNameType" : "Normalized",
+        "x-host" : "plato.prod",
+        "x-library" : "OMSRUN51"
+      },
+      "renameProcessingOption" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "toApplicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "To Application Code"
+          },
+          "toRequestNumber" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "To Request Number"
+          }
+        },
+        "description" : "Enter processing array input here for rename request"
+      },
+      "renameRequestRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Interface Level",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "renameProcessingOption" : {
+            "$ref" : "#/components/schemas/renameProcessingOption"
+          },
+          "renameData" : {
+            "$ref" : "#/components/schemas/renameData"
+          }
+        },
+        "description" : "Input schema for rename the request"
+      },
+      "statusProcessingOption" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Enter processing array input here to calculate the  request status."
+      },
+      "statusRequestRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Interface Level",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "statusProcessingOption" : {
+            "$ref" : "#/components/schemas/statusProcessingOption"
+          },
+          "statusData" : {
+            "$ref" : "#/components/schemas/statusData"
+          }
+        },
+        "description" : "Input schema to calculate the status of the request"
+      },
+      "statusData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "RRAPPC",
+            "x-sequence" : "10"
+          },
+          "requestNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Request number",
+            "x-column" : "RRERR#",
+            "x-sequence" : "20"
+          }
+        },
+        "description" : "A request status is calculated using this input schema.",
+        "x-pfname" : "OMERR",
+        "x-fieldSchemaNameType" : "Normalized",
+        "x-host" : "plato.prod",
+        "x-library" : "OMSRUN51"
+      },
+      "addData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "name of the application"
+          },
+          "requestNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Request Number"
+          },
+          "requestType" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Request Type",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*DFT" ]
+          },
+          "reasonCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Reason Code",
+            "default" : "*SAME",
+            "enum" : [ null, "*SAME", "*DFT" ]
+          },
+          "priorityNumeric" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Priority Numeric",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*DFT" ]
+          },
+          "userIDOrUserClass" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "UserID Or UserClass",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*CURRENT" ]
+          },
+          "userAddressDistribution" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "User Address Distribution",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "distributedUserID" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Distributed UserID",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "telephoneNumber" : {
+            "maxLength" : 15,
+            "type" : "string",
+            "description" : "Telephone Number",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "requestedCompletionDate" : {
+            "maximum" : 7,
+            "type" : "number",
+            "description" : "Requested Completion Date",
+            "format" : "zoned(7:0)",
+            "default" : -1.0,
+            "enum" : [ 0.0, -1.0, -2.0 ]
+          },
+          "shortRequestDescription" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "Short Request Description",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "freeUserSpace" : {
+            "maxLength" : 32,
+            "type" : "string",
+            "description" : "free User Space",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "longDescription" : {
+            "maxLength" : 65535,
+            "type" : "string",
+            "description" : "Error Description"
+          }
+        },
+        "description" : "A request is created using this input schema",
+        "x-pfname" : "OMERR",
+        "x-fieldSchemaNameType" : "Normalized",
+        "x-library" : "OMSRUN51"
+      },
+      "changeProcessingOption" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Enter processing array input here for change request"
+      },
+      "deleteProcessingOption" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Enter processing array input here for delete request"
+      },
+      "deleteData" : {
+        "type" : "object",
+        "properties" : {
+          "requestNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Request number",
+            "x-column" : "RRERR#",
+            "x-sequence" : "20"
+          },
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "RRAPPC",
+            "x-sequence" : "10"
+          }
+        },
+        "description" : "A request is deleted using this input schema.",
+        "x-pfname" : "OMERR",
+        "x-fieldSchemaNameType" : "Normalized",
+        "x-host" : "plato.prod",
+        "x-library" : "OMSRUN51"
+      },
+      "deleteRequestRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "interface Level",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "deleteData" : {
+            "$ref" : "#/components/schemas/deleteData"
+          },
+          "deleteProcessingOption" : {
+            "$ref" : "#/components/schemas/deleteProcessingOption"
+          }
+        },
+        "description" : "A request is deleted using this schema"
+      },
+      "copyRequestRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Interface Level",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "copyData" : {
+            "$ref" : "#/components/schemas/copyData"
+          },
+          "copyProcessingOption" : {
+            "$ref" : "#/components/schemas/copyProcessingOption"
+          }
+        },
+        "description" : "Input schema for coping the request"
+      }
+    },
+    "responses" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "http JWT token",
+        "name" : "JWT",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
