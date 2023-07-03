@@ -23,8 +23,22 @@
     }
   },
   "servers" : [ {
-    "url" : "https://plato.remainsoftware.com:45211/V15T0294/OMQRCL",
-    "description" : "plato.prod"
+    "url" : "https://{host}:{port}/{library}/OMQRCL",
+    "description" : "A dynamic https host",
+    "variables" : {
+      "host" : {
+        "description" : "The host serving the API",
+        "default" : "plato.remainsoftware.com"
+      },
+      "port" : {
+        "description" : "The port to which the server is listening",
+        "default" : "45211"
+      },
+      "library" : {
+        "description" : "The TD/OMS library",
+        "default" : "V150TST"
+      }
+    }
   } ],
   "security" : [ {
     "JWT" : [ ]
