@@ -26,7 +26,7 @@
   "paths" : {
     "/login" : {
       "summary" : "login",
-      "description" : "Path to intially sign to get the Json Web Token to used for other requests",
+      "description" : "Path to initially sign to get the Json Web Token to used for other requests",
       "post" : {
         "summary" : "login",
         "description" : "login",
