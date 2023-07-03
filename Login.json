@@ -20,8 +20,22 @@
     }
   },
   "servers" : [ {
-    "url" : "http://plato:45210/V150DEV/OMGAUTH",
-    "description" : "plato.prod"
+    "url" : "https://{host}:{port}/{library}/OMGAUTH",
+    "description" : "A dynamic https host",
+    "variables" : {
+      "host" : {
+        "description" : "The host serving the API",
+        "default" : "plato.remainsoftware.com"
+      },
+      "port" : {
+        "description" : "The port to which the server is listening",
+        "default" : "45211"
+      },
+      "library" : {
+        "description" : "The TD/OMS library",
+        "default" : "V150TST"
+      }
+    }
   } ],
   "paths" : {
     "/login" : {
