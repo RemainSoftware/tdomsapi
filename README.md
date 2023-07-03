@@ -1,6 +1,7 @@
 # TD/OMS API
 ## The TD/OMS Rest APIs 
 * [REST Login API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/Login.json)
+* [REST Remain API Generator API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/apigenerator.json)
 * [REST Information Service API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/infoService.json)
 * [REST Source API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/sourcefileAPI.json)
 * [REST Dashboard API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/dashboardAPI.json)
