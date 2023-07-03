@@ -1,0 +1,160 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Login API.",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Login"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "http://plato:45040/generator",
+      "library" : "V150DEV",
+      "file" : "Login.json",
+      "srclibrary" : "V150DEV",
+      "object" : "OMGAUTH"
+    }
+  },
+  "servers" : [ {
+    "url" : "http://plato:45210/V150DEV/OMGAUTH",
+    "description" : "plato.prod"
+  } ],
+  "paths" : {
+    "/login" : {
+      "summary" : "login",
+      "description" : "Path to intially sign to get the Json Web Token to used for other requests",
+      "post" : {
+        "summary" : "login",
+        "description" : "login",
+        "operationId" : "login",
+        "requestBody" : {
+          "description" : "Sign in to request a Json web token to be used for other subsequent requests",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/signIn"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/JWT"
+                }
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/422"
+          }
+        },
+        "callbacks" : { },
+        "security" : [ {
+          "Basic" : [ ]
+        } ],
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : true,
+          "suffix" : "1",
+          "generate" : "true"
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Error" : {
+        "type" : "object",
+        "properties" : {
+          "err_msg" : {
+            "type" : "string",
+            "description" : "The error message"
+          }
+        },
+        "description" : "The error message"
+      },
+      "JWT" : {
+        "type" : "object",
+        "properties" : {
+          "token" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "The Json web token to be used to authorize requests"
+          }
+        },
+        "description" : "The Json web token to be used to authorize requests"
+      },
+      "Message" : {
+        "type" : "object",
+        "properties" : {
+          "MessageText" : {
+            "type" : "string",
+            "description" : "Message text"
+          },
+          "MessageId" : {
+            "type" : "string",
+            "description" : "MessageId"
+          }
+        },
+        "description" : "message object"
+      },
+      "signIn" : {
+        "required" : [ "email_or_username", "password" ],
+        "type" : "object",
+        "properties" : {
+          "password" : {
+            "maxLength" : 128,
+            "type" : "string",
+            "description" : "password"
+          },
+          "email_or_username" : {
+            "type" : "string",
+            "description" : "sign with email or user name"
+          }
+        },
+        "description" : "Object sent to sign in to the Octo server"
+      }
+    },
+    "responses" : {
+      "422" : {
+        "description" : "Unprocessable Entity",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "401" : {
+        "description" : "Unauthorized",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Error"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes" : {
+      "Basic" : {
+        "type" : "apiKey",
+        "in" : "header"
+      }
+    },
+    "callbacks" : { }
+  }
+}
