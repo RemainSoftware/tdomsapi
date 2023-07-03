@@ -445,7 +445,6 @@
       "jwt" : {
         "type" : "http",
         "description" : "JWT Token",
-        "name" : "jwt",
         "scheme" : "bearer",
         "bearerFormat" : "JWT"
       }
