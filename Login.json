@@ -12,7 +12,7 @@
     },
     "version" : "0.0.1",
     "x-restgeninfo" : {
-      "server" : "https://plato.remainsoftware.com:45110/generator",
+      "server" : "http://plato:45040/generator",
       "library" : "V150DEV",
       "file" : "Login.json",
       "srclibrary" : "V150DEV",
@@ -26,7 +26,7 @@
   "paths" : {
     "/login" : {
       "summary" : "login",
-      "description" : "Path to initially sign to get the Json Web Token to used for other requests",
+      "description" : "Path to intially sign to get the Json Web Token to used for other requests",
       "post" : {
         "summary" : "login",
         "description" : "login",
@@ -61,11 +61,14 @@
           }
         },
         "callbacks" : { },
+        "security" : [ {
+          "Basic" : [ ]
+        } ],
         "x-generate" : {
           "session" : false,
           "jwtlogin" : true,
           "suffix" : "1",
-          "generate" : true
+          "generate" : "true"
         }
       }
     }
@@ -111,14 +114,14 @@
         "required" : [ "email_or_username", "password" ],
         "type" : "object",
         "properties" : {
-          "email_or_username" : {
-            "type" : "string",
-            "description" : "sign with email or user name"
-          },
           "password" : {
             "maxLength" : 128,
             "type" : "string",
-            "description" : "password or token"
+            "description" : "password"
+          },
+          "email_or_username" : {
+            "type" : "string",
+            "description" : "sign with email or user name"
           }
         },
         "description" : "Object sent to sign in to the Octo server"
@@ -146,9 +149,12 @@
         }
       }
     },
-    "parameters" : { },
-    "requestBodies" : { },
-    "securitySchemes" : { },
+    "securitySchemes" : {
+      "Basic" : {
+        "type" : "apiKey",
+        "in" : "header"
+      }
+    },
     "callbacks" : { }
   }
 }
