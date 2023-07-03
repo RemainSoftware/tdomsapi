@@ -1595,7 +1595,6 @@
       "JWT" : {
         "type" : "http",
         "description" : "Jwt security",
-        "name" : "JWT",
         "scheme" : "bearer",
         "bearerFormat" : "JWT"
       }
