@@ -1,0 +1,1604 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "TD/OMS - Solution API",
+    "description" : "The TD/OMS Solution API allows you to interact with objects. You can Connect, Change or Disconnect an object. Also other actions like Lock, Unlock and Move are availabe.",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "library" : "V15T0270",
+      "file" : "SolutionAPI.json",
+      "srclibrary" : "V15T0270S",
+      "object" : "OMQRSO"
+    }
+  },
+  "servers" : [ {
+    "url" : "https://{host}:{port}/{library}/OMQRSO",
+    "description" : "A dynamic https host",
+    "variables" : {
+      "host" : {
+        "description" : "The host serving the API",
+        "default" : "plato.remainsoftware.com"
+      },
+      "port" : {
+        "description" : "The port to which the server is listening",
+        "default" : "45211"
+      },
+      "library" : {
+        "description" : "The TD/OMS library",
+        "default" : "V150TST"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/change" : {
+      "summary" : "Change solution attributes",
+      "description" : "Solution attributes can be Changed with this path",
+      "post" : {
+        "summary" : "Change operation",
+        "description" : "The change operation",
+        "operationId" : "changeSolution",
+        "requestBody" : {
+          "description" : "Post Method",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/changeSolutionRequest"
+              }
+            }
+          },
+          "required" : false
+        },
+        "responses" : {
+          "200" : {
+            "description" : "return code 200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/solutionResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request from Client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorised",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : true
+        }
+      }
+    },
+    "/connect" : {
+      "summary" : "Connect object to a fix",
+      "description" : "Objecto can be added to a fix with this path",
+      "post" : {
+        "summary" : "Connect operation",
+        "description" : "The connect operation",
+        "operationId" : "connectSolution",
+        "requestBody" : {
+          "description" : "Post method",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/connectSolutionRequest"
+              }
+            }
+          },
+          "required" : false
+        },
+        "responses" : {
+          "200" : {
+            "description" : "return code response 200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/solutionResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request from Client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorised",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "02",
+          "generate" : false
+        }
+      }
+    },
+    "/disconnect" : {
+      "summary" : "disconnect object from the fix",
+      "description" : "Objects can be disconnected form the fix",
+      "post" : {
+        "summary" : "Disconnect operation",
+        "description" : "The disconnect operation",
+        "operationId" : "disconnectSolution",
+        "requestBody" : {
+          "description" : "Post method",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/disconnectSolutionRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/solutionResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request from Client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorised",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "03",
+          "generate" : true
+        }
+      }
+    },
+    "/lock" : {
+      "summary" : "lock the solution",
+      "description" : "Solutions can be locked using this path",
+      "post" : {
+        "summary" : "Lock operation",
+        "description" : "The lock operation",
+        "operationId" : "lockSolution",
+        "requestBody" : {
+          "description" : "Post method",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/disconnectSolutionRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/solutionResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request from Client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorised",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "04",
+          "generate" : true
+        }
+      }
+    },
+    "/unlock" : {
+      "summary" : "remove the lock from the solution",
+      "description" : "Lock from solution can be removed",
+      "post" : {
+        "summary" : "Unlock operation",
+        "description" : "The unlock operation",
+        "operationId" : "unlockSolution",
+        "requestBody" : {
+          "description" : "Post method",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/unlockSolutionRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "return code response 200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/solutionResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request from Client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorised",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "05",
+          "generate" : true
+        }
+      }
+    },
+    "/move" : {
+      "summary" : "move solution to another fix",
+      "description" : "Solition can be connected to another fix using this path",
+      "post" : {
+        "summary" : "Move operation",
+        "description" : "The move operation",
+        "operationId" : "moveSolution",
+        "requestBody" : {
+          "description" : "return code response 200",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/moveSolutionRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/solutionResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request from Client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorised",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "06",
+          "generate" : true
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "extendedMessage" : {
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The IBM i message file"
+          },
+          "messageID" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "The message ID"
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The message type"
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "The message substitution data"
+          },
+          "field" : {
+            "minLength" : 50,
+            "type" : "string",
+            "description" : "The field in error"
+          },
+          "messageText" : {
+            "maxLength" : 512,
+            "type" : "string",
+            "description" : "The human readable text"
+          }
+        },
+        "description" : "Extended messages"
+      },
+      "message" : {
+        "type" : "string",
+        "description" : "Message"
+      },
+      "solutionResponse" : {
+        "type" : "object",
+        "properties" : {
+          "messages" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status which will inform us about how the API ended."
+          },
+          "solutionResponseData" : {
+            "$ref" : "#/components/schemas/solutionResponseData"
+          },
+          "longDescription" : {
+            "maxLength" : 65535,
+            "type" : "string",
+            "description" : "Long description"
+          }
+        },
+        "description" : "Solution response fo output"
+      },
+      "solutionResponseData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "ROAPPC",
+            "x-sequence" : "10"
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Fix number"
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Object code"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Object type"
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Member code"
+          },
+          "objectAttribute" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Object attribute"
+          },
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Object library"
+          },
+          "objectClass" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Object class"
+          },
+          "environmentCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Environment code"
+          },
+          "sourceProcessing" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Source processing"
+          },
+          "versionNumberBasedOn" : {
+            "type" : "number",
+            "description" : "Version number based on",
+            "format" : "Packed(5:0)"
+          },
+          "modificNumberBasedOn" : {
+            "type" : "number",
+            "description" : "Modific. number based on",
+            "format" : "Packed(5:0)"
+          },
+          "versionNumber" : {
+            "type" : "number",
+            "description" : "Version number",
+            "format" : "Packed(5:0)"
+          },
+          "modificationNumber" : {
+            "type" : "number",
+            "description" : "Modification number",
+            "format" : "Packed(5:0)"
+          },
+          "overrideCode" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Override code"
+          },
+          "solutionType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Solution type"
+          },
+          "statusField" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Status"
+          },
+          "routeCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Route code"
+          },
+          "pathExtensionLibraryCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Path Extension Code"
+          },
+          "iFSObjectCode" : {
+            "maxLength" : 257,
+            "type" : "string",
+            "description" : "IFS object code"
+          },
+          "iFSDirectoryCode" : {
+            "maxLength" : 642,
+            "type" : "string",
+            "description" : "IFS Directory code"
+          },
+          "relatedLibraryCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Related library code"
+          },
+          "routeCode2" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Route code"
+          },
+          "levelWithinRoute" : {
+            "type" : "number",
+            "description" : "Level within route",
+            "format" : "Packed(3:0)"
+          },
+          "libraryCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Library code"
+          },
+          "fixType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Fix type"
+          },
+          "release" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Release"
+          },
+          "developmentExitCount" : {
+            "type" : "number",
+            "description" : "Development exit count",
+            "format" : "Packed(3:0)"
+          },
+          "reasonCode" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Reason code"
+          },
+          "fixStatus" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Fix status"
+          },
+          "priorityNumeric" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Priority numeric"
+          },
+          "programmer" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Programmer"
+          },
+          "expectedStartDate" : {
+            "type" : "number",
+            "description" : "Expected start date",
+            "format" : "Zoned(7:0)"
+          },
+          "realizedStartDate" : {
+            "type" : "number",
+            "description" : "Realized start date",
+            "format" : "Zoned(7:0)"
+          },
+          "expectedCompletionDate" : {
+            "type" : "number",
+            "description" : "Expected completion date",
+            "format" : "Zoned(7:0)"
+          },
+          "realizedCompletionDate" : {
+            "type" : "number",
+            "description" : "Realized completion date",
+            "format" : "Zoned(7:0)"
+          },
+          "expectedDevEndDate" : {
+            "type" : "number",
+            "description" : "Expected dev. end date",
+            "format" : "Zoned(7:0)"
+          },
+          "realizedDevEndDate" : {
+            "type" : "number",
+            "description" : "Realized dev. end date",
+            "format" : "Zoned(7:0)"
+          },
+          "expectedNumberOfHours2" : {
+            "type" : "number",
+            "description" : "Expected number of hours",
+            "format" : "Packed(5:2)"
+          },
+          "realizedNumberOfHours2" : {
+            "type" : "number",
+            "description" : "Realized number of hours",
+            "format" : "Packed(5:2)"
+          },
+          "shortFixDescription" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "Short fix description"
+          },
+          "numberOfRatificationGrps" : {
+            "type" : "number",
+            "description" : "Number of ratification grps",
+            "format" : "Packed(3:0)"
+          },
+          "ratificationCount" : {
+            "type" : "number",
+            "description" : "Ratification count",
+            "format" : "Packed(3:0)"
+          },
+          "rejectedIndicator" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Rejected indicator"
+          },
+          "freeUserSpace" : {
+            "maxLength" : 64,
+            "type" : "string",
+            "description" : "Free user space"
+          },
+          "pathCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Path code"
+          },
+          "pathExtensionLibraryCode2" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Path Extension Code"
+          },
+          "iFSPathExtension" : {
+            "maxLength" : 642,
+            "type" : "string",
+            "description" : "IFS Directory code"
+          },
+          "objectAttribute3" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Object attribute"
+          },
+          "objectDescription" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "Object description"
+          },
+          "sourceFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Source file"
+          },
+          "sourceLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Source library"
+          },
+          "sourceMember" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Source member"
+          },
+          "sourcesBelongToObject" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Sources belong to object"
+          },
+          "sourceChangeDate" : {
+            "maxLength" : 13,
+            "type" : "string",
+            "description" : "Source Change date"
+          },
+          "objectSourceChangeDate" : {
+            "maxLength" : 13,
+            "type" : "string",
+            "description" : "Object Source change date"
+          },
+          "objectModified" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Object modified"
+          },
+          "userWhichCreatedObject" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "User which created object"
+          },
+          "userDefined" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "User defined"
+          },
+          "temporaryOrVirtual" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "May not exist indicator"
+          },
+          "objectChangeDate" : {
+            "maxLength" : 13,
+            "type" : "string",
+            "description" : "Object Change date"
+          },
+          "memberAttributeMBSEU" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Member attribute (MBSEU)"
+          },
+          "memberText" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "Member text"
+          },
+          "objectAttribute2" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Object attribute"
+          },
+          "sRMId" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "SRM Id"
+          },
+          "projectCode" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "Project code"
+          },
+          "repositoryURL" : {
+            "maxLength" : 400,
+            "type" : "string",
+            "description" : "Repository URL"
+          },
+          "revision" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "Revision"
+          },
+          "programmer2" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Programmer"
+          },
+          "dateSent" : {
+            "type" : "number",
+            "description" : "Date sent",
+            "format" : "Zoned(7:0)"
+          },
+          "timeSent" : {
+            "type" : "number",
+            "description" : "Time sent",
+            "format" : "Zoned(6:0)"
+          },
+          "locked" : {
+            "type" : "number",
+            "description" : "Lock: 0=Not locked",
+            "format" : "Packed(1:0)"
+          },
+          "markedForDeletion" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Marked for deletion"
+          },
+          "lastTag" : {
+            "maxLength" : 500,
+            "type" : "string",
+            "description" : "Last SRM-tag"
+          },
+          "labelCount" : {
+            "type" : "number",
+            "description" : "Label count",
+            "format" : "Packed(5:0)"
+          },
+          "activeSolutionCount" : {
+            "type" : "number",
+            "description" : "Other active solution count",
+            "format" : "Packed(5:0)"
+          },
+          "createOverrideCount" : {
+            "type" : "number",
+            "description" : "Compile override count",
+            "format" : "Packed(5:0)"
+          },
+          "commentCount" : {
+            "type" : "number",
+            "description" : "Comment count",
+            "format" : "Packed(5:0)"
+          }
+        },
+        "description" : "To store the output data",
+        "x-pfname" : "OMEROV1",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "changeData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "ROAPPC",
+            "x-sequence" : "10"
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Fix number",
+            "x-column" : "ROFIX#",
+            "x-sequence" : "20"
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Object code",
+            "default" : "*IFSOBJ",
+            "enum" : [ "*IFSOBJ" ],
+            "x-column" : "ROOBJC",
+            "x-sequence" : "30"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Object type",
+            "x-column" : "ROOBJT",
+            "x-sequence" : "40"
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Member code",
+            "default" : "*NONE",
+            "enum" : [ "*NONE" ],
+            "x-column" : "ROMBRC",
+            "x-sequence" : "60"
+          },
+          "sourceProcessing" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Source Processing",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*YES", "*NO", "*NONE" ],
+            "x-column" : "ROSRCP",
+            "x-sequence" : "100"
+          },
+          "overrideCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Override code",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*MERGED", "*RESERVED", "*FOLLOW", "*LEAD" ],
+            "x-column" : "ROOVRC",
+            "x-sequence" : "150"
+          },
+          "solutionType" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Solution type",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*CHANGE", "*COMPILE", "*TERMINATE" ],
+            "x-column" : "ROSOLT",
+            "x-sequence" : "160"
+          },
+          "routeCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Route code",
+            "default" : "*ONLY",
+            "enum" : [ "*ONLY" ],
+            "x-column" : "ROROTC",
+            "x-sequence" : "180"
+          },
+          "pathExtensionCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Path Extension Code",
+            "default" : "*ONLY",
+            "enum" : [ "*ONLY" ],
+            "x-column" : "ROELBC",
+            "x-sequence" : "190"
+          },
+          "iFSObjectCode" : {
+            "maxLength" : 257,
+            "type" : "string",
+            "description" : "IFS Object Code",
+            "default" : "*OBJC",
+            "enum" : [ "*OBJC" ]
+          },
+          "iFSDirectoryCode" : {
+            "maxLength" : 642,
+            "type" : "string",
+            "description" : "IFS Directory Code"
+          }
+        },
+        "description" : "Change Data Object",
+        "x-pfname" : "OMERO",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "changeProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Chage Processing Options"
+      },
+      "connectData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "ROAPPC",
+            "x-sequence" : "10"
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Fix number",
+            "x-column" : "ROFIX#",
+            "x-sequence" : "20"
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Object code",
+            "default" : "*IFSOBJ",
+            "enum" : [ "*IFSOBJ" ],
+            "x-column" : "ROOBJC",
+            "x-sequence" : "30"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Object type",
+            "x-column" : "ROOBJT",
+            "x-sequence" : "40"
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Member code",
+            "default" : "*NONE",
+            "enum" : [ "*NONE" ],
+            "x-column" : "ROMBRC",
+            "x-sequence" : "60"
+          },
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Object library",
+            "x-column" : "ROOBJL",
+            "x-sequence" : "70"
+          },
+          "environmentCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Environment code",
+            "default" : "*OBJD",
+            "enum" : [ "*OBJD", "*ANY" ],
+            "x-column" : "ROPDLC",
+            "x-sequence" : "90"
+          },
+          "sourceProcessing" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Source Processing",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*YES", "*NO", "*NONE" ],
+            "x-column" : "ROSRCP",
+            "x-sequence" : "100"
+          },
+          "overrideCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Override code",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*MERGED", "*RESERVED", "*FOLLOW", "*LEAD" ],
+            "x-column" : "ROOVRC",
+            "x-sequence" : "150"
+          },
+          "solutionType" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Solution type",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*CHANGE", "*COMPILE", "*TERMINATE" ],
+            "x-column" : "ROSOLT",
+            "x-sequence" : "160"
+          },
+          "statusField" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Status",
+            "default" : "*ACT",
+            "enum" : [ "*ACT", "*LOCK", "*CMP" ],
+            "x-column" : "ROSTAT",
+            "x-sequence" : "170"
+          },
+          "iFSObjectCode" : {
+            "maxLength" : 257,
+            "type" : "string",
+            "description" : "IFS Object Code",
+            "default" : "*OBJC",
+            "enum" : [ "*OBJC" ]
+          },
+          "iFSDirectoryCode" : {
+            "maxLength" : 642,
+            "type" : "string",
+            "description" : "IFS Directory Code"
+          }
+        },
+        "description" : "Connect Data Object",
+        "x-pfname" : "OMERO",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "connectProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "include4GLGeneratedObjects" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Utilize this value for connecting a 4GL object to a fix.",
+            "default" : "0",
+            "enum" : [ "1", "0" ]
+          },
+          "forceActiveSolution" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Use this element to activate the object as a solution, ensuring exclusive connection by locking other solutions.",
+            "default" : "0",
+            "enum" : [ "1", "0" ]
+          },
+          "newObject" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify the object's status as either known to TD/OMS or still under construction",
+            "default" : "0",
+            "enum" : [ "1", "0" ]
+          }
+        },
+        "description" : "Connect processing options\r\n"
+      },
+      "disconnectData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "ROAPPC",
+            "x-sequence" : "10"
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Fix number",
+            "x-column" : "ROFIX#",
+            "x-sequence" : "20"
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Object code",
+            "default" : "*IFSOBJ",
+            "enum" : [ "*IFSOBJ" ],
+            "x-column" : "ROOBJC",
+            "x-sequence" : "30"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Object type",
+            "x-column" : "ROOBJT",
+            "x-sequence" : "40"
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Member code",
+            "default" : "*NONE",
+            "enum" : [ "*NONE" ],
+            "x-column" : "ROMBRC",
+            "x-sequence" : "60"
+          },
+          "routeCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Route code",
+            "default" : "*ONLY",
+            "enum" : [ "*ONLY" ],
+            "x-column" : "ROROTC",
+            "x-sequence" : "180"
+          },
+          "pathExtensionCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Path Extension Code",
+            "default" : "*ONLY",
+            "enum" : [ "*ONLY" ],
+            "x-column" : "ROELBC",
+            "x-sequence" : "190"
+          },
+          "iFSObjectCode" : {
+            "maxLength" : 257,
+            "type" : "string",
+            "description" : "IFS Object Code",
+            "default" : "*OBJC",
+            "enum" : [ "*OBJC" ]
+          },
+          "iFSDirectoryCode" : {
+            "maxLength" : 642,
+            "type" : "string",
+            "description" : "IFS Directory Code"
+          }
+        },
+        "description" : "Disconnect data object\r\n",
+        "x-pfname" : "OMERO",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "disconnectProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Disconnect\r\n Processing Options"
+      },
+      "unlockData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "ROAPPC",
+            "x-sequence" : "10"
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Fix number",
+            "x-column" : "ROFIX#",
+            "x-sequence" : "20"
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Object code",
+            "default" : "*IFSOBJ",
+            "enum" : [ "*IFSOBJ" ],
+            "x-column" : "ROOBJC",
+            "x-sequence" : "30"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Object type",
+            "x-column" : "ROOBJT",
+            "x-sequence" : "40"
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Member code",
+            "default" : "*NONE",
+            "enum" : [ "*NONE" ],
+            "x-column" : "ROMBRC",
+            "x-sequence" : "60"
+          },
+          "routeCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Route code",
+            "default" : "*ONLY",
+            "enum" : [ "*ONLY" ],
+            "x-column" : "ROROTC",
+            "x-sequence" : "180"
+          },
+          "pathExtensionCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Path Extension Code",
+            "default" : "*ONLY",
+            "enum" : [ "*ONLY" ],
+            "x-column" : "ROELBC",
+            "x-sequence" : "190"
+          },
+          "iFSObjectCode" : {
+            "maxLength" : 257,
+            "type" : "string",
+            "description" : "IFS Object Code",
+            "default" : "*OBJC",
+            "enum" : [ "*OBJC" ]
+          },
+          "iFSDirectoryCode" : {
+            "maxLength" : 642,
+            "type" : "string",
+            "description" : "IFS Directory Code"
+          }
+        },
+        "description" : "Unlock data object\r\n",
+        "x-pfname" : "OMERO",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized",
+        "x-library" : "OMSRUN51"
+      },
+      "unlockProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "forceActiveSolution" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Use this element to activate the object as a solution, ensuring exclusive connection by locking other solutions.",
+            "default" : "0",
+            "enum" : [ "1", "0" ]
+          }
+        },
+        "description" : "Unlock processing options\r\n"
+      },
+      "moveData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "ROAPPC",
+            "x-sequence" : "10"
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Fix number",
+            "x-column" : "ROFIX#",
+            "x-sequence" : "20"
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Object code",
+            "default" : "*IFSOBJ",
+            "enum" : [ "*IFSOBJ" ],
+            "x-column" : "ROOBJC",
+            "x-sequence" : "30"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Object type",
+            "x-column" : "ROOBJT",
+            "x-sequence" : "40"
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Member code",
+            "default" : "*NONE",
+            "enum" : [ "*NONE" ],
+            "x-column" : "ROMBRC",
+            "x-sequence" : "60"
+          },
+          "iFSObjectCode" : {
+            "maxLength" : 257,
+            "type" : "string",
+            "description" : "IFS Object Code",
+            "default" : "*OBJC",
+            "enum" : [ "*OBJC" ]
+          },
+          "iFSDirectoryCode" : {
+            "maxLength" : 642,
+            "type" : "string",
+            "description" : "IFS Directory Code"
+          }
+        },
+        "description" : "Move Data",
+        "x-pfname" : "OMERO",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "moveProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "toFix" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Target fix code"
+          }
+        },
+        "description" : "Connect Processing options\r\n"
+      },
+      "changeSolutionRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "changeProcessingOptions" : {
+            "$ref" : "#/components/schemas/changeProcessingOptions"
+          },
+          "changeData" : {
+            "$ref" : "#/components/schemas/changeData"
+          }
+        },
+        "description" : "Change Solution request"
+      },
+      "disconnectSolutionRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "disconnectProcessingOptions" : {
+            "$ref" : "#/components/schemas/disconnectProcessingOptions"
+          },
+          "disconnectData" : {
+            "$ref" : "#/components/schemas/disconnectData"
+          }
+        },
+        "description" : "Disconnect Solution request"
+      },
+      "moveSolutionRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "moveProcessingOptions" : {
+            "$ref" : "#/components/schemas/moveProcessingOptions"
+          },
+          "moveData" : {
+            "$ref" : "#/components/schemas/moveData"
+          }
+        },
+        "description" : "Move request"
+      },
+      "unlockSolutionRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "interfaceLevel",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "unlockProcessingOptions" : {
+            "$ref" : "#/components/schemas/unlockProcessingOptions"
+          },
+          "unlockData" : {
+            "$ref" : "#/components/schemas/unlockData"
+          }
+        },
+        "description" : "Unlock request"
+      },
+      "connectSolutionRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "connectProcessingOptions" : {
+            "$ref" : "#/components/schemas/connectProcessingOptions"
+          },
+          "connectData" : {
+            "$ref" : "#/components/schemas/connectData"
+          }
+        },
+        "description" : "Connect Solution request"
+      }
+    },
+    "responses" : { },
+    "parameters" : { },
+    "requestBodies" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "Jwt security",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
