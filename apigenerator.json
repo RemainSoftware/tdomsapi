@@ -15,8 +15,20 @@
     "version" : "TD/OMS 11.0 Milestone 1 - Pre"
   },
   "servers" : [ {
-    "url" : "http://plato:5010/generator",
-    "description" : "plato"
+    "url" : "{protocol}://{host}:{port}/generator",
+    "description" : "TD/OMS generator server",
+    "variables" : {
+      "protocol" : {
+        "default" : "http",
+        "enum" : [ "http", "https" ]
+      },
+      "port" : {
+        "default" : "5010"
+      },
+      "host" : {
+        "default" : "plato"
+      }
+    }
   } ],
   "paths" : {
     "/ExtendedPath" : {
