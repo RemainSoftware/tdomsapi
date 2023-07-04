@@ -21,7 +21,7 @@
     }
   },
   "servers" : [ {
-    "url" : "{protocol}://{host}:{port}/V150TST/OMRDASH",
+    "url" : "{protocol}://{host}:{port}/{library}/OMRDASH",
     "description" : "TD/OMS Dashboard server",
     "variables" : {
       "protocol" : {
@@ -33,6 +33,10 @@
       },
       "host" : {
         "default" : "plato.remainsoftware.com"
+      },
+      "library" : {
+        "description" : "The TD/OMS library",
+        "default" : "V150TST"
       }
     }
   } ],
