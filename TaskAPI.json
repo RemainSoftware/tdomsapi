@@ -720,7 +720,7 @@
             "description" : "The field in error"
           },
           "messageText" : {
-            "maxLength" : 512,
+            "maxLength" : 644,
             "type" : "string",
             "description" : "The human readable message text."
           }
@@ -1120,6 +1120,7 @@
         "description" : "Input processing options for action add"
       },
       "addTaskRequest" : {
+        "required" : [ "interfaceLevel" ],
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
@@ -1159,8 +1160,6 @@
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
             },
-            "default" : "*GEN",
-            "enum" : [ "*GEN" ],
             "x-column" : "RSFIX#",
             "x-sequence" : "20"
           },
@@ -1334,6 +1333,7 @@
         "x-fieldSchemaNameType" : "Normalized"
       },
       "changeTaskRequest" : {
+        "required" : [ "interfaceLevel" ],
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
@@ -1400,8 +1400,6 @@
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
             },
-            "default" : "*GEN",
-            "enum" : [ "*GEN" ],
             "x-column" : "RSFIX#",
             "x-sequence" : "20"
           },
@@ -1426,6 +1424,7 @@
         "x-fieldSchemaNameType" : "Normalized"
       },
       "completeTaskRequest" : {
+        "required" : [ "interfaceLevel" ],
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
@@ -1482,8 +1481,6 @@
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
             },
-            "default" : "*GEN",
-            "enum" : [ "*GEN" ],
             "x-column" : "RSFIX#",
             "x-sequence" : "20"
           }
@@ -1498,7 +1495,7 @@
         "x-fieldSchemaNameType" : "Normalized"
       },
       "connectProcessingOptions" : {
-        "required" : [ "requestCode" ],
+        "required" : [ "applicationCodeRequest", "requestCode" ],
         "type" : "object",
         "properties" : {
           "applicationCodeRequest" : {
@@ -1517,9 +1514,7 @@
             "description" : "Request code",
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Request_number_(REQ)"
-            },
-            "default" : "*ALL",
-            "enum" : [ "*ALL" ]
+            }
           },
           "updateDb" : {
             "maxLength" : 1,
@@ -1539,6 +1534,7 @@
         "description" : "Input processing option for action connect"
       },
       "connectTaskRequest" : {
+        "required" : [ "interfaceLevel" ],
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
@@ -1578,8 +1574,6 @@
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
             },
-            "default" : "*GEN",
-            "enum" : [ "*GEN" ],
             "x-column" : "RSFIX#",
             "x-sequence" : "20"
           }
@@ -1591,7 +1585,7 @@
         "x-fieldSchemaNameType" : "Normalized"
       },
       "disconnectProcessingOptions" : {
-        "required" : [ "requestCode" ],
+        "required" : [ "applicationCodeRequest", "requestCode" ],
         "type" : "object",
         "properties" : {
           "applicationCodeRequest" : {
@@ -1601,8 +1595,8 @@
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Application_of_request_(RAPL)"
             },
-            "default" : "*ALL",
-            "enum" : [ "*ALL" ]
+            "default" : "*APPL",
+            "enum" : [ "*APPL" ]
           },
           "requestCode" : {
             "maxLength" : 10,
@@ -1632,6 +1626,7 @@
         "description" : "Input processing options for action disconnect"
       },
       "disconnectTaskRequest" : {
+        "required" : [ "interfaceLevel" ],
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
@@ -1671,8 +1666,6 @@
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
             },
-            "default" : "*GEN",
-            "enum" : [ "*GEN" ],
             "x-column" : "RSFIX#",
             "x-sequence" : "20"
           }
@@ -1727,6 +1720,7 @@
         "description" : "Input processing options for action copy"
       },
       "copyTaskRequest" : {
+        "required" : [ "interfaceLevel" ],
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
@@ -1766,8 +1760,6 @@
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
             },
-            "default" : "*GEN",
-            "enum" : [ "*GEN" ],
             "x-column" : "RSFIX#",
             "x-sequence" : "20"
           }
@@ -1799,6 +1791,7 @@
         "description" : "Input processing options for action delete"
       },
       "deleteTaskRequest" : {
+        "required" : [ "interfaceLevel" ],
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
@@ -1838,8 +1831,6 @@
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
             },
-            "default" : "*GEN",
-            "enum" : [ "*GEN" ],
             "x-column" : "RSFIX#",
             "x-sequence" : "20"
           }
@@ -1884,6 +1875,7 @@
         "description" : "Input processing options for action ratify"
       },
       "ratifyTaskRequest" : {
+        "required" : [ "interfaceLevel" ],
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
@@ -1923,8 +1915,6 @@
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
             },
-            "default" : "*GEN",
-            "enum" : [ "*GEN" ],
             "x-column" : "RSFIX#",
             "x-sequence" : "20"
           }
@@ -1956,6 +1946,7 @@
         "description" : "Input processing options for action status"
       },
       "statusTaskRequest" : {
+        "required" : [ "interfaceLevel" ],
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
