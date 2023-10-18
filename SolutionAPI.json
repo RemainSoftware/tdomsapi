@@ -16,9 +16,9 @@
     "version" : "0.0.1",
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
-      "library" : "V15T0270",
+      "library" : "V15T0334",
       "file" : "SolutionAPI.json",
-      "srclibrary" : "V15T0270S",
+      "srclibrary" : "V15T0334S",
       "object" : "OMQRSO"
     }
   },
@@ -109,7 +109,7 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "01",
-          "generate" : true
+          "generate" : false
         }
       }
     },
@@ -194,7 +194,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/disconnectSolutionRequest"
+                "$ref" : "#/components/schemas/solutionRequest"
               }
             }
           }
@@ -246,7 +246,7 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "03",
-          "generate" : true
+          "generate" : false
         }
       }
     },
@@ -262,7 +262,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/disconnectSolutionRequest"
+                "$ref" : "#/components/schemas/solutionRequest"
               }
             }
           }
@@ -314,7 +314,7 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "04",
-          "generate" : true
+          "generate" : false
         }
       }
     },
@@ -382,7 +382,7 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "05",
-          "generate" : true
+          "generate" : false
         }
       }
     },
@@ -450,7 +450,7 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "06",
-          "generate" : true
+          "generate" : false
         }
       }
     }
@@ -486,7 +486,7 @@
             "description" : "The field in error"
           },
           "messageText" : {
-            "maxLength" : 512,
+            "maxLength" : 644,
             "type" : "string",
             "description" : "The human readable text"
           }
@@ -999,10 +999,10 @@
             "x-column" : "ROROTC",
             "x-sequence" : "180"
           },
-          "pathExtensionCode" : {
+          "pathExtensionLibraryCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Path Extension Code",
+            "description" : "Path Extension Library Code",
             "default" : "*ONLY",
             "enum" : [ "*ONLY" ],
             "x-column" : "ROELBC",
@@ -1019,6 +1019,13 @@
             "maxLength" : 642,
             "type" : "string",
             "description" : "IFS Directory Code"
+          },
+          "longDescription" : {
+            "maxLength" : 65535,
+            "type" : "string",
+            "description" : "*SAME Use this value to indicate that long description does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
           }
         },
         "description" : "Change Data Object",
@@ -1201,105 +1208,6 @@
         },
         "description" : "Connect processing options\r\n"
       },
-      "disconnectData" : {
-        "type" : "object",
-        "properties" : {
-          "applicationCode" : {
-            "maxLength" : 5,
-            "type" : "string",
-            "description" : "Application code",
-            "x-column" : "ROAPPC",
-            "x-sequence" : "10"
-          },
-          "fixNumber" : {
-            "maxLength" : 10,
-            "type" : "string",
-            "description" : "Fix number",
-            "x-column" : "ROFIX#",
-            "x-sequence" : "20"
-          },
-          "objectCode" : {
-            "maxLength" : 12,
-            "type" : "string",
-            "description" : "Object code",
-            "default" : "*IFSOBJ",
-            "enum" : [ "*IFSOBJ" ],
-            "x-column" : "ROOBJC",
-            "x-sequence" : "30"
-          },
-          "objectType" : {
-            "maxLength" : 9,
-            "type" : "string",
-            "description" : "Object type",
-            "x-column" : "ROOBJT",
-            "x-sequence" : "40"
-          },
-          "memberCode" : {
-            "maxLength" : 10,
-            "type" : "string",
-            "description" : "Member code",
-            "default" : "*NONE",
-            "enum" : [ "*NONE" ],
-            "x-column" : "ROMBRC",
-            "x-sequence" : "60"
-          },
-          "routeCode" : {
-            "maxLength" : 10,
-            "type" : "string",
-            "description" : "Route code",
-            "default" : "*ONLY",
-            "enum" : [ "*ONLY" ],
-            "x-column" : "ROROTC",
-            "x-sequence" : "180"
-          },
-          "pathExtensionCode" : {
-            "maxLength" : 10,
-            "type" : "string",
-            "description" : "Path Extension Code",
-            "default" : "*ONLY",
-            "enum" : [ "*ONLY" ],
-            "x-column" : "ROELBC",
-            "x-sequence" : "190"
-          },
-          "iFSObjectCode" : {
-            "maxLength" : 257,
-            "type" : "string",
-            "description" : "IFS Object Code",
-            "default" : "*OBJC",
-            "enum" : [ "*OBJC" ]
-          },
-          "iFSDirectoryCode" : {
-            "maxLength" : 642,
-            "type" : "string",
-            "description" : "IFS Directory Code"
-          }
-        },
-        "description" : "Disconnect data object\r\n",
-        "x-pfname" : "OMERO",
-        "x-library" : "OMSRUN51",
-        "x-host" : "plato",
-        "x-fieldSchemaNameType" : "Normalized"
-      },
-      "disconnectProcessingOptions" : {
-        "type" : "object",
-        "properties" : {
-          "updateDb" : {
-            "maxLength" : 1,
-            "type" : "string",
-            "description" : "Specify '1' to update the database or '0' to not update but check only.",
-            "default" : "1",
-            "enum" : [ "0", "1" ]
-          },
-          "updateBuffer" : {
-            "maxLength" : 1,
-            "type" : "string",
-            "description" : "Specify '1' to update the database or '0' to not update but check only.",
-            "default" : "1",
-            "enum" : [ "0", "1" ]
-          }
-        },
-        "description" : "Disconnect\r\n Processing Options"
-      },
       "unlockData" : {
         "type" : "object",
         "properties" : {
@@ -1351,10 +1259,10 @@
             "x-column" : "ROROTC",
             "x-sequence" : "180"
           },
-          "pathExtensionCode" : {
+          "pathExtensionLibraryCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Path Extension Code",
+            "description" : "Path Extension Library Code",
             "default" : "*ONLY",
             "enum" : [ "*ONLY" ],
             "x-column" : "ROELBC",
@@ -1511,25 +1419,6 @@
         },
         "description" : "Change Solution request"
       },
-      "disconnectSolutionRequest" : {
-        "type" : "object",
-        "properties" : {
-          "interfaceLevel" : {
-            "maxLength" : 8,
-            "type" : "string",
-            "description" : "The interface level",
-            "default" : "V3R0M0",
-            "enum" : [ "V3R0M0" ]
-          },
-          "disconnectProcessingOptions" : {
-            "$ref" : "#/components/schemas/disconnectProcessingOptions"
-          },
-          "disconnectData" : {
-            "$ref" : "#/components/schemas/disconnectData"
-          }
-        },
-        "description" : "Disconnect Solution request"
-      },
       "moveSolutionRequest" : {
         "type" : "object",
         "properties" : {
@@ -1586,11 +1475,127 @@
           }
         },
         "description" : "Connect Solution request"
+      },
+      "solutionRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "solutionProcessingOptions" : {
+            "$ref" : "#/components/schemas/solutionProcessingOptions"
+          },
+          "solutionData" : {
+            "$ref" : "#/components/schemas/solutionData"
+          }
+        },
+        "description" : "Disconnect Solution request"
+      },
+      "solutionProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Disconnect\r\n Processing Options"
+      },
+      "solutionData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "ROAPPC",
+            "x-sequence" : "10"
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Fix number",
+            "x-column" : "ROFIX#",
+            "x-sequence" : "20"
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Object code",
+            "default" : "*IFSOBJ",
+            "enum" : [ "*IFSOBJ" ],
+            "x-column" : "ROOBJC",
+            "x-sequence" : "30"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Object type",
+            "x-column" : "ROOBJT",
+            "x-sequence" : "40"
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Member code",
+            "default" : "*NONE",
+            "enum" : [ "*NONE" ],
+            "x-column" : "ROMBRC",
+            "x-sequence" : "60"
+          },
+          "routeCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Route code",
+            "default" : "*ONLY",
+            "enum" : [ "*ONLY" ],
+            "x-column" : "ROROTC",
+            "x-sequence" : "180"
+          },
+          "pathExtensionLibraryCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Path Extension Library Code",
+            "default" : "*ONLY",
+            "enum" : [ "*ONLY" ],
+            "x-column" : "ROELBC",
+            "x-sequence" : "190"
+          },
+          "iFSObjectCode" : {
+            "maxLength" : 257,
+            "type" : "string",
+            "description" : "IFS Object Code",
+            "default" : "*OBJC",
+            "enum" : [ "*OBJC" ]
+          },
+          "iFSDirectoryCode" : {
+            "maxLength" : 642,
+            "type" : "string",
+            "description" : "IFS Directory Code"
+          }
+        },
+        "description" : "Disconnect data object\r\n",
+        "x-pfname" : "OMERO",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
       }
     },
     "responses" : { },
-    "parameters" : { },
-    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
