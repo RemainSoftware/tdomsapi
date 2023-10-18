@@ -16,9 +16,9 @@
     "version" : "0.0.1",
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
-      "library" : "V15T0280",
+      "library" : "V15T0352",
       "file" : "RequestAPI.json",
-      "srclibrary" : "V15T0280S",
+      "srclibrary" : "V15T0352S",
       "object" : "OMQRRE"
     }
   },
@@ -186,15 +186,15 @@
       "summary" : "connect task",
       "description" : "connect task",
       "post" : {
-        "summary" : "Connect a task",
+        "summary" : "Connect a task to the request",
         "description" : "A task is connected to the request using this path.",
-        "operationId" : "connectTask",
+        "operationId" : "connectRequest",
         "requestBody" : {
           "description" : "Connect Task",
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/connectTaskRequest"
+                "$ref" : "#/components/schemas/connectRequestRequest"
               }
             }
           },
@@ -385,7 +385,7 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "03",
-          "generate" : true
+          "generate" : false
         }
       }
     },
@@ -1098,6 +1098,13 @@
             "default" : "*APPL",
             "enum" : [ "*APPL" ]
           },
+          "taskCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Enter the task number that needs to be connected to the request.",
+            "default" : "*ALL",
+            "enum" : [ "*ALL" ]
+          },
           "updateDb" : {
             "maxLength" : 1,
             "type" : "string",
@@ -1114,25 +1121,6 @@
           }
         },
         "description" : "Enter processing array input here for connect request"
-      },
-      "connectTaskRequest" : {
-        "type" : "object",
-        "properties" : {
-          "interfaceLevel" : {
-            "maxLength" : 8,
-            "type" : "string",
-            "description" : "The interface level must be V3R0M0",
-            "default" : "V3R0M0",
-            "enum" : [ "V3R0M0" ]
-          },
-          "connectProcessingOption" : {
-            "$ref" : "#/components/schemas/connectProcessingOption"
-          },
-          "connectData" : {
-            "$ref" : "#/components/schemas/connectData"
-          }
-        },
-        "description" : "Input schema for connecting a task to the request"
       },
       "completeData" : {
         "type" : "object",
@@ -1309,7 +1297,9 @@
           "taskCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the task code"
+            "description" : "Enter the task code",
+            "default" : "*ALL",
+            "enum" : [ "*ALL" ]
           }
         },
         "description" : "Enter processing array input here for disconnect request"
@@ -1455,9 +1445,11 @@
             "description" : "To Application Code"
           },
           "toRequestNumber" : {
-            "maxLength" : 5,
+            "maxLength" : 10,
             "type" : "string",
-            "description" : "To Request Number"
+            "description" : "To Request Number",
+            "default" : "*GEN",
+            "enum" : [ "*GEN" ]
           }
         },
         "description" : "Enter processing array input here for rename request"
@@ -1608,6 +1600,7 @@
           },
           "requestedCompletionDate" : {
             "maximum" : 7,
+            "exclusiveMaximum" : true,
             "type" : "number",
             "description" : "Requested Completion Date",
             "format" : "zoned(7:0)",
@@ -1740,6 +1733,25 @@
           }
         },
         "description" : "Input schema for coping the request"
+      },
+      "connectRequestRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V3R0M0",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "connectProcessingOption" : {
+            "$ref" : "#/components/schemas/connectProcessingOption"
+          },
+          "connectData" : {
+            "$ref" : "#/components/schemas/connectData"
+          }
+        },
+        "description" : "Input schema for connecting a task to the request"
       }
     },
     "responses" : { },
