@@ -1,0 +1,431 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Branch API.",
+    "description" : "The BRANCH API enables you to create, change and delete branches. It also enables you to calculate the status of a branch.                                       ",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "object" : "@OMQRBR",
+      "library" : "V16T0011",
+      "srclibrary" : "V16T0011S",
+      "file" : "BranchAPI.json"
+    }
+  },
+  "servers" : [ {
+    "url" : "https://{host}:{port}/{library}/OMQRBR",
+    "description" : "A dynamic https host",
+    "variables" : {
+      "host" : {
+        "description" : "The host serving the API",
+        "default" : "plato.remainsoftware.com"
+      },
+      "port" : {
+        "description" : "The port to which the server is listening",
+        "default" : "45211"
+      },
+      "library" : {
+        "description" : "The TD/OMS library",
+        "default" : "V160TST"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/add" : {
+      "summary" : "Use this path to add a new branch.",
+      "description" : "Use this path to add a new branch.",
+      "post" : {
+        "summary" : "Use this operation to add a new branch.",
+        "description" : "Use this operation to add a new branch.",
+        "operationId" : "addBranch",
+        "requestBody" : {
+          "description" : "Use this operation to add a new branch.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/addRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request from Client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : true
+        }
+      }
+    },
+    "/change" : {
+      "summary" : "Use this path to change a branch.",
+      "description" : "Use this path to change a branch.",
+      "post" : {
+        "summary" : "Use this operation to change a branch.",
+        "description" : "Use this operation to change a branch.",
+        "operationId" : "changeBranch",
+        "requestBody" : {
+          "description" : "Use this operation to change a branch.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/changeRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request from client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "02",
+          "generate" : true
+        }
+      }
+    },
+    "/delete" : {
+      "summary" : "Use this path to delete a branch.",
+      "description" : "Use this path to delete a branch.",
+      "post" : {
+        "summary" : "Use this operation to delete a branch.",
+        "description" : "Use this operation to delete a branch.",
+        "operationId" : "deleteBranch",
+        "requestBody" : {
+          "description" : "Use this operation to delete a branch.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/deleteRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request from client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "03",
+          "generate" : true
+        }
+      }
+    },
+    "/status" : {
+      "summary" : "Use this path to calculate and update the status of a branch.",
+      "description" : "Use this path to calculate and update the status of a branch.",
+      "post" : {
+        "summary" : "Use this operation to calculate and update the status of a branch.",
+        "description" : "Use this operation to calculate and update the status of a branch.",
+        "operationId" : "statusBranch",
+        "requestBody" : {
+          "description" : "Use this operation to calculate and update the status of a branch.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/statusRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request from client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "04",
+          "generate" : true
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "extendedMessage" : {
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The IBM i message file."
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "The message id."
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "The message substitution data."
+          },
+          "messageText" : {
+            "maxLength" : 512,
+            "type" : "string",
+            "description" : "The human readable message text."
+          }
+        },
+        "description" : "Extended Message"
+      },
+      "message" : {
+        "type" : "string",
+        "description" : "message"
+      },
+      "changeRequest" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Enter the application code."
+          },
+          "pathCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Enter the branch name to be changed."
+          },
+          "transferPathDescription" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "Enter the branch description to be changed."
+          }
+        },
+        "description" : "A branch is changed using this input schema."
+      },
+      "response" : {
+        "type" : "object",
+        "properties" : {
+          "messages" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status which can be *NORM or *TERM. In case of *TERM look at the messages for more information."
+          }
+        },
+        "description" : "Output schema for branch."
+      },
+      "addRequest" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Enter the name of the application."
+          },
+          "pathCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "enter the name of the branch to be created."
+          },
+          "connectToFix" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Enter the task name to which the transfer path is connected.\r\n*NONE                                                     \r\n    No task is involved.                              \r\n                                                          \r\n*BRANCH                                                   \r\n    The branch code would be set the name of the task.\r\ntask-code                              \r\n    Specify the name of the task.",
+            "default" : "*NONE",
+            "enum" : [ "*NONE", "*BRANCH" ]
+          },
+          "transferPathDescription" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "The description contains a short description of the branch. A blank value is not allowed.                \r\n\r\n*SAME                                                     \r\n    Use this value to indicate that the description does not change. \r\n\r\ndescription                    \r\n    Enter a branch description."
+          }
+        },
+        "description" : "A branch is created using this input schema."
+      },
+      "statusRequest" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Enther the application code."
+          },
+          "pathCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Enter the branch code for which status has to be calculated."
+          }
+        },
+        "description" : "A branch status is calculated and updated using this input schema."
+      },
+      "deleteRequest" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Enter the application code for which branch has to be deleted."
+          },
+          "pathCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Enter the branch code that has to be deleted."
+          },
+          "forceInd" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "If the branch is not empty (i.e. libraries and directories contain objects) or the associated tasks are not yet complete then the branch can not be deleted unless the force parameter is set to *YES.                           \r\n\r\nIt is important that the environment branches ONLY contain temporary branch definitions and no official libraries because they will be deleted if this command is executed in FORCE mode.                                            \r\n\r\n*NO                                                       \r\n    The branch may only be deleted if all associated task are complete and the branch libraries and directories are empty.                                            \r\n\r\n*YES                                                      \r\n    The branch may be deleted even if the associated tasks are not completed.  Associated libraries and directories are removed regardless of their content.",
+            "default" : "0",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "A branch is deleted using this input schema."
+      }
+    },
+    "responses" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "http token",
+        "name" : "JWT",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
