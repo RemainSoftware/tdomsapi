@@ -339,7 +339,6 @@
       "JWT" : {
         "type" : "http",
         "description" : "The HTTP API Token",
-        "name" : "JWT",
         "scheme" : "bearer",
         "bearerFormat" : "JWT"
       }
