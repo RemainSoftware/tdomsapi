@@ -421,7 +421,6 @@
       "JWT" : {
         "type" : "http",
         "description" : "http token",
-        "name" : "JWT",
         "scheme" : "bearer",
         "bearerFormat" : "JWT"
       }
