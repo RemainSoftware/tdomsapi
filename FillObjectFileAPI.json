@@ -1,0 +1,349 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Fill Object File API",
+    "description" : "The Fill Object File API allows you to fill the object file. ",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License ",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "object" : "OMQRFO",
+      "library" : "V16T0010",
+      "srclibrary" : "V16T0010S",
+      "file" : "FillObjectFileAPI.json"
+    }
+  },
+  "servers" : [ {
+    "url" : "https://{host}:{port}/{library}/OMQRFO",
+    "description" : "A dynamic https host",
+    "variables" : {
+      "host" : {
+        "description" : "The host serving the API",
+        "default" : "plato.remainsoftware.com"
+      },
+      "port" : {
+        "description" : "The port to which the server is listening",
+        "default" : "45211"
+      },
+      "library" : {
+        "description" : "The TD/OMS library",
+        "default" : "V160TST"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/fillObject" : {
+      "summary" : "Use this path to fill the object file.",
+      "description" : "Use this path to fill the object file.",
+      "post" : {
+        "summary" : "Use this operation to fill the object file.",
+        "description" : "Use this operation to fill the object file.",
+        "operationId" : "fillObject",
+        "requestBody" : {
+          "description" : "The fill object file request",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/request"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : false
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "extendedMessage" : {
+        "required" : [ "field", "messageData", "messageFile", "messageId", "messageType" ],
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The IBM i message file"
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "Message Id"
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The message type"
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "The message subtitution data"
+          },
+          "field" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "The field in error"
+          },
+          "messageText" : {
+            "maxLength" : 644,
+            "type" : "string",
+            "description" : "The human-readable message text."
+          }
+        },
+        "description" : "The return message."
+      },
+      "request" : {
+        "required" : [ "applicationCode" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code to fill objects from."
+          },
+          "environmentCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the environment code in the selected application to fill objects from.                                    ",
+            "default" : "*ALL",
+            "enum" : [ "*ALL" ]
+          },
+          "routeCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Route code      ",
+            "externalDocs" : {
+              "description" : "If you specify the blank value for this field, it will assume the value *NONE.",
+              "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Route_-_(ROTC)"
+            },
+            "default" : "*NONE",
+            "enum" : [ "*ALL", "*NONE" ]
+          },
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Object library",
+            "externalDocs" : {
+              "description" : "If you specify the blank value for this field, it will assume the value *NONE.",
+              "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Object_Library_-_(OBJL)"
+            },
+            "default" : "*NONE",
+            "enum" : [ "*ALL", "*NONE" ]
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Object Code",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Object_Code_-_(OBJC)"
+            }
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Object type",
+            "externalDocs" : {
+              "description" : "If you specify the blank value for this field, it will assume the value *NONE.",
+              "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Object_Type_-_(OBJT)"
+            },
+            "default" : "*ALL",
+            "enum" : [ "*ALL" ]
+          },
+          "objectAttribute" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Object attribute",
+            "externalDocs" : {
+              "description" : "If you specify the blank value for this field, it will assume the value *NONE.",
+              "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Object_Attribute_-_(OBJA)"
+            },
+            "default" : "*ALL",
+            "enum" : [ "*ALL" ]
+          },
+          "processingOptions" : {
+            "$ref" : "#/components/schemas/processingOptions"
+          }
+        },
+        "description" : "Request data for the fill object file."
+      },
+      "response" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status which can be *NORM or *TERM. In case of *TERM look at the messages for more information."
+          },
+          "jobName" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Job name"
+          },
+          "userId" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "User Id"
+          },
+          "jobNumber" : {
+            "maximum" : 6,
+            "type" : "number",
+            "description" : "Job number",
+            "format" : "zoned(6:0)"
+          },
+          "messages" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/extendedMessage"
+            }
+          }
+        },
+        "description" : "This will return messages and status."
+      },
+      "processingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "processingMode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Processing mode\r\n",
+            "externalDocs" : {
+              "description" : "'0' = *BATCH\r\n'1' = *INTERACTIVE",
+              "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Processing_Mode_-_(PRCI)"
+            },
+            "default" : "*BATCH",
+            "enum" : [ "*BATCH", "*INTERACTIVE" ]
+          },
+          "processingMethod" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "Processing method",
+            "externalDocs" : {
+              "description" : "'0' = *FILL\r\n'1' = *EMPTY\r\n'2' = *REPORT",
+              "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Processing_Method_-_(PRCM)"
+            },
+            "default" : "*FILL",
+            "enum" : [ "*FILL", "*EMPTY", "*REPORT" ]
+          },
+          "processOnlyRelations" : {
+            "maxLength" : 4,
+            "type" : "string",
+            "description" : "Process only Relations",
+            "externalDocs" : {
+              "description" : "'0' = *NO\r\n'1' = *YES",
+              "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Relations_Only_-_(RELI)"
+            },
+            "default" : "*NO",
+            "enum" : [ "*NO", "*YES" ]
+          },
+          "objectAndOr4GLGroup" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "Object and/or 4GL group",
+            "externalDocs" : {
+              "description" : "'0' = *BOTH\r\n'1' = *OBJECT\r\n'2' = *GROUP",
+              "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Object_/_Group_-_(OOGI)"
+            },
+            "default" : "*OBJECT",
+            "enum" : [ "*BOTH", "*OBJECT", "*GROUP" ]
+          },
+          "typeCA2ESelection" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Type of CA 2E selection",
+            "externalDocs" : {
+              "description" : "'1' = *ANY\r\n'2' = *AREA\r\n'3' = *ANYSYS\r\n'4' = *AREASYS",
+              "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Synon_selection_code_-_(SELC)"
+            },
+            "default" : "*ANY",
+            "enum" : [ "*ANY", "*AREA", "*ANYSYS", "*AREASYS" ]
+          },
+          "cA2EObjectCode" : {
+            "maxLength" : 25,
+            "type" : "string",
+            "description" : "CA 2E Object code",
+            "format" : "",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Synon_object_code_-_(SAOC)"
+            },
+            "default" : "*ALL",
+            "enum" : [ "*ALL" ]
+          },
+          "cA2EOwningObject" : {
+            "maxLength" : 25,
+            "type" : "string",
+            "description" : "CA 2E owning Object code",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Synon_owning_object_code_-_(SOOC)"
+            },
+            "default" : "*ALLOBJ",
+            "enum" : [ "*ALLOBJ" ]
+          }
+        },
+        "description" : "Various flags to control the behaviour of the API."
+      }
+    },
+    "responses" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "The HTTP API Token",
+        "name" : "JWT",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
