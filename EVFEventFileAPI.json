@@ -1,0 +1,409 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "EVF Event File API.",
+    "description" : "The EVF event file REST API parses information from the EVFEVENT file. It currently exhibits various record types, including Timestamp Records, Processor Records, File ID Records, File End Records, Error Information Records, and Expansion Records.\r\n\r\nCurrently, the API retrieves the first 999 Error Information Records.",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License ",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "object" : "OMQREV",
+      "library" : "V16T0048",
+      "srclibrary" : "V16T0048S",
+      "file" : "EVFEventFileAPI.json"
+    }
+  },
+  "servers" : [ {
+    "url" : "https://{host}:{port}/{library}/OMQREV",
+    "description" : "A dynamic https host",
+    "variables" : {
+      "port" : {
+        "description" : "The port to which the server is listening.",
+        "default" : "45211"
+      },
+      "host" : {
+        "description" : "The host serving the API.",
+        "default" : "plato.remainsoftware.com"
+      },
+      "library" : {
+        "description" : "The TD/OMS library.",
+        "default" : "V160TST"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/parseEvent" : {
+      "summary" : "Use this path to parse the EVF event file.",
+      "description" : "Use this path to parse the EVF event file.",
+      "post" : {
+        "summary" : "Use this operation to parse the EVF event file.",
+        "description" : "Use this operation to parse the EVF event file.",
+        "operationId" : "parseEvent",
+        "requestBody" : {
+          "description" : "Use this input to parse the EVFEVENT file.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/request"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "suffix" : "01",
+          "generate" : "true"
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "request" : {
+        "required" : [ "library", "memberName" ],
+        "type" : "object",
+        "properties" : {
+          "memberName" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the member's name."
+          },
+          "library" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the library."
+          }
+        },
+        "description" : "Request data to parse the EVF event file."
+      },
+      "response" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status which can be *NORM or *TERM. In case of *TERM look at the messages for more information."
+          },
+          "timestampRecord" : {
+            "$ref" : "#/components/schemas/timeStamp"
+          },
+          "processorRecord" : {
+            "maxItems" : 999,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/processor"
+            }
+          },
+          "fileIdRecord" : {
+            "maxItems" : 999,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/fileId"
+            }
+          },
+          "fileEndRecord" : {
+            "maxItems" : 999,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/fileEnd"
+            }
+          },
+          "errorInfoRecord" : {
+            "maxItems" : 999,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/errorInfo"
+            }
+          },
+          "expansionRecord" : {
+            "maxItems" : 999,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/expansion"
+            }
+          }
+        },
+        "description" : "This will return the data from the EVF event file."
+      },
+      "extendedMessage" : {
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The IBM i message file."
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "Message Id"
+          },
+          "messageText" : {
+            "maxLength" : 644,
+            "type" : "string",
+            "description" : "The human-readable message text."
+          }
+        },
+        "description" : "The return message."
+      },
+      "timeStamp" : {
+        "type" : "object",
+        "properties" : {
+          "version" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The revision of this record is used for upward compatibility."
+          },
+          "timestamp" : {
+            "maxLength" : 14,
+            "type" : "string",
+            "description" : "The date and time the Events File was created in yyyymmddhhmmss format."
+          }
+        },
+        "description" : "This record indicates when the Events File was created, and allows an application to determine if the Events File is current (if the timestamp is older than a file indicated in a File ID record, the Events File may be incorrect for that file). This record is always the first record in the Events File."
+      },
+      "fileEnd" : {
+        "type" : "object",
+        "properties" : {
+          "version" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The revision of this record, used for upward compatibility."
+          },
+          "fileId" : {
+            "maxLength" : 3,
+            "type" : "string",
+            "description" : "The file ID of this file."
+          },
+          "expansion" : {
+            "maxLength" : 6,
+            "type" : "string",
+            "description" : "Number of expanded source lines in this file, including any nested includes and macro expansions."
+          }
+        },
+        "description" : "This record indicates that an included file is ending. It provides a method to determine the nesting of include files so a program can navigate back up the include chain. This is useful when the included file does not contain enough information to determine what caused the error."
+      },
+      "processor" : {
+        "type" : "object",
+        "properties" : {
+          "version" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The revision of this record, used for upward compatibility."
+          },
+          "outputId" : {
+            "maxLength" : 3,
+            "type" : "string",
+            "description" : "The file ID of an output file produced by this processor. If the output of this processor is intended to be used as input to another processor, this file ID represents that file, and the file ID record of the file will follow this record. If this is the last processor that will be invoked for which the editor will be expected to display messages, the file ID is 0."
+          },
+          "lineClass" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Method used to number lines. Specify zero if a temporary file or internal file containing an expanded source representation is being used; the line number represents the line number in the expanded source. Specify one if the line number represents the physical line number in the source file indicated in source file ID field."
+          }
+        },
+        "description" : "This record indicates that a new processor has been invoked."
+      },
+      "errorInfo" : {
+        "type" : "object",
+        "properties" : {
+          "version" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The revision of this record, used for upward compatibility."
+          },
+          "fileId" : {
+            "maxLength" : 3,
+            "type" : "string",
+            "description" : "The file ID number of the source file containing this error."
+          },
+          "annotClass" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Indicates where in a listing of messages this message should be placed when the Events File is loaded in the Error List window."
+          },
+          "stmtLine" : {
+            "maxLength" : 6,
+            "type" : "string",
+            "description" : "Line number (in the source file associated with the above source file ID number) of the first line of the statement containing the error. This is required in case the error does not occur on the first line of the statement. This number is interpreted using the line class field."
+          },
+          "startErrLine" : {
+            "maxLength" : 6,
+            "type" : "string",
+            "description" : "Line number (in the source file associated with the above source file ID number) containing the start of the error. This number is interpreted using the line class field."
+          },
+          "tokenStart" : {
+            "maxLength" : 3,
+            "type" : "string",
+            "description" : "Column (or character in the line) of the start of the token in error. If this information is not available, a zero here will cause the entire line to be flagged as an error."
+          },
+          "endErrLine" : {
+            "maxLength" : 6,
+            "type" : "string",
+            "description" : "Line number (in the source file associated with the above source file ID number) containing the end of the error. This number is interpreted using the line class field."
+          },
+          "tokenEnd" : {
+            "maxLength" : 3,
+            "type" : "string",
+            "description" : "Column (or character in the line) of the end of the token in error. If this information is not available, a zero here will cause the entire line to be flagged as an error."
+          },
+          "msgId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "Message ID (for example, AMPX999)."
+          },
+          "sevChar" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Severity code letter (I, W, E, S, or T)."
+          },
+          "sevNum" : {
+            "maxLength" : 2,
+            "type" : "string",
+            "description" : "Severity level number. For some systems, this is the return code associated with the severity code letter (for example, I=0, W=4, E=8, S=12, T=16)."
+          },
+          "length" : {
+            "maxLength" : 3,
+            "type" : "string",
+            "description" : "The actual length of the message text (the next field). The maximum length is 1024 bytes."
+          },
+          "msg" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "The message text of the error message. Any replacement of fields should have already been done."
+          }
+        },
+        "description" : "A record of this type contains information required to locate a token or line causing a message in the source file, as well as enough information to allow the message itself to be displayed. This information includes location information (such as what file and line the error occurred on) and information related to the error itself (such as the number, text, and severity of the message).\r\n\r\nCurrently, the first 999 error information records are showing."
+      },
+      "expansion" : {
+        "type" : "object",
+        "properties" : {
+          "version" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The revision of this record, used for upward compatibility."
+          },
+          "inputFileId" : {
+            "maxLength" : 3,
+            "type" : "string",
+            "description" : "ID of the file containing the source that will be expanded. The File IDs have to match the IDs found within the same processor block."
+          },
+          "inputLineStart" : {
+            "maxLength" : 6,
+            "type" : "string",
+            "description" : "The line number where the statement to be expanded starts."
+          },
+          "inputLineEnd" : {
+            "maxLength" : 6,
+            "type" : "string",
+            "description" : "The line number where the statement to be expanded ends."
+          },
+          "outputFileId" : {
+            "maxLength" : 3,
+            "type" : "string",
+            "description" : "ID of the file where the expanded source is being written. The File IDs have to match the IDs found within the same processor block."
+          },
+          "outputLineStart" : {
+            "maxLength" : 6,
+            "type" : "string",
+            "description" : "The line number where the expanded source starts."
+          },
+          "outputLineEnd" : {
+            "maxLength" : 6,
+            "type" : "string",
+            "description" : "The line number where the expanded source ends."
+          }
+        },
+        "description" : "This record contains information about expanded source lines due to a pre-processor (such as the SQL pre-compiler or the RPG pre-processor). This information would be used to create a mapping between the output of a pre-processor and the original source."
+      },
+      "fileId" : {
+        "type" : "object",
+        "properties" : {
+          "version" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The revision of this record, used for upward compatibility."
+          },
+          "sourceId" : {
+            "maxLength" : 3,
+            "type" : "string",
+            "description" : "A file identifier expressed as an integer to be used in place of the file name to correlate an error record with the source file in which it occurred, without having to use the character based file name. Use zero if the input file is not known, such as input coming from a user exit."
+          },
+          "line" : {
+            "maxLength" : 6,
+            "type" : "string",
+            "description" : "Source file line number where a new file is referenced, or zero if the file was not referenced from a file.",
+            "format" : ""
+          },
+          "length" : {
+            "maxLength" : 3,
+            "type" : "string",
+            "description" : "Length of the file name; the maximum length is 255. In a FILEIDCONT record, the length is always zero since length is only determined by the file ID record."
+          },
+          "fileName" : {
+            "maxLength" : 255,
+            "type" : "string",
+            "description" : "The name should be the fully-qualified physical file name. If none exists (for example, getting text from the user) or the name can't be determined, place a null string here.\r\nThe name can include servername."
+          },
+          "sourcefileTimestamp" : {
+            "maxLength" : 14,
+            "type" : "string",
+            "description" : "This is the timestamp on the Source file."
+          },
+          "tempFlag" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "This field is set to 1 to indicate the source is a temporary file, otherwise it is set to 0. Temporary source file can only be opened in browse mode. Currently the temp flag is used to reference output generated by SQL preprocessor."
+          }
+        },
+        "description" : "This record contains the full name of the source file processed and associates an integer with the file name. There should be one record of this type for each source file processed (the main source file as well as any included source units (copylib members) and macros)."
+      }
+    },
+    "responses" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "The HTTP API Token",
+        "name" : "JWT",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
