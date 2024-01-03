@@ -15,3 +15,4 @@
 * [REST Compile Queue API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/compileQueue.json)
 * [REST Branch API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/BranchAPI.json)
 * [REST Fill Object File API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/FillObjectFileAPI.json)
+* [REST EVF Event File API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/EVFEventFileAPI.json)
