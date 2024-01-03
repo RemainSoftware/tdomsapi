@@ -1,0 +1,282 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "newObjectAPI.",
+    "description" : "The new object API enables you to create the new objects.",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License ",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "object" : "OMQRNO",
+      "library" : "V16T0032",
+      "srclibrary" : "V16T0032S",
+      "file" : "newObjectAPI.json"
+    }
+  },
+  "servers" : [ {
+    "url" : "https://{host}:{port}/{library}/OMQRNO",
+    "description" : "172.17.4.10",
+    "variables" : {
+      "host" : {
+        "description" : "The host serving the API",
+        "default" : "plato.remainsoftware.com"
+      },
+      "port" : {
+        "description" : "The port to which the server is listening",
+        "default" : "45211"
+      },
+      "library" : {
+        "description" : "The TD/OMS library",
+        "default" : "V16T0032"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/add" : {
+      "summary" : "Use this path to create the new object.",
+      "description" : "Use this path to create the new object.",
+      "post" : {
+        "summary" : "Use this operation to create the new object.",
+        "description" : "Use this operation to create the new object.",
+        "operationId" : "add",
+        "requestBody" : {
+          "description" : "addNewObject",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/addRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request from Client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : true
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "addRequest" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Input the application code required for creating a new object."
+          },
+          "task" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Input the task name required for creating a new object."
+          },
+          "environmentCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Input the environment code required for creating a new object."
+          },
+          "copyObject" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Enter your choice if you wan to copy the source from the related object template.\r\n\r\n '0' - Enter '0' if you don't want to copy the source. \r\n\r\n'1' - Enter '1' if you want to copy the source. ",
+            "nullable" : true,
+            "default" : "0",
+            "enum" : [ null, "0", "1" ]
+          },
+          "template" : {
+            "$ref" : "#/components/schemas/template"
+          },
+          "newObjectTemplate" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "Enter the template name."
+          },
+          "newObject" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Enter the new object name that you wish to create."
+          },
+          "newObjectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Enter the new object library here."
+          },
+          "newObjectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Enter the new object type here."
+          },
+          "newDetail" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Enter the new object member name here."
+          },
+          "newDescription" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "Enter the new object description here."
+          },
+          "newAttribute" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Enter the new object attribute here."
+          },
+          "newSourceFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Enter the source physical file name here for the new object."
+          },
+          "newSourceLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Enter the source library name."
+          },
+          "newSourceMember" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Enter the source member name that has to be created."
+          },
+          "newSourceAttribute" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Enter the attribute of the source member."
+          },
+          "temporaryOrVirtualObject" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Enter '1' if you want to create it as a virtual object otherwise '0'.",
+            "default" : "0",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Use this input schema to create the new object."
+      },
+      "response" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status which can be *NORM or *TERM. In case of *TERM look at the messages for more information."
+          },
+          "message" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          }
+        },
+        "description" : "Output schema for newObjectApi."
+      },
+      "extendedMessage" : {
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The IBM i message file."
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "The message id."
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "The message substitution Data. "
+          },
+          "messageText" : {
+            "maxLength" : 512,
+            "type" : "string",
+            "description" : "The humen readable messaget Text."
+          }
+        },
+        "description" : "Contains the response message details."
+      },
+      "template" : {
+        "type" : "object",
+        "properties" : {
+          "templateObject" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Enter the name of the object you wish to use as a template for copying."
+          },
+          "templateObjectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Enter the name of the library which contains the template object."
+          },
+          "templateObjectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Enter the template object type."
+          },
+          "templateObjectDetail" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Enter the name of the detail."
+          }
+        },
+        "description" : "Use this schema if you want to copy the template from related object."
+      }
+    },
+    "responses" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "http token",
+        "name" : "JWT",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
