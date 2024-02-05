@@ -683,7 +683,7 @@
             "$ref" : "#/components/schemas/taskResponseData"
           },
           "longDescription" : {
-            "maxLength" : 65535,
+            "maxLength" : 65536,
             "type" : "string",
             "description" : "Long description"
           }
@@ -1081,7 +1081,7 @@
             "x-sequence" : "230"
           },
           "longDescription" : {
-            "maxLength" : 65535,
+            "maxLength" : 65536,
             "type" : "string",
             "description" : "Specify the long description."
           }
@@ -1316,7 +1316,7 @@
             "x-sequence" : "230"
           },
           "longDescription" : {
-            "maxLength" : 65535,
+            "maxLength" : 65536,
             "type" : "string",
             "description" : "*SAME Use this value to indicate that long description does not change.",
             "default" : "*SAME",
@@ -1833,6 +1833,11 @@
             },
             "x-column" : "RSFIX#",
             "x-sequence" : "20"
+          },
+          "longDescription" : {
+            "maxLength" : 65536,
+            "type" : "string",
+            "description" : "Specify the long description."
           }
         },
         "description" : "Input data for action ratify",
