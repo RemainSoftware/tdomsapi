@@ -16,9 +16,9 @@
     "version" : "0.0.1",
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
-      "library" : "V15T0334",
+      "library" : "V16T0095",
       "file" : "SolutionAPI.json",
-      "srclibrary" : "V15T0334S",
+      "srclibrary" : "V16T0095S",
       "object" : "OMQRSO"
     }
   },
@@ -147,7 +147,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/extendedMessage"
+                  "$ref" : "#/components/schemas/connectResponse"
                 }
               }
             }
@@ -465,10 +465,10 @@
             "type" : "string",
             "description" : "The IBM i message file"
           },
-          "messageID" : {
+          "messageId" : {
             "maxLength" : 7,
             "type" : "string",
-            "description" : "The message ID"
+            "description" : "The message Id"
           },
           "messageType" : {
             "maxLength" : 1,
@@ -1204,6 +1204,13 @@
             "description" : "Specify the object's status as either known to TD/OMS or still under construction",
             "default" : "0",
             "enum" : [ "1", "0" ]
+          },
+          "suggestAlternativeObject" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify whether you want the suggestions for a object in case of conflict",
+            "default" : "0",
+            "enum" : [ "0", "1" ]
           }
         },
         "description" : "Connect processing options\r\n"
@@ -1593,6 +1600,66 @@
         "x-library" : "OMSRUN51",
         "x-host" : "plato",
         "x-fieldSchemaNameType" : "Normalized"
+      },
+      "connectResponse" : {
+        "type" : "object",
+        "properties" : {
+          "messages" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "solutionConflictDetail" : {
+            "maxItems" : 20,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/solutionConflict"
+            }
+          },
+          "solutionAlternative" : {
+            "$ref" : "#/components/schemas/solutionAlternative"
+          },
+          "solutionResponse" : {
+            "$ref" : "#/components/schemas/solutionResponseData"
+          }
+        },
+        "description" : "This is used to get the output for the action connect."
+      },
+      "solutionAlternative" : {
+        "type" : "object",
+        "properties" : {
+          "solutionAlternativeNumber" : {
+            "type" : "integer",
+            "description" : "This field is desinged to get the alternative number for a particular solution."
+          },
+          "solutionAlternativeText" : {
+            "maxItems" : 20,
+            "type" : "array",
+            "description" : "This field is designed to get the alternative text in case of conflict for a particular object.",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        },
+        "description" : "This field is designed to get the alternatives for a particular object."
+      },
+      "solutionConflict" : {
+        "type" : "object",
+        "properties" : {
+          "sequenceNumber" : {
+            "type" : "integer",
+            "description" : "To get the sequence about the conflict Number."
+          },
+          "action" : {
+            "maxLength" : 20,
+            "type" : "string",
+            "description" : "To get the conflict object conflict action."
+          },
+          "txt" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "To get the object conflict text."
+          }
+        },
+        "description" : "To get the data about the object conflict."
       }
     },
     "responses" : { },
