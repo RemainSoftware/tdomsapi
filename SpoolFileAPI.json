@@ -1,7 +1,7 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "SpoolFileAPI API.",
+    "title" : "Spool File API",
     "description" : "The Spool File API enables the selection of a specific file based on criteria such as user name, spool file name, and job name. The selection process allows filtering based on these attributes for more targeted results.",
     "termsOfService" : "",
     "contact" : {
@@ -625,7 +625,6 @@
       "JWT" : {
         "type" : "http",
         "description" : "The HTTP API Token",
-        "name" : "JWT",
         "scheme" : "bearer",
         "bearerFormat" : "JWT"
       }
