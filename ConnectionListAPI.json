@@ -16,10 +16,10 @@
     "version" : "0.0.1",
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
-      "library" : "V15T0294",
+      "library" : "V15T0332",
       "file" : "ConnectionListAPI.json",
-      "srclibrary" : "V15T0294S",
-      "object" : "OMQRCL"
+      "srclibrary" : "V15T0332S",
+      "object" : "@OMQRCL"
     }
   },
   "servers" : [ {
@@ -106,8 +106,10 @@
         },
         "callbacks" : { },
         "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
           "suffix" : "01",
-          "generate" : "true"
+          "generate" : false
         }
       }
     },
@@ -176,7 +178,7 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "02",
-          "generate" : true
+          "generate" : false
         }
       }
     },
@@ -245,6 +247,65 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "03",
+          "generate" : false
+        }
+      }
+    },
+    "/change" : {
+      "summary" : "changeConnectionList",
+      "description" : "changeConnectionList",
+      "post" : {
+        "summary" : "changeConnectionList",
+        "description" : "changeConnectionList",
+        "operationId" : "changeConnectionList",
+        "requestBody" : {
+          "description" : "Use this operation to change the connection list object",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/changeData"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/connectionListResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad request from client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "04",
           "generate" : true
         }
       }
@@ -536,6 +597,61 @@
           }
         },
         "description" : "input schema for deleting the connection list."
+      },
+      "changeData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application Code"
+          },
+          "connectionListCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Connection List Code"
+          },
+          "taskNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Task Number"
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Object Code"
+          },
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Object Library"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Object Type"
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Member Code"
+          },
+          "ifsObject" : {
+            "maxLength" : 642,
+            "type" : "string",
+            "description" : "Enter IFS object path name here. Full path name includes the directory location concatenated by full name of the file.",
+            "default" : "*OBJC",
+            "enum" : [ "*OBJC" ]
+          },
+          "solutionType" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Solution Type",
+            "default" : "*CHANGE",
+            "enum" : [ "*CHANGE", "*COMPILE", "*TERMINATE" ]
+          }
+        },
+        "description" : "input schema for change"
       }
     },
     "responses" : { },
