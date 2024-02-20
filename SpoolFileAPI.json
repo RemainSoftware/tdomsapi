@@ -1,0 +1,635 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "SpoolFileAPI API.",
+    "description" : "The Spool File API enables the selection of a specific file based on criteria such as user name, spool file name, and job name. The selection process allows filtering based on these attributes for more targeted results.",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License ",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "object" : "OMQRSF",
+      "library" : "V16T0049",
+      "srclibrary" : "V16T0049S",
+      "file" : "SpoolFileAPI.json"
+    }
+  },
+  "servers" : [ {
+    "url" : "https://{host}:{port}/{library}/OMQRSF",
+    "description" : "A dynamic https host",
+    "variables" : {
+      "host" : {
+        "description" : "The host serving the API",
+        "default" : "plato.remainsoftware.com"
+      },
+      "port" : {
+        "description" : "The port to which the server is listening",
+        "default" : "45211"
+      },
+      "library" : {
+        "description" : "The TD/OMS library",
+        "default" : "V160TST"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/delete" : {
+      "summary" : "This path will allow to delete the spool file.",
+      "description" : "This path will allow to delete the selected spool file .",
+      "post" : {
+        "summary" : "This Action will delete the spool file.",
+        "description" : "This Action will allow the user to select the spool file to delete.",
+        "operationId" : "delete",
+        "requestBody" : {
+          "description" : "Post Method",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/deleteRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "return code 200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/deleteResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request from Client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "02",
+          "generate" : false
+        }
+      }
+    },
+    "/fetch" : {
+      "summary" : "This path will allow to fetch the spool file.",
+      "description" : "This path will allow to fetch the selected spool file .",
+      "post" : {
+        "summary" : "This Action will fetch the spool file.",
+        "description" : "This Action will allow the user to fetch the selected spool file.",
+        "operationId" : "fetch",
+        "requestBody" : {
+          "description" : "Post Method",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/fetchRequest"
+              }
+            }
+          },
+          "required" : false
+        },
+        "responses" : {
+          "200" : {
+            "description" : "return code 200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/fetchResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request from Client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorzed",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : false
+        }
+      }
+    },
+    "/list" : {
+      "summary" : "This will give us a list of spool file according to the selection criteria.",
+      "description" : "We can have a list of spool files according to the selection criteria.",
+      "post" : {
+        "summary" : "To get the list of spool fie.",
+        "description" : "To get the list of the spool file according to the selection criteria.",
+        "operationId" : "list",
+        "requestBody" : {
+          "description" : "Post methodd",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/listRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/listResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request from client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "03",
+          "generate" : false
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "extendedMessage" : {
+        "required" : [ "field", "messageData", "messageFile", "messageId", "messageType" ],
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "type" : "string",
+            "description" : "The IBM i message file"
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "The IBM i message Id"
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The IBM i message type"
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "The IBM i message Data"
+          },
+          "field" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "The error in field"
+          },
+          "messageText" : {
+            "maxLength" : 644,
+            "type" : "string",
+            "description" : "The human readable text"
+          }
+        },
+        "description" : "The return message."
+      },
+      "listRequest" : {
+        "type" : "object",
+        "properties" : {
+          "pageNumber" : {
+            "type" : "integer",
+            "description" : "The page number to view.\r\nIf the file contains 100 records and you want 50 records back then you can specify the page number e.g. 1 to get records 1 to 50.",
+            "default" : 1,
+            "enum" : [ 1 ]
+          },
+          "user" : {
+            "maxLength" : 20,
+            "type" : "string",
+            "description" : "A character string containing user profile names to filter on. The list can contain up to 20 values separated by blanks.\r\nCan be one of the following special values",
+            "default" : "*CURRENT",
+            "enum" : [ "*CURRENT", "*ALL" ]
+          },
+          "startingTime" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "One of the following is used to specify the starting time at which or after which the spooled files were ceated.  Spooled files created before the specified time and date are not shown. The time format is *HMS (HH:MM:SS).",
+            "default" : "*AVAIL",
+            "enum" : [ "*AVAIL" ]
+          },
+          "startingDate" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "One of the following is used to specify the starting date on which or after which the spooled files were created.  Spooled files created before the specified date are not shown. The date format is *ISO(YYYY-MM-DD).                           ",
+            "default" : "*BEGIN",
+            "enum" : [ "*BEGIN", "*CURRENT" ]
+          },
+          "endingTime" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "One of the following is used to specify the ending time before which the spooled files were created.  The time format is *HMS (HH:MM:SS).",
+            "default" : "*AVAIL",
+            "enum" : [ "*AVAIL" ]
+          },
+          "endingDate" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "One of the following is used to specify the ending date before which or on which the spooled files were created.The date format is *ISO(YYYY-MM-DD).                                               ",
+            "default" : "*END",
+            "enum" : [ "*END" ]
+          },
+          "status" : {
+            "maxLength" : 15,
+            "type" : "string",
+            "description" : "A character string containing the spooled file status to filter on. The list can contain one or more status values separated by blanks.",
+            "default" : "*ALL",
+            "enum" : [ "*ALL", "*CLOSED", "*DEFERRED", "*FINISHED", "*HELD", "*MESSAGE", "*OPEN", "*PENDING", "*PRINTER", "*READY", "*SAVED", "*SENDING", "*WRITING" ]
+          },
+          "jobName" : {
+            "maxLength" : 28,
+            "type" : "string",
+            "description" : "A character string containing qualified job name.",
+            "default" : "*ALL",
+            "enum" : [ "*ALL", "*CURRENT" ]
+          },
+          "outputQueue" : {
+            "maxLength" : 20,
+            "type" : "string",
+            "description" : "A character string containing the name of the output queue to filter on. An output queue name must be in the format library-name/outq-name. The list can contain up to 20 values separated by blanks.*LIBL or *CURLIB can be specified for the library name.Instead of a list of qualified output queue names.",
+            "default" : "*ALL",
+            "enum" : [ "*ALL" ]
+          },
+          "userData" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "A character string containing the value of the user-specified data or file name for spooled files to filter on.",
+            "default" : "*ALL",
+            "enum" : [ "*ALL" ]
+          },
+          "formType" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "A character string containing the form type value to filter on.",
+            "default" : "*ALL",
+            "enum" : [ "*ALL", "*STD" ]
+          },
+          "systemName" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "A character string containing the name of the system where the job that created the spooled file ran.",
+            "default" : "*ALL",
+            "enum" : [ "*ALL", "*CURRENT" ]
+          }
+        },
+        "description" : "List Request"
+      },
+      "fetchResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Status"
+          },
+          "messages" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "spoolFilePath" : {
+            "maxLength" : 1024,
+            "type" : "string"
+          }
+        },
+        "description" : "To get an reponse for fetch"
+      },
+      "fetchRequest" : {
+        "required" : [ "jobName", "spoolFileName" ],
+        "type" : "object",
+        "properties" : {
+          "jobName" : {
+            "maxLength" : 28,
+            "type" : "string",
+            "description" : "The Qualified job Name of the spool file",
+            "default" : ""
+          },
+          "spoolFileName" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The spool file name of the spool file"
+          },
+          "spoolFileNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The spool file number of the spool file",
+            "example" : "*LAST",
+            "enum" : [ "*LAST" ]
+          }
+        },
+        "description" : "To fetch the values"
+      },
+      "deleteRequest" : {
+        "type" : "object",
+        "properties" : {
+          "spooledFileName" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The name of the spooled file.",
+            "default" : "*SELECT",
+            "enum" : [ "*SELECT" ]
+          },
+          "qualifiedJobName" : {
+            "maxLength" : 28,
+            "type" : "string",
+            "description" : "The qualified job name of the job that owns the spooled file.",
+            "default" : "*ALL",
+            "enum" : [ "*ALL" ]
+          },
+          "spooledFileNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The number of the spooled file.\r\n*ONLY - Only one spooled file in the job has the specified file name; therefore, the number of the spooled file is not necessary.   \r\n*LAST - The highest-numbered spooled file created for the job that has the specified file name is the file that is bing deleted. \r\n*ANY - The spooled file number is not used to determine which spooled file is used. Use this value when the job system name parameter or the spooled file create date \r\nand time parameter is to take precedence over the spooled file number when selecting a spooled file.                                                                    ",
+            "default" : "*ONLY",
+            "enum" : [ "*ONLY", "*LAST", "*ANY" ]
+          },
+          "system" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The name of the system where the job that created the spooled file ran.\r\n*ONLY - There is one spooled file with the specified job name, user name, job number, spooled file name, spooled file number, and spooled file create date and time.  \r\n*CURRENT - The spooled file created on the current system with the specified job name, user name, job number, spooled file name, spooled file number, and create date and   \r\ntime is used.\r\n*ANY - The job system name is not used to determine which spooled file is used. Use this value when the spooled file create date and time parameter is to take precedence over the job system name when selecting a spooled file.                                                                                       ",
+            "default" : "*ONLY",
+            "enum" : [ "*ONLY", "*CURRENT", "*ANY" ]
+          },
+          "creationDate" : {
+            "minLength" : 10,
+            "type" : "string",
+            "description" : "Specifies the date when the spooled file was created.This parameter is considered after the job name, username, job number, spooled file name, spooled file number, and job system name parameter requirements have been met.\r\n*ONLY-There is one spooled file with the specified job name, user name, job number, spooled file name, spooled file number, and job system name. \r\n*LAST -The spooled file with the latest create date and time of the specified job name, user name, job number, spooled file name, spooled file number, and job system name is used.                                                                  \r\n",
+            "example" : "*ONLY",
+            "enum" : [ "*ONLY" ]
+          },
+          "creationTime" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Specifies the time when the spooled file was created.This parameter is considered after the job name, username, job number, spooled file name, spooled file number, and job system name parameter requirements have been met.\r\n*ONLY-There is one spooled file with the specified job name, user name, job number, spooled file name, spooled file number, and job system name. \r\n*LAST -The spooled file with the latest create date and time of the specified job name, user name, job number, spooled file name, spooled file number, and job system name is used.                                                                  ",
+            "default" : "*ONLY",
+            "enum" : [ "*ONLY", "*LAST" ]
+          },
+          "user" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "A character or graphic string that specifies the name of a user whose spooled files are to be deleted. Any spooled file with this user name is eligible for deletion. The default is *ALL.",
+            "default" : "*CURRENT",
+            "enum" : [ "*CURRENT", "*ALL" ]
+          },
+          "outputQueue" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specified devices on which the spool file is created.\r\n*ALL -  Files on any device-created or user-created output queue are selected.   \r\n*OUTQ - queue that is not automatically created by a device. A user-created output queue does not generally have the same name as a device, but if it does, it does not\r\nreside in library QUSRSYS.                                                        ",
+            "default" : "*ALL",
+            "enum" : [ "*ALL", "*OUTQ" ]
+          },
+          "formType" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Spooled file form type. The type of form to load in the printer to print this file.\r\n*ALL - Files for all form types are selected.\r\n*STD -mOnly files that specify the standard form type are selected.                                         ",
+            "default" : "*ALL",
+            "enum" : [ "*ALL", "*STD" ]
+          },
+          "userData" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The user-specified data that describes the file.\r\n*ALL - Files with any user data tag specified are selected.",
+            "default" : "*ALL",
+            "enum" : [ "*ALL" ]
+          },
+          "asp" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "*ALL - All files as specified in the Auxiliary Storage Pool Device (ASPDEV) parameter are selected. \r\n*ASPDEV - Files specified in the Auxiliary Storage Pool Device (ASPDEV) parameter are selected.  \r\n1-32 - Specify the auxiliary storage pool (ASP) of the files being selected.                                                                       ",
+            "default" : "*ALL",
+            "enum" : [ "*ALL", "*ASPDEV", "1-32" ]
+          },
+          "aspDevice" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specifies the auxiliary storage pool device name from which spooled files are to be selected. This parameter is only valid if the ASP number (ASP) element of the Select   parameter is *ALL or *ASPDEV.\r\n* - Files which are found in the ASPs that are currently part of the thread's library name space are selected.This includes the system ASP (ASP 1), all defined basic user ASPs (ASPs 2-32), and if the thread has an ASP group, the primary and secondary ASPs in the thread's ASP group. \r\n*SYSBAS - Files which are found in the system ASP (ASP 1) and all defined basic user ASPs (ASPs 2-32) are selected.\r\n*CURASPGRP - Files which are found in the primary and secondary ASPs in the thread's ASP group are selected.  If no ASP group is associated with the thread, an error will\r\nbe issued.                                                                                              ",
+            "default" : "*",
+            "enum" : [ "*", "*SYSBAS", "*CURASPGRP" ]
+          }
+        },
+        "description" : "To dele the requested spool file"
+      },
+      "deleteResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "status"
+          },
+          "messages" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          }
+        },
+        "description" : "To get delete response"
+      },
+      "listResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Status"
+          },
+          "messages" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "totalRecords" : {
+            "type" : "number",
+            "description" : "The total number of spoolfile entries in the list. Divide this by 50 to get the number of pages."
+          },
+          "spoolfileList" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "To get list of spool files",
+            "items" : {
+              "$ref" : "#/components/schemas/spoolfileEntry"
+            }
+          }
+        },
+        "description" : "The response is structured as a JSON object containing a key that holds an array of spool file objects. Each object in the array represents a spool file and includes details such as the file name, size, creation date, and other relevant metadata."
+      },
+      "spoolfileEntry" : {
+        "type" : "object",
+        "properties" : {
+          "spoolFileName" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The name of the spooled file."
+          },
+          "spoolFileNumber" : {
+            "type" : "integer",
+            "description" : "The number of the spooled file."
+          },
+          "status" : {
+            "maxLength" : 15,
+            "type" : "string",
+            "description" : "The status of the spool file"
+          },
+          "priority" : {
+            "type" : "integer",
+            "description" : "The priority of the spooled file"
+          },
+          "date" : {
+            "maxLength" : 19,
+            "type" : "string",
+            "description" : "The timestamp, based on local job time, when the file was opened. The timestamp format is YYYY-MM-DD hh:mm:ss."
+          },
+          "userData" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The user-specified data that describes the file."
+          },
+          "size" : {
+            "type" : "integer",
+            "description" : "The spooled file size in bytes."
+          },
+          "pages" : {
+            "type" : "integer",
+            "description" : "The total number of pages or number of records for the spooled file"
+          },
+          "copies" : {
+            "type" : "integer",
+            "description" : "The number of copies remaining to print. Contains the null value when STATUS is DELETED."
+          },
+          "qualifiedJobName" : {
+            "maxLength" : 28,
+            "type" : "string",
+            "description" : "The qualified job name of the job that owns the spooled file."
+          },
+          "jobName" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The job name of the job that owns the spooled file."
+          },
+          "jobUser" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The name of the user that owns the spooled file."
+          },
+          "jobNumber" : {
+            "maxLength" : 6,
+            "type" : "string",
+            "description" : "The number of the job that owns the spooled file."
+          },
+          "fileAvailable" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The schedule of the spooled file."
+          },
+          "formType" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Spooled file form type."
+          },
+          "outputQueueLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The library where the output queue is located."
+          },
+          "outputQueue" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The name of the output queue in which the spooled file is located."
+          },
+          "aspNumber" : {
+            "type" : "integer",
+            "description" : "The auxiliary storage pool in which the spooled file resides."
+          },
+          "system" : {
+            "minLength" : 8,
+            "type" : "string",
+            "description" : "The name of the system where the job that created the spooled file ran."
+          },
+          "internetPrintProtocolJobId" : {
+            "type" : "integer",
+            "description" : "The IPP job identifier assigned by the system based on the output queue to which the file was added or moved."
+          }
+        },
+        "description" : "This is information about a spoolfile like number of pages, name, etc.."
+      }
+    },
+    "responses" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "The HTTP API Token",
+        "name" : "JWT",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
