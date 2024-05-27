@@ -33,7 +33,7 @@
       },
       "library" : {
         "description" : "The library",
-        "default" : "v150dev"
+        "default" : "OMS"
       }
     }
   } ],
