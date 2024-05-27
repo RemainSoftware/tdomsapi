@@ -36,7 +36,7 @@
       },
       "library" : {
         "description" : "The TD/OMS library",
-        "default" : "V150TST"
+        "default" : "OMS"
       }
     }
   } ],
