@@ -25,8 +25,8 @@
     "description" : "TD/OMS Dashboard server",
     "variables" : {
       "protocol" : {
-        "default" : "https",
-        "enum" : [ "http", "https" ]
+        "enum" : [ "http", "https" ],
+        "default" : "https"
       },
       "port" : {
         "default" : "45211"
@@ -36,7 +36,7 @@
       },
       "library" : {
         "description" : "The TD/OMS library",
-        "default" : "V150TST"
+        "default" : "OMS"
       }
     }
   } ],
@@ -217,8 +217,6 @@
         }
       }
     },
-    "parameters" : { },
-    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
