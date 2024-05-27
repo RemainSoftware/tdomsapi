@@ -165,7 +165,7 @@
     },
     "securitySchemes" : {
       "Basic" : {
-        "name" : "Basic"
+        "name" : "Basic",
         "type" : "apiKey",
         "in" : "header"
       }
