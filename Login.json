@@ -33,7 +33,7 @@
       },
       "library" : {
         "description" : "The TD/OMS library",
-        "default" : "V150TST"
+        "default" : "OMS"
       }
     }
   } ],
@@ -165,7 +165,6 @@
     },
     "securitySchemes" : {
       "Basic" : {
-        "name" : "Basic",
         "type" : "apiKey",
         "in" : "header"
       }
