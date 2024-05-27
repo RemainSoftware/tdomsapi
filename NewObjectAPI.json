@@ -17,8 +17,8 @@
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
       "object" : "OMQRNO",
-      "library" : "V16T0032",
-      "srclibrary" : "V16T0032S",
+      "library" : "V16T0228",
+      "srclibrary" : "V16T0228S",
       "file" : "newObjectAPI.json"
     }
   },
@@ -36,7 +36,7 @@
       },
       "library" : {
         "description" : "The TD/OMS library",
-        "default" : "V16T0032"
+        "default" : "OMS"
       }
     }
   } ],
@@ -99,6 +99,65 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "01",
+          "generate" : false
+        }
+      }
+    },
+    "/location" : {
+      "summary" : "/location",
+      "description" : "Use this to retrieve the target library and source file.",
+      "post" : {
+        "summary" : "location",
+        "description" : "Use this operation to retrieve the target library and the source file.",
+        "operationId" : "location",
+        "requestBody" : {
+          "description" : "getLocation",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/locationRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/locationResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request from Client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/locationResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/locationResponse"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "02",
           "generate" : true
         }
       }
@@ -265,6 +324,62 @@
           }
         },
         "description" : "Use this schema if you want to copy the template from related object."
+      },
+      "locationRequest" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Enter the name of the application in which you want to create the new object."
+          },
+          "environmentCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Enter the name of the environment in which you want to create the new object."
+          },
+          "task" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Enter the name of the task in which you want to create the new object."
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Enter the object type of the new object.",
+            "format" : ""
+          },
+          "objectAttribute" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Enter the object attribute."
+          }
+        },
+        "description" : "Use this input schema to retrieve the object library and source library."
+      },
+      "locationResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status which can be *NORM or *TERM. In case of *TERM object and source libraries are not returned."
+          },
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Contains the name of the object library."
+          },
+          "sourceLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "contains the name of the source library,"
+          },
+          "message" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          }
+        },
+        "description" : "Use this output schema to retrieve the object and source library."
       }
     },
     "responses" : { },
