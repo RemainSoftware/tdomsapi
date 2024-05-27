@@ -31,7 +31,7 @@
       },
       "port" : {
         "description" : "",
-        "default" : "45211"
+        "default" : "OMS"
       }
     }
   } ],
