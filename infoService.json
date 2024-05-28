@@ -27,11 +27,11 @@
     "variables" : {
       "library" : {
         "description" : "",
-        "default" : "V15T0311"
+        "default" : "OMS"
       },
       "port" : {
         "description" : "",
-        "default" : "OMS"
+        "default" : "45211"
       }
     }
   } ],
