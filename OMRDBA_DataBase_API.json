@@ -22,17 +22,11 @@
     }
   },
   "servers" : [ {
-    "url" : "http://plato:45635/V15T0098/OMRDBA",
-    "description" : "plato.prod"
-  }, {
     "url" : "{protocol}://{server}:{port}/{library}/OMRDBA",
     "description" : "The server",
     "variables" : {
       "server" : {
         "default" : "plato.remainsoftware.com"
-      },
-      "library" : {
-        "default" : "v150dev"
       },
       "port" : {
         "default" : "45211"
@@ -40,6 +34,10 @@
       "protocol" : {
         "enum" : [ "https", "http" ],
         "default" : "https"
+      },
+      "library" : {
+        "description" : "",
+        "default" : "OMS"
       }
     }
   } ],
