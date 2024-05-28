@@ -1198,6 +1198,9 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Programmer",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Programmer_(PGMR)_3"
+            },
             "default" : "*SAME",
             "enum" : [ "*SAME", "*CURRENT", "*PGMR" ],
             "x-column" : "RSPGMR",
@@ -1313,9 +1316,6 @@
           }
         },
         "description" : "Input data for action change",
-        "externalDocs" : {
-          "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Programmer_(PGMR)_3"
-        },
         "x-pfname" : "OMERS",
         "x-library" : "OMSRUN51",
         "x-host" : "plato",
@@ -1459,6 +1459,9 @@
             "maxLength" : 5,
             "type" : "string",
             "description" : "Application code",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Application_code_fix_(APPL)"
+            },
             "x-column" : "RSAPPC",
             "x-sequence" : "10"
           },
@@ -1474,9 +1477,6 @@
           }
         },
         "description" : "Input data for action connect",
-        "externalDocs" : {
-          "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Application_code_fix_(APPL)"
-        },
         "x-pfname" : "OMERS",
         "x-library" : "OMSRUN51",
         "x-host" : "plato",
