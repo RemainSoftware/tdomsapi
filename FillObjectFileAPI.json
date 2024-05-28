@@ -162,9 +162,8 @@
           "routeCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Route code      ",
+            "description" : "Route code  \r\n\r\nIf you specify the blank value for this field, it will assume the value *NONE.    ",
             "externalDocs" : {
-              "description" : "If you specify the blank value for this field, it will assume the value *NONE.",
               "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Route_-_(ROTC)"
             },
             "default" : "*NONE",
@@ -173,9 +172,8 @@
           "objectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Object library",
+            "description" : "Object library \r\n\r\nIf you specify the blank value for this field, it will assume the value *NONE.",
             "externalDocs" : {
-              "description" : "If you specify the blank value for this field, it will assume the value *NONE.",
               "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Object_Library_-_(OBJL)"
             },
             "default" : "*NONE",
@@ -192,9 +190,8 @@
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Object type",
+            "description" : "Object type \r\n\r\nIf you specify the blank value for this field, it will assume the value *NONE.",
             "externalDocs" : {
-              "description" : "If you specify the blank value for this field, it will assume the value *NONE.",
               "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Object_Type_-_(OBJT)"
             },
             "default" : "*ALL",
@@ -203,9 +200,8 @@
           "objectAttribute" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Object attribute",
+            "description" : "Object attribute \r\n\r\nIf you specify the blank value for this field, it will assume the value *NONE.",
             "externalDocs" : {
-              "description" : "If you specify the blank value for this field, it will assume the value *NONE.",
               "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Object_Attribute_-_(OBJA)"
             },
             "default" : "*ALL",
@@ -257,9 +253,8 @@
           "processingMode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Processing mode\r\n",
+            "description" : "Processing mode \r\n\r\n'0' = *BATCH\r\n\r\n'1' = *INTERACTIVE\r\n",
             "externalDocs" : {
-              "description" : "'0' = *BATCH\r\n'1' = *INTERACTIVE",
               "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Processing_Mode_-_(PRCI)"
             },
             "default" : "*BATCH",
@@ -268,9 +263,8 @@
           "processingMethod" : {
             "maxLength" : 7,
             "type" : "string",
-            "description" : "Processing method",
+            "description" : "Processing method \r\n\r\n'0' = *FILL\r\n\r\n'1' = *EMPTY\r\n\r\n'2' = *REPORT",
             "externalDocs" : {
-              "description" : "'0' = *FILL\r\n'1' = *EMPTY\r\n'2' = *REPORT",
               "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Processing_Method_-_(PRCM)"
             },
             "default" : "*FILL",
@@ -279,9 +273,8 @@
           "processOnlyRelations" : {
             "maxLength" : 4,
             "type" : "string",
-            "description" : "Process only Relations",
+            "description" : "Process only Relations \r\n\r\n'0' = *NO\r\n\r\n'1' = *YES",
             "externalDocs" : {
-              "description" : "'0' = *NO\r\n'1' = *YES",
               "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Relations_Only_-_(RELI)"
             },
             "default" : "*NO",
@@ -290,9 +283,8 @@
           "objectAndOr4GLGroup" : {
             "maxLength" : 7,
             "type" : "string",
-            "description" : "Object and/or 4GL group",
+            "description" : "Object and/or 4GL group \r\n\r\n'0' = *BOTH\r\n\r\n'1' = *OBJECT\r\n\r\n'2' = *GROUP",
             "externalDocs" : {
-              "description" : "'0' = *BOTH\r\n'1' = *OBJECT\r\n'2' = *GROUP",
               "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Object_/_Group_-_(OOGI)"
             },
             "default" : "*OBJECT",
@@ -301,9 +293,8 @@
           "typeCA2ESelection" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "Type of CA 2E selection",
+            "description" : "Type of CA 2E selection \r\n\r\n'1' = *ANY\r\n\r\n'2' = *AREA\r\n\r\n'3' = *ANYSYS\r\n\r\n'4' = *AREASYS\r\n",
             "externalDocs" : {
-              "description" : "'1' = *ANY\r\n'2' = *AREA\r\n'3' = *ANYSYS\r\n'4' = *AREASYS",
               "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Synon_selection_code_-_(SELC)"
             },
             "default" : "*ANY",
