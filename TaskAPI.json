@@ -954,9 +954,8 @@
           "release" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Release",
+            "description" : "Release \r\n\r\n*SAME \r\nUse this value to indicate that the release number does not change. TD/OMS will try to find the best value for the element if a new fix is added and the value *SAME is used. \r\n\r\n*CURRUNT \r\nUse this value to indicate that the release of the fix is the current release from the application definition.  ",
             "externalDocs" : {
-              "description" : "*SAME Use this value to indicate that the release number\r\ndoes not change. TD/OMS will try to find the best value for the element if a new fix is added and the\r\nvalue *SAME is used. \r\n*CURRUNT Use this value to indicate that the release of the fix is the current release from the application definition.                              ",
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Release_number_(RLS)"
             },
             "default" : "*SAME",
@@ -991,10 +990,9 @@
           "expectedStartDate" : {
             "maxLength" : 7,
             "type" : "number",
-            "description" : "Expected start date",
+            "description" : "Expected start date \r\n\r\n-1 the value does not change (*SAME) \r\n\r\n-2 Use the current date (*CURRENT) \r\n\r\n0 Do not set a date ",
             "format" : "zoned(7:0)",
             "externalDocs" : {
-              "description" : "-1 the value does not change (*SAME)\r\n-2 Use the current date (*CURRENT)\r\n0 do not set a date ",
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Expected_start_date_(ESDT)_2"
             },
             "default" : -1.0,
@@ -1005,10 +1003,9 @@
           "expectedCompletionDate" : {
             "maxLength" : 7,
             "type" : "number",
-            "description" : "Expected completion date",
+            "description" : "Expected completion date \r\n\r\n-1 the value does not change (*SAME) \r\n\r\n-2 Use the current date (*CURRENT)\r\n\r\n0 Do not set a date ",
             "format" : "zoned(7:0)",
             "externalDocs" : {
-              "description" : "-1 the value does not change (*SAME)\r\n-2 Use the current date (*CURRENT)\r\n0 do not set a date ",
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Expected_completion_date_(ECDT)_2"
             },
             "default" : -1.0,
@@ -1019,10 +1016,9 @@
           "expectedDevEndDate" : {
             "maxLength" : 7,
             "type" : "number",
-            "description" : "Expected dev. end date",
+            "description" : "Expected dev. end date\r\n\r\n-1 the value does not change (*SAME) \r\n\r\n-2 Use the current date (*CURRENT) \r\n\r\n0 Do not set a date ",
             "format" : "zoned(7:0)",
             "externalDocs" : {
-              "description" : "-1 the value does not change (*SAME)\r\n-2 Use the current date (*CURRENT)\r\n0 do not set a date ",
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Expected_development_end_date_(EDDT)_2"
             },
             "default" : -1.0,
@@ -1033,10 +1029,9 @@
           "expectedNumberOfHours" : {
             "maxLength" : 5,
             "type" : "number",
-            "description" : "Expected number of hours",
+            "description" : "Expected number of hours \r\n\r\n-1 the value does not change (*SAME)",
             "format" : "packed(5:2)",
             "externalDocs" : {
-              "description" : "-1 the value does not change (*SAME)",
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Expected_number_of_hours_(EHR)"
             },
             "default" : -1.0,
@@ -1178,9 +1173,8 @@
           "release" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Release",
+            "description" : "Release\r\n\r\n*SAME \r\nUse this value to indicate that the release number does not change. TD/OMS will try to find the best value for the element if a new fix is added and the value *SAME is used. \r\n\r\n*CURRUNT \r\nUse this value to indicate that the release of the fix is the current release from the application definition.                              ",
             "externalDocs" : {
-              "description" : "*SAME Use this value to indicate that the release number\r\ndoes not change. TD/OMS will try to find the best value for the element if a new fix is added and the\r\nvalue *SAME is used. \r\n*CURRUNT Use this value to indicate that the release of the fix is the current release from the application definition.                              ",
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Release_number_(RLS)"
             },
             "default" : "*SAME",
@@ -1212,10 +1206,9 @@
           "expectedStartDate" : {
             "maxLength" : 7,
             "type" : "number",
-            "description" : "Expected start date",
+            "description" : "Expected start date \r\n\r\n-1 the value does not change (*SAME)\r\n\r\n-2 Use the current date (*CURRENT)\r\n\r\n0 Do not set a date ",
             "format" : "zoned(7:0)",
             "externalDocs" : {
-              "description" : "-1 the value does not change (*SAME)\r\n-2 Use the current date (*CURRENT)\r\n0 do not set a date ",
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Expected_start_date_(ESDT)_2"
             },
             "default" : -1.0,
@@ -1226,10 +1219,9 @@
           "expectedCompletionDate" : {
             "maxLength" : 7,
             "type" : "number",
-            "description" : "Expected completion date",
+            "description" : "Expected completion date \r\n\r\n-1 the value does not change (*SAME)\r\n\r\n-2 Use the current date (*CURRENT)\r\n\r\n0 Do not set a date ",
             "format" : "zoned(7:0)",
             "externalDocs" : {
-              "description" : "-1 the value does not change (*SAME)\r\n-2 Use the current date (*CURRENT)\r\n0 do not set a date ",
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Expected_completion_date_(ECDT)_2"
             },
             "default" : -1.0,
@@ -1240,10 +1232,9 @@
           "expectedDevEndDate" : {
             "maxLength" : 7,
             "type" : "number",
-            "description" : "Expected dev. end date",
+            "description" : "Expected dev. end date \r\n\r\n-1 the value does not change (*SAME) \r\n\r\n-2 Use the current date (*CURRENT) \r\n\r\n0 Do not set a date ",
             "format" : "zoned(7:0)",
             "externalDocs" : {
-              "description" : "-1 the value does not change (*SAME)\r\n-2 Use the current date (*CURRENT)\r\n0 do not set a date ",
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Expected_development_end_date_(EDDT)_2"
             },
             "default" : -1.0,
@@ -1254,10 +1245,9 @@
           "expectedNumberOfHours" : {
             "maxLength" : 5,
             "type" : "number",
-            "description" : "Expected number of hours",
+            "description" : "Expected number of hours \r\n\r\n-1 the value does not change (*SAME)",
             "format" : "packed(5:2)",
             "externalDocs" : {
-              "description" : "-1 the value does not change (*SAME)",
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Expected_number_of_hours_(EHR)"
             },
             "default" : -1.0,
@@ -1268,10 +1258,9 @@
           "realizedNumberOfHours" : {
             "maxLength" : 5,
             "type" : "number",
-            "description" : "Realized number of hours",
+            "description" : "Realized number of hours \r\n\r\n-1 The value does not change (*SAME) \r\n\r\n0 Number of hours will not be filled (*NONE) ",
             "format" : "packed(5:2)",
             "externalDocs" : {
-              "description" : "-1 the value does not change (*SAME)\r\n0 number of hours will not be filled (*NONE) ",
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Realized_number_of_hours_(RHR)"
             },
             "default" : -1.0,
@@ -1406,9 +1395,8 @@
           "reasonCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Reason code",
+            "description" : "Reason code \r\n\r\n*SAME Use this value to indicate that the reason code does not change. TD/OMS will try to find the best value for the element if a fix is completed and the value *SAME is used.\r\n\r\n*DFT Use this value to indicate that the default reason code is to be used to complete the fix. The default reason code is user-defined.",
             "externalDocs" : {
-              "description" : "*SAME Use this value to indicate that the reason code does not change. TD/OMS will try to find the best value for the element if a fix is completed and the value *SAME is used.\r\n*DFT Use this value to indicate that the default reason code is to be used to complete the fix. The default reason code is user-defined.",
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Reason_code_(REAC)_2"
             },
             "default" : "*SAME",
