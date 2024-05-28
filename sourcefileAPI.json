@@ -15,10 +15,10 @@
     "version" : "0.0.1",
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
-      "library" : "V15T0323",
+      "library" : "V16T0189",
       "file" : "sourcefileAPI.json",
-      "srclibrary" : "V15T0323S",
-      "object" : "@OMRSRC",
+      "srclibrary" : "V16T0189S",
+      "object" : "OMRSRC",
       "additionalBindingDirs" : "OMRESTUTIL"
     }
   },
@@ -33,11 +33,10 @@
         "default" : "45111"
       },
       "library" : {
-        "default" : "v150dev"
+        "description" : "",
+        "default" : "OMS"
       }
     }
-  }, {
-    "url" : "http://172.17.4.10:45635/v15t0323"
   } ],
   "security" : [ {
     "jwt" : [ ]
@@ -81,7 +80,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/message"
+                  "$ref" : "#/components/schemas/extendedMessage"
                 }
               }
             }
@@ -91,7 +90,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/message"
+                  "$ref" : "#/components/schemas/extendedMessage"
                 }
               }
             }
@@ -129,7 +128,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/message"
+                  "$ref" : "#/components/schemas/extendedMessage"
                 }
               }
             }
@@ -139,7 +138,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/message"
+                  "$ref" : "#/components/schemas/extendedMessage"
                 }
               }
             }
@@ -149,7 +148,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/message"
+                  "$ref" : "#/components/schemas/extendedMessage"
                 }
               }
             }
@@ -284,6 +283,18 @@
           "numberOfPages" : {
             "type" : "integer",
             "description" : "The total number of pages."
+          },
+          "maximumLineLength" : {
+            "type" : "integer",
+            "description" : "Source record fomat length"
+          },
+          "message" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "lastChangeDate" : {
+            "maxLength" : 26,
+            "type" : "string",
+            "description" : "Last change date of source member in timestap format."
           }
         },
         "description" : "The reply to the source request"
@@ -353,12 +364,60 @@
           "numberOfPages" : {
             "type" : "integer",
             "description" : "The total number of pages."
+          },
+          "forceSave" : {
+            "type" : "boolean",
+            "description" : "true - Save the source.\r\nfalse - Don't save the source if source member is recently changed."
+          },
+          "lastChangeDate" : {
+            "type" : "string",
+            "description" : "Last change date of source member in timestap format."
           }
         },
         "description" : "The request for save object",
         "x-pfname" : "OMOBJ",
         "x-host" : "plato.remain.local",
         "x-library" : "V150KEP"
+      },
+      "extendedMessage" : {
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The IBMi message file."
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "The message id."
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The message type,"
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "The message substitution data."
+          },
+          "field" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The field in error."
+          },
+          "messageText" : {
+            "maxLength" : 512,
+            "type" : "string",
+            "description" : "The human redable text."
+          },
+          "lastChangeDate" : {
+            "maxLength" : 26,
+            "type" : "string",
+            "description" : "Last change date of source member in timestap format."
+          }
+        }
       }
     },
     "responses" : { },
