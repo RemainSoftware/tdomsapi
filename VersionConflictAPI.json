@@ -1,0 +1,403 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Version Conflict API",
+    "description" : "Use this REST API to Confirm the Version Confilct. ",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License ",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "object" : "OMQRVC",
+      "library" : "V16T0268",
+      "srclibrary" : "V16T0268S",
+      "file" : "VersionConflictAPI.json"
+    }
+  },
+  "servers" : [ {
+    "url" : "https://{host}:{port}/{library}/OMQRVC",
+    "description" : "A dynamic https host",
+    "variables" : {
+      "port" : {
+        "description" : "The port to which the server is listening.",
+        "default" : "45211"
+      },
+      "host" : {
+        "description" : "The host serving the API.",
+        "default" : "plato.remainsoftware.com"
+      },
+      "library" : {
+        "description" : "The TD/OMS library.",
+        "default" : "OMS"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/confirm" : {
+      "summary" : "Use this path to confirm the version conflict.",
+      "description" : "Use this path to confirm the version conflict.",
+      "post" : {
+        "summary" : "Use this operation to confirm the version conflict.",
+        "description" : "Use this operation to confirm the version conflict.",
+        "operationId" : "confirm",
+        "requestBody" : {
+          "description" : "Use this input to confirm the version conflict.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/request"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessages"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : true
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "request" : {
+        "required" : [ "applicationCode", "fixNumber", "iFSFullPathName", "objectCode", "objectType", "relatedApplicationCode", "relatedFixNumber" ],
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "type" : "string",
+            "description" : "The interface level must be V16R1M0",
+            "default" : "V16R1M0",
+            "enum" : [ "V16R1M0" ]
+          },
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code."
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the task to which the object must be connected."
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Specify the object that must be connected to the fix.    \r\n\r\nNote:  You can also specify the short name of the IFS object along with the route code and path extension library code if you want to confirm the version conflict for the IFS object.        \r\n                                                          \r\n*IFSOBJ                                                   \r\n    Use this value if you want to register an object from the integrated file system (IFS) instead of the normal OS/400 library structure.",
+            "default" : "*IFSOBJ",
+            "enum" : [ "*IFSOBJ" ]
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Specify the object type."
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "When connecting a message or a source member the name of this member must also be specified. The possible values are:                                                      \r\n                                                          \r\n*NONE                                                     \r\n    No member is involved.",
+            "default" : "*NONE",
+            "enum" : [ "*NONE" ]
+          },
+          "iFSFullPathName" : {
+            "maxLength" : 640,
+            "type" : "string",
+            "description" : "The IFS Full Path Name is a complete reference to an IFS object. This includes the directory and the object.                                \r\n                                                                      \r\n*OBJC                                                                 \r\n    Use this value if you want to register an object from the OS/400 library structure instead of the integrated file system (IFS).",
+            "default" : "*OBJC",
+            "enum" : [ "*OBJC" ]
+          },
+          "relatedApplicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the related application code."
+          },
+          "relatedFixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the Related Task number."
+          },
+          "routeCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the Route code code if you have provided the short name of the IFS object.\r\n\r\nNote:  You do not need to specify the route code when you provide the IFS full path name, because the entered route code will be ignored and calculated automatically.\r\n\r\n*NONE                                                    \r\n    No route code is involved, it contains a blank value."
+          },
+          "pathExtensionLibraryCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the Path Extension library code if you have provided the short name of the IFS object.\r\n\r\nNote:  You do not need to specify the path extension library code when you provide the IFS full path name, because the entered path extension library code will be ignored and calculated automatically.    \r\n\r\n*NONE                                                             \r\n    No path extension library code is involved, it contains a blank value."
+          },
+          "processingOptions" : {
+            "$ref" : "#/components/schemas/processingOptions"
+          }
+        },
+        "description" : "Request data to confirm the version conflict."
+      },
+      "response" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
+          },
+          "messages" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/extendedMessages"
+            }
+          },
+          "responseData" : {
+            "$ref" : "#/components/schemas/responseData"
+          }
+        },
+        "description" : "This will return the response data."
+      },
+      "extendedMessages" : {
+        "required" : [ "field", "messageData", "messageFile", "messageId", "messageType" ],
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The IBM i messageFile."
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "The message Idetifier."
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The message type 'E' indicates an error message, while 'N' indicates a normal message with no error."
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "The message substitution data"
+          },
+          "field" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "The field in error"
+          },
+          "meesageText" : {
+            "maxLength" : 644,
+            "type" : "string",
+            "description" : "The human readable message text."
+          }
+        },
+        "description" : "The return messages."
+      },
+      "responseData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "VCAPPC",
+            "x-sequence" : "10"
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Fix number",
+            "x-column" : "VCFIX#",
+            "x-sequence" : "20"
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Object code",
+            "x-column" : "VCOBJC",
+            "x-sequence" : "30"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Object type",
+            "x-column" : "VCOBJT",
+            "x-sequence" : "40"
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Member code",
+            "x-column" : "VCMBRC",
+            "x-sequence" : "50"
+          },
+          "relatedApplicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Related application code",
+            "x-column" : "VCRAPC",
+            "x-sequence" : "60"
+          },
+          "relatedFixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Related fix number",
+            "x-column" : "VCRFX#",
+            "x-sequence" : "70"
+          },
+          "relatedMemberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Related member code",
+            "x-column" : "VCRMBC",
+            "x-sequence" : "80"
+          },
+          "objectVersionConflictType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Object Version Conflict Type",
+            "x-column" : "VCOVCC",
+            "x-sequence" : "90"
+          },
+          "confirmationRequired1required" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Confirmation Required (1=Required)",
+            "x-column" : "VCCMRQ",
+            "x-sequence" : "100"
+          },
+          "userWhoGaveConfirmation" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "User who gave Confirmation",
+            "x-column" : "VCCMUS",
+            "x-sequence" : "110"
+          },
+          "confirmationDate" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Confirmation Date",
+            "format" : "zoned(7:0)",
+            "x-column" : "VCCMDT",
+            "x-sequence" : "120"
+          },
+          "confirmationTime" : {
+            "maxLength" : 6,
+            "type" : "number",
+            "description" : "Confirmation Time",
+            "format" : "zoned(6:0)",
+            "x-column" : "VCCMTM",
+            "x-sequence" : "130"
+          },
+          "confirmed1confirmed" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Confirmed (1=Confirmed)",
+            "x-column" : "VCCMED",
+            "x-sequence" : "140"
+          },
+          "routeCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Route code",
+            "x-column" : "VCROTC",
+            "x-sequence" : "150"
+          },
+          "pathExtensionCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Path Extension Code",
+            "x-column" : "VCELBC",
+            "x-sequence" : "160"
+          }
+        },
+        "description" : "Version conflict response data.",
+        "x-pfname" : "OMOVC",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "processingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "forceConfirmIndicator" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The version conflict may not be confirmed if the object is in a potential version conflict stage, unless the force parameter is set to *YES.\r\n                                                                  \r\n    Note:  If you try to confirm the version conflict in the potential version conflict stage, it means you are too early as you should be aware that the                                                              \r\n               object may undergo further changes in the future.   \r\n\r\n*NO                                                                    \r\n    The version conflict will only be confirmed if the object is in a real  version conflict stage.   \r\n                                             \r\n*YES                                                                                                                                       \r\n    The version conflict will be forcefully confirmed, even if the object is in a potential version conflict stage.   \r\n       \r\n                                                                       \r\n   \r\n    ",
+            "default" : "*NO",
+            "enum" : [ "*NO", "*YES" ]
+          }
+        },
+        "description" : "Various flags to control the behaviour of the API."
+      }
+    },
+    "responses" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "The HTTP API Token",
+        "name" : "JWT",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
