@@ -1,0 +1,650 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Label API",
+    "description" : "The TD/OMS Label API allows you to perform all allowed actions on a Label.  You can use labels in compile selection, location selections, action selections, and filter.",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "object" : "@OMQRLB",
+      "library" : "V16T0269",
+      "srclibrary" : "V16T0269S",
+      "file" : "LabelAPI.json"
+    }
+  },
+  "servers" : [ {
+    "url" : "https://{host}:{port}/{library}/OMQRLB",
+    "description" : "A dynamic https host",
+    "variables" : {
+      "host" : {
+        "description" : "The host serving the API",
+        "default" : "plato.remainsoftware.com"
+      },
+      "port" : {
+        "description" : "The port to which server is listening",
+        "default" : "45211"
+      },
+      "library" : {
+        "description" : "TD/OMS Library",
+        "default" : "OMS"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/add" : {
+      "summary" : "",
+      "description" : "Input for add label request",
+      "post" : {
+        "summary" : "Label API",
+        "description" : "operation description",
+        "operationId" : "add",
+        "requestBody" : {
+          "description" : "Use this input to add the Label",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/addRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : false
+        }
+      }
+    },
+    "/change" : {
+      "summary" : "Use this path to change the label.",
+      "description" : "Use this path to change the label.",
+      "post" : {
+        "summary" : "Use this operation to change the Label.",
+        "description" : "Use this operation to change the Label.",
+        "operationId" : "change",
+        "requestBody" : {
+          "description" : "Use this input to change the Label",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/changeRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "02",
+          "generate" : true
+        }
+      }
+    },
+    "/delete" : {
+      "summary" : "Use this path to delete the Label",
+      "description" : "Use this path to delete the Label",
+      "post" : {
+        "summary" : "Use this operation to Delete the label.",
+        "description" : "Use this operation to Delete the label.",
+        "operationId" : "delete",
+        "requestBody" : {
+          "description" : "Use this input to delete the Label",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/deleteRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "03",
+          "generate" : true
+        }
+      }
+    },
+    "/label" : {
+      "summary" : "Use this path to assign the Label to object.",
+      "description" : "Use this path to assign the Label to object.",
+      "post" : {
+        "summary" : "Use this operation to assign the label to object",
+        "description" : "Use this operation to assign the label to object",
+        "operationId" : "label",
+        "requestBody" : {
+          "description" : "use this input to add label to object",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/labelRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "04",
+          "generate" : true
+        }
+      }
+    },
+    "/unlabel" : {
+      "summary" : "Use this path to remove the label from Object.",
+      "description" : "Use this path to remove the label from Object.",
+      "post" : {
+        "summary" : "use this operation to remove Label from Object.",
+        "description" : "use this operation to remove Label from Object.",
+        "operationId" : "unLabel",
+        "requestBody" : {
+          "description" : "use this input to remove Label from object",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/unlabelRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "05",
+          "generate" : true
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "addRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V12R1M0",
+            "default" : "'V12R1M0'",
+            "enum" : [ "'V12R1M0'" ]
+          },
+          "labelCode" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "A label is a 30 character field that can be used to label things like Objects, Requests and Tasks. Labels can be used in filters and selections.",
+            "default" : "*SAME"
+          },
+          "labelDescription" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "The label description contains a description of the label.",
+            "default" : "*SAME"
+          },
+          "color" : {
+            "$ref" : "#/components/schemas/color"
+          },
+          "processingOptions" : {
+            "$ref" : "#/components/schemas/processingOptions"
+          }
+        },
+        "description" : "Input parameters to add a new Label."
+      },
+      "processingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDB" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Input parameters to decide on UpdateDB and Update Buffer"
+      },
+      "objectDetails" : {
+        "type" : "object",
+        "properties" : {
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "The object code is the OS/400 system name of an object. The length is 10 characters for normal objects and 12 for\r\ndocument library objects.\r\n\r\n*IFSOBJ                                                    \r\n    Use this value if you want to add label to an object   \r\n    from the integrated file system (IFS) instead of the   \r\n    normal OS/400 library structure.                       \r\n                                                           \r\ncharacter-value                                            \r\n    Specify the object code of the object. The object must \r\n    exist in TD/OMS.                                       \r\n                                                  ",
+            "default" : "*IFSOBJ"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "The object type specifies the type of object. Program objects are of the type *PGM, file objects are of the type \r\n*FILE, etc. Refer to the IBM OS/400 reference quide for more information.\r\n\r\n"
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Name of the message or member name.\r\n\r\n*NONE                        \r\n    No detail is involved.   \r\ndetail-code                                          \r\n    Specify the name of the message or source member.",
+            "default" : "*NONE"
+          },
+          "ifsObject" : {
+            "maxLength" : 1000,
+            "type" : "string",
+            "description" : "The IFS Full Path Name is a complete reference to an IFS object. This includes the directory and the object.\r\n*OBJC                                                    \r\n    Use this value if you want to add label to an object \r\n    from the OS/400 library structure instead of the     \r\n    integrated file system (IFS).                        \r\n\r\npath-name                                             \r\n    Specify a full path name to the object. The object\r\n    must exist in TD/OMS.                             ",
+            "default" : "*OBJC"
+          }
+        },
+        "description" : "Input parameters of object Details"
+      },
+      "labelKeyDetails" : {
+        "type" : "object",
+        "properties" : {
+          "labelId" : {
+            "type" : "number",
+            "description" : "Specify the ID of the label.\r\nThe possible values are:   \r\n                           \r\n*LABEL                     \r\n    If *LABEL is specified then provide the valid label name in KEY \r\n    field.                                                          \r\n                                                                    \r\nLabel ID                                                            \r\n    Specify an existing label ID. A label ID cannot be specified for\r\n    the *ADD Action because an ID is generated for you.             ",
+            "default" : 0.0
+          },
+          "labelKey" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "Specify the existing label name. The possible values are:\r\n*ID                                                       \r\n    If *ID is specified then provide the valid label id in\r\n    the LBID field.                                       \r\n                                                          \r\n*ALL                                                      \r\n    Specify *ALL only when using the *UNLABEL action code.\r\n    *ALL can be used to remove all labels from an object  \r\n    in one action.                                       \r\n                                                         \r\nlabel name                                               \r\n    Specify the label name for the label that you want to\r\n    process.                                             ",
+            "default" : "*ID"
+          }
+        },
+        "description" : "Input parameters for Label key - Label id and Label Key"
+      },
+      "changeRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V12R1M0"
+          },
+          "labelKeyDetails" : {
+            "$ref" : "#/components/schemas/labelKeyDetails"
+          },
+          "labelCode" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "A label is a 30 character field that can be used to label things like Objects, Requests and Tasks. Labels can be used in filters and selections.",
+            "default" : "*SAME"
+          },
+          "labelDescription" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "Description of the Label",
+            "default" : "*SAME"
+          },
+          "color" : {
+            "$ref" : "#/components/schemas/color"
+          },
+          "processingOptions" : {
+            "$ref" : "#/components/schemas/processingOptions"
+          }
+        },
+        "description" : "input parameters to change existing Label."
+      },
+      "deleteRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V12R1M0"
+          },
+          "labelKeyDetails" : {
+            "$ref" : "#/components/schemas/labelKeyDetails"
+          },
+          "processingOptions" : {
+            "$ref" : "#/components/schemas/processingOptions"
+          }
+        },
+        "description" : "input parameters to delete the existing Label"
+      },
+      "labelRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V12R1M0"
+          },
+          "labelKeyDetails" : {
+            "$ref" : "#/components/schemas/labelKeyDetails"
+          },
+          "objectDetails" : {
+            "$ref" : "#/components/schemas/objectDetails"
+          },
+          "processingOptions" : {
+            "$ref" : "#/components/schemas/processingOptions"
+          }
+        },
+        "description" : "Input parameters to label an object"
+      },
+      "unlabelRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V12R1M0"
+          },
+          "labelKeyDetails" : {
+            "$ref" : "#/components/schemas/labelKeyDetails"
+          },
+          "objectDetails" : {
+            "$ref" : "#/components/schemas/objectDetails"
+          },
+          "processingOptions" : {
+            "$ref" : "#/components/schemas/processingOptions"
+          }
+        },
+        "description" : "Input parameters to remove the Label from an object"
+      },
+      "response" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Returned Status"
+          },
+          "extendedMessage" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "responseData" : {
+            "$ref" : "#/components/schemas/responseData"
+          }
+        },
+        "description" : ""
+      },
+      "extendedMessage" : {
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Message File"
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "Message ID"
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The message type 'E' indicates an error message, while 'N' or blanks indicates a normal message with no error."
+          },
+          "messageData" : {
+            "maxLength" : 128,
+            "type" : "string",
+            "description" : "Message Data"
+          },
+          "messageText" : {
+            "maxLength" : 644,
+            "type" : "string",
+            "description" : "The human readable message text."
+          },
+          "field" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "The field in error."
+          }
+        },
+        "description" : "Output error details"
+      },
+      "color" : {
+        "type" : "object",
+        "properties" : {
+          "color" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The color code to be used in the UI. This field is a three byte hexadecimal value where the first byte is used for the amount of RED the second byte is used for the amount of GREEN and the third byte for the amount of BLUE.       \r\nFF0000 - Red  \r\n00FF00 - Green\r\n0000FF - Blue \r\n8B0000 - Dark Red  \r\nFFFF00 - Yellow \r\n00FFFF - Aqua   \r\n\r\nSpecial values - *SAME   \r\n*WHITE  \r\n*SILVER \r\n*GRAY   \r\n*BLACK  \r\n*RED    \r\n*MAROON \r\n*YELLOW \r\n*OLIVE  \r\n*LIME   \r\n*GREEN  \r\n*AQUA   \r\n*TEAL   \r\n*BLUE   \r\n*NAVY   \r\n*FUCHSIA\r\n*PURPLE",
+            "enum" : [ "*SAME", "*WHITE", "*SILVER", "*GRAY", "*BLACK", "*RED", "*MAROON", "*YELLOW", "*OLIVE", "*LIME", "*GREEN", "*AQUA", "*TEAL", "*BLUE", "*NAVY", "*FUCHSIA", "*PURPLE" ]
+          }
+        },
+        "description" : "The color code to be used in the UI. This field is a three byte hexadecimal value where the first byte is used for the amount of RED the second\r\n byte is used for the amount of GREEN and the third byte for the amount of BLUE."
+      },
+      "responseData" : {
+        "type" : "object",
+        "properties" : {
+          "labelKeyDetails" : {
+            "$ref" : "#/components/schemas/labelKeyDetails"
+          },
+          "labelCode" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "Label Code"
+          },
+          "labelDescription" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "Label Description"
+          },
+          "color" : {
+            "$ref" : "#/components/schemas/color"
+          },
+          "usercode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "User"
+          },
+          "incomeDate" : {
+            "maximum" : 7,
+            "type" : "number",
+            "description" : "Date of incoming",
+            "format" : "zoned(7:0)"
+          },
+          "incometime" : {
+            "maximum" : 6,
+            "type" : "number",
+            "description" : "Time of incoming",
+            "format" : "zoned(6:0)"
+          },
+          "objectDetails" : {
+            "$ref" : "#/components/schemas/objectDetails"
+          }
+        },
+        "description" : "Data that is returned."
+      }
+    },
+    "responses" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "JWT security",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
