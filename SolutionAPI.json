@@ -16,10 +16,10 @@
     "version" : "0.0.1",
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
-      "library" : "V16T0095",
+      "library" : "V16T0248",
       "file" : "SolutionAPI.json",
-      "srclibrary" : "V16T0095S",
-      "object" : "OMQRSO"
+      "srclibrary" : "V16T0248S",
+      "object" : "@OMQRS"
     }
   },
   "servers" : [ {
@@ -1518,6 +1518,13 @@
             "description" : "Specify '1' to update the database or '0' to not update but check only.",
             "default" : "1",
             "enum" : [ "0", "1" ]
+          },
+          "deleteObjectAndSource" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to delete the object or '0' to not delete the object.",
+            "default" : "0",
+            "enum" : [ "0", "1" ]
           }
         },
         "description" : "Disconnect\r\n Processing Options"
@@ -1663,6 +1670,8 @@
       }
     },
     "responses" : { },
+    "parameters" : { },
+    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
