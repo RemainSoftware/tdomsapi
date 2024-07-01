@@ -1,0 +1,213 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "OMS - Impact Analysis Rest API",
+    "description" : "This service can be used to maintain and execute Impact Analysis reports. It also enables fetching of references of any object.",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "object" : "OMQRIA",
+      "library" : "V16T0266",
+      "srclibrary" : "V16T0266S",
+      "file" : "ImpactAnalysis.json",
+      "additionalBindingDirs" : "OMRESTUTIL"
+    }
+  },
+  "servers" : [ {
+    "url" : "https://{host}:{port}/{library}/OMQRIA",
+    "description" : "plato.prod",
+    "variables" : {
+      "host" : {
+        "description" : "",
+        "default" : "plato.remainsoftware.com"
+      },
+      "port" : {
+        "description" : "",
+        "default" : "45010"
+      },
+      "library" : {
+        "description" : "",
+        "default" : "OMS"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/ref/{object}/{objectType}/{objectLibrary}/{member}" : {
+      "summary" : "The report path",
+      "description" : "Allows the generation and retrieval of the objects impact analysis",
+      "get" : {
+        "summary" : "Get the impact analysis results",
+        "description" : "This method allows a report code, object code, type and library on the path and then generate and return the impact analysis data.",
+        "operationId" : "report",
+        "parameters" : [ {
+          "name" : "object",
+          "in" : "path",
+          "description" : "Object Code",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/parmObject"
+          }
+        }, {
+          "name" : "objectType",
+          "in" : "path",
+          "description" : "Object Type",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/parmObjectType"
+          }
+        }, {
+          "name" : "objectLibrary",
+          "in" : "path",
+          "description" : "Object Library",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/parmObjectLibrary"
+          }
+        }, {
+          "name" : "member",
+          "in" : "path",
+          "description" : "The member or *NONE if no member is required",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/parmMember"
+          }
+        }, {
+          "name" : "report",
+          "in" : "query",
+          "description" : "The impact analysis report code. When not specified, the direct references of the object will be returned",
+          "required" : false,
+          "style" : "form",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/parmReport"
+          }
+        }, {
+          "name" : "detail",
+          "in" : "query",
+          "description" : "Determines the detail level of the output in combination with the report parameter. Should be COMPILE, SINGLE (default) or COMPLETE.",
+          "required" : false,
+          "style" : "form",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/reportDetail"
+          }
+        }, {
+          "name" : "grouping",
+          "in" : "query",
+          "description" : "The grouping level of the dependencies. can be NONE or TYPE",
+          "required" : false,
+          "style" : "form",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/grouping"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "return code 200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/reportResult"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : false
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "message" : {
+        "type" : "object",
+        "properties" : {
+          "message" : {
+            "maxLength" : 256,
+            "type" : "string"
+          }
+        }
+      },
+      "parmReport" : {
+        "type" : "string",
+        "description" : "The report code",
+        "default" : ""
+      },
+      "parmObject" : {
+        "type" : "string"
+      },
+      "parmObjectType" : {
+        "type" : "string"
+      },
+      "parmObjectLibrary" : {
+        "type" : "string"
+      },
+      "reportResult" : {
+        "maxLength" : 10240000,
+        "type" : "string",
+        "description" : "This is the result of the impact analysis report. It contains a dynamic json. See the examples for a snippet of the expected json"
+      },
+      "reportDetail" : {
+        "type" : "string",
+        "description" : "The report detail level of the report. Can be empty, COMPILE, SINGLE or COMPLETE.",
+        "default" : "",
+        "enum" : [ "SINGLE", "COMPILE", "COMPLETE" ]
+      },
+      "parmMember" : {
+        "type" : "string",
+        "description" : "The member or message of the main object."
+      },
+      "grouping" : {
+        "type" : "string",
+        "description" : "The grouping level of the dependencies. can be NONE or TYPE",
+        "enum" : [ "NONE", "TYPE" ]
+      }
+    },
+    "responses" : { },
+    "examples" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "JWT Security",
+        "name" : "JWT",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
