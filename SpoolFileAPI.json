@@ -49,7 +49,7 @@
       "description" : "This path will allow to delete the selected spool file .",
       "post" : {
         "summary" : "This Action will delete the spool file.",
-        "description" : "This Action will allow the user to select the spool file to delete.",
+        "description" : "This action will allow the user to select a specific spool file to delete. If you want to delete all spool files, you need to use the default values, which will delete all spool files associated with a particular user.",
         "operationId" : "delete",
         "requestBody" : {
           "description" : "Post Method",
