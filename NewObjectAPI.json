@@ -17,8 +17,8 @@
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
       "object" : "OMQRNO",
-      "library" : "V16T0228",
-      "srclibrary" : "V16T0228S",
+      "library" : "V16T0271",
+      "srclibrary" : "V16T0271S",
       "file" : "newObjectAPI.json"
     }
   },
@@ -200,7 +200,7 @@
             "description" : "Enter the template name."
           },
           "newObject" : {
-            "maxLength" : 10,
+            "maxLength" : 12,
             "type" : "string",
             "description" : "Enter the new object name that you wish to create."
           },
@@ -303,7 +303,7 @@
         "type" : "object",
         "properties" : {
           "templateObject" : {
-            "maxLength" : 10,
+            "maxLength" : 12,
             "type" : "string",
             "description" : "Enter the name of the object you wish to use as a template for copying."
           },
