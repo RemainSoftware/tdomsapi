@@ -1,7 +1,8 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "Login API.",
+    "title" : "OMS - Login API.",
+    "description" : "This is the login API. You can supply a user name and a password and get an access token in return. You can also supply a user name and an empty password in combination with an expired token or API Token in the authorization header to get a new JWT token.",
     "contact" : {
       "name" : "Remain Software",
       "url" : "https://remainsoftware.com",
@@ -37,13 +38,16 @@
       }
     }
   } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
   "paths" : {
     "/login" : {
       "summary" : "login",
       "description" : "Path to initially sign to get the Json Web Token to used for other requests",
       "post" : {
         "summary" : "login",
-        "description" : "login",
+        "description" : "This is the login method.  You can supply a user name and a password. You can also supply a user name and an empty password in combination with an expired token in the authorization header to swap the existing token for a new one.",
         "operationId" : "login",
         "requestBody" : {
           "description" : "Sign in to request a Json web token to be used for other subsequent requests",
@@ -76,7 +80,7 @@
         },
         "callbacks" : { },
         "security" : [ {
-          "Basic" : [ ]
+          "JWT" : [ ]
         } ],
         "x-generate" : {
           "session" : false,
@@ -93,6 +97,7 @@
         "type" : "object",
         "properties" : {
           "err_msg" : {
+            "maxLength" : 100,
             "type" : "string",
             "description" : "The error message"
           }
@@ -110,20 +115,6 @@
         },
         "description" : "The Json web token to be used to authorize requests"
       },
-      "Message" : {
-        "type" : "object",
-        "properties" : {
-          "MessageText" : {
-            "type" : "string",
-            "description" : "Message text"
-          },
-          "MessageId" : {
-            "type" : "string",
-            "description" : "MessageId"
-          }
-        },
-        "description" : "message object"
-      },
       "signIn" : {
         "required" : [ "email_or_username", "password" ],
         "type" : "object",
@@ -131,14 +122,15 @@
           "password" : {
             "maxLength" : 128,
             "type" : "string",
-            "description" : "password"
+            "description" : "The password or an empty string in combnination with an auth token."
           },
           "email_or_username" : {
+            "maxLength" : 100,
             "type" : "string",
-            "description" : "sign with email or user name"
+            "description" : "Sign in with username."
           }
         },
-        "description" : "Object sent to sign in to the Octo server"
+        "description" : "Object sent to sign in to the Octo server."
       }
     },
     "responses" : {
@@ -164,10 +156,12 @@
       }
     },
     "securitySchemes" : {
-      "Basic" : {
-        "name" : "Basic",
-        "type" : "apiKey",
-        "in" : "header"
+      "JWT" : {
+        "type" : "http",
+        "description" : "JWT Security",
+        "name" : "JWT",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
       }
     },
     "callbacks" : { }
