@@ -9,6 +9,10 @@
       "url" : "https://remainsoftware.com",
       "email" : "helpdesk@remainsoftware.com"
     },
+    "license" : {
+      "name" : "Remain Software Commercial License ",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
     "version" : "0.0.1",
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
@@ -184,7 +188,7 @@
       "reportDetail" : {
         "type" : "string",
         "description" : "The report detail level of the report. Can be empty, COMPILE, SINGLE or COMPLETE.",
-        "default" : "",
+        "default" : "SINGLE",
         "enum" : [ "SINGLE", "COMPILE", "COMPLETE" ]
       },
       "parmMember" : {
@@ -203,7 +207,6 @@
       "JWT" : {
         "type" : "http",
         "description" : "JWT Security",
-        "name" : "JWT",
         "scheme" : "bearer",
         "bearerFormat" : "JWT"
       }
