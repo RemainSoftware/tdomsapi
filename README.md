@@ -19,3 +19,4 @@
 * [REST New Object API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/NewObjectAPI.json)
 * [REST Spool File API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/SpoolFileAPI.json)
 * [REST Version Conflict API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/VersionConflictAPI.json)
+* [REST Impact Analysis API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/ImpactAnalysis.json)
