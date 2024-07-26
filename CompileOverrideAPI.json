@@ -1,0 +1,893 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Compile Override API",
+    "description" : "This REST API allows you to perform actions such as adding, changing, copying, deleting, or authorizing compile overrides. Additionally, you can manage details of compile overrides using this API.\r\n\r\nThere are two ways to interact with compile overrides using this REST API:  \r\n\r\n1. Using create command type *HEADER: This indicates that you want to add, change, or delete the compile override header.\r\n\r\n2. Using a create command type other than *HEADER allows you to perform actions on the compile override details. Here, valid options include *PRE, *COMPILE, *POST, and *ALL.\r\n                                                ",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License ",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "object" : "OMQRCO",
+      "library" : "V17T0016",
+      "srclibrary" : "V17T0016S",
+      "file" : "CompileOverrideAPI.json"
+    }
+  },
+  "servers" : [ {
+    "url" : "https://{host}:{port}/{library}/OMQRCO",
+    "description" : "A dynamic https host",
+    "variables" : {
+      "host" : {
+        "description" : "The host serves the API.",
+        "default" : "plato.remainsoftware.com"
+      },
+      "library" : {
+        "description" : "The TD/OMS library.",
+        "default" : "OMS"
+      },
+      "port" : {
+        "description" : "The port to which the server is listening.",
+        "default" : "45611"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/add" : {
+      "summary" : "Use this path to add a new compile override header or its command detail.",
+      "description" : "Use this path to add a new compile override header or its command detail.  \r\n\r\nNote:  \r\nWhen you add the compile override header, the default command detail will be automatically added.",
+      "post" : {
+        "summary" : "Use this operation to add a new compile override header or its command detail.",
+        "description" : "Use this operation to add a new compile override header or its command detail.    \r\n\r\nNote: Using the create command type *HEADER will automatically add the default command details along with the compile override header.",
+        "operationId" : "add",
+        "requestBody" : {
+          "description" : "Use this input to add a new compile override or its command detail.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/addRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : false
+        }
+      }
+    },
+    "/change" : {
+      "summary" : "Use this path to change the contents or certain attributes of the compile override header or its command detail.",
+      "description" : "Use this path to change the contents or certain attributes of the compile override header or its command detail.",
+      "post" : {
+        "summary" : "Use this operation to change the contents or certain attributes of the compile override header or its command detail.",
+        "description" : "Use this operation to change the contents or certain attributes of the compile override header or its command detail.\r\n\r\nNote: Using the create command type *HEADER will change the compile override header. If a different create command type is used, it will change the compile override details.",
+        "operationId" : "change",
+        "requestBody" : {
+          "description" : "Use this input to change the attributes of the compile override or its command detail.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/changeRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "02",
+          "generate" : false
+        }
+      }
+    },
+    "/copy" : {
+      "summary" : "Use this path to copy the compile override header.",
+      "description" : "Use this path to copy the compile override header.\r\n\r\nNote:  When you copy the compile override header, its associated command details will be automatically copied.",
+      "post" : {
+        "summary" : "Use this operation to copy the compile override header.",
+        "description" : "Use this operation to copy the compile override header.  \r\n\r\nNote:  When you copy the compile override header, its associated command details will be automatically copied.",
+        "operationId" : "copy",
+        "requestBody" : {
+          "description" : "Use this input to copy the compile override with its command detail.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/copyRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "03",
+          "generate" : false
+        }
+      }
+    },
+    "/delete" : {
+      "summary" : "Use this path to delete the compile override header or its details.",
+      "description" : "Use this path to delete the compile override header or its detail.  \r\n\r\nNote: Using the create command type *HEADER will automatically delete all associated details along with the compile override header.",
+      "post" : {
+        "summary" : "Use this operation to delete the compile override header or its command detail.",
+        "description" : "Use this operation to delete the compile override header or its command detail.   \r\n\r\nNote: Using the create command type *HEADER will automatically delete all associated details along with the compile override header.",
+        "operationId" : "delete",
+        "requestBody" : {
+          "description" : "Use this input to delete the compile override with its command detail.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/deleteRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "04",
+          "generate" : false
+        }
+      }
+    },
+    "/authorize" : {
+      "summary" : "Use this path to authorize the compile override.",
+      "description" : "Use this path to authorize the compile override.",
+      "post" : {
+        "summary" : "Use this operation to authorize the compile override.",
+        "description" : "Use this operation to authorize the compile override.",
+        "operationId" : "authorize",
+        "requestBody" : {
+          "description" : "Use this input to authorize the compile override.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/authorizeRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "05",
+          "generate" : false
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "addRequest" : {
+        "required" : [ "commandString" ],
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "$ref" : "#/components/schemas/interfaceLevel"
+          },
+          "request" : {
+            "$ref" : "#/components/schemas/request"
+          },
+          "createCommandType" : {
+            "$ref" : "#/components/schemas/createCommandType"
+          },
+          "createCommandSequenceNumber" : {
+            "$ref" : "#/components/schemas/createCommandSequenceNumber"
+          },
+          "behaviourOnError" : {
+            "$ref" : "#/components/schemas/behaviourOnError"
+          },
+          "commandString" : {
+            "$ref" : "#/components/schemas/commandString"
+          },
+          "addProcessingOptions" : {
+            "$ref" : "#/components/schemas/addProcessingOptions"
+          }
+        },
+        "description" : "Request data to add the compile override."
+      },
+      "changeRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "$ref" : "#/components/schemas/interfaceLevel"
+          },
+          "request" : {
+            "$ref" : "#/components/schemas/request"
+          },
+          "createCommandType" : {
+            "$ref" : "#/components/schemas/createCommandType"
+          },
+          "createCommandSequenceNumber" : {
+            "$ref" : "#/components/schemas/createCommandSequenceNumber"
+          },
+          "behaviourOnError" : {
+            "$ref" : "#/components/schemas/behaviourOnError"
+          },
+          "commandString" : {
+            "$ref" : "#/components/schemas/commandString"
+          },
+          "changeProcessingOptions" : {
+            "$ref" : "#/components/schemas/changeProcessingOptions"
+          }
+        },
+        "description" : "Request data to change the compile override or its detail."
+      },
+      "copyRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "$ref" : "#/components/schemas/interfaceLevel"
+          },
+          "request" : {
+            "$ref" : "#/components/schemas/request"
+          },
+          "copyProcessingOptions" : {
+            "$ref" : "#/components/schemas/copyProcessingOptions"
+          }
+        },
+        "description" : "Request data to copy the compile override with its detail."
+      },
+      "deleteRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "$ref" : "#/components/schemas/interfaceLevel"
+          },
+          "request" : {
+            "$ref" : "#/components/schemas/request"
+          },
+          "createCommandType" : {
+            "$ref" : "#/components/schemas/createCommandType"
+          },
+          "createCommandSequenceNumber" : {
+            "$ref" : "#/components/schemas/createCommandSequenceNumber"
+          },
+          "deleteProcessingOptions" : {
+            "$ref" : "#/components/schemas/deleteProcessingOptions"
+          }
+        },
+        "description" : "Request data to delete the compile override."
+      },
+      "authorizeRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "$ref" : "#/components/schemas/interfaceLevel"
+          },
+          "request" : {
+            "$ref" : "#/components/schemas/request"
+          },
+          "authorizeProcessingOptions" : {
+            "$ref" : "#/components/schemas/authorizeProcessingOptions"
+          }
+        },
+        "description" : "Request data to authorize the compile override."
+      },
+      "response" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "$ref" : "#/components/schemas/status"
+          },
+          "message" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "compileOverrideHeader" : {
+            "$ref" : "#/components/schemas/compileOverrideHeader"
+          },
+          "compileOverrideDetail" : {
+            "maxItems" : 100,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/compileOverrideDetail"
+            }
+          }
+        },
+        "description" : "This will return the response data."
+      },
+      "errorResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "$ref" : "#/components/schemas/status"
+          },
+          "messages" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/extendedMessage"
+            }
+          }
+        },
+        "description" : "This will return the error information."
+      },
+      "extendedMessage" : {
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The message file."
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "The message Idetifier."
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The message type 'E' indicates an error message, 'W' indicates a warning, while a blank indicates a normal message with no error."
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "The message substitution data"
+          },
+          "field" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "The field in error"
+          },
+          "messageText" : {
+            "maxLength" : 644,
+            "type" : "string",
+            "description" : "The human readable message text."
+          }
+        },
+        "description" : "The return messages."
+      },
+      "status" : {
+        "maxLength" : 5,
+        "type" : "string",
+        "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
+      },
+      "compileOverrideHeader" : {
+        "type" : "object",
+        "properties" : {
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Object code",
+            "x-column" : "OBOBJC",
+            "x-sequence" : "10"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Object type",
+            "x-column" : "OBOBJT",
+            "x-sequence" : "20"
+          },
+          "objectAttribute" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Object attribute",
+            "x-column" : "OBOBJA",
+            "x-sequence" : "30"
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Member code",
+            "x-column" : "OBMBRC",
+            "x-sequence" : "40"
+          },
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "OBAPPC",
+            "x-sequence" : "50"
+          },
+          "environmentCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Environment code",
+            "x-column" : "OBPDLC",
+            "x-sequence" : "60"
+          },
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Object library",
+            "x-column" : "OBOBJL",
+            "x-sequence" : "70"
+          },
+          "createCommandKeyNumber" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Create command key number",
+            "format" : "packed(7:0)",
+            "x-column" : "OBCCK#",
+            "x-sequence" : "80"
+          },
+          "authorizedByUser" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Authorized by user",
+            "x-column" : "OBABUS",
+            "x-sequence" : "90"
+          },
+          "typeCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Type code",
+            "x-column" : "OBTYPC",
+            "x-sequence" : "100"
+          }
+        },
+        "description" : "Compile override header response data.",
+        "x-pfname" : "OMCOB",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "compileOverrideDetail" : {
+        "type" : "object",
+        "properties" : {
+          "createCommandKeyNumber" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Create command key number",
+            "format" : "packed(7:0)",
+            "x-column" : "OCCCK#",
+            "x-sequence" : "10"
+          },
+          "createCommandType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Command type",
+            "x-column" : "OCCTYP",
+            "x-sequence" : "20"
+          },
+          "createCommandSequenceNumber" : {
+            "maxLength" : 5,
+            "type" : "number",
+            "description" : "Create command sequence nbr.",
+            "format" : "packed(5:0)",
+            "x-column" : "OCCCS#",
+            "x-sequence" : "30"
+          },
+          "commandString" : {
+            "maxLength" : 2048,
+            "type" : "string",
+            "description" : "Command string",
+            "x-column" : "OCCMDS",
+            "x-sequence" : "40"
+          },
+          "behaviourOnError" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Behaviour on error",
+            "x-column" : "OCERRB",
+            "x-sequence" : "50"
+          }
+        },
+        "description" : "Compile override detail response data.",
+        "x-pfname" : "OMCOC",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "updateDb" : {
+        "maxLength" : 1,
+        "type" : "string",
+        "description" : "Specify '1' to update the database or '0' to not update but check only.",
+        "default" : "1",
+        "enum" : [ "0", "1" ]
+      },
+      "updateBuffer" : {
+        "maxLength" : 1,
+        "type" : "string",
+        "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+        "default" : "1",
+        "enum" : [ "0", "1" ]
+      },
+      "toApplicationCode" : {
+        "maxLength" : 5,
+        "type" : "string",
+        "description" : "Specify the To-application code. The possible values are:  \r\n\r\n*SAME  \r\nUse this value to indicate that the application code does not change.  \r\n\r\n*ALL  \r\nSpecify the To-application code to *ALL, It is valid for all applications.",
+        "default" : "*SAME",
+        "enum" : [ "*SAME", "*ALL" ]
+      },
+      "toEnvironmentCode" : {
+        "maxLength" : 5,
+        "type" : "string",
+        "description" : "Specify the To-environment code. The possible values are:  \r\n\r\n*SAME  \r\nUse this value to indicate that the environment code does not change.  \r\n\r\n*ALL  \r\nSpecify the To-environment code to *ALL, It is valid for all environments.",
+        "default" : "*SAME",
+        "enum" : [ "*SAME", "*ALL" ]
+      },
+      "toObjectLibrary" : {
+        "maxLength" : 10,
+        "type" : "string",
+        "description" : "Specify the To-object library. The possible values are:  \r\n\r\n*SAME  \r\nUse this value to indicate that the object library does not change.\r\n\r\n*ALL  \r\nSpecify the To-object library to *ALL, It is valid for all libraries.",
+        "default" : "*SAME",
+        "enum" : [ "*SAME", "*ALL" ]
+      },
+      "interfaceLevel" : {
+        "maxLength" : 8,
+        "type" : "string",
+        "description" : "The interface level must be V16R1M0.",
+        "default" : "V16R1M0",
+        "enum" : [ "V16R1M0" ]
+      },
+      "addProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "$ref" : "#/components/schemas/updateDb"
+          },
+          "updateBuffer" : {
+            "$ref" : "#/components/schemas/updateBuffer"
+          }
+        },
+        "description" : "Various flags to control the behavior of the API."
+      },
+      "changeProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "$ref" : "#/components/schemas/updateDb"
+          },
+          "updateBuffer" : {
+            "$ref" : "#/components/schemas/updateBuffer"
+          },
+          "toApplicationCode" : {
+            "$ref" : "#/components/schemas/toApplicationCode"
+          },
+          "toEnvironmentCode" : {
+            "$ref" : "#/components/schemas/toEnvironmentCode"
+          },
+          "toObjectLibrary" : {
+            "$ref" : "#/components/schemas/toObjectLibrary"
+          },
+          "crtCmdNewSeqNum" : {
+            "maximum" : 5,
+            "type" : "number",
+            "description" : "Specify the command new sequence number. The possible values are: \r\n\r\n-1 (*SAME)  \r\nUse this value to indicate that the command sequence number does not change. \r\n\r\n-2 (*NEXT)  \r\nUse this value to modify the command sequence number to a new value. It will increase by 10 or round off to the nearest multiple of 10.",
+            "format" : "packed(5:0)",
+            "default" : -1.0,
+            "enum" : [ -1.0, -2.0 ]
+          }
+        },
+        "description" : "Various flags to control the behavior of the API."
+      },
+      "copyProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "$ref" : "#/components/schemas/updateDb"
+          },
+          "updateBuffer" : {
+            "$ref" : "#/components/schemas/updateBuffer"
+          },
+          "toObjectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Specify the To-object code.  \r\n\r\n*SAME  \r\nUse this value to indicate that the object code does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "toObjectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Specify the To-object type.  \r\n\r\n*SAME  \r\nUse this value to indicate that the object type does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "toMemberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "When connecting a message or a source member the name of this member code must also be specified. The possible values are:  \r\n\r\n*SAME  \r\nUse this value to indicate that the detail does not change.  \r\n\r\n*NONE  \r\nNo member code is involved.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*NONE" ]
+          },
+          "toApplicationCode" : {
+            "$ref" : "#/components/schemas/toApplicationCode"
+          },
+          "toEnvironmentCode" : {
+            "$ref" : "#/components/schemas/toEnvironmentCode"
+          },
+          "toObjectLibrary" : {
+            "$ref" : "#/components/schemas/toObjectLibrary"
+          }
+        },
+        "description" : "Various flags to control the behavior of the API."
+      },
+      "createCommandType" : {
+        "maxLength" : 10,
+        "type" : "string",
+        "description" : "These command type groups create the object commands. The possible values are:\r\n\r\n*PRE   \r\nThis command type must be used for the Pre commands. \r\n\r\n*COMPILE  \r\nThis command type must be used for the create command. \r\n\r\n*POST  \r\nThis command type must be used for the Post commands.  \r\n\r\n*ALL  \r\nUse this value to delete all command types only if you are in delete mode and if you are in add or change mode, this value is not allowed.  \r\n\r\n*HEADER  \r\nUse this value when you want to add, change or delete the compile override header. \r\n\r\nNote:  \r\nWhen the command type is *HEADER, it indicates that you want to execute an action on the compile override header. If the command type is other than *HEADER, it means that you want to execute an action on the compile override details.",
+        "default" : "*HEADER",
+        "enum" : [ "*PRE", "*COMPILE", "*POST", "*ALL", "*HEADER" ]
+      },
+      "createCommandSequenceNumber" : {
+        "maximum" : 5,
+        "type" : "number",
+        "description" : "Specify the command sequence number. \r\n\r\n-1 (*NEXT)  \r\nUse this value to allocate the next command sequence number. It will increment by 10    \r\nor round off to the nearest multiple of 10 if you are in add mode. However, if you are in \r\nchange or delete mode, this value is not allowed.  \r\n\r\n1 (*ONLY)  \r\nYou can use this value with the command type *COMPILE.\r\n\r\n-2 (*ALL)  \r\nUse this value to delete all command sequence numbers if you are in delete mode and if \r\nyou are in add or change mode, this value is not allowed.",
+        "format" : "packed(5:0)",
+        "default" : -1.0,
+        "enum" : [ -1.0, -2.0, 1.0 ]
+      },
+      "deleteProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "$ref" : "#/components/schemas/updateDb"
+          },
+          "updateBuffer" : {
+            "$ref" : "#/components/schemas/updateBuffer"
+          }
+        },
+        "description" : "Various flags to control the behavior of the API."
+      },
+      "request" : {
+        "required" : [ "objectCode", "objectType" ],
+        "type" : "object",
+        "properties" : {
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Specify the object code."
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Specify the object type."
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "When connecting a message or a source member the name of this member code must also be specified. The possible values are: \r\n                                                                                                              \r\n*NONE                                                    \r\n    No member code is involved.",
+            "default" : "*NONE",
+            "enum" : [ "*NONE" ]
+          },
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code. The possible values are:   \r\n                                                         \r\n*ALL  \r\nSpecify the application code to *ALL, It is valid for all applications.         \r\n                               ",
+            "default" : "*ALL",
+            "enum" : [ "*ALL" ]
+          },
+          "environmentCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the environment code. The possible values are:   \r\n\r\n*ALL  \r\nSpecify the environment code to *ALL, It is valid for all environments.",
+            "default" : "*ALL",
+            "enum" : [ "*ALL" ]
+          },
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the object library. The possible values are:   \r\n\r\n*ALL  \r\nSpecify the object library to *ALL, It is valid for all libraries.",
+            "default" : "*ALL",
+            "enum" : [ "*ALL" ]
+          }
+        },
+        "description" : "Common fields for all path"
+      },
+      "authorizeProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "$ref" : "#/components/schemas/updateDb"
+          },
+          "updateBuffer" : {
+            "$ref" : "#/components/schemas/updateBuffer"
+          }
+        },
+        "description" : "Various flags to control the behavior of the API."
+      },
+      "commandString" : {
+        "maxLength" : 1024,
+        "type" : "string",
+        "description" : "The Command String can be used to enter a command string that can be executed by TD/OMS.  The attributes of the command string can be substituted. The substitution variables used are the same as used in action definitions.  \r\n\r\n*SAME  \r\nUse this value to indicate that the command string does not change if you are in change mode. It is not allowed in add mode when you try to add compile override details.",
+        "default" : "*SAME",
+        "enum" : [ "*SAME" ]
+      },
+      "behaviourOnError" : {
+        "maxLength" : 10,
+        "type" : "string",
+        "description" : "This field indicates in what circumstances a create command detail should be executed. The possible values are:    \r\n\r\n*ALWAYS  \r\nThis value indicates that the create command detail should always be executed, whether or not there have been errors during the execution of previous create command details.   \r\n\r\n*NOTERROR  \r\nThis value indicates that the create command detail will not be executed if there have been errors during the execution of previous create command details.   \r\n\r\n*ERROR  \r\nThis value indicates that the create command detail will only be executed if there have been errors during the execution of previous create command details.   \r\n\r\n*SAME                                                     \r\nUse this value to indicate that the behavior on error does not change if you are in change mode. If you are in add mode it contains the default value, the default value for the behavior on error is *NOTERROR.",
+        "default" : "*SAME",
+        "enum" : [ "*ALWAYS", "*NOTERROR", "*ERROR", "*SAME" ]
+      }
+    },
+    "responses" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "JWT security",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
