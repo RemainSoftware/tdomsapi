@@ -21,3 +21,4 @@
 * [REST Version Conflict API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/VersionConflictAPI.json)
 * [REST Impact Analysis API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/ImpactAnalysis.json)
 * [REST Label API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/LabelAPI.json)
+* [REST Compile Override API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/CompileOverrideAPI.json)
