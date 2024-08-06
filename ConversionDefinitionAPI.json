@@ -1,0 +1,598 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Conversion Definition API",
+    "description" : "This REST API allows you to perform actions such as adding, changing, and deleting the conversion definitions.                                                ",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License ",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "object" : "OMQRCN",
+      "library" : "V17T0028",
+      "srclibrary" : "V17T0028S",
+      "file" : "ConversionDefinitionAPI.json"
+    }
+  },
+  "servers" : [ {
+    "url" : "https://{host}:{port}/{library}/OMQRCN",
+    "description" : "A dynamic http host.",
+    "variables" : {
+      "host" : {
+        "description" : "The host serves the API.",
+        "default" : "plato.remainsoftware.com"
+      },
+      "library" : {
+        "description" : "The TD/OMS library.",
+        "default" : "OMS"
+      },
+      "port" : {
+        "description" : "The port to which the server is listening.",
+        "default" : "45611"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/add" : {
+      "summary" : "Use this path to add a new conversion definition.",
+      "description" : "Use this path to add a new conversion definition.",
+      "post" : {
+        "summary" : "Use this operation to add a new conversion definition.",
+        "description" : "Use this operation to add a new conversion definition.",
+        "operationId" : "add",
+        "requestBody" : {
+          "description" : "Use this input schema to add the new conversion definition.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/addRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "security" : [ {
+          "JWT" : [ ]
+        } ],
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : false
+        }
+      }
+    },
+    "/change" : {
+      "summary" : "use this schema to change the conversion definition.",
+      "description" : "use this schema to change the conversion definition.",
+      "post" : {
+        "summary" : "Use this operation to change the conversion definition.",
+        "description" : "Use this operation to change the conversion definition.",
+        "operationId" : "change",
+        "requestBody" : {
+          "description" : "use this path to change the conversion definition.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/changeRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "02",
+          "generate" : true
+        }
+      }
+    },
+    "/delete" : {
+      "summary" : "use this path to delete the conversion definition.",
+      "description" : "use this path to delete the conversion definition.",
+      "post" : {
+        "summary" : "use this operation to delete the conversion definition.",
+        "description" : "use this operation to delete the conversion definition.",
+        "operationId" : "delete",
+        "requestBody" : {
+          "description" : "use this path to delete the conversion definition.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/deleteRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "03",
+          "generate" : true
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "extendedMessage" : {
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The message file."
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "The message id."
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The message type 'E' indicates an error message, 'W' indicates a warning, while a blank indicates a normal message with no error."
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "The message substitution data."
+          },
+          "field" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "The field in error."
+          },
+          "messageText" : {
+            "maxLength" : 644,
+            "type" : "string",
+            "description" : "The human readable message text."
+          }
+        },
+        "description" : "The return messages."
+      },
+      "applicationCode" : {
+        "maxLength" : 5,
+        "type" : "string",
+        "description" : "Specify the application code.\r\n                                                         \r\nA blank value is not allowed in the application code field.                                                    "
+      },
+      "conversionType" : {
+        "maxLength" : 7,
+        "type" : "string",
+        "description" : "The data conversion type instructs OMS what action must be taken on the data in a physical file. Default conversion will be performed by OMS if no conversion type is defined for a specific physical file: The contents of the replaced\r\nphysical file will be copied to the newly created physical using the *MAP and *DROP parameters.                      \r\n\r\nThe possible values are: \r\n\r\n1=Including data (*DATA)                               \r\n    The object will be copied as will the data it contains, thus replacing existing data members. Use this value for physical files containing changed parameter values.                                  \r\n\r\n2=Without data (*NODATA)                                 \r\n    The object will be copied without the data it contains, thus creating a empty file.                \r\n                                                         \r\n8=Call user program (*USRPGM)                            \r\n    A user conversion program which can be defined in the OMS conversion file (See technical description below) will be called after the physical file has been created.                                           \r\n\r\n9=Convert from other file (*OTHOBJ)                                    \r\n    Standard conversion will be executed, though not from an equally amed physical file but from a physical file with a different name.\r\n\r\nTechnical description                                             \r\nA user program is called using the following parameters for type '8'(*USRPGM). All parameters are character fields:                \r\nParameter   Description (length)                                     \r\n                                                                     \r\nFENV        The From-environment code (C5)                           \r\n                                                                     \r\nFOBC        The From-object code; the physical file with data (C10)  \r\n                                                                     \r\nFOBL        The library of the physical file to be copied (C10)      \r\n                                                                     \r\nTENV        The To-environment code (C5)                             \r\n                                                                     \r\nTOBJ        The To-object code; the newly created physical file (C10)\r\n                                                                     \r\nTOBL        To library of the newly created physical file (C10)      \r\n                                                                     \r\nSTAT        The status after converting the data (C5). Use the value '*NORM' for normal ending of program and '*TERM' for abnormal ending.                                    ",
+        "default" : "*DATA",
+        "enum" : [ "*DATA", "*NODATA", "*USRPGM", "*OTHOBJ" ]
+      },
+      "ignoreWarning" : {
+        "maxLength" : 4,
+        "type" : "string",
+        "description" : "Specify the ignore warnings indicator. The possible values are:\r\n                                                               \r\n*NO                                                            \r\n    Use this value if you want to show warning messages.       \r\n                                                               \r\n*YES                                                           \r\n    Use this value if you do not want to show warning messages.",
+        "default" : "*NO",
+        "enum" : [ "*NO", "*YES" ]
+      },
+      "interfaceLevel" : {
+        "maxLength" : 8,
+        "type" : "string",
+        "description" : "Enter the interface level code.",
+        "default" : "V17R1M0",
+        "enum" : [ "V17R1M0" ]
+      },
+      "updateDb" : {
+        "maxLength" : 1,
+        "type" : "string",
+        "description" : "Specify '1' to update the database or '0' to not update but check only.",
+        "default" : "1",
+        "enum" : [ "0", "1" ]
+      },
+      "updateBuffer" : {
+        "maxLength" : 1,
+        "type" : "string",
+        "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest data.",
+        "format" : "",
+        "default" : "1",
+        "enum" : [ "0", "1" ]
+      },
+      "addRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "$ref" : "#/components/schemas/interfaceLevel"
+          },
+          "applicationCode" : {
+            "$ref" : "#/components/schemas/applicationCode"
+          },
+          "objectCode" : {
+            "$ref" : "#/components/schemas/objectCode"
+          },
+          "memberCode" : {
+            "$ref" : "#/components/schemas/memberCode"
+          },
+          "conversionType" : {
+            "$ref" : "#/components/schemas/conversionType"
+          },
+          "programName" : {
+            "$ref" : "#/components/schemas/programName"
+          },
+          "programLibrary" : {
+            "$ref" : "#/components/schemas/programLibrary"
+          },
+          "referenceObject" : {
+            "$ref" : "#/components/schemas/referenceObject"
+          },
+          "addProcessingOptions" : {
+            "$ref" : "#/components/schemas/addProcessingOptions"
+          }
+        },
+        "description" : "Request data to add the conversion definition"
+      },
+      "addProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "$ref" : "#/components/schemas/updateDb"
+          },
+          "updateBuffer" : {
+            "$ref" : "#/components/schemas/updateBuffer"
+          },
+          "ignoreWarning" : {
+            "$ref" : "#/components/schemas/ignoreWarning"
+          }
+        },
+        "description" : "Enter processing array input here to add the conversion definition."
+      },
+      "changeProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "$ref" : "#/components/schemas/updateDb"
+          },
+          "updateBuffer" : {
+            "$ref" : "#/components/schemas/updateBuffer"
+          },
+          "ignoreWarning" : {
+            "$ref" : "#/components/schemas/ignoreWarning"
+          }
+        },
+        "description" : "Enter processing array input here to change the conversion definition."
+      },
+      "deleteProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "$ref" : "#/components/schemas/updateDb"
+          },
+          "updateBuffer" : {
+            "$ref" : "#/components/schemas/updateBuffer"
+          }
+        },
+        "description" : "Enter processing array input here to delete the conversion definition."
+      },
+      "changeRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "$ref" : "#/components/schemas/interfaceLevel"
+          },
+          "applicationCode" : {
+            "$ref" : "#/components/schemas/applicationCode"
+          },
+          "objectCode" : {
+            "$ref" : "#/components/schemas/objectCode"
+          },
+          "memberCode" : {
+            "$ref" : "#/components/schemas/memberCode"
+          },
+          "conversionType" : {
+            "$ref" : "#/components/schemas/conversionType"
+          },
+          "programName" : {
+            "$ref" : "#/components/schemas/programName"
+          },
+          "programLibrary" : {
+            "$ref" : "#/components/schemas/programLibrary"
+          },
+          "referenceObject" : {
+            "$ref" : "#/components/schemas/referenceObject"
+          },
+          "changeProcessingOptions" : {
+            "$ref" : "#/components/schemas/changeProcessingOptions"
+          }
+        },
+        "description" : "Request data to change the conversion definition."
+      },
+      "deleteRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "$ref" : "#/components/schemas/interfaceLevel"
+          },
+          "applicationCode" : {
+            "$ref" : "#/components/schemas/applicationCode"
+          },
+          "objectCode" : {
+            "$ref" : "#/components/schemas/objectCode"
+          },
+          "memberCode" : {
+            "$ref" : "#/components/schemas/memberCode"
+          },
+          "deleteProcessingOptions" : {
+            "$ref" : "#/components/schemas/deleteProcessingOptions"
+          }
+        },
+        "description" : "Request data to delete the conversion definition."
+      },
+      "status" : {
+        "maxLength" : 5,
+        "type" : "string",
+        "description" : "returns the status of the api request."
+      },
+      "response" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "$ref" : "#/components/schemas/status"
+          },
+          "message" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "responseData" : {
+            "$ref" : "#/components/schemas/responseData"
+          }
+        },
+        "description" : "This will return the response data."
+      },
+      "responseData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "NVAPPC",
+            "x-sequence" : "10"
+          },
+          "conversionCode" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Conversion code",
+            "x-column" : "NVCNVC",
+            "x-sequence" : "20"
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Object code",
+            "x-column" : "NVOBJC",
+            "x-sequence" : "30"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Object type",
+            "x-column" : "NVOBJT",
+            "x-sequence" : "40"
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Member code",
+            "x-column" : "NVMBRC",
+            "x-sequence" : "50"
+          },
+          "conversionType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Conversion type",
+            "x-column" : "NVCNVT",
+            "x-sequence" : "60"
+          },
+          "programName" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Program name",
+            "x-column" : "NVPGMN",
+            "x-sequence" : "70"
+          },
+          "programLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Program library",
+            "x-column" : "NVPGML",
+            "x-sequence" : "80"
+          },
+          "referenceObject" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Reference object",
+            "x-column" : "NVROBC",
+            "x-sequence" : "90"
+          },
+          "referenceObjectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Reference object library",
+            "x-column" : "NVROBL",
+            "x-sequence" : "100"
+          }
+        },
+        "description" : "contains the file fields for response.",
+        "x-pfname" : "OMCNV",
+        "x-library" : "OMSRUN51",
+        "x-host" : "172.17.4.10",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "errorResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "$ref" : "#/components/schemas/status"
+          },
+          "messages" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/extendedMessage"
+            }
+          }
+        },
+        "description" : "This will return the error information."
+      },
+      "memberCode" : {
+        "maxLength" : 10,
+        "type" : "string",
+        "description" : "Use this prompt to enter a specific member name if a single member is connected to a fix, not the physical file itself.  The value *ALL must be used if a physical file is connected to a fix.                                        ",
+        "default" : "*ALL",
+        "enum" : [ "*ALL" ]
+      },
+      "programName" : {
+        "maxLength" : 10,
+        "type" : "string",
+        "description" : "Specify the conversion program name and the library for the conversion definition. Blank values are not allowed.                                \r\n                                                                         \r\nQualifier 1: conversion program name                                     \r\n    Use this value in combination with conversion type *USRPGM to enter the object code of the conversion program to be called.              \r\n                                                                         \r\n*SAME                                                                    \r\n    Use this value to indicate that conversion program name does not change. In *ADD mode, this value is not allowed.                     \r\n                                                                         \r\n    In *change this value is allowed only if database does not have a blank value.                                                         ",
+        "default" : "*SAME",
+        "enum" : [ "*SAME" ]
+      },
+      "programLibrary" : {
+        "maxLength" : 10,
+        "type" : "string",
+        "description" : "    Use this value in combination with conversion type *USRPGM to enter  the object code library of the conversion program to be called.     \r\n                                                                        \r\n*SAME                                                                   \r\n    Use this value to indicate that conversion library name does not change. In *ADD mode, this value is not allowed.                    \r\n                                                                        \r\n    In *change this value is allowed only if database does not have a blank value.                \r\n\r\n*LIBL                                                                   \r\n    Use this value to indicate that conversion program will be referred from the library list.                                                                                      ",
+        "default" : "*SAME",
+        "enum" : [ "*SAME", "*LIBL" ]
+      },
+      "referenceObject" : {
+        "maxLength" : 12,
+        "type" : "string",
+        "description" : "Use this prompt in combination with conversion type *OTHOBJ to enter the related object code. This must be a physical file which will be used to copy the data from.                                                     \r\n                                                                        \r\n*SAME                                                                   \r\n    Use this value to indicate that related object code does not change. In *ADD mode, this value is not allowed.                            \r\n                                                                        \r\n    In *change this value is allowed only if database does not have a blank value.                                                        ",
+        "default" : "*SAME",
+        "enum" : [ "*SAME" ]
+      },
+      "objectCode" : {
+        "maxLength" : 12,
+        "type" : "string",
+        "description" : "Use this prompt to enter the object code of the physical file you are defining the conversion for. A blank value is not allowed.                                               "
+      }
+    },
+    "responses" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "JWT security",
+        "name" : "JWT",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
