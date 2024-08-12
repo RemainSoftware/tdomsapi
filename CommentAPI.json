@@ -1,0 +1,739 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Comment API",
+    "description" : "The REST Comment API allows you to manage and interact with comments effectively. It supports a full range of actions on comments, providing robust functionality for various maintenance activities. You can use this API for managing comments related to object maintenance, solution maintenance, fix maintenance, and request maintenance screens, ensuring comprehensive control and organization of comments across different maintenance tasks.                               ",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "object" : "@OMRCM",
+      "library" : "V17T0011",
+      "srclibrary" : "V17T0011S",
+      "file" : "CommentAPI.json"
+    }
+  },
+  "servers" : [ {
+    "url" : "https://{host}:{port}/{library}/OMQRCM",
+    "description" : "A dynamic https host",
+    "variables" : {
+      "host" : {
+        "description" : "The host serves the API.",
+        "default" : "plato.remainsoftware.com"
+      },
+      "library" : {
+        "description" : "The TD/OMS library.",
+        "default" : "OMS"
+      },
+      "port" : {
+        "description" : "The port to which the server is listening.",
+        "default" : "45611"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/add" : {
+      "summary" : "Use this path to add a new comment.",
+      "description" : "Comments can be added with this path.",
+      "post" : {
+        "summary" : "add operation",
+        "description" : "The add operation",
+        "operationId" : "addComment",
+        "requestBody" : {
+          "description" : "Post Method",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/addCommentRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/commentResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorised",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : false
+        }
+      }
+    },
+    "/change" : {
+      "summary" : "Use this path to change the comment.",
+      "description" : "Comments can be changed with this path.",
+      "post" : {
+        "summary" : "change operation",
+        "description" : "The change operation",
+        "operationId" : "changeComment",
+        "requestBody" : {
+          "description" : "Post Method",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/changeCommentRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/commentResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorised",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "02",
+          "generate" : false
+        }
+      }
+    },
+    "/delete" : {
+      "summary" : "Use this path to delete the comment.",
+      "description" : "Comments can be deleted with this path.",
+      "post" : {
+        "summary" : "delete operation",
+        "description" : "The delete operation",
+        "operationId" : "deleteComment",
+        "requestBody" : {
+          "description" : "Post Method",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/deleteCommentRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/commentResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorised",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "03",
+          "generate" : false
+        }
+      }
+    },
+    "/reply" : {
+      "summary" : "Use this path to reply the comment.",
+      "description" : "Comments can be replied with this path.",
+      "post" : {
+        "summary" : "reply operation",
+        "description" : "The reply operation",
+        "operationId" : "replyComment",
+        "requestBody" : {
+          "description" : "Post Method",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/replyCommentRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/commentResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorMessage"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorised",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "04",
+          "generate" : false
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "commentResponseData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "MNAPPC",
+            "x-sequence" : "10"
+          },
+          "environmentCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Environment code",
+            "x-column" : "MNPDLC",
+            "x-sequence" : "20"
+          },
+          "sequenceNumber" : {
+            "maxLength" : 5,
+            "type" : "number",
+            "description" : "Sequence number",
+            "format" : "packed(5:0)",
+            "x-column" : "MNSEQ#",
+            "x-sequence" : "30"
+          },
+          "librarySequenceNumber" : {
+            "maxLength" : 3,
+            "type" : "number",
+            "description" : "Library sequence number",
+            "format" : "packed(3:0)",
+            "x-column" : "MNLSQ#",
+            "x-sequence" : "40"
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Fix number",
+            "x-column" : "MNFIX#",
+            "x-sequence" : "50"
+          },
+          "requestNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Request number",
+            "x-column" : "MNERR#",
+            "x-sequence" : "60"
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Object code",
+            "x-column" : "MNOBJC",
+            "x-sequence" : "70"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Object type",
+            "x-column" : "MNOBJT",
+            "x-sequence" : "80"
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Member code",
+            "x-column" : "MNMBRC",
+            "x-sequence" : "90"
+          },
+          "genericId" : {
+            "maxLength" : 9,
+            "type" : "number",
+            "description" : "Generic ID",
+            "format" : "zoned(9:0)",
+            "x-column" : "MNGNID",
+            "x-sequence" : "100"
+          },
+          "entityCode" : {
+            "maxLength" : 2,
+            "type" : "string",
+            "description" : "Entity Code",
+            "x-column" : "MNENTC",
+            "x-sequence" : "110"
+          },
+          "commentId" : {
+            "maxLength" : 9,
+            "type" : "number",
+            "description" : "Comment ID",
+            "format" : "zoned(9:0)",
+            "x-column" : "MNCMID",
+            "x-sequence" : "120"
+          },
+          "replyId" : {
+            "maxLength" : 9,
+            "type" : "number",
+            "description" : "Reply ID",
+            "format" : "zoned(9:0)",
+            "x-column" : "MNRPID",
+            "x-sequence" : "130"
+          },
+          "incomeDate" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Income date",
+            "format" : "zoned(7:0)",
+            "x-column" : "MNINDT",
+            "x-sequence" : "140"
+          },
+          "incomeTime" : {
+            "maxLength" : 6,
+            "type" : "number",
+            "description" : "Income time",
+            "format" : "zoned(6:0)",
+            "x-column" : "MNINTM",
+            "x-sequence" : "150"
+          },
+          "userIdOrUserClass" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "User i.d., or user class",
+            "x-column" : "MNUSID",
+            "x-sequence" : "160"
+          },
+          "shortCommentDescription" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "Short comment description",
+            "x-column" : "MNCMSD",
+            "x-sequence" : "170"
+          },
+          "commentMarkupType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Comment markup type",
+            "x-column" : "MNCMMT",
+            "x-sequence" : "180"
+          },
+          "commentText" : {
+            "maxLength" : 4970,
+            "type" : "string",
+            "description" : "Comment Description"
+          }
+        },
+        "description" : "Comment response data",
+        "x-library" : "V160KEP",
+        "x-pfname" : "OMCMN",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "addCommentRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "$ref" : "#/components/schemas/interfaceLevel"
+          },
+          "request" : {
+            "$ref" : "#/components/schemas/request"
+          },
+          "commentTypeAndDescription" : {
+            "$ref" : "#/components/schemas/commentTypeAndDescription"
+          },
+          "commentProcessingOptions" : {
+            "$ref" : "#/components/schemas/commentProcessingOptions"
+          }
+        },
+        "description" : "Request data to add the command"
+      },
+      "extendedMessage" : {
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Message File"
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "The message Id"
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The message type 'E' indicates an error message, while a blank indicates a normal message with no error."
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "The message substitution data"
+          },
+          "field" : {
+            "minLength" : 50,
+            "type" : "string",
+            "description" : "The field in error"
+          },
+          "messageText" : {
+            "maxLength" : 644,
+            "type" : "string",
+            "description" : "The human readable text"
+          }
+        },
+        "description" : "Extended message data "
+      },
+      "changeCommentRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "$ref" : "#/components/schemas/interfaceLevel"
+          },
+          "request" : {
+            "$ref" : "#/components/schemas/request"
+          },
+          "commentId" : {
+            "$ref" : "#/components/schemas/commentId"
+          },
+          "commentTypeAndDescription" : {
+            "$ref" : "#/components/schemas/commentTypeAndDescription"
+          },
+          "commentProcessingOptions" : {
+            "$ref" : "#/components/schemas/commentProcessingOptions"
+          }
+        },
+        "description" : "Request data to change the command"
+      },
+      "replyCommentRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "$ref" : "#/components/schemas/interfaceLevel"
+          },
+          "request" : {
+            "$ref" : "#/components/schemas/request"
+          },
+          "replyId" : {
+            "type" : "number",
+            "description" : "Use this value if you want to reply on an existing comment or reply.The comment id of an existing comment or reply is used as reply id. ",
+            "format" : "zoned(9:0)"
+          },
+          "commentTypeAndDescription" : {
+            "$ref" : "#/components/schemas/commentTypeAndDescription"
+          },
+          "commentProcessingOptions" : {
+            "$ref" : "#/components/schemas/commentProcessingOptions"
+          }
+        },
+        "description" : "Request data to delete the command"
+      },
+      "deleteCommentRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "$ref" : "#/components/schemas/interfaceLevel"
+          },
+          "request" : {
+            "$ref" : "#/components/schemas/request"
+          },
+          "commentId" : {
+            "$ref" : "#/components/schemas/commentId"
+          },
+          "commentProcessingOptions" : {
+            "$ref" : "#/components/schemas/commentProcessingOptions"
+          }
+        },
+        "description" : "Request data to delete the command"
+      },
+      "commentResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "$ref" : "#/components/schemas/status"
+          },
+          "messages" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "commentResponseData" : {
+            "$ref" : "#/components/schemas/commentResponseData"
+          }
+        },
+        "description" : "Comment Response"
+      },
+      "status" : {
+        "maxLength" : 5,
+        "type" : "string",
+        "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
+      },
+      "errorMessage" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "$ref" : "#/components/schemas/status"
+          },
+          "messages" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          }
+        },
+        "description" : "The return messages."
+      },
+      "interfaceLevel" : {
+        "maxLength" : 8,
+        "type" : "string",
+        "description" : "Enter the interface level code.",
+        "default" : "V12R1M0",
+        "enum" : [ "V12R1M0" ]
+      },
+      "commentProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Various flags to control the behavior of the API."
+      },
+      "request" : {
+        "type" : "object",
+        "properties" : {
+          "entityCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Specify the type of the Comment.",
+            "default" : "*TASK",
+            "enum" : [ "*TASK", "*OBJECT", "*REQUEST", "*SOLUTION", "*DETAIL", "*APPLICATION", "*ENVIRONMENT", "*SUBENV", "*LIBRARY", "*TOPIC", "*SUBSCRIBER", "*SUBSTOPIC" ]
+          },
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code of the comment.",
+            "default" : "*NONE",
+            "enum" : [ "*NONE" ]
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the task to which the comment must be connected.",
+            "default" : "*NONE",
+            "enum" : [ "*NONE" ]
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Specify the object code to which the comment must be connected.",
+            "default" : "*NONE",
+            "enum" : [ "*NONE" ]
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Specify the object type of the object to which the comment must be connected.",
+            "default" : "*NONE",
+            "enum" : [ "*NONE" ]
+          },
+          "requestNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the request number to which the comment must be connected.",
+            "default" : "*NONE",
+            "enum" : [ "*NONE" ]
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Use this value if you want to add comment to a message or a member.",
+            "default" : "*NONE",
+            "enum" : [ "*NONE" ]
+          },
+          "environmentCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the environment code.",
+            "default" : "*NONE",
+            "enum" : [ "*NONE" ]
+          },
+          "sequenceNumber" : {
+            "maxLength" : 5,
+            "type" : "number",
+            "description" : " Specify the library list sequence number.",
+            "format" : "packed(5:0)"
+          },
+          "librarySequenceNumber" : {
+            "maxLength" : 3,
+            "type" : "number",
+            "description" : "Specify the library sequence number.",
+            "format" : "packed(3:0)"
+          },
+          "topic" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "Specify the event topic when target type is *TOPIC and specify subscriber topic when target type is *SUBSTOPIC."
+          },
+          "description" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "Specify the subscriber description."
+          }
+        },
+        "description" : "Common fields for all path"
+      },
+      "commentId" : {
+        "type" : "number",
+        "description" : "Use this value to specify the comment id if you want to change or delete and existing comment.",
+        "format" : "zoned(9:0)"
+      },
+      "commentTypeAndDescription" : {
+        "type" : "object",
+        "properties" : {
+          "commentMarkupType" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The markup type determines the markup language type.",
+            "default" : "*TEXT",
+            "enum" : [ "*TEXT", "*MARKDOWN", "*MEDIAWIKI" ],
+            "x-column" : "MNCMMT",
+            "x-sequence" : "180"
+          },
+          "shortCommentDescription" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "Enter the short description of the comment. The short description is a mandatory attribute.",
+            "x-column" : "MNCMSD",
+            "x-sequence" : "170"
+          },
+          "commentText" : {
+            "maxLength" : 4970,
+            "type" : "string",
+            "description" : "The comment text is used to describe the comment."
+          }
+        },
+        "description" : "Contains fileds related to comment type and description.",
+        "x-pfname" : "OMCMN",
+        "x-fieldSchemaNameType" : "Normalized",
+        "x-library" : "V160KEP"
+      }
+    },
+    "responses" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "Jwt security",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
