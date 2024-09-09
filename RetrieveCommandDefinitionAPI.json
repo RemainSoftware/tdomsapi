@@ -1,0 +1,203 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Retrieve Command Definition API",
+    "description" : "The Retrieve Command Definition API retrieves information from a CL command (*CMD) object and generates XML (Extensible Markup Language) source statements which describe the command. ",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License ",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "object" : "OMQRRD",
+      "library" : "V17T0073",
+      "srclibrary" : "V17T0073S",
+      "file" : "RetrieveCommandDefinitionAPI.json"
+    }
+  },
+  "servers" : [ {
+    "url" : "https://{host}:{port}/{library}/OMQRRD",
+    "description" : "A dynamic http host.",
+    "variables" : {
+      "host" : {
+        "description" : "The host serves the API.",
+        "default" : "plato.remainsoftware.com"
+      },
+      "library" : {
+        "description" : "The TD/OMS library.",
+        "default" : "OMS"
+      },
+      "port" : {
+        "description" : "The port to which server is listening.",
+        "default" : "45611"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/retrieve" : {
+      "post" : {
+        "summary" : "RetrieveCommandDefinitionAPI API.",
+        "description" : "operation description",
+        "operationId" : "retrieve",
+        "requestBody" : {
+          "description" : "Use this input schema to add the new conversion definition.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/retrieveRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : true
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "retrieveRequest" : {
+        "type" : "object",
+        "properties" : {
+          "commandName" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Enter the command name for which definition has to be retrieved."
+          },
+          "commandLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Enter the name of the library from which command has to be referred. The default value is *LIBL.",
+            "default" : "*LIBL",
+            "enum" : [ "*LIBL" ]
+          }
+        },
+        "description" : "Request data to retrieve the command definition."
+      },
+      "extendedMessage" : {
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The message file."
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "The message id."
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The message type 'E' indicates an error message, while 'N' indicates a normal message with no error."
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "The message substitution data."
+          },
+          "messageText" : {
+            "maxLength" : 644,
+            "type" : "string",
+            "description" : "The human readable message text."
+          }
+        },
+        "description" : "The return messages."
+      },
+      "errorResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "$ref" : "#/components/schemas/status"
+          },
+          "messages" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          }
+        },
+        "description" : "This will return the error information."
+      },
+      "response" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "$ref" : "#/components/schemas/status"
+          },
+          "message" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "generatedXML" : {
+            "maxLength" : 65536,
+            "type" : "string",
+            "description" : "It contains the generated XML output."
+          }
+        },
+        "description" : "This will return the response data."
+      },
+      "status" : {
+        "maxLength" : 5,
+        "type" : "string",
+        "description" : "returns the status of the api request."
+      }
+    },
+    "responses" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "JWT security",
+        "name" : "JWT",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
