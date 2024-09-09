@@ -24,3 +24,4 @@
 * [REST Compile Override API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/CompileOverrideAPI.json)
 * [REST Conversion Definition API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/ConversionDefinitionAPI.json)
 * [REST Comment API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/CommentAPI.json)
+* [REST Retrieve Command Definition API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/RetrieveCommandDefinitionAPI.json)
