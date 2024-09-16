@@ -1,0 +1,1111 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "User Options API",
+    "description" : "The API enables you to perform all the actions allowed in the User Options. You can use this REST API to add, change, copy or delete the user option definition.\r\n\r\nThe user option function enables you to select and maintain user-defined options. If you are a TD/OMS manager, you are able to define global and private user options. As a non-manager, you can define your own user options which can be promoted to global user options by the TD/OMS manager. ",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "https://remainsoftware.com",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License ",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator/generator",
+      "object" : "OMQRUO",
+      "library" : "V17T0077",
+      "srclibrary" : "V17T0077S",
+      "file" : "UserOptionsAPI.json"
+    }
+  },
+  "servers" : [ {
+    "url" : "{protocol}://{host}:{port}/{library}/OMQRUO",
+    "description" : "A dynamic https host",
+    "variables" : {
+      "host" : {
+        "description" : "The host serving the API.",
+        "default" : "plato.remainsoftware.com"
+      },
+      "library" : {
+        "description" : "The TD/OMS library.",
+        "default" : "OMS"
+      },
+      "protocol" : {
+        "description" : "Protocol",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
+      },
+      "port" : {
+        "description" : "The port to which the server is listening.",
+        "default" : "45011"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/add" : {
+      "summary" : "Use this path to add the user option.",
+      "description" : "Use this path to add the user option.",
+      "post" : {
+        "summary" : "Use this operation to add the user option.",
+        "description" : "Use this operation to add the user option.",
+        "operationId" : "add",
+        "requestBody" : {
+          "description" : "Use this input to add the user option.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/addRequest"
+              },
+              "examples" : {
+                "addRequest" : {
+                  "summary" : "How to use add request input parameter",
+                  "value" : {
+                    "interfaceLevel" : "V17R1M0",
+                    "userOption3" : "string",
+                    "userIDOrUserClass" : "*ALL",
+                    "userOptionDescription" : "*SAME",
+                    "actionGroupCode" : "*SAME",
+                    "authorisationCode2" : "*SAME",
+                    "checkEntry" : "*SAME",
+                    "entityCode" : "*SAME",
+                    "whereToActivateIndicator" : "*SAME",
+                    "whereVisibleIndicator" : "*SAME",
+                    "passParametersIndicator" : "*SAME",
+                    "programName" : "*SAME",
+                    "programLibrary" : "*SAME",
+                    "commandString" : "*SAME",
+                    "addProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "ignoreWarnings" : "*NO"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : false
+        }
+      }
+    },
+    "/change" : {
+      "summary" : "Use this path to change the user option.",
+      "description" : "Use this path to change the user option.",
+      "post" : {
+        "summary" : "Use this operation to add the user option.",
+        "description" : "Use this operation to add the user option.",
+        "operationId" : "change",
+        "requestBody" : {
+          "description" : "Use this input to change the user option.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/changeRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "02",
+          "generate" : false
+        }
+      }
+    },
+    "/copy" : {
+      "summary" : "Use this path to copy the user option.",
+      "description" : "Use this path to copy the user option.",
+      "post" : {
+        "summary" : "Use this operation to copy the user option.",
+        "description" : "Use this operation to copy the user option.",
+        "operationId" : "copy",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/copyRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "03",
+          "generate" : false
+        }
+      }
+    },
+    "/delete" : {
+      "summary" : "Use this path to delete the user option.",
+      "description" : "Use this path to delete the user option.",
+      "post" : {
+        "summary" : "Use this operation to delete the user option.",
+        "description" : "Use this operation to delete the user option.",
+        "operationId" : "delete",
+        "requestBody" : {
+          "description" : "Use this input to delete the user option.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/deleteRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "04",
+          "generate" : false
+        }
+      }
+    },
+    "/execute" : {
+      "summary" : "Use this path to execute the user option.",
+      "description" : "Use this path to execute the user option.",
+      "post" : {
+        "summary" : "Use this operation to execute the user option.",
+        "description" : "Use this operation to execute the user option.",
+        "operationId" : "execute",
+        "requestBody" : {
+          "description" : "Use this input to execute the user option.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/executeRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/executeResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "05",
+          "generate" : false
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "extendedMessage" : {
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The message file."
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "The message Idetifier."
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The message type 'E' indicates an error message,  while 'N' indicates a normal message with no error."
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "The message substitution data"
+          },
+          "field" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "The field in error"
+          },
+          "messageText" : {
+            "maxLength" : 644,
+            "type" : "string",
+            "description" : "The human readable message text."
+          }
+        },
+        "description" : "The return messages information."
+      },
+      "status" : {
+        "maxLength" : 5,
+        "type" : "string",
+        "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
+      },
+      "errorResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "$ref" : "#/components/schemas/status"
+          },
+          "messages" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/extendedMessage"
+            }
+          }
+        },
+        "description" : "This will return the error information."
+      },
+      "addRequest" : {
+        "required" : [ "commandString", "programLibrary", "programName", "userOption3", "userOptionDescription" ],
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "$ref" : "#/components/schemas/interfaceLevel"
+          },
+          "userOption3" : {
+            "$ref" : "#/components/schemas/userOption3"
+          },
+          "userIDOrUserClass" : {
+            "$ref" : "#/components/schemas/userIDOrUserClass"
+          },
+          "userOptionDescription" : {
+            "$ref" : "#/components/schemas/userOptionDescription"
+          },
+          "actionGroupCode" : {
+            "$ref" : "#/components/schemas/actionGroupCode"
+          },
+          "authorisationCode2" : {
+            "$ref" : "#/components/schemas/authorisationCode2"
+          },
+          "checkEntry" : {
+            "$ref" : "#/components/schemas/checkEntry"
+          },
+          "entityCode" : {
+            "$ref" : "#/components/schemas/entityCode"
+          },
+          "whereToActivateIndicator" : {
+            "$ref" : "#/components/schemas/whereToActivateIndicator"
+          },
+          "whereVisibleIndicator" : {
+            "$ref" : "#/components/schemas/whereVisibleIndicator"
+          },
+          "passParametersIndicator" : {
+            "$ref" : "#/components/schemas/passParametersIndicator"
+          },
+          "programName" : {
+            "$ref" : "#/components/schemas/programName"
+          },
+          "programLibrary" : {
+            "$ref" : "#/components/schemas/programLibrary"
+          },
+          "commandString" : {
+            "$ref" : "#/components/schemas/commandString"
+          },
+          "addProcessingOptions" : {
+            "$ref" : "#/components/schemas/addProcessingOptions"
+          }
+        },
+        "description" : "Request data to add the user option."
+      },
+      "changeRequest" : {
+        "required" : [ "userOption3" ],
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "$ref" : "#/components/schemas/interfaceLevel"
+          },
+          "userOption3" : {
+            "$ref" : "#/components/schemas/userOption3"
+          },
+          "userIDOrUserClass" : {
+            "$ref" : "#/components/schemas/userIDOrUserClass"
+          },
+          "userOptionDescription" : {
+            "$ref" : "#/components/schemas/userOptionDescription"
+          },
+          "actionGroupCode" : {
+            "$ref" : "#/components/schemas/actionGroupCode"
+          },
+          "authorisationCode2" : {
+            "$ref" : "#/components/schemas/authorisationCode2"
+          },
+          "checkEntry" : {
+            "$ref" : "#/components/schemas/checkEntry"
+          },
+          "entityCode" : {
+            "$ref" : "#/components/schemas/entityCode"
+          },
+          "whereToActivateIndicator" : {
+            "$ref" : "#/components/schemas/whereToActivateIndicator"
+          },
+          "whereVisibleIndicator" : {
+            "$ref" : "#/components/schemas/whereVisibleIndicator"
+          },
+          "programName" : {
+            "$ref" : "#/components/schemas/programName"
+          },
+          "programLibrary" : {
+            "$ref" : "#/components/schemas/programLibrary"
+          },
+          "passParametersIndicator" : {
+            "$ref" : "#/components/schemas/passParametersIndicator"
+          },
+          "commandString" : {
+            "$ref" : "#/components/schemas/commandString"
+          },
+          "changeProcessingOptions" : {
+            "$ref" : "#/components/schemas/changeProcessingOptions"
+          }
+        },
+        "description" : "Request data to change the user option definition."
+      },
+      "copyRequest" : {
+        "required" : [ "userOption3" ],
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "$ref" : "#/components/schemas/interfaceLevel"
+          },
+          "userOption3" : {
+            "$ref" : "#/components/schemas/userOption3"
+          },
+          "userIDOrUserClass" : {
+            "$ref" : "#/components/schemas/userIDOrUserClass"
+          },
+          "userOptionDescription" : {
+            "$ref" : "#/components/schemas/userOptionDescription"
+          },
+          "actionGroupCode" : {
+            "$ref" : "#/components/schemas/actionGroupCode"
+          },
+          "authorisationCode2" : {
+            "$ref" : "#/components/schemas/authorisationCode2"
+          },
+          "checkEntry" : {
+            "$ref" : "#/components/schemas/checkEntry"
+          },
+          "entityCode" : {
+            "$ref" : "#/components/schemas/entityCode"
+          },
+          "whereToActivateIndicator" : {
+            "$ref" : "#/components/schemas/whereToActivateIndicator"
+          },
+          "whereVisibleIndicator" : {
+            "$ref" : "#/components/schemas/whereVisibleIndicator"
+          },
+          "passParametersIndicator" : {
+            "$ref" : "#/components/schemas/passParametersIndicator"
+          },
+          "programName" : {
+            "$ref" : "#/components/schemas/programName"
+          },
+          "programLibrary" : {
+            "$ref" : "#/components/schemas/programLibrary"
+          },
+          "commandString" : {
+            "$ref" : "#/components/schemas/commandString"
+          },
+          "copyProcessingOptions" : {
+            "$ref" : "#/components/schemas/copyProcessingOptions"
+          }
+        },
+        "description" : "Request data to copy the user option definition to another user option."
+      },
+      "deleteRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "$ref" : "#/components/schemas/interfaceLevel"
+          },
+          "userOption3" : {
+            "$ref" : "#/components/schemas/userOption3"
+          },
+          "userIDOrUserClass" : {
+            "$ref" : "#/components/schemas/userIDOrUserClass"
+          },
+          "deleteProcessingOptions" : {
+            "$ref" : "#/components/schemas/deleteProcessingOptions"
+          }
+        },
+        "description" : "Request data to delete the user option definition."
+      },
+      "deleteProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "$ref" : "#/components/schemas/updateDb"
+          },
+          "updateBuffer" : {
+            "$ref" : "#/components/schemas/updateBuffer"
+          }
+        },
+        "description" : "Various flags to control the behavior of the API."
+      },
+      "responseData" : {
+        "type" : "object",
+        "properties" : {
+          "userOption3" : {
+            "maxLength" : 2,
+            "type" : "string",
+            "description" : "User option",
+            "x-column" : "PTUOPC",
+            "x-sequence" : "10"
+          },
+          "userIdOrUserClass" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "User i.d., or user class",
+            "x-column" : "PTUSID",
+            "x-sequence" : "20"
+          },
+          "entityCode" : {
+            "maxLength" : 2,
+            "type" : "string",
+            "description" : "Entity Code",
+            "x-column" : "PTENTC",
+            "x-sequence" : "30"
+          },
+          "actionGroupCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Action group code",
+            "x-column" : "PTAGRC",
+            "x-sequence" : "40"
+          },
+          "userOptionDescription" : {
+            "maxLength" : 60,
+            "type" : "string",
+            "description" : "User option description",
+            "x-column" : "PTUOPD",
+            "x-sequence" : "50"
+          },
+          "authorisationCode2" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Authorisation code",
+            "x-column" : "PTAUTC",
+            "x-sequence" : "60"
+          },
+          "programName" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Program name",
+            "x-column" : "PTPGMN",
+            "x-sequence" : "70"
+          },
+          "programLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Program library",
+            "x-column" : "PTPGML",
+            "x-sequence" : "80"
+          },
+          "passParametersIndicator" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Pass parameters indicator",
+            "x-column" : "PTPRMI",
+            "x-sequence" : "90"
+          },
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Interface level",
+            "x-column" : "PTINTL",
+            "x-sequence" : "100"
+          },
+          "commandString" : {
+            "maxLength" : 2048,
+            "type" : "string",
+            "description" : "Command string",
+            "x-column" : "PTCMDS",
+            "x-sequence" : "110"
+          },
+          "whereToActivateIndicator" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Where to activate indicator",
+            "x-column" : "PTWTAI",
+            "x-sequence" : "120"
+          },
+          "checkEntry" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Check Entry",
+            "x-column" : "PTCHEI",
+            "x-sequence" : "130"
+          },
+          "whereVisibleIndicator" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Where visibile indicator",
+            "x-column" : "PTWVII",
+            "x-sequence" : "140"
+          }
+        },
+        "description" : "User option response data.",
+        "x-pfname" : "OMOPT",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "response" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "$ref" : "#/components/schemas/status"
+          },
+          "message" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "responseData" : {
+            "$ref" : "#/components/schemas/responseData"
+          }
+        },
+        "description" : "This will return the response data."
+      },
+      "ignoreWarnings" : {
+        "maxLength" : 5,
+        "type" : "string",
+        "description" : "Specify the ignore warnings indicator. The possible values are:    \r\n                                                                 \r\n*NO                                                              \r\nUse this value if you want to show warning messages.         \r\n                                                                 \r\n*YES                                                             \r\nUse this value if you do not want to show warning messages.",
+        "default" : "*NO",
+        "enum" : [ "*NO", "*YES" ]
+      },
+      "updateDb" : {
+        "maxLength" : 1,
+        "type" : "string",
+        "description" : "Specify '1' to update the database or '0' to not update but check only.",
+        "default" : "1",
+        "enum" : [ "0", "1" ]
+      },
+      "updateBuffer" : {
+        "maxLength" : 1,
+        "type" : "string",
+        "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+        "default" : "1",
+        "enum" : [ "0", "1" ]
+      },
+      "toUserIDOrUserClass" : {
+        "maxLength" : 10,
+        "type" : "string",
+        "description" : "Specify the user id or user class for the global or private user option.\r\nThe possible values are:      \r\n                                                                        \r\n*SAME     \r\nUse this value to indicate that the user does not change if you are in change mode. In copy mode, the current user profile will be used.\r\n                                                                        \r\n*ALL      \r\nUse this value to define the global user option.                    \r\n                                                                        \r\n   Note:   \r\n   Only the TD/OMS manager is allowed to define a global user option.",
+        "default" : "*SAME",
+        "enum" : [ "*SAME", "*ALL" ]
+      },
+      "interfaceLevel" : {
+        "maxLength" : 8,
+        "type" : "string",
+        "description" : "The interface level must be V16R1M0.",
+        "default" : "V17R1M0",
+        "enum" : [ "V17R1M0" ]
+      },
+      "addProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "$ref" : "#/components/schemas/updateDb"
+          },
+          "updateBuffer" : {
+            "$ref" : "#/components/schemas/updateBuffer"
+          },
+          "ignoreWarnings" : {
+            "$ref" : "#/components/schemas/ignoreWarnings"
+          }
+        },
+        "description" : "Various flags to control the behavior of the API."
+      },
+      "changeProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "$ref" : "#/components/schemas/updateDb"
+          },
+          "updateBuffer" : {
+            "$ref" : "#/components/schemas/updateBuffer"
+          },
+          "toUserIdOrUserClass" : {
+            "$ref" : "#/components/schemas/toUserIDOrUserClass"
+          },
+          "ignoreWarnings" : {
+            "$ref" : "#/components/schemas/ignoreWarnings"
+          }
+        },
+        "description" : "Various flags to control the behavior of the API."
+      },
+      "userOptionDescription" : {
+        "maxLength" : 30,
+        "type" : "string",
+        "description" : "Specify the user option description.     \r\n                                                        \r\n*SAME     \r\nUse this value to indicate that the description does not change if you are in change or copy mode. It is not allowed in add mode.",
+        "default" : "*SAME",
+        "enum" : [ "*SAME" ]
+      },
+      "actionGroupCode" : {
+        "maxLength" : 10,
+        "type" : "string",
+        "description" : "The Action Group code can be used to group user options in logical groups. These groups will manifest themselves as submenu's in the GUI.   \r\n                                                                       \r\n*SAME            \r\nUse this value to indicate that the action group does not change if you are in change or copy mode, in add mode, it contains a blank value.",
+        "default" : "*SAME",
+        "enum" : [ "*SAME" ]
+      },
+      "authorisationCode2" : {
+        "maxLength" : 10,
+        "type" : "string",
+        "description" : "This is the authorization level required to execute the user option. Authorization code '*DISABLED' indicates that the user option is disabled. The possible values are:                            \r\n                                                                       \r\n*SAME                      \r\nUse this value to indicate that the authorization code does not change if you are in change or copy mode, in add mode, it contains the default value. The default value for the authorization code is *ADMIN.                                                          \r\n                                                                       \r\n*USER                                                                  \r\nUse this value to indicate that the user option is enabled for the user.                                                              \r\n                                                                       \r\n*PGMR     \r\nUse this value to indicate that the user option is enabled for the programmer.    \r\n\r\n*ADMIN     \r\nUse this value to indicate that the user option is enabled for the admin.     \r\n                                                                      \r\n*DISABLED    \r\nUse this value to indicate that the user option is disabled.",
+        "default" : "*SAME",
+        "enum" : [ "*SAME", "*DISABLED", "*USER", "*PGMR", "*ADMIN" ]
+      },
+      "checkEntry" : {
+        "maxLength" : 5,
+        "type" : "string",
+        "description" : "This field indicates if TD/OMS should check if the user is authorized for the selected entry. This field should be set to *NO if the user option is not related to a particular entry. The user option CW (Command line in a window) is an example of such an option. The possible values are:      \r\n                                                                        \r\n*SAME       \r\nUse this value to indicate that the check entry does not change if you are in change or copy mode, in add mode, it contains the default value. The default for the check entry is *YES.     \r\n                                                                        \r\n*NO     \r\nUse this value to indicate that the user option is not related to the particular entry.    \r\n\r\n*YES     \r\nUse this value to indicate that the user option is related to the particular entry.",
+        "format" : "",
+        "default" : "*SAME",
+        "enum" : [ "*SAME", "*NO", "*YES" ]
+      },
+      "entityCode" : {
+        "maxLength" : 10,
+        "type" : "string",
+        "description" : "The entity code is used to identify the entity for which a user option can be used. Combinations can be made by adding the numbers.           \r\n                                                                       \r\n  *REQUEST    - Request                                                                          \r\n  *TASK           - Task                                                  \r\n  *SOLUTION  - Solution                                              \r\n  *OBJECT       - Object                                                \r\n                                                                       \r\n    Note:    \r\n    If the entity code is '03' then the user option is available for both Request and Task.                                         \r\n                                                                       \r\n*SAME                \r\nUse this value to indicate that the entity code does not change if you are in change or copy mode, in add mode it contains the default value. the default value for the entity code is *TASK.",
+        "default" : "*SAME",
+        "enum" : [ "*SAME", "*REQUEST", "*TASK", "*SOLUTION", "*OBJECT" ]
+      },
+      "whereToActivateIndicator" : {
+        "maxLength" : 10,
+        "type" : "string",
+        "description" : "Specifies where this user has to be activated.     \r\n                                                                      \r\n*SAME                                                                 \r\nUse this value to indicate that the where to activate does not change if you are in change or copy mode, in add mode it contains the default value. the default value for the where to activate is *SERVER.      \r\n                                                                      \r\n*CLIENT      \r\n Runs the option in the TD/OMS GUI.                                \r\n                                                                      \r\n*SERVER     \r\nRuns the option on the Server which currently is the IBM i.",
+        "default" : "*SAME",
+        "enum" : [ "*SAME", "*CLIENT", "*SERVER" ]
+      },
+      "passParametersIndicator" : {
+        "maxLength" : 5,
+        "type" : "string",
+        "description" : "This element specifies whether or not parameters are passed to the calling program. The possible values are:                               \r\n                                                                        \r\n*NO                                                             \r\nNo parameters are passed to the calling program.                    \r\n                                                                        \r\n*YES                                                            \r\nParameters are passed to the calling program.                       \r\n                                                                        \r\n*SAME                                                                   \r\nUse this value to indicate that the Pass parameters does not change if you are in change or copy mode, in add mode it contains the default value. the default value for the Pass parameters is *YES.",
+        "default" : "*SAME",
+        "enum" : [ "*SAME", "*NO", "*YES" ]
+      },
+      "programName" : {
+        "maxLength" : 10,
+        "type" : "string",
+        "description" : "Contains the name of the program that is called when the indicated user option is used. Please keep in mind that the program you are using may not adopt authority from the calling program. Otherwise, the program would adopt TD/OMS authority because all TD/OMS functions are owned by the user OMS (including the database).                                  \r\n                                                                        \r\nA correct user option program may not adopt authority. This can be achieved by using the CHGPGM command and use the USEADPAUT(*NO) keyword and value. It is possible to run under the profile of the owner of the program.                                                                \r\n                                                                        \r\nIf user option programs are called with parameters they will receive information about the entity used.  Information about the parameters can be retrieved by looking at source member OMUSROPTGE in your QUSRSRC source file.    \r\n\r\n*SAME             \r\nUse this value to indicate that the program name does not change if you are in change or copy mode, in add mode it contains the blank value.",
+        "default" : "*SAME",
+        "enum" : [ "*SAME" ]
+      },
+      "programLibrary" : {
+        "maxLength" : 10,
+        "type" : "string",
+        "description" : "Contains the name of the library where the user option program can be found.                                    \r\n                                                         \r\n*SAME                                                    \r\nUse this value to indicate that the program library does not change if you are in change or copy mode, in add mode it contains the blank value.",
+        "default" : "*SAME",
+        "enum" : [ "*SAME", "*LIBL" ]
+      },
+      "commandString" : {
+        "maxLength" : 1024,
+        "type" : "string",
+        "description" : "Specify the command string.   \r\n\r\n*SAME                                                    \r\nUse this value to indicate that the command string does not change if you are in change or copy mode, in add mode it contains the blank value.",
+        "default" : "*SAME",
+        "enum" : [ "*SAME" ]
+      },
+      "copyProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "$ref" : "#/components/schemas/updateDb"
+          },
+          "updateBuffer" : {
+            "$ref" : "#/components/schemas/updateBuffer"
+          },
+          "toUserOption" : {
+            "maxLength" : 2,
+            "type" : "string",
+            "description" : "Specify the to user option."
+          },
+          "toUserIDOrUserClass" : {
+            "$ref" : "#/components/schemas/toUserIDOrUserClass"
+          },
+          "ignoreWarnings" : {
+            "$ref" : "#/components/schemas/ignoreWarnings"
+          }
+        },
+        "description" : "Various flags to control the behavior of the API."
+      },
+      "userOption3" : {
+        "maxLength" : 2,
+        "type" : "string",
+        "description" : "Specify the user option.",
+        "default" : "xx",
+        "enum" : [ "xx" ]
+      },
+      "userIDOrUserClass" : {
+        "maxLength" : 10,
+        "type" : "string",
+        "description" : "Specify the user id or user class for the global or private user option.\r\nThe possible values are:      \r\n                                                                        \r\n*ALL       \r\nUse this value to define the global user option.                    \r\n                                                                        \r\nNote:   \r\nOnly the TD/OMS manager is allowed to define a global user option.                                                    \r\n                                                                        \r\n*CURRENT                                                                \r\n Use this value to define a private user option it will use your current user profile.",
+        "default" : "*ALL",
+        "enum" : [ "*ALL", "*CURRENT" ]
+      },
+      "whereVisibleIndicator" : {
+        "maxLength" : 10,
+        "type" : "string",
+        "description" : "The Where Visible indicator is used to specify where the entry is visible.                                                 \r\n                                                                        \r\n*SAME                                                                   \r\nUse this value to indicate that the where visible does not change if you are in change or copy mode, in add mode it contains the default value. the default value for the where visible is *BOTH.          \r\n                                                                        \r\n*CLIENT                                                                 \r\nThe option is only visible on the client.                           \r\n                                                                        \r\n*SERVER                                                                 \r\nThe option is only visible on the server.                           \r\n                                                                        \r\n*BOTH       \r\nThe option is visible on both the client and the server.",
+        "default" : "*SAME",
+        "enum" : [ "*SAME", "*CLIENT", "*SERVER", "*BOTH" ]
+      },
+      "executeRequest" : {
+        "type" : "object",
+        "properties" : {
+          "userOption3" : {
+            "$ref" : "#/components/schemas/userOption3"
+          },
+          "entityCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The entity code is used to identify the entity for which a user option can be used. Combinations can be made by adding the numbers.           \r\n                                                                       \r\n  *REQUEST    - Request                                                                          \r\n  *TASK           - Task                                                  \r\n  *SOLUTION  - Solution                                              \r\n  *OBJECT       - Object                                                \r\n                                                                       \r\n    Note:    \r\n    If the entity code is '03' then the user option is available for both Request and Task.",
+            "default" : "*TASK",
+            "enum" : [ "*REQUEST", "*TASK", "*SOLUTION", "*OBJECT" ]
+          },
+          "taskKey" : {
+            "$ref" : "#/components/schemas/taskKey"
+          },
+          "requestKey" : {
+            "$ref" : "#/components/schemas/requestKey"
+          },
+          "solutionKey" : {
+            "$ref" : "#/components/schemas/solutionKey"
+          },
+          "objectKey" : {
+            "$ref" : "#/components/schemas/objectKey"
+          },
+          "executeProcessingOption" : {
+            "$ref" : "#/components/schemas/executeProcessingOption"
+          }
+        },
+        "description" : "Request data to execute the user option."
+      },
+      "executeResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "$ref" : "#/components/schemas/status"
+          },
+          "message" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          }
+        },
+        "description" : "Returns the response when user option is executed."
+      },
+      "applicationCode" : {
+        "maxLength" : 5,
+        "type" : "string",
+        "description" : "Specify the application code."
+      },
+      "taskNumber" : {
+        "maxLength" : 10,
+        "type" : "string",
+        "description" : "Specify the task number."
+      },
+      "objectCode" : {
+        "maxLength" : 12,
+        "type" : "string",
+        "description" : "Specify the object code."
+      },
+      "memberCode" : {
+        "maxLength" : 10,
+        "type" : "string",
+        "description" : "Specify the member code."
+      },
+      "objectType" : {
+        "maxLength" : 9,
+        "type" : "string",
+        "description" : "Specify the object type."
+      },
+      "taskKey" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "$ref" : "#/components/schemas/applicationCode"
+          },
+          "taskNumber" : {
+            "$ref" : "#/components/schemas/taskNumber"
+          },
+          "relatedReqApplication" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the related request application."
+          },
+          "relatedRequestNum" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the related request number."
+          }
+        },
+        "description" : "The task information to execute the user option at the task lavel.   \r\n\r\nNote:     \r\nIf you specify the task key information, the request key, solution key, and object key information will be ignored because the user option will be executed at the task level.\r\n \r\n\r\n"
+      },
+      "requestKey" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "$ref" : "#/components/schemas/applicationCode"
+          },
+          "requestNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the request number."
+          }
+        },
+        "description" : "The request information to execute the user option at the request lavel.  \r\n\r\nNote:     \r\nIf you specify the request key information, the task key, solution key, and object key information will be ignored because the user option will be executed at the request level."
+      },
+      "solutionKey" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "$ref" : "#/components/schemas/applicationCode"
+          },
+          "taskNumber" : {
+            "$ref" : "#/components/schemas/taskNumber"
+          },
+          "objectCode" : {
+            "$ref" : "#/components/schemas/objectCode"
+          },
+          "objectType" : {
+            "$ref" : "#/components/schemas/objectType"
+          },
+          "memberCode" : {
+            "$ref" : "#/components/schemas/memberCode"
+          },
+          "routeCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the route code."
+          },
+          "pathExtensionCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the path extension code."
+          }
+        },
+        "description" : "The solution information to execute the user option at the solution lavel.   \r\n\r\nNote:     \r\nIf you specify the solution key information, the request key, task key, and object key information will be ignored because the user option will be executed at the solution level."
+      },
+      "objectKey" : {
+        "type" : "object",
+        "properties" : {
+          "objectCode" : {
+            "$ref" : "#/components/schemas/objectCode"
+          },
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the object library."
+          },
+          "objectType" : {
+            "$ref" : "#/components/schemas/objectType"
+          },
+          "memberCode" : {
+            "$ref" : "#/components/schemas/memberCode"
+          }
+        },
+        "description" : "The object information to execute the user option at the object lavel.  \r\n\r\nNote:     \r\nIf you specify the object key information, the task key, request key, and solution key information will be ignored because the user option will be executed at the object level."
+      },
+      "executeProcessingOption" : {
+        "type" : "object",
+        "properties" : {
+          "checkProcessingInd" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '2' to process the user option or '1' to not process but check only.",
+            "default" : "2",
+            "enum" : [ "1", "2" ]
+          }
+        },
+        "description" : "The flags to control the behavior of the execute user option program."
+      }
+    },
+    "responses" : { },
+    "examples" : {
+      "addRequest" : {
+        "summary" : "How to use addRequest input parameter",
+        "value" : "\"{checkEntry=*SAME, interfaceLevel=V17R1M0, entityCode=*SAME, addProcessingOptions={updateDb=1, updateBuffer=1, ignoreWarnings=*NO}, passParametersIndicator=*SAME, whereVisibleIndicator=*SAME, commandString=*SAME, userOptionDescription=*SAME, userIDOrUserClass=*ALL, programName=*SAME, actionGroupCode=*SAME, programLibrary=*SAME, authorisationCode2=*SAME, userOption3=xx, whereToActivateIndicator=*SAME}\""
+      }
+    },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "The HTTP API Token",
+        "name" : "JWT",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
