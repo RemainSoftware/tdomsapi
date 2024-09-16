@@ -65,10 +65,10 @@
               },
               "examples" : {
                 "addRequest" : {
-                  "summary" : "How to use add request input parameter",
+                  "summary" : "How to specify the add request input parameters value.",
                   "value" : {
                     "interfaceLevel" : "V17R1M0",
-                    "userOption3" : "string",
+                    "userOption3" : "xx",
                     "userIDOrUserClass" : "*ALL",
                     "userOptionDescription" : "*SAME",
                     "actionGroupCode" : "*SAME",
@@ -147,6 +147,33 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/changeRequest"
+              },
+              "examples" : {
+                "changeRequest" : {
+                  "summary" : "How to specify the change request input parameters value.",
+                  "value" : {
+                    "interfaceLevel" : "V17R1M0",
+                    "userOption3" : "xx",
+                    "userIDOrUserClass" : "*ALL",
+                    "userOptionDescription" : "*SAME",
+                    "actionGroupCode" : "*SAME",
+                    "authorisationCode2" : "*SAME",
+                    "checkEntry" : "*SAME",
+                    "entityCode" : "*SAME",
+                    "whereToActivateIndicator" : "*SAME",
+                    "whereVisibleIndicator" : "*SAME",
+                    "programName" : "*SAME",
+                    "programLibrary" : "*SAME",
+                    "passParametersIndicator" : "*SAME",
+                    "commandString" : "*SAME",
+                    "changeProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "toUserIdOrUserClass" : "*SAME",
+                      "ignoreWarnings" : "*NO"
+                    }
+                  }
+                }
               }
             }
           },
@@ -205,6 +232,34 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/copyRequest"
+              },
+              "examples" : {
+                "copyRequest" : {
+                  "summary" : "How to specify the copy request input parameters value.",
+                  "value" : {
+                    "interfaceLevel" : "V17R1M0",
+                    "userOption3" : "xx",
+                    "userIDOrUserClass" : "*ALL",
+                    "userOptionDescription" : "*SAME",
+                    "actionGroupCode" : "*SAME",
+                    "authorisationCode2" : "*SAME",
+                    "checkEntry" : "*SAME",
+                    "entityCode" : "*SAME",
+                    "whereToActivateIndicator" : "*SAME",
+                    "whereVisibleIndicator" : "*SAME",
+                    "passParametersIndicator" : "*SAME",
+                    "programName" : "*SAME",
+                    "programLibrary" : "*SAME",
+                    "commandString" : "*SAME",
+                    "copyProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "toUserOption" : "xx",
+                      "toUserIDOrUserClass" : "*SAME",
+                      "ignoreWarnings" : "*NO"
+                    }
+                  }
+                }
               }
             }
           },
@@ -264,6 +319,20 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/deleteRequest"
+              },
+              "examples" : {
+                "deleteRequest" : {
+                  "summary" : "How to specify the delete request input parameters value.",
+                  "value" : {
+                    "interfaceLevel" : "V17R1M0",
+                    "userOption3" : "xx",
+                    "userIDOrUserClass" : "*ALL",
+                    "deleteProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1"
+                    }
+                  }
+                }
               }
             }
           },
@@ -323,6 +392,43 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/executeRequest"
+              },
+              "examples" : {
+                "executeRequest" : {
+                  "summary" : "How to specify the execute request input parameters value.",
+                  "value" : {
+                    "userOption3" : "xx",
+                    "entityCode" : "*TASK",
+                    "taskKey" : {
+                      "applicationCode" : "XMP",
+                      "taskNumber" : "XT0001",
+                      "relatedReqApplication" : " ",
+                      "relatedRequestNum" : " "
+                    },
+                    "requestKey" : {
+                      "applicationCode" : "XMP",
+                      "requestNumber" : " "
+                    },
+                    "solutionKey" : {
+                      "applicationCode" : "XMP",
+                      "taskNumber" : " ",
+                      "objectCode" : " ",
+                      "objectType" : " ",
+                      "memberCode" : " ",
+                      "routeCode" : " ",
+                      "pathExtensionCode" : " "
+                    },
+                    "objectKey" : {
+                      "objectCode" : " ",
+                      "objectLibrary" : " ",
+                      "objectType" : " ",
+                      "memberCode" : " "
+                    },
+                    "executeProcessingOption" : {
+                      "checkProcessingInd" : "2"
+                    }
+                  }
+                }
               }
             }
           },
@@ -889,7 +995,9 @@
           "toUserOption" : {
             "maxLength" : 2,
             "type" : "string",
-            "description" : "Specify the to user option."
+            "description" : "Specify the to user option.",
+            "default" : "xx",
+            "enum" : [ "xx" ]
           },
           "toUserIDOrUserClass" : {
             "$ref" : "#/components/schemas/toUserIDOrUserClass"
@@ -967,27 +1075,37 @@
       "applicationCode" : {
         "maxLength" : 5,
         "type" : "string",
-        "description" : "Specify the application code."
+        "description" : "Specify the application code.",
+        "default" : "XMP",
+        "enum" : [ "XMP" ]
       },
       "taskNumber" : {
         "maxLength" : 10,
         "type" : "string",
-        "description" : "Specify the task number."
+        "description" : "Specify the task number.",
+        "default" : "XT0001",
+        "enum" : [ "XT0001" ]
       },
       "objectCode" : {
         "maxLength" : 12,
         "type" : "string",
-        "description" : "Specify the object code."
+        "description" : "Specify the object code.",
+        "default" : " ",
+        "enum" : [ " " ]
       },
       "memberCode" : {
         "maxLength" : 10,
         "type" : "string",
-        "description" : "Specify the member code."
+        "description" : "Specify the member code.",
+        "default" : " ",
+        "enum" : [ " " ]
       },
       "objectType" : {
         "maxLength" : 9,
         "type" : "string",
-        "description" : "Specify the object type."
+        "description" : "Specify the object type.",
+        "default" : " ",
+        "enum" : [ " " ]
       },
       "taskKey" : {
         "type" : "object",
@@ -1001,12 +1119,16 @@
           "relatedReqApplication" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the related request application."
+            "description" : "Specify the related request application.",
+            "default" : " ",
+            "enum" : [ " " ]
           },
           "relatedRequestNum" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the related request number."
+            "description" : "Specify the related request number.",
+            "default" : " ",
+            "enum" : [ " " ]
           }
         },
         "description" : "The task information to execute the user option at the task lavel.   \r\n\r\nNote:     \r\nIf you specify the task key information, the request key, solution key, and object key information will be ignored because the user option will be executed at the task level.\r\n \r\n\r\n"
@@ -1020,7 +1142,9 @@
           "requestNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the request number."
+            "description" : "Specify the request number.",
+            "default" : " ",
+            "enum" : [ " " ]
           }
         },
         "description" : "The request information to execute the user option at the request lavel.  \r\n\r\nNote:     \r\nIf you specify the request key information, the task key, solution key, and object key information will be ignored because the user option will be executed at the request level."
@@ -1046,12 +1170,16 @@
           "routeCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the route code."
+            "description" : "Specify the route code.",
+            "default" : " ",
+            "enum" : [ " " ]
           },
           "pathExtensionCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the path extension code."
+            "description" : "Specify the path extension code.",
+            "default" : " ",
+            "enum" : [ " " ]
           }
         },
         "description" : "The solution information to execute the user option at the solution lavel.   \r\n\r\nNote:     \r\nIf you specify the solution key information, the request key, task key, and object key information will be ignored because the user option will be executed at the solution level."
@@ -1065,7 +1193,9 @@
           "objectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the object library."
+            "description" : "Specify the object library.",
+            "default" : " ",
+            "enum" : [ " " ]
           },
           "objectType" : {
             "$ref" : "#/components/schemas/objectType"
@@ -1091,12 +1221,9 @@
       }
     },
     "responses" : { },
-    "examples" : {
-      "addRequest" : {
-        "summary" : "How to use addRequest input parameter",
-        "value" : "\"{checkEntry=*SAME, interfaceLevel=V17R1M0, entityCode=*SAME, addProcessingOptions={updateDb=1, updateBuffer=1, ignoreWarnings=*NO}, passParametersIndicator=*SAME, whereVisibleIndicator=*SAME, commandString=*SAME, userOptionDescription=*SAME, userIDOrUserClass=*ALL, programName=*SAME, actionGroupCode=*SAME, programLibrary=*SAME, authorisationCode2=*SAME, userOption3=xx, whereToActivateIndicator=*SAME}\""
-      }
-    },
+    "parameters" : { },
+    "examples" : { },
+    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
