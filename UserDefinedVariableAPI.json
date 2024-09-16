@@ -1,0 +1,447 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "User Defined Variable API.",
+    "description" : "The TD/OMS Label API allows you to perform all allowed actions on a user defined variable. With this API the characteristics of an User defined substitution variable are maintained. These variables can be used in action definitions.",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "object" : "OMQRUV",
+      "library" : "V17T0018",
+      "srclibrary" : "V17T0018S",
+      "file" : "UserDefinedVariable.json"
+    }
+  },
+  "servers" : [ {
+    "url" : "{protocol}://{host}:{port}/{library}/OMQRUV",
+    "description" : "A dynamic https host",
+    "variables" : {
+      "host" : {
+        "description" : "The host serving the API",
+        "default" : "plato.remainsoftware.com"
+      },
+      "port" : {
+        "description" : "The port to which server is listening.",
+        "default" : "45611"
+      },
+      "library" : {
+        "description" : "TD/OMS library",
+        "default" : "OMS"
+      },
+      "protocol" : {
+        "description" : "Protocol",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/add" : {
+      "summary" : "Add user defined variables",
+      "description" : "Add user defined variables",
+      "post" : {
+        "summary" : "Add user Defined Variable API.",
+        "description" : "Add user defined variable.",
+        "operationId" : "add",
+        "requestBody" : {
+          "description" : "Use this input to add the User defined variable",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/addRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "401" : {
+            "description" : "Not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : false
+        }
+      }
+    },
+    "/change" : {
+      "summary" : "Change user defined variables",
+      "description" : "User Defined variables can be changed by using this path",
+      "post" : {
+        "summary" : "Change user defined variables",
+        "description" : "Change user defined variables",
+        "operationId" : "/change",
+        "requestBody" : {
+          "description" : "Use this input to change user defined variables",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/changeRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "401" : {
+            "description" : "Not Authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "02",
+          "generate" : false
+        }
+      }
+    },
+    "/delete" : {
+      "summary" : "Delete the user defined variable",
+      "description" : "Use this path to delete the User defined variables",
+      "post" : {
+        "summary" : "Delete user defined variable",
+        "description" : "Delete user defined variable",
+        "operationId" : "/delete",
+        "requestBody" : {
+          "description" : "use this input to Delete User defined variable",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/deleteRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          },
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "03",
+          "generate" : false
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "extendedMessage" : {
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Message File"
+          },
+          "messageID" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "Message Identifier"
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Message Type 'E' indicates the Error type Message"
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "Message Data"
+          },
+          "field" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "Field in Error"
+          },
+          "messageText" : {
+            "maxLength" : 644,
+            "type" : "string",
+            "description" : "Human readable message text."
+          }
+        },
+        "description" : "Returned message Details."
+      },
+      "processingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDB" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Update DataBase and Update Buffer"
+      },
+      "addRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "$ref" : "#/components/schemas/interfaceLevel"
+          },
+          "requestData" : {
+            "$ref" : "#/components/schemas/requestData"
+          },
+          "processingOptions" : {
+            "$ref" : "#/components/schemas/processingOptions"
+          }
+        },
+        "description" : "Add Request"
+      },
+      "changeRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "$ref" : "#/components/schemas/interfaceLevel"
+          },
+          "requestData" : {
+            "$ref" : "#/components/schemas/requestData"
+          },
+          "processingOptions" : {
+            "$ref" : "#/components/schemas/processingOptions"
+          }
+        },
+        "description" : "Change user defined variables"
+      },
+      "responseData" : {
+        "type" : "object",
+        "properties" : {
+          "keyword" : {
+            "maxLength" : 15,
+            "type" : "string",
+            "description" : "Keyword"
+          },
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application Code"
+          },
+          "environmentCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Environment Code"
+          },
+          "keyValue" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Key Value"
+          }
+        },
+        "description" : "",
+        "x-library" : "V170KEP",
+        "x-pfname" : "OMUDV",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "deleteRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfacelevel" : {
+            "$ref" : "#/components/schemas/interfaceLevel"
+          },
+          "requestData" : {
+            "$ref" : "#/components/schemas/requestData"
+          },
+          "processingOptions" : {
+            "$ref" : "#/components/schemas/processingOptions"
+          }
+        },
+        "description" : "Delete User defined variable"
+      },
+      "response" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Returned status"
+          },
+          "extendedMessage" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "responseData" : {
+            "$ref" : "#/components/schemas/responseData"
+          }
+        },
+        "description" : "Returned response"
+      },
+      "interfaceLevel" : {
+        "maxLength" : 8,
+        "type" : "string",
+        "description" : "The interface level should be V16R1M0",
+        "default" : "V16R1M0",
+        "enum" : [ "V16R1M0" ]
+      },
+      "requestData" : {
+        "required" : [ "keyword" ],
+        "type" : "object",
+        "properties" : {
+          "keyword" : {
+            "maxLength" : 15,
+            "type" : "string",
+            "description" : "The User defined substitution variable which can be used in action definition and will be substituted with the defined substitution value when the action is executed. The prefix '&UDV' will be added to the variable name you provide."
+          },
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code.\r\nA blank value is allowed in the application code field."
+          },
+          "environmentCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the environment code.\r\nA blank value is allowed in the environment code field."
+          },
+          "keyValue" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "The substition value by which the substitution is replaced when an user defined substition variable is used in an action definition.                                        "
+          }
+        },
+        "description" : "",
+        "x-library" : "V170KEP",
+        "x-pfname" : "OMUDV",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "errorResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Returned Status"
+          },
+          "extendedMessage" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/extendedMessage"
+            }
+          }
+        },
+        "description" : "This contains detailed Error messages."
+      }
+    },
+    "responses" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "JWT security",
+        "name" : "JWT",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
