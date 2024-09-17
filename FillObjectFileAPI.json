@@ -23,20 +23,25 @@
     }
   },
   "servers" : [ {
-    "url" : "https://{host}:{port}/{library}/OMQRFO",
+    "url" : "{protocol}://{host}:{port}/{library}/OMQRFO",
     "description" : "A dynamic https host",
     "variables" : {
       "host" : {
         "description" : "The host serving the API",
         "default" : "plato.remainsoftware.com"
       },
-      "port" : {
-        "description" : "The port to which the server is listening",
-        "default" : "45211"
-      },
       "library" : {
         "description" : "The TD/OMS library",
         "default" : "OMS"
+      },
+      "protocol" : {
+        "description" : "Protocol",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
+      },
+      "port" : {
+        "description" : "The port to which the server is listening",
+        "default" : "45011"
       }
     }
   } ],
@@ -57,6 +62,29 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/request"
+              },
+              "examples" : {
+                "fillObject" : {
+                  "summary" : "How to specify the fill object file input parameters value.",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "environmentCode" : "*ALL",
+                    "routeCode" : "*NONE",
+                    "objectLibrary" : "*ALL",
+                    "objectCode" : "PGM",
+                    "objectType" : "*ALL",
+                    "objectAttribute" : "*ALL",
+                    "processingOptions" : {
+                      "processingMode" : "*INTERACTIVE",
+                      "processingMethod" : "*FILL",
+                      "processOnlyRelations" : "*NO",
+                      "objectAndOr4GLGroup" : "*OBJECT",
+                      "typeCA2ESelection" : "*ANY",
+                      "cA2EObjectCode" : "*ALL",
+                      "cA2EOwningObject" : "*ALLOBJ"
+                    }
+                  }
+                }
               }
             }
           },
@@ -150,7 +178,9 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the application code to fill objects from."
+            "description" : "Specify the application code to fill objects from.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "environmentCode" : {
             "maxLength" : 5,
@@ -185,7 +215,9 @@
             "description" : "Object Code",
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Object_Code_-_(OBJC)"
-            }
+            },
+            "default" : "",
+            "enum" : [ "" ]
           },
           "objectType" : {
             "maxLength" : 9,
@@ -326,6 +358,8 @@
       }
     },
     "responses" : { },
+    "parameters" : { },
+    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
