@@ -23,13 +23,9 @@
     }
   },
   "servers" : [ {
-    "url" : "https://{host}:{port}/{library}/OMQRVC",
+    "url" : "{protocol}://{host}:{port}/{library}/OMQRVC",
     "description" : "A dynamic https host",
     "variables" : {
-      "port" : {
-        "description" : "The port to which the server is listening.",
-        "default" : "45211"
-      },
       "host" : {
         "description" : "The host serving the API.",
         "default" : "plato.remainsoftware.com"
@@ -37,6 +33,15 @@
       "library" : {
         "description" : "The TD/OMS library.",
         "default" : "OMS"
+      },
+      "protocol" : {
+        "description" : "Protocol",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
+      },
+      "port" : {
+        "description" : "The port to which the server is listening.",
+        "default" : "45011"
       }
     }
   } ],
@@ -57,6 +62,29 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/request"
+              },
+              "examples" : {
+                "confirmVersionConflict" : {
+                  "summary" : "How to specify the confirm version conflict input parameters value. ",
+                  "value" : {
+                    "interfaceLevel" : "V16R1M0",
+                    "applicationCode" : "XMP",
+                    "fixNumber" : "XT0585",
+                    "objectCode" : "PGM",
+                    "objectType" : "*PGM",
+                    "memberCode" : "*NONE",
+                    "iFSFullPathName" : "*OBJC",
+                    "relatedApplicationCode" : "XMP",
+                    "relatedFixNumber" : "XT0586",
+                    "routeCode" : "",
+                    "pathExtensionLibraryCode" : "",
+                    "processingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "forceConfirmIndicator" : "*NO"
+                    }
+                  }
+                }
               }
             }
           },
@@ -119,12 +147,16 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the application code."
+            "description" : "Specify the application code.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "fixNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the task to which the object must be connected."
+            "description" : "Specify the task to which the object must be connected.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "objectCode" : {
             "maxLength" : 12,
@@ -136,7 +168,9 @@
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Specify the object type."
+            "description" : "Specify the object type.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "memberCode" : {
             "maxLength" : 10,
@@ -155,22 +189,30 @@
           "relatedApplicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the related application code."
+            "description" : "Specify the related application code.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "relatedFixNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the Related Task number."
+            "description" : "Specify the Related Task number.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "routeCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the Route code code if you have provided the short name of the IFS object.\r\n\r\nNote:  You do not need to specify the route code when you provide the IFS full path name, because the entered route code will be ignored and calculated automatically.\r\n\r\n*NONE                                                    \r\n    No route code is involved, it contains a blank value."
+            "description" : "Specify the Route code code if you have provided the short name of the IFS object.\r\n\r\nNote:  You do not need to specify the route code when you provide the IFS full path name, because the entered route code will be ignored and calculated automatically.\r\n\r\n*NONE                                                    \r\n    No route code is involved, it contains a blank value.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "pathExtensionLibraryCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the Path Extension library code if you have provided the short name of the IFS object.\r\n\r\nNote:  You do not need to specify the path extension library code when you provide the IFS full path name, because the entered path extension library code will be ignored and calculated automatically.    \r\n\r\n*NONE                                                             \r\n    No path extension library code is involved, it contains a blank value."
+            "description" : "Specify the Path Extension library code if you have provided the short name of the IFS object.\r\n\r\nNote:  You do not need to specify the path extension library code when you provide the IFS full path name, because the entered path extension library code will be ignored and calculated automatically.    \r\n\r\n*NONE                                                             \r\n    No path extension library code is involved, it contains a blank value.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "processingOptions" : {
             "$ref" : "#/components/schemas/processingOptions"
@@ -389,6 +431,8 @@
       }
     },
     "responses" : { },
+    "parameters" : { },
+    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
