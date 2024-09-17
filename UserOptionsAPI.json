@@ -996,7 +996,8 @@
             "maxLength" : 2,
             "type" : "string",
             "description" : "Specify the to user option.",
-            "default" : ""
+            "default" : "",
+            "enum" : [ "" ]
           },
           "toUserIDOrUserClass" : {
             "$ref" : "#/components/schemas/toUserIDOrUserClass"
@@ -1011,7 +1012,8 @@
         "maxLength" : 2,
         "type" : "string",
         "description" : "Specify the user option.",
-        "default" : ""
+        "default" : "",
+        "enum" : [ "" ]
       },
       "userIDOrUserClass" : {
         "maxLength" : 10,
@@ -1081,25 +1083,29 @@
         "maxLength" : 10,
         "type" : "string",
         "description" : "Specify the task number.",
-        "default" : ""
+        "default" : "",
+        "enum" : [ "" ]
       },
       "objectCode" : {
         "maxLength" : 12,
         "type" : "string",
         "description" : "Specify the object code.",
-        "default" : ""
+        "default" : "",
+        "enum" : [ "" ]
       },
       "memberCode" : {
         "maxLength" : 10,
         "type" : "string",
         "description" : "Specify the member code.",
-        "default" : ""
+        "default" : "",
+        "enum" : [ "" ]
       },
       "objectType" : {
         "maxLength" : 9,
         "type" : "string",
         "description" : "Specify the object type.",
-        "default" : ""
+        "default" : "",
+        "enum" : [ "" ]
       },
       "taskKey" : {
         "type" : "object",
@@ -1114,13 +1120,15 @@
             "maxLength" : 5,
             "type" : "string",
             "description" : "Specify the related request application.",
-            "default" : ""
+            "default" : "",
+            "enum" : [ "" ]
           },
           "relatedRequestNum" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "Specify the related request number.",
-            "default" : ""
+            "default" : "",
+            "enum" : [ "" ]
           }
         },
         "description" : "The task information to execute the user option at the task lavel.   \r\n\r\nNote:     \r\nIf you specify the task key information, the request key, solution key, and object key information will be ignored because the user option will be executed at the task level.\r\n \r\n\r\n"
@@ -1135,7 +1143,8 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Specify the request number.",
-            "default" : ""
+            "default" : "",
+            "enum" : [ "" ]
           }
         },
         "description" : "The request information to execute the user option at the request lavel.  \r\n\r\nNote:     \r\nIf you specify the request key information, the task key, solution key, and object key information will be ignored because the user option will be executed at the request level."
@@ -1162,13 +1171,15 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Specify the route code.",
-            "default" : ""
+            "default" : "",
+            "enum" : [ "" ]
           },
           "pathExtensionCode" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "Specify the path extension code.",
-            "default" : ""
+            "default" : "",
+            "enum" : [ "" ]
           }
         },
         "description" : "The solution information to execute the user option at the solution lavel.   \r\n\r\nNote:     \r\nIf you specify the solution key information, the request key, task key, and object key information will be ignored because the user option will be executed at the solution level."
@@ -1183,7 +1194,8 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Specify the object library.",
-            "default" : ""
+            "default" : "",
+            "enum" : [ "" ]
           },
           "objectType" : {
             "$ref" : "#/components/schemas/objectType"
