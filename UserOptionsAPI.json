@@ -68,9 +68,9 @@
                   "summary" : "How to specify the add request input parameters value.",
                   "value" : {
                     "interfaceLevel" : "V17R1M0",
-                    "userOption3" : "",
+                    "userOption3" : "xx",
                     "userIDOrUserClass" : "*ALL",
-                    "userOptionDescription" : "*SAME",
+                    "userOptionDescription" : "User option added.",
                     "actionGroupCode" : "*SAME",
                     "authorisationCode2" : "*SAME",
                     "checkEntry" : "*SAME",
@@ -80,7 +80,7 @@
                     "passParametersIndicator" : "*SAME",
                     "programName" : "*SAME",
                     "programLibrary" : "*SAME",
-                    "commandString" : "*SAME",
+                    "commandString" : "dlyjob 1",
                     "addProcessingOptions" : {
                       "updateDb" : "1",
                       "updateBuffer" : "1",
@@ -153,9 +153,9 @@
                   "summary" : "How to specify the change request input parameters value.",
                   "value" : {
                     "interfaceLevel" : "V17R1M0",
-                    "userOption3" : "",
+                    "userOption3" : "xx",
                     "userIDOrUserClass" : "*ALL",
-                    "userOptionDescription" : "*SAME",
+                    "userOptionDescription" : "User option was changed.",
                     "actionGroupCode" : "*SAME",
                     "authorisationCode2" : "*SAME",
                     "checkEntry" : "*SAME",
@@ -238,7 +238,7 @@
                   "summary" : "How to specify the copy request input parameters value.",
                   "value" : {
                     "interfaceLevel" : "V17R1M0",
-                    "userOption3" : "",
+                    "userOption3" : "xx",
                     "userIDOrUserClass" : "*ALL",
                     "userOptionDescription" : "*SAME",
                     "actionGroupCode" : "*SAME",
@@ -254,8 +254,8 @@
                     "copyProcessingOptions" : {
                       "updateDb" : "1",
                       "updateBuffer" : "1",
-                      "toUserOption" : "",
-                      "toUserIDOrUserClass" : "*SAME",
+                      "toUserOption" : "xy",
+                      "toUserIDOrUserClass" : "*ALL",
                       "ignoreWarnings" : "*NO"
                     }
                   }
@@ -325,7 +325,7 @@
                   "summary" : "How to specify the delete request input parameters value.",
                   "value" : {
                     "interfaceLevel" : "V17R1M0",
-                    "userOption3" : "",
+                    "userOption3" : "xx",
                     "userIDOrUserClass" : "*ALL",
                     "deleteProcessingOptions" : {
                       "updateDb" : "1",
@@ -400,8 +400,8 @@
                     "userOption3" : "",
                     "entityCode" : "*TASK",
                     "taskKey" : {
-                      "applicationCode" : "",
-                      "taskNumber" : "",
+                      "applicationCode" : "XMP",
+                      "taskNumber" : "XT0585",
                       "relatedReqApplication" : "",
                       "relatedRequestNum" : ""
                     },
