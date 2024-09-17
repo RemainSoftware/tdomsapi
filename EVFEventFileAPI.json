@@ -23,13 +23,9 @@
     }
   },
   "servers" : [ {
-    "url" : "https://{host}:{port}/{library}/OMQREV",
+    "url" : "{protocol}://{host}:{port}/{library}/OMQREV",
     "description" : "A dynamic https host",
     "variables" : {
-      "port" : {
-        "description" : "The port to which the server is listening.",
-        "default" : "45211"
-      },
       "host" : {
         "description" : "The host serving the API.",
         "default" : "plato.remainsoftware.com"
@@ -37,6 +33,15 @@
       "library" : {
         "description" : "The TD/OMS library.",
         "default" : "OMS"
+      },
+      "protocol" : {
+        "description" : "Protocol",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
+      },
+      "port" : {
+        "description" : "The port to which the server is listening.",
+        "default" : "45011"
       }
     }
   } ],
@@ -57,6 +62,15 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/request"
+              },
+              "examples" : {
+                "parseEvent" : {
+                  "summary" : "How to specify the parse event parameters value.",
+                  "value" : {
+                    "memberName" : "PGM",
+                    "library" : "O_XT0585D"
+                  }
+                }
               }
             }
           },
@@ -101,12 +115,16 @@
           "memberName" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the member's name."
+            "description" : "Specify the member's name.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "library" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the library."
+            "description" : "Specify the library.",
+            "default" : "",
+            "enum" : [ "" ]
           }
         },
         "description" : "Request data to parse the EVF event file."
