@@ -68,7 +68,7 @@
                   "summary" : "How to specify the add request input parameters value.",
                   "value" : {
                     "interfaceLevel" : "V17R1M0",
-                    "userOption3" : "xx",
+                    "userOption3" : "",
                     "userIDOrUserClass" : "*ALL",
                     "userOptionDescription" : "*SAME",
                     "actionGroupCode" : "*SAME",
@@ -153,7 +153,7 @@
                   "summary" : "How to specify the change request input parameters value.",
                   "value" : {
                     "interfaceLevel" : "V17R1M0",
-                    "userOption3" : "xx",
+                    "userOption3" : "",
                     "userIDOrUserClass" : "*ALL",
                     "userOptionDescription" : "*SAME",
                     "actionGroupCode" : "*SAME",
@@ -238,7 +238,7 @@
                   "summary" : "How to specify the copy request input parameters value.",
                   "value" : {
                     "interfaceLevel" : "V17R1M0",
-                    "userOption3" : "xx",
+                    "userOption3" : "",
                     "userIDOrUserClass" : "*ALL",
                     "userOptionDescription" : "*SAME",
                     "actionGroupCode" : "*SAME",
@@ -254,7 +254,7 @@
                     "copyProcessingOptions" : {
                       "updateDb" : "1",
                       "updateBuffer" : "1",
-                      "toUserOption" : "xx",
+                      "toUserOption" : "",
                       "toUserIDOrUserClass" : "*SAME",
                       "ignoreWarnings" : "*NO"
                     }
@@ -325,7 +325,7 @@
                   "summary" : "How to specify the delete request input parameters value.",
                   "value" : {
                     "interfaceLevel" : "V17R1M0",
-                    "userOption3" : "xx",
+                    "userOption3" : "",
                     "userIDOrUserClass" : "*ALL",
                     "deleteProcessingOptions" : {
                       "updateDb" : "1",
@@ -397,32 +397,32 @@
                 "executeRequest" : {
                   "summary" : "How to specify the execute request input parameters value.",
                   "value" : {
-                    "userOption3" : "xx",
+                    "userOption3" : "",
                     "entityCode" : "*TASK",
                     "taskKey" : {
                       "applicationCode" : "XMP",
-                      "taskNumber" : "XT0001",
-                      "relatedReqApplication" : " ",
-                      "relatedRequestNum" : " "
+                      "taskNumber" : "",
+                      "relatedReqApplication" : "",
+                      "relatedRequestNum" : ""
                     },
                     "requestKey" : {
                       "applicationCode" : "XMP",
-                      "requestNumber" : " "
+                      "requestNumber" : ""
                     },
                     "solutionKey" : {
                       "applicationCode" : "XMP",
-                      "taskNumber" : " ",
-                      "objectCode" : " ",
-                      "objectType" : " ",
-                      "memberCode" : " ",
-                      "routeCode" : " ",
-                      "pathExtensionCode" : " "
+                      "taskNumber" : "",
+                      "objectCode" : "",
+                      "objectType" : "",
+                      "memberCode" : "",
+                      "routeCode" : "",
+                      "pathExtensionCode" : ""
                     },
                     "objectKey" : {
-                      "objectCode" : " ",
-                      "objectLibrary" : " ",
-                      "objectType" : " ",
-                      "memberCode" : " "
+                      "objectCode" : "",
+                      "objectLibrary" : "",
+                      "objectType" : "",
+                      "memberCode" : ""
                     },
                     "executeProcessingOption" : {
                       "checkProcessingInd" : "2"
@@ -996,8 +996,7 @@
             "maxLength" : 2,
             "type" : "string",
             "description" : "Specify the to user option.",
-            "default" : "xx",
-            "enum" : [ "xx" ]
+            "default" : ""
           },
           "toUserIDOrUserClass" : {
             "$ref" : "#/components/schemas/toUserIDOrUserClass"
@@ -1012,8 +1011,7 @@
         "maxLength" : 2,
         "type" : "string",
         "description" : "Specify the user option.",
-        "default" : "xx",
-        "enum" : [ "xx" ]
+        "default" : ""
       },
       "userIDOrUserClass" : {
         "maxLength" : 10,
@@ -1083,29 +1081,25 @@
         "maxLength" : 10,
         "type" : "string",
         "description" : "Specify the task number.",
-        "default" : "XT0001",
-        "enum" : [ "XT0001" ]
+        "default" : ""
       },
       "objectCode" : {
         "maxLength" : 12,
         "type" : "string",
         "description" : "Specify the object code.",
-        "default" : " ",
-        "enum" : [ " " ]
+        "default" : ""
       },
       "memberCode" : {
         "maxLength" : 10,
         "type" : "string",
         "description" : "Specify the member code.",
-        "default" : " ",
-        "enum" : [ " " ]
+        "default" : ""
       },
       "objectType" : {
         "maxLength" : 9,
         "type" : "string",
         "description" : "Specify the object type.",
-        "default" : " ",
-        "enum" : [ " " ]
+        "default" : ""
       },
       "taskKey" : {
         "type" : "object",
@@ -1120,15 +1114,13 @@
             "maxLength" : 5,
             "type" : "string",
             "description" : "Specify the related request application.",
-            "default" : " ",
-            "enum" : [ " " ]
+            "default" : ""
           },
           "relatedRequestNum" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "Specify the related request number.",
-            "default" : " ",
-            "enum" : [ " " ]
+            "default" : ""
           }
         },
         "description" : "The task information to execute the user option at the task lavel.   \r\n\r\nNote:     \r\nIf you specify the task key information, the request key, solution key, and object key information will be ignored because the user option will be executed at the task level.\r\n \r\n\r\n"
@@ -1143,8 +1135,7 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Specify the request number.",
-            "default" : " ",
-            "enum" : [ " " ]
+            "default" : ""
           }
         },
         "description" : "The request information to execute the user option at the request lavel.  \r\n\r\nNote:     \r\nIf you specify the request key information, the task key, solution key, and object key information will be ignored because the user option will be executed at the request level."
@@ -1171,15 +1162,13 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Specify the route code.",
-            "default" : " ",
-            "enum" : [ " " ]
+            "default" : ""
           },
           "pathExtensionCode" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "Specify the path extension code.",
-            "default" : " ",
-            "enum" : [ " " ]
+            "default" : ""
           }
         },
         "description" : "The solution information to execute the user option at the solution lavel.   \r\n\r\nNote:     \r\nIf you specify the solution key information, the request key, task key, and object key information will be ignored because the user option will be executed at the solution level."
@@ -1194,8 +1183,7 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Specify the object library.",
-            "default" : " ",
-            "enum" : [ " " ]
+            "default" : ""
           },
           "objectType" : {
             "$ref" : "#/components/schemas/objectType"
