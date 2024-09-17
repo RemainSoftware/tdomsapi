@@ -400,17 +400,17 @@
                     "userOption3" : "",
                     "entityCode" : "*TASK",
                     "taskKey" : {
-                      "applicationCode" : "XMP",
+                      "applicationCode" : "",
                       "taskNumber" : "",
                       "relatedReqApplication" : "",
                       "relatedRequestNum" : ""
                     },
                     "requestKey" : {
-                      "applicationCode" : "XMP",
+                      "applicationCode" : "",
                       "requestNumber" : ""
                     },
                     "solutionKey" : {
-                      "applicationCode" : "XMP",
+                      "applicationCode" : "",
                       "taskNumber" : "",
                       "objectCode" : "",
                       "objectType" : "",
@@ -1076,8 +1076,8 @@
         "maxLength" : 5,
         "type" : "string",
         "description" : "Specify the application code.",
-        "default" : "XMP",
-        "enum" : [ "XMP" ]
+        "default" : "",
+        "enum" : [ "" ]
       },
       "taskNumber" : {
         "maxLength" : 10,
