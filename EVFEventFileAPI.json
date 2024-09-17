@@ -65,7 +65,7 @@
               },
               "examples" : {
                 "parseEvent" : {
-                  "summary" : "How to specify the parse event parameters value.",
+                  "summary" : "How to specify the parse event input parameters value.",
                   "value" : {
                     "memberName" : "PGM",
                     "library" : "O_XT0585D"
@@ -413,6 +413,8 @@
       }
     },
     "responses" : { },
+    "parameters" : { },
+    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
