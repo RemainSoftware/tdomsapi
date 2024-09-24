@@ -23,20 +23,25 @@
     }
   },
   "servers" : [ {
-    "url" : "https://{host}:{port}/{library}/OMQRCL",
+    "url" : "{protocol}://{host}:{port}/{library}/OMQRCL",
     "description" : "A dynamic https host",
     "variables" : {
       "host" : {
         "description" : "The host serving the API",
         "default" : "plato.remainsoftware.com"
       },
-      "port" : {
-        "description" : "The port to which the server is listening",
-        "default" : "45211"
-      },
       "library" : {
         "description" : "The TD/OMS library",
         "default" : "OMS"
+      },
+      "protocol" : {
+        "description" : "Protocol",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
+      },
+      "port" : {
+        "description" : "The port to which the server is listening",
+        "default" : "45011"
       }
     }
   } ],
@@ -57,6 +62,28 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/addConnectionListRequest"
+              },
+              "examples" : {
+                "addConnectionList" : {
+                  "summary" : "how to use add connection list input parameters value.",
+                  "value" : {
+                    "addProcessingOption" : {
+                      "connectWithRules" : "0",
+                      "applicationRelation" : "0"
+                    },
+                    "addData" : {
+                      "applicationCode" : "XMP",
+                      "connectionListCode" : "*USER",
+                      "taskNumber" : "XT0275",
+                      "objectCode" : "PFCONV",
+                      "objectLibrary" : "OMHD_TST",
+                      "objectType" : "*FILE",
+                      "memberCode" : "*NONE",
+                      "ifsObject" : "*OBJC",
+                      "solutionType" : "*CHANGE"
+                    }
+                  }
+                }
               }
             }
           },
@@ -126,6 +153,27 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/processConnectionListRequest"
+              },
+              "examples" : {
+                "processConnectionList" : {
+                  "summary" : "how to use process connection list input parameters value.",
+                  "value" : {
+                    "processProcessingOption" : {
+                      "promptOnConflicts" : "0",
+                      "forced" : "0"
+                    },
+                    "processData" : {
+                      "applicationCode" : "XMP",
+                      "connectionListCode" : "*USER",
+                      "taskNumber" : "XT0275",
+                      "objectCode" : "PFCONV",
+                      "objectLibrary" : "OMHD_TST",
+                      "objectType" : "*FILE",
+                      "memberCode" : "*NONE",
+                      "ifsObject" : "*OBJC"
+                    }
+                  }
+                }
               }
             }
           },
@@ -195,6 +243,20 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/deleteConnectionListRequest"
+              },
+              "examples" : {
+                "deleteConnectionList" : {
+                  "summary" : "how to use delete connection list input parameters value.",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "connectionListCode" : "*USER",
+                    "taskNumber" : "XT0275",
+                    "objectCode" : "PFCONV",
+                    "objectLibrary" : "OMHD_TST",
+                    "objectType" : "*FILE",
+                    "memberCode" : "*NONE"
+                  }
+                }
               }
             }
           },
@@ -264,6 +326,22 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/changeData"
+              },
+              "examples" : {
+                "changeConnectionList" : {
+                  "summary" : "how to use change connection list input parameters value.",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "connectionListCode" : "*USER",
+                    "taskNumber" : "XT0275",
+                    "objectCode" : "PFCONV",
+                    "objectLibrary" : "OMHD_TST",
+                    "objectType" : "*FILE",
+                    "memberCode" : "*NONE",
+                    "solutionType" : "*COMPILE",
+                    "ifsObject" : "*OBJC"
+                  }
+                }
               }
             }
           },
@@ -319,7 +397,9 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Application Code"
+            "description" : "Application Code",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "connectionListCode" : {
             "maxLength" : 10,
@@ -345,12 +425,16 @@
           "objectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Object Library"
+            "description" : "Object Library",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Object Type"
+            "description" : "Object Type",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "memberCode" : {
             "maxLength" : 10,
@@ -467,7 +551,9 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Application Code"
+            "description" : "Application Code",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "connectionListCode" : {
             "maxLength" : 10,
@@ -493,12 +579,16 @@
           "objectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Object Library"
+            "description" : "Object Library",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Object Type"
+            "description" : "Object Type",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "memberCode" : {
             "maxLength" : 10,
@@ -555,7 +645,9 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Application Code"
+            "description" : "Application Code",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "connectionListCode" : {
             "maxLength" : 10,
@@ -581,12 +673,16 @@
           "objectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Object Library"
+            "description" : "Object Library",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Object Type"
+            "description" : "Object Type",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "memberCode" : {
             "maxLength" : 10,
@@ -604,37 +700,51 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Application Code"
+            "description" : "Application Code",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "connectionListCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Connection List Code"
+            "description" : "Connection List Code",
+            "default" : "*USER",
+            "enum" : [ "*USER" ]
           },
           "taskNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Task Number"
+            "description" : "Task Number",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "objectCode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Object Code"
+            "description" : "Object Code",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "objectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Object Library"
+            "description" : "Object Library",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Object Type"
+            "description" : "Object Type",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "memberCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Member Code"
+            "description" : "Member Code",
+            "default" : "*NONE",
+            "enum" : [ "*NONE" ]
           },
           "ifsObject" : {
             "maxLength" : 642,
@@ -655,6 +765,8 @@
       }
     },
     "responses" : { },
+    "parameters" : { },
+    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
