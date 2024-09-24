@@ -23,18 +23,24 @@
     }
   },
   "servers" : [ {
-    "url" : "https://{host}:{port}/{library}/OMRSRC",
+    "url" : "{protocol}://{host}:{port}/{library}/OMRSRC",
     "description" : "Source service",
     "variables" : {
       "host" : {
         "default" : "plato.remainsoftware.com"
       },
-      "port" : {
-        "default" : "45111"
-      },
       "library" : {
         "description" : "",
         "default" : "OMS"
+      },
+      "protocol" : {
+        "description" : "Protocol",
+        "enum" : [ "https", "http" ],
+        "default" : "https"
+      },
+      "port" : {
+        "description" : "",
+        "default" : "45011"
       }
     }
   } ],
@@ -59,6 +65,20 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/sourceRequest"
+              },
+              "examples" : {
+                "objectGet" : {
+                  "summary" : "How to specify the objectGet input parameters value.",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "taskNumber" : "XT0509",
+                    "objectCode" : "OMCCA",
+                    "objectType" : "*FILE",
+                    "objectLibrary" : "O_XT0497D",
+                    "memberCode" : "",
+                    "pageNumber" : 1
+                  }
+                }
               }
             }
           },
@@ -75,8 +95,8 @@
               }
             }
           },
-          "401" : {
-            "description" : "Not Authorized",
+          "400" : {
+            "description" : "Request not valid",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -85,8 +105,8 @@
               }
             }
           },
-          "400" : {
-            "description" : "Request not valid",
+          "401" : {
+            "description" : "Not Authorized",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -117,6 +137,25 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/objectSaveRequest"
+              },
+              "examples" : {
+                "sourceSave" : {
+                  "summary" : "How to specify the objectSave input parameters value.",
+                  "value" : {
+                    "objectLibrary" : "O_XT0497D",
+                    "memberCode" : "",
+                    "sourceCode" : "ICAgICAgKiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSAqDQogICAgICAqIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tICoNCiAgICAgICogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gKg0KICAgICAgKiBEZXNjcmlwdGlvbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAqDQogICAgICAqIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tICogDQogICAgICAqICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICoNCiAgICAgICogRmlsZSAuLi4uLi4uOiBPTUNDQSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKg0KICAgICAgKiBNb2R1bGUgLi4uLi46IEhlbHBEZXNrICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAqDQogICAgICAqIEZ1bmN0aW9uIC4uLjogQ3VzdG9tZXIgY2FsbHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICoNCiAgICAgICogQXV0aG9yIC4uLi4uOiBSZW1haW4gU29mdHdhcmUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKg0KICAgICAgKiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAqDQogICAgICAqIFRoaXMgZmlsZSBjb250YWlucyB0aGUgY3VzdG9tZXIgY2FsbHMuICAgICAgICAgICAgICAgICAgICAgICoNCiAgICAgICogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKg0KICAgICAgKiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSAqDQoNCiAgICAgICogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tICoNCiAgICAgICogUmVmZXJlbmNlIGZpbGUgT01TUkVGSEQNCiAgICAgICogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tICoNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUkVGKE9NU1JFRkhEKQ0KDQogICAgICAqIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSAqDQogICAgICAqIFJlY29yZCBPTUNDQVINCiAgICAgICogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tICoNCiAgICAgICAgICAgICAgICBSIE9NQ0NBUg0KDQogICAgICAqIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSAqDQogICAgICAqIEZpZWxkIGRlc2NyaXB0aW9ucw0KICAgICAgKiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gKg0KICAgICAgICAgICAgICAgICAgQ0FIRURDICAgIFIgICAgICAgICAgICAgICBSRUZGTEQoSEVEQykNCiAgICAgICAgICAgICAgICAgIENBQ1ROIyAgICBSICAgICAgICAgICAgICAgUkVGRkxEKENUTiMpDQogICAgICAgICAgICAgICAgICBDQUNVU0MgICAgUiAgICAgICAgICAgICAgIFJFRkZMRChDVVNDKQ0KICAgICAgICAgICAgICAgICAgQ0FDQ1RDICAgIFIgICAgICAgICAgICAgICBSRUZGTEQoQ0NUQykNCiAgICAgICAgICAgICAgICAgIENBSU5EVCAgICBSICAgICAgICAgICAgICAgUkVGRkxEKElORFQpDQogICAgICAgICAgICAgICAgICBDQUlOVE0gICAgUiAgICAgICAgICAgICAgIFJFRkZMRChJTlRNKQ0KICAgICAgICAgICAgICAgICAgQ0FSQ1RNICAgIFIgICAgICAgICAgICAgICBSRUZGTEQoUkNUTSkNCiAgICAgICAgICAgICAgICAgIENBVVNJRCAgICBSICAgICAgICAgICAgICAgUkVGRkxEKFVTSUQpDQogICAgICAgICAgICAgICAgICBDQUNTUkMgICAgUiAgICAgICAgICAgICAgIFJFRkZMRChDU1JDKQ0KICAgICAgICAgICAgICAgICAgQ0FVU0YxICAgIFIgICAgICAgICAgICAgICBSRUZGTEQoVVNGMSkNCiAgICAgICAgICAgICAgICAgIENBVVNGMiAgICBSICAgICAgICAgICAgICAgUkVGRkxEKFVTRjIpDQogICAgICAgICAgICAgICAgICBDQVVTRjMgICAgUiAgICAgICAgICAgICAgIFJFRkZMRChVU0YzKQ0K",
+                    "objectCode" : "OMCCA",
+                    "taskNumber" : "XT0509",
+                    "applicationCode" : "XMP",
+                    "objectType" : "*FILE",
+                    "ccsid" : 37,
+                    "pageNumber" : 1,
+                    "numberOfPages" : 1,
+                    "forceSave" : false,
+                    "lastChangeDate" : "2024-03-18-09.25.11.000000"
+                  }
+                }
               }
             }
           },
@@ -197,37 +236,51 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "The application code."
+            "description" : "The application code.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "taskNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The task number."
+            "description" : "The task number.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "path" : {
             "maxLength" : 1024,
             "type" : "string",
-            "description" : "The location of the IFS file to read."
+            "description" : "The location of the IFS file to read.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "objectCode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "the object code"
+            "description" : "the object code",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "The object type"
+            "description" : "The object type",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "objectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The object library"
+            "description" : "The object library",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "memberCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The member code"
+            "description" : "The member code",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "pageNumber" : {
             "type" : "integer",
@@ -316,42 +369,58 @@
           "objectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The object library"
+            "description" : "The object library",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "memberCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The member code"
+            "description" : "The member code",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "path" : {
             "maxLength" : 1024,
             "type" : "string",
-            "description" : "The location of the IFS file to read."
+            "description" : "The location of the IFS file to read.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "sourceCode" : {
             "maxLength" : 65535,
             "type" : "string",
-            "description" : "The source code"
+            "description" : "The source code",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "objectCode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "the object code"
+            "description" : "the object code",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "taskNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The task number."
+            "description" : "The task number.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "The application code."
+            "description" : "The application code.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "The object Type"
+            "description" : "The object Type",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "ccsid" : {
             "type" : "integer",
@@ -367,11 +436,14 @@
           },
           "forceSave" : {
             "type" : "boolean",
-            "description" : "true - Save the source.\r\nfalse - Don't save the source if source member is recently changed."
+            "description" : "true - Save the source.\r\nfalse - Don't save the source if source member is recently changed.",
+            "default" : false
           },
           "lastChangeDate" : {
             "type" : "string",
-            "description" : "Last change date of source member in timestap format."
+            "description" : "Last change date of source member in timestap format.",
+            "default" : "",
+            "enum" : [ "" ]
           }
         },
         "description" : "The request for save object",
@@ -421,6 +493,8 @@
       }
     },
     "responses" : { },
+    "parameters" : { },
+    "requestBodies" : { },
     "securitySchemes" : {
       "jwt" : {
         "type" : "http",
