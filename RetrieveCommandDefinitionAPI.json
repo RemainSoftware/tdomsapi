@@ -23,7 +23,7 @@
     }
   },
   "servers" : [ {
-    "url" : "https://{host}:{port}/{library}/OMQRRD",
+    "url" : "{protocol}://{host}:{port}/{library}/OMQRRD",
     "description" : "A dynamic http host.",
     "variables" : {
       "host" : {
@@ -34,9 +34,14 @@
         "description" : "The TD/OMS library.",
         "default" : "OMS"
       },
+      "protocol" : {
+        "description" : "Protocol",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
+      },
       "port" : {
         "description" : "The port to which server is listening.",
-        "default" : "45611"
+        "default" : "45011"
       }
     }
   } ],
@@ -55,6 +60,15 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/retrieveRequest"
+              },
+              "examples" : {
+                "retrieve" : {
+                  "summary" : "how to use retrieve input parameters value.",
+                  "value" : {
+                    "commandName" : "WRKSPLF",
+                    "commandLibrary" : "*LIBL"
+                  }
+                }
               }
             }
           },
@@ -110,7 +124,9 @@
           "commandName" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the command name for which definition has to be retrieved."
+            "description" : "Enter the command name for which definition has to be retrieved.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "commandLibrary" : {
             "maxLength" : 10,
