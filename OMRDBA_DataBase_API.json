@@ -28,16 +28,17 @@
       "server" : {
         "default" : "plato.remainsoftware.com"
       },
-      "port" : {
-        "default" : "45211"
-      },
       "protocol" : {
-        "enum" : [ "https", "http" ],
-        "default" : "https"
+        "default" : "https",
+        "enum" : [ "https", "http" ]
       },
       "library" : {
         "description" : "",
         "default" : "OMS"
+      },
+      "port" : {
+        "description" : "",
+        "default" : "45011"
       }
     }
   } ],
@@ -58,6 +59,41 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/request"
+              },
+              "examples" : {
+                "Example of get " : {
+                  "summary" : "How to specify the get input parameters value.",
+                  "value" : {
+                    "listInput" : {
+                      "pageNumber" : 1,
+                      "returnTotalRecords" : false,
+                      "recordsPerPage" : 50,
+                      "returnFields" : [ "applicationCode", "objectCode", "objectType", "objectLibrary", "objectDescription" ],
+                      "schemaOverride" : "",
+                      "whereClause" : "",
+                      "table" : "OMXObjectExtended",
+                      "fieldSelections" : [ {
+                        "field" : "applicationCode",
+                        "value" : "XMP",
+                        "operator" : "IN"
+                      }, {
+                        "field" : "objectCode",
+                        "value" : "OCTOCL1,OCTOCL2",
+                        "operator" : "BETWEEN"
+                      } ],
+                      "skipChecks" : true,
+                      "distinct" : true
+                    },
+                    "sortFields" : [ {
+                      "fieldName" : "applicationCode",
+                      "sortBy" : "desc"
+                    }, {
+                      "fieldName" : "objectCode",
+                      "sortBy" : "asc"
+                    } ],
+                    "returnExtendedMessageText" : true
+                  }
+                }
               }
             }
           },
@@ -70,40 +106,6 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/result"
-                },
-                "examples" : {
-                  "Example of get " : {
-                    "summary" : "How to specify the listInput parametrs value.",
-                    "value" : {
-                      "sortFields" : [ {
-                        "fieldName" : "applicationCode",
-                        "sortBy" : "desc"
-                      }, {
-                        "fieldName" : "objectCode",
-                        "sortBy" : "asc"
-                      } ],
-                      "returnExtendedMessageText" : true,
-                      "listInput" : {
-                        "skipChecks" : false,
-                        "whereClause" : "",
-                        "pageNumber" : 1,
-                        "fieldSelections" : [ {
-                          "field" : "applicationCode",
-                          "value" : "MISHD,SHUKV,DEMO",
-                          "operator" : "IN"
-                        }, {
-                          "field" : "objectCode",
-                          "value" : "APGM,CPGM",
-                          "operator" : "BETWEEN"
-                        } ],
-                        "recordsPerPage" : 50,
-                        "schemaOverride" : "",
-                        "returnFields" : [ "applicationCode", "objectCode", "objectType", "objectLibrary", "objectDescription" ],
-                        "returnTotalRecords" : true,
-                        "table" : "OMOBJV1"
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -153,23 +155,31 @@
             "type" : "array",
             "description" : "Fields to be returned, default is to return all fields.",
             "items" : {
-              "type" : "string"
+              "type" : "string",
+              "default" : "",
+              "enum" : [ "" ]
             }
           },
           "schemaOverride" : {
             "maxLength" : 128,
             "type" : "string",
-            "description" : "Instead of fetching from the database library, fetch it from this library."
+            "description" : "Instead of fetching from the database library, fetch it from this library.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "whereClause" : {
             "maxLength" : 2048,
             "type" : "string",
-            "description" : "An additional where clause to manipulate the list even further."
+            "description" : "An additional where clause to manipulate the list even further.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "table" : {
             "maxLength" : 128,
             "type" : "string",
-            "description" : "The table to read."
+            "description" : "The table to read.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "fieldSelections" : {
             "maxItems" : 250,
@@ -181,11 +191,13 @@
           },
           "skipChecks" : {
             "type" : "boolean",
-            "description" : "Set to true to skip the input validation. Skipping the input validation will save time but will return less usable feedback information in case of mistakes."
+            "description" : "Set to true to skip the input validation. Skipping the input validation will save time but will return less usable feedback information in case of mistakes.",
+            "default" : false
           },
           "distinct" : {
             "type" : "boolean",
-            "description" : "Use distinct records in the output by removing duplicates in the output. The return fields must be specified for this to work."
+            "description" : "Use distinct records in the output by removing duplicates in the output. The return fields must be specified for this to work.",
+            "default" : false
           }
         },
         "description" : "Common input items across all APIs"
@@ -274,11 +286,15 @@
         "properties" : {
           "fieldName" : {
             "type" : "string",
-            "description" : "Enter field name on which you want to do the sorting."
+            "description" : "Enter field name on which you want to do the sorting.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "sortBy" : {
             "type" : "string",
-            "description" : "Enter sorting order of the field. The possible values are : \r\n\r\nDESC - Descending order \r\n\r\nASC - Ascending order"
+            "description" : "Enter sorting order of the field. The possible values are : \r\n\r\nDESC - Descending order \r\n\r\nASC - Ascending order",
+            "default" : "",
+            "enum" : [ "" ]
           }
         },
         "description" : "Enter Fields to be sorted"
@@ -299,7 +315,8 @@
           },
           "returnExtendedMessageText" : {
             "type" : "boolean",
-            "description" : "Return extended message text. true or false."
+            "description" : "Return extended message text. true or false.",
+            "default" : false
           }
         },
         "description" : "list input for task list API"
@@ -310,18 +327,23 @@
         "properties" : {
           "field" : {
             "type" : "string",
-            "description" : "The field to select from."
+            "description" : "The field to select from.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "value" : {
             "maxLength" : 1024,
             "type" : "string",
-            "description" : "The value"
+            "description" : "The value",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "operator" : {
             "maxLength" : 20,
             "type" : "string",
             "description" : "Specify the operator. ",
-            "example" : "{\"field\": \"applicationCode\",\"value\": \"MISHD,SHUKV\",\"operator\": \"IN\"},{\"field\": \"applicationCode\",\"value\": \"MISHD,SHUKV\",\"operator\": \"BETWEEN\"},{\"field\": \"applicationCode\",\"value\": \"M[ABC].*\",\"operator\": \"REGEX\"}",
+            "example" : "{\"field\": \"applicationCode\",\"value\": \"XMP\",\"operator\": \"IN\"},{\"field\": \"applicationCode\",\"value\": \"XMP\",\"operator\": \"BETWEEN\"},{\"field\": \"applicationCode\",\"value\": \"M[ABC].*\",\"operator\": \"REGEX\"}",
+            "default" : "IN",
             "enum" : [ "IN", "NOTIN", "BETWEEN", "NOTBETWEEN", "REGEX", "EQ", "LT", "GT", "LE", "GE", "NE", "STARTSWITH", "ENDSWITH", "CONTAINS", "NOTSTARTSWITH", "NOTENDSWITH", "NOTCONTAINS", "AND", "OR" ]
           },
           "group" : {
@@ -334,7 +356,8 @@
           },
           "ignoreCase" : {
             "type" : "boolean",
-            "description" : "If value is true then the case of the string should be ignored. The default value is false."
+            "description" : "If value is true then the case of the string should be ignored. The default value is false.",
+            "default" : false
           }
         }
       },
@@ -388,12 +411,14 @@
         }
       }
     },
+    "parameters" : { },
     "examples" : {
       "IN" : {
         "summary" : "How to specify the IN operator selection",
-        "value" : "  {\r\n        \"field\": \"applicationCode\",\r\n        \"value\": \"MISHD,SHUKV\",\r\n        \"operator\": \"IN\"\r\n  }"
+        "value" : "  {\r\n        \"field\": \"applicationCode\",\r\n        \"value\": \"XMP\",\r\n        \"operator\": \"IN\"\r\n  }"
       }
     },
+    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
