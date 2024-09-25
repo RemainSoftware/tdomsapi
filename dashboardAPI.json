@@ -28,15 +28,16 @@
         "enum" : [ "http", "https" ],
         "default" : "https"
       },
-      "port" : {
-        "default" : "45211"
-      },
       "host" : {
         "default" : "plato.remainsoftware.com"
       },
       "library" : {
         "description" : "The TD/OMS library",
         "default" : "OMS"
+      },
+      "port" : {
+        "description" : "",
+        "default" : "45011"
       }
     }
   } ],
@@ -56,6 +57,9 @@
         "requestBody" : {
           "content" : {
             "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/listInput"
+              },
               "examples" : {
                 "example" : {
                   "value" : "{\"UUID\":\"16\"}"
@@ -96,6 +100,7 @@
             }
           }
         },
+        "callbacks" : { },
         "security" : [ {
           "bearer" : [ ]
         } ],
@@ -153,7 +158,9 @@
         "properties" : {
           "UUID" : {
             "type" : "string",
-            "description" : "The uuid of the chart to get the data for."
+            "description" : "The uuid of the chart to get the data for.",
+            "default" : "",
+            "enum" : [ "" ]
           }
         },
         "description" : "The list input"
@@ -217,6 +224,8 @@
         }
       }
     },
+    "parameters" : { },
+    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
