@@ -23,7 +23,7 @@
     }
   },
   "servers" : [ {
-    "url" : "https://{host}:{port}/{library}/OMQRCO",
+    "url" : "{protocol}://{host}:{port}/{library}/OMQRCO",
     "description" : "A dynamic https host",
     "variables" : {
       "host" : {
@@ -34,9 +34,14 @@
         "description" : "The TD/OMS library.",
         "default" : "OMS"
       },
+      "protocol" : {
+        "description" : "Protocol",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
+      },
       "port" : {
         "description" : "The port to which the server is listening.",
-        "default" : "45611"
+        "default" : "45011"
       }
     }
   } ],
@@ -57,6 +62,30 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/addRequest"
+              },
+              "examples" : {
+                "add" : {
+                  "summary" : "How to specify the add request input parameters value.",
+                  "value" : {
+                    "interfaceLevel" : "V16R1M0",
+                    "request" : {
+                      "objectCode" : "PGM",
+                      "objectType" : "*PGM",
+                      "memberCode" : "*NONE",
+                      "applicationCode" : "*ALL",
+                      "environmentCode" : "*ALL",
+                      "objectLibrary" : "*ALL"
+                    },
+                    "createCommandType" : "*HEADER",
+                    "createCommandSequenceNumber" : -1,
+                    "behaviourOnError" : "*SAME",
+                    "commandString" : "*SAME",
+                    "addProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1"
+                    }
+                  }
+                }
               }
             }
           },
@@ -116,6 +145,34 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/changeRequest"
+              },
+              "examples" : {
+                "change" : {
+                  "summary" : "How to specify the change request input parameters value.",
+                  "value" : {
+                    "interfaceLevel" : "V16R1M0",
+                    "request" : {
+                      "objectCode" : "PGM",
+                      "objectType" : "*PGM",
+                      "memberCode" : "*NONE",
+                      "applicationCode" : "*ALL",
+                      "environmentCode" : "*ALL",
+                      "objectLibrary" : "*ALL"
+                    },
+                    "createCommandType" : "*COMPILE",
+                    "createCommandSequenceNumber" : 1,
+                    "behaviourOnError" : "*NOTERROR",
+                    "commandString" : "*SAME",
+                    "changeProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "toApplicationCode" : "*SAME",
+                      "toEnvironmentCode" : "*SAME",
+                      "toObjectLibrary" : "*SAME",
+                      "crtCmdNewSeqNum" : -1
+                    }
+                  }
+                }
               }
             }
           },
@@ -175,6 +232,32 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/copyRequest"
+              },
+              "examples" : {
+                "copy" : {
+                  "summary" : "How to specify the copy request input parameters value.",
+                  "value" : {
+                    "interfaceLevel" : "V16R1M0",
+                    "request" : {
+                      "objectCode" : "PGM",
+                      "objectType" : "*PGM",
+                      "memberCode" : "*NONE",
+                      "applicationCode" : "*ALL",
+                      "environmentCode" : "*ALL",
+                      "objectLibrary" : "*ALL"
+                    },
+                    "copyProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "toObjectCode" : "*SAME",
+                      "toObjectType" : "*SAME",
+                      "toMemberCode" : "*SAME",
+                      "toApplicationCode" : "XMP",
+                      "toEnvironmentCode" : "*SAME",
+                      "toObjectLibrary" : "*SAME"
+                    }
+                  }
+                }
               }
             }
           },
@@ -234,6 +317,28 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/deleteRequest"
+              },
+              "examples" : {
+                "delete" : {
+                  "summary" : "How to specify the delete request input parameters value.",
+                  "value" : {
+                    "interfaceLevel" : "V16R1M0",
+                    "request" : {
+                      "objectCode" : "PGM",
+                      "objectType" : "*PGM",
+                      "memberCode" : "*NONE",
+                      "applicationCode" : "*ALL",
+                      "environmentCode" : "*ALL",
+                      "objectLibrary" : "*ALL"
+                    },
+                    "createCommandType" : "*HEADER",
+                    "createCommandSequenceNumber" : -1,
+                    "deleteProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1"
+                    }
+                  }
+                }
               }
             }
           },
@@ -293,6 +398,26 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/authorizeRequest"
+              },
+              "examples" : {
+                "authorize" : {
+                  "summary" : "How to specify the authorize request input parameters value.",
+                  "value" : {
+                    "interfaceLevel" : "V16R1M0",
+                    "request" : {
+                      "objectCode" : "PGM",
+                      "objectType" : "*PGM",
+                      "memberCode" : "*NONE",
+                      "applicationCode" : "*ALL",
+                      "environmentCode" : "*ALL",
+                      "objectLibrary" : "*ALL"
+                    },
+                    "authorizeProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1"
+                    }
+                  }
+                }
               }
             }
           },
@@ -814,12 +939,16 @@
           "objectCode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Specify the object code."
+            "description" : "Specify the object code.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Specify the object type."
+            "description" : "Specify the object type.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "memberCode" : {
             "maxLength" : 10,
@@ -880,6 +1009,8 @@
       }
     },
     "responses" : { },
+    "parameters" : { },
+    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
