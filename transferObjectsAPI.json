@@ -22,20 +22,25 @@
     }
   },
   "servers" : [ {
-    "url" : "https://{host}:{port}/{library}/OMQRTO",
+    "url" : "{protocol}://{host}:{port}/{library}/OMQRTO",
     "description" : "A dynamic https host",
     "variables" : {
       "host" : {
         "description" : "The host serving the API",
         "default" : "plato.remainsoftware.com"
       },
-      "port" : {
-        "description" : "The port to which the server is listening",
-        "default" : "45211"
-      },
       "library" : {
         "description" : "The TD/OMS library",
         "default" : "OMS"
+      },
+      "protocol" : {
+        "description" : "Protocol",
+        "enum" : [ "https", "http" ],
+        "default" : "https"
+      },
+      "port" : {
+        "description" : "The port to which the server is listening",
+        "default" : "45011"
       }
     }
   } ],
@@ -54,6 +59,17 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/selectRequest"
+              },
+              "examples" : {
+                "select" : {
+                  "summary" : "How to specify the select request input parameters value.",
+                  "value" : {
+                    "action" : "Checkout",
+                    "taskNumber" : "XT0497",
+                    "application" : "XMP",
+                    "fromEnvironment" : " "
+                  }
+                }
               }
             }
           },
@@ -112,6 +128,21 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/prepareRequest"
+              },
+              "examples" : {
+                "prepare" : {
+                  "summary" : "How to specify the prepare request input parameters value.",
+                  "value" : {
+                    "action" : "copy",
+                    "application" : "XMP",
+                    "taskNumber" : "XT0497",
+                    "fromEnvironment" : "*PRD",
+                    "toEnvironment" : "*DEV",
+                    "objects" : [ ],
+                    "targetSubEnviornments" : [ ],
+                    "confimation" : true
+                  }
+                }
               }
             }
           },
@@ -180,6 +211,14 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/executeRequest"
+              },
+              "examples" : {
+                "execute" : {
+                  "summary" : "How to specify the execute request input parameters value.",
+                  "value" : {
+                    "transferNumber" : "OT322458"
+                  }
+                }
               }
             }
           },
@@ -356,27 +395,37 @@
           "action" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Move, Copy"
+            "description" : "Move, Copy",
+            "default" : "Copy",
+            "enum" : [ "Move, Copy" ]
           },
           "application" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Application name"
+            "description" : "Application name",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "taskNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Task Number"
+            "description" : "Task Number",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "fromEnvironment" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "From Environment"
+            "description" : "From Environment",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "toEnvironment" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "To environments"
+            "description" : "To environments",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "objects" : {
             "maxItems" : 100,
@@ -536,22 +585,30 @@
           "action" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Checkout, Promote, Transfer"
+            "description" : "Checkout, Promote, Transfer",
+            "default" : "Checkout",
+            "enum" : [ "Checkout, Promote, Transfer" ]
           },
           "taskNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Task Number"
+            "description" : "Task Number",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "application" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Application name"
+            "description" : "Application name",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "fromEnvironment" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "From Environment"
+            "description" : "From Environment",
+            "default" : "",
+            "enum" : [ "" ]
           }
         },
         "description" : "Prepare the transfer request"
@@ -562,27 +619,37 @@
           "memberCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Member Code"
+            "description" : "Member Code",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "routeCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Route Code"
+            "description" : "Route Code",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "pathExtensionpCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Path Extension Code"
+            "description" : "Path Extension Code",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "objectCode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Object name"
+            "description" : "Object name",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Object Type"
+            "description" : "Object Type",
+            "default" : "",
+            "enum" : [ "" ]
           }
         },
         "description" : "Object information"
@@ -593,7 +660,9 @@
           "transferNumber" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "Transfer number"
+            "description" : "Transfer number",
+            "default" : "",
+            "enum" : [ "" ]
           }
         },
         "description" : "Execute the request input"
@@ -644,6 +713,8 @@
       }
     },
     "responses" : { },
+    "parameters" : { },
+    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
