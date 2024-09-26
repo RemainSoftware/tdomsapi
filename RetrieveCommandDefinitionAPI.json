@@ -63,7 +63,7 @@
               },
               "examples" : {
                 "retrieve" : {
-                  "summary" : "how to use retrieve input parameters value.",
+                  "summary" : "How to specify the retrieve request input parameters value.",
                   "value" : {
                     "commandName" : "WRKSPLF",
                     "commandLibrary" : "*LIBL"
