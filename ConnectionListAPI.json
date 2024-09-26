@@ -65,7 +65,7 @@
               },
               "examples" : {
                 "addConnectionList" : {
-                  "summary" : "how to use add connection list input parameters value.",
+                  "summary" : "How to specify the add request input parameters value.",
                   "value" : {
                     "addProcessingOption" : {
                       "connectWithRules" : "0",
@@ -156,7 +156,7 @@
               },
               "examples" : {
                 "processConnectionList" : {
-                  "summary" : "how to use process connection list input parameters value.",
+                  "summary" : "How to specify the process request input parameters value.",
                   "value" : {
                     "processProcessingOption" : {
                       "promptOnConflicts" : "0",
@@ -246,7 +246,7 @@
               },
               "examples" : {
                 "deleteConnectionList" : {
-                  "summary" : "how to use delete connection list input parameters value.",
+                  "summary" : "How to specify the delete request input parameters value.",
                   "value" : {
                     "applicationCode" : "XMP",
                     "connectionListCode" : "*USER",
@@ -329,7 +329,7 @@
               },
               "examples" : {
                 "changeConnectionList" : {
-                  "summary" : "how to use change connection list input parameters value.",
+                  "summary" : "How to specify the change request input parameters value.",
                   "value" : {
                     "applicationCode" : "XMP",
                     "connectionListCode" : "*USER",
