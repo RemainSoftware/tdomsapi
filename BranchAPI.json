@@ -23,20 +23,25 @@
     }
   },
   "servers" : [ {
-    "url" : "https://{host}:{port}/{library}/OMQRBR",
+    "url" : "{protocol}://{host}:{port}/{library}/OMQRBR",
     "description" : "A dynamic https host",
     "variables" : {
       "host" : {
         "description" : "The host serving the API",
         "default" : "plato.remainsoftware.com"
       },
-      "port" : {
-        "description" : "The port to which the server is listening",
-        "default" : "45211"
-      },
       "library" : {
         "description" : "The TD/OMS library",
         "default" : "OMS"
+      },
+      "port" : {
+        "description" : "The port to which the server is listening",
+        "default" : "45011"
+      },
+      "protocol" : {
+        "description" : "Protocol",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
       }
     }
   } ],
@@ -57,6 +62,17 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/addRequest"
+              },
+              "examples" : {
+                "addBranch" : {
+                  "summary" : "How to specify the add branch request input parameters value.",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "pathCode" : "XT0275",
+                    "connectToFix" : "*NONE",
+                    "transferPathDescription" : "XT0275 Created."
+                  }
+                }
               }
             }
           },
@@ -116,6 +132,16 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/changeRequest"
+              },
+              "examples" : {
+                "changeBranch" : {
+                  "summary" : "How to specify the change branch request input parameters value.",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "pathCode" : "XT0275",
+                    "transferPathDescription" : "XT0275 changed."
+                  }
+                }
               }
             }
           },
@@ -175,6 +201,16 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/deleteRequest"
+              },
+              "examples" : {
+                "deleteBranch" : {
+                  "summary" : "How to specify the delete branch request input parameters value.",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "pathCode" : "XT0275",
+                    "forceInd" : "0"
+                  }
+                }
               }
             }
           },
@@ -234,6 +270,15 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/statusRequest"
+              },
+              "examples" : {
+                "status" : {
+                  "summary" : "How to specify the branch status request input parameters value.",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "pathCode" : "XT0275"
+                  }
+                }
               }
             }
           },
@@ -319,17 +364,23 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Enter the application code."
+            "description" : "Enter the application code.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "pathCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the branch name to be changed."
+            "description" : "Enter the branch name to be changed.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "transferPathDescription" : {
             "maxLength" : 50,
             "type" : "string",
-            "description" : "Enter the branch description to be changed."
+            "description" : "Enter the branch description to be changed.",
+            "default" : "",
+            "enum" : [ "" ]
           }
         },
         "description" : "A branch is changed using this input schema."
@@ -354,12 +405,16 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Enter the name of the application."
+            "description" : "Enter the name of the application.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "pathCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "enter the name of the branch to be created."
+            "description" : "enter the name of the branch to be created.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "connectToFix" : {
             "maxLength" : 10,
@@ -371,7 +426,9 @@
           "transferPathDescription" : {
             "maxLength" : 50,
             "type" : "string",
-            "description" : "The description contains a short description of the branch. A blank value is not allowed.                \r\n\r\n*SAME                                                     \r\n    Use this value to indicate that the description does not change. \r\n\r\ndescription                    \r\n    Enter a branch description."
+            "description" : "The description contains a short description of the branch. A blank value is not allowed.                \r\n\r\n*SAME                                                     \r\n    Use this value to indicate that the description does not change. \r\n\r\ndescription                    \r\n    Enter a branch description.",
+            "default" : "",
+            "enum" : [ "" ]
           }
         },
         "description" : "A branch is created using this input schema."
@@ -382,12 +439,16 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Enther the application code."
+            "description" : "Enter the application code.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "pathCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the branch code for which status has to be calculated."
+            "description" : "Enter the branch code for which status has to be calculated.",
+            "default" : "",
+            "enum" : [ "" ]
           }
         },
         "description" : "A branch status is calculated and updated using this input schema."
@@ -398,12 +459,16 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Enter the application code for which branch has to be deleted."
+            "description" : "Enter the application code for which branch has to be deleted.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "pathCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the branch code that has to be deleted."
+            "description" : "Enter the branch code that has to be deleted.",
+            "default" : "",
+            "enum" : [ "" ]
           },
           "forceInd" : {
             "maxLength" : 1,
@@ -417,6 +482,8 @@
       }
     },
     "responses" : { },
+    "parameters" : { },
+    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
