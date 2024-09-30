@@ -2,6 +2,7 @@
   "openapi" : "3.0.1",
   "info" : {
     "title" : "TD/OMS Information Service API",
+    "description" : "The TD/OMS Information Service API is designed to provide access to information related to the TD/OMS system. It allows clients to retrieve license details and comprehensive system information, including applications and environments. ",
     "termsOfService" : "https://remainsoftware.com/octo-terms-and-conditions",
     "contact" : {
       "name" : "Remain BV",
@@ -16,24 +17,33 @@
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
       "object" : "OMSINFO",
-      "library" : "V15T0311",
-      "srclibrary" : "V15T0311S",
-      "file" : "infoService.json"
+      "library" : "V16T0019",
+      "srclibrary" : "V16T0019S",
+      "file" : "infoService.json",
+      "additionalBindingDirs" : "OMRESTUTIL,OMREGUTIL,OMSAUTH"
     }
   },
   "servers" : [ {
-    "url" : "https://plato.remainsoftware.com:{port}/{library}/OMSINFO",
+    "url" : "{protocol}://plato.remainsoftware.com:{port}/{library}/OMSINFO",
     "description" : "plato.prod",
     "variables" : {
-      "library" : {
-        "description" : "",
-        "default" : "OMS"
+      "protocol" : {
+        "description" : "Protocol",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
       },
       "port" : {
         "description" : "",
-        "default" : "45211"
+        "default" : "45011"
+      },
+      "library" : {
+        "description" : "",
+        "default" : "OMS"
       }
     }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
   } ],
   "paths" : {
     "/license" : {
@@ -50,6 +60,84 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/licenseInfo"
+                },
+                "examples" : {
+                  "licenseInfo" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/licenseInfo"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "security" : [ ],
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : false
+        }
+      }
+    },
+    "/system" : {
+      "summary" : "Retrieve the system information",
+      "description" : "Retrieve the system information",
+      "get" : {
+        "summary" : "Retrieve the system information",
+        "description" : "Retrieve the system information which consists of high level system information, application information and environment information.",
+        "operationId" : "getSystemInfo",
+        "parameters" : [ {
+          "name" : "applications",
+          "in" : "query",
+          "description" : "A comma separated list of applications to load. If ommitted all authorized applications are returned.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/applicationList"
+          },
+          "examples" : {
+            "systemInfo" : {
+              "value" : null,
+              "$ref" : "#/components/examples/systemInfo"
+            }
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/systemInfo"
+                },
+                "examples" : {
+                  "systemInfo" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/systemInfo"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "General error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
                 }
               }
             }
@@ -59,7 +147,7 @@
         "x-generate" : {
           "session" : false,
           "jwtlogin" : false,
-          "suffix" : "01",
+          "suffix" : "02",
           "generate" : false
         }
       }
@@ -67,93 +155,532 @@
   },
   "components" : {
     "schemas" : {
-      "module" : {
-        "type" : "object",
-        "properties" : {
-          "moduleCode" : {
-            "type" : "string",
-            "description" : "The module code"
-          },
-          "description" : {
-            "type" : "string",
-            "description" : "The module description"
-          },
-          "version" : {
-            "type" : "string",
-            "description" : "The module version"
-          },
-          "buildDate" : {
-            "type" : "string",
-            "description" : "The build date of the module"
-          },
-          "numberOfUsers" : {
-            "type" : "integer",
-            "description" : "The number of users for this module"
-          },
-          "LicenseEndDate" : {
-            "type" : "string",
-            "description" : "Module License end date in the format CYYMMDD where C=1=2000"
-          }
-        },
-        "description" : "The module object"
-      },
       "licenseInfo" : {
         "type" : "object",
         "properties" : {
           "version" : {
             "type" : "string",
-            "description" : "Kernel Version"
+            "description" : "Kernel Version",
+            "example" : "16.1M00"
           },
           "productLibrary" : {
             "type" : "string",
-            "description" : "The TD/OMS product library"
+            "description" : "The TD/OMS product library",
+            "example" : "OMS"
           },
           "message" : {
             "maxLength" : 256,
             "type" : "string",
-            "description" : "A message"
+            "description" : "A message",
+            "example" : "License Information Fetched"
           },
           "licenseType" : {
             "type" : "string",
-            "description" : "The license type, *COMBINED, *NAMED, *UNLIMITED"
+            "description" : "The license type, *COMBINED, *NAMED, *UNLIMITED",
+            "example" : "*NAMED",
+            "enum" : [ "*FLOATING", "*COMBINED", "*NAMED", "*UNLIMITED" ]
           },
           "lpar" : {
             "type" : "integer",
-            "description" : "The LPAR number"
+            "description" : "The LPAR number",
+            "example" : 1
           },
           "namedUsers" : {
             "type" : "integer",
-            "description" : "Number of named users"
+            "description" : "Number of named users",
+            "example" : 5
           },
           "floatingUsers" : {
             "type" : "integer",
-            "description" : "Number of floating users"
+            "description" : "Number of floating users",
+            "example" : 0
           },
           "serialNumber" : {
             "type" : "string",
-            "description" : "The serial number"
+            "description" : "The serial number",
+            "example" : "762EBD0"
           },
           "processorFeatureCode" : {
             "type" : "string",
-            "description" : "The processor feature code"
+            "description" : "The processor feature code",
+            "example" : "EP18"
           },
           "licenseEndDate" : {
             "type" : "string",
-            "description" : "License end date in the format CYYMMDD where C=1=2000"
+            "description" : "License end date in the format CYYMMDD where C=1=2000",
+            "example" : "1391231"
           },
           "modules" : {
             "maxItems" : 50,
             "type" : "array",
             "description" : "The active modules",
             "items" : {
-              "$ref" : "#/components/schemas/module"
+              "$ref" : "#/components/schemas/moduleLicenseInfo"
             }
           }
         },
         "description" : "The information schema."
+      },
+      "systemInfo" : {
+        "type" : "object",
+        "properties" : {
+          "isOMSManager" : {
+            "type" : "boolean",
+            "description" : "True if this person is an OMS Manager.",
+            "example" : false
+          },
+          "isExitManager" : {
+            "type" : "boolean",
+            "description" : "True if this person is allowed to define exit programs to be executed by TD/OMS.",
+            "example" : false
+          },
+          "isSecurityManager" : {
+            "type" : "boolean",
+            "description" : "True if the user can do security related changes.",
+            "example" : false
+          },
+          "fetchTime" : {
+            "type" : "integer",
+            "description" : "The time this information was fetched in unix format in UTC.",
+            "example" : 1727283173
+          },
+          "timeZone" : {
+            "type" : "string",
+            "description" : "The timezone of the server.",
+            "example" : "QP0100CET4"
+          },
+          "timeZoneOffset" : {
+            "type" : "number",
+            "description" : "The timezone offset of the server relative to UTC.",
+            "enum" : [ 120.0 ]
+          },
+          "applications" : {
+            "maxItems" : 500,
+            "type" : "array",
+            "description" : "The requested applications.",
+            "items" : {
+              "$ref" : "#/components/schemas/applicationInfo"
+            }
+          }
+        },
+        "description" : "This is information about a system that can only be fetched with a valid token."
+      },
+      "applicationInfo" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "example" : "XMP",
+            "x-column" : "PPAPPC",
+            "x-sequence" : "10"
+          },
+          "applicationName" : {
+            "maxLength" : 60,
+            "type" : "string",
+            "description" : "Application name",
+            "example" : "Example Application",
+            "x-column" : "PPAPNM",
+            "x-sequence" : "20"
+          },
+          "requestManager" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Request manager",
+            "example" : "QSECOFR",
+            "x-column" : "PPERPR",
+            "x-sequence" : "30"
+          },
+          "release" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Release",
+            "example" : "V16KEPM01",
+            "x-column" : "PPCRLS",
+            "x-sequence" : "70"
+          },
+          "requestNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Last Generated Request number",
+            "example" : "R12345",
+            "x-column" : "PPCERR",
+            "x-sequence" : "80"
+          },
+          "pathCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Default Transfer Path\r\n",
+            "example" : "MAIN",
+            "x-column" : "PPPATH",
+            "x-sequence" : "270"
+          },
+          "taskNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Last generated Task Number\r\n",
+            "example" : "T12345",
+            "x-column" : "PPCFIX",
+            "x-sequence" : "100"
+          },
+          "authorizationCode" : {
+            "type" : "string",
+            "description" : "The authorisation code this user has for this application. '1', '2', or '3'.",
+            "example" : "2"
+          },
+          "isUser" : {
+            "type" : "boolean",
+            "description" : "True if this user has user rights in this application.",
+            "example" : true
+          },
+          "isProgrammer" : {
+            "type" : "boolean",
+            "description" : "True if this user has programmer rights in this application. See isExitAdmin in the applicationInfo structure.",
+            "example" : true
+          },
+          "isManager" : {
+            "type" : "boolean",
+            "description" : "True if this user has manager access to this application. See isSecurityAdmin and isExitAdmin in the applicationInfo structure.",
+            "example" : false
+          },
+          "isForceConnectionRules" : {
+            "type" : "boolean",
+            "description" : "True if connection rules are forced when objects are selected.",
+            "example" : true
+          },
+          "isConfirmTransfer" : {
+            "type" : "boolean",
+            "description" : "True if the user must confirm transfers with a password.",
+            "example" : false
+          },
+          "canCreateTasks" : {
+            "type" : "boolean",
+            "description" : "True if tasks can be created in this application.",
+            "example" : true
+          },
+          "canCreateRequests" : {
+            "type" : "boolean",
+            "description" : "True if requests can be created in this application.",
+            "example" : false
+          },
+          "developmentEnvironment" : {
+            "type" : "string",
+            "description" : "The code of the development environment.",
+            "example" : "DEV"
+          },
+          "productionEnvironment" : {
+            "type" : "string",
+            "description" : "The code of the production environment.",
+            "example" : "PROD"
+          },
+          "emergencyEnvironment" : {
+            "type" : "string",
+            "description" : "The code of the emergency environment.",
+            "example" : "HOT"
+          },
+          "environments" : {
+            "maxItems" : 100,
+            "type" : "array",
+            "description" : "The environments of this application.",
+            "items" : {
+              "$ref" : "#/components/schemas/environmentInfo"
+            }
+          }
+        },
+        "description" : "The application information object.",
+        "example" : "XMP",
+        "x-pfname" : "OMAPP",
+        "x-library" : "V160KEP",
+        "x-host" : "plato.prod",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "environmentInfo" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "example" : "XMP",
+            "x-column" : "DLAPPC",
+            "x-sequence" : "10"
+          },
+          "sequenceNumber" : {
+            "maxLength" : 5,
+            "type" : "number",
+            "description" : "Sequence number in the workflow. 0 is emergency.",
+            "format" : "",
+            "example" : 10.0,
+            "x-column" : "DLSEQ#",
+            "x-sequence" : "20"
+          },
+          "environmentCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Environment code",
+            "example" : "DEV",
+            "x-column" : "DLPDLC",
+            "x-sequence" : "30"
+          },
+          "ratificationType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Ratification type. 0=None, 1=Request, 2=Fix ",
+            "example" : "0",
+            "enum" : [ "0", "1", "2" ],
+            "x-column" : "DLACCT",
+            "x-sequence" : "80"
+          },
+          "description" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "Environment Description.",
+            "example" : "Development",
+            "x-column" : "DLPDLD",
+            "x-sequence" : "40"
+          },
+          "selectionCode" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "Level selection code",
+            "example" : "*ALL",
+            "enum" : [ "*SELECT", "*PATH", "*USRPRF", "*ALL", "*NONE" ],
+            "x-column" : "DLLVSC",
+            "x-sequence" : "50"
+          },
+          "selectionNumber" : {
+            "maxLength" : 3,
+            "type" : "number",
+            "description" : "Level selection number",
+            "format" : "",
+            "example" : 0.0,
+            "x-column" : "DLLVS#",
+            "x-sequence" : "60"
+          },
+          "numberOfRatificationGroups" : {
+            "maxLength" : 3,
+            "type" : "number",
+            "description" : "Number of ratification grps",
+            "format" : "",
+            "example" : 0.0,
+            "x-column" : "DLNAC#",
+            "x-sequence" : "70"
+          },
+          "isOwner" : {
+            "type" : "boolean",
+            "description" : "True if this user may add or remove objects into this environment.",
+            "example" : true
+          },
+          "isProductionEnvironment" : {
+            "type" : "boolean",
+            "description" : "True if this is the production environment.",
+            "example" : false
+          },
+          "isEmergencyEnvironment" : {
+            "type" : "boolean",
+            "description" : "True if this is the emergency environment.",
+            "example" : false
+          },
+          "isDevelopmentEnvironment" : {
+            "type" : "boolean",
+            "description" : "True if this is the development environment",
+            "example" : true
+          }
+        },
+        "description" : "The environment information object",
+        "x-pfname" : "OMPDL",
+        "x-library" : "V160KEP",
+        "x-host" : "plato.prod",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "message" : {
+        "maxLength" : 150,
+        "type" : "string",
+        "description" : "A simple message in response to a non 200 code."
+      },
+      "applicationList" : {
+        "maxLength" : 1024,
+        "type" : "string",
+        "description" : "A comma separated list of applications"
+      },
+      "moduleLicenseInfo" : {
+        "type" : "object",
+        "properties" : {
+          "moduleCode" : {
+            "type" : "string",
+            "description" : "The module code",
+            "example" : "KE"
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "The module description",
+            "example" : "Kernel"
+          },
+          "version" : {
+            "type" : "string",
+            "description" : "The module version",
+            "example" : "16.1M00"
+          },
+          "buildDate" : {
+            "type" : "string",
+            "description" : "The build date of the module. Format: \"YYYY.MM.DD HH:MM\"",
+            "example" : "2024.07.19 13:59"
+          },
+          "numberOfUsers" : {
+            "type" : "integer",
+            "description" : "The number of users for this module",
+            "example" : 1024
+          },
+          "LicenseEndDate" : {
+            "type" : "string",
+            "description" : "Module License end date in the format CYYMMDD where C=1=2000",
+            "example" : "1391231"
+          }
+        },
+        "description" : "The module object"
       }
     },
     "responses" : { },
+    "parameters" : { },
+    "examples" : {
+      "licenseInfo" : {
+        "summary" : "The license information result.",
+        "value" : {
+          "licenseType" : "*NAMED",
+          "productLibrary" : "OMS",
+          "processorFeatureCode" : "EP18",
+          "serialNumber" : "762EBD0",
+          "namedUsers" : 5,
+          "lpar" : 1,
+          "floatingUsers" : 0,
+          "licenseEndDate" : "1391231",
+          "message" : "License Information Fetched",
+          "version" : "16.1M00",
+          "modules" : [ {
+            "LicenseEndDate" : "1391231",
+            "moduleCode" : "KE",
+            "numberOfUsers" : 1024,
+            "description" : "Kernel",
+            "buildDate" : "2024.07.19 13:59",
+            "version" : "16.1M00"
+          }, {
+            "LicenseEndDate" : "1391231",
+            "moduleCode" : "FP",
+            "numberOfUsers" : 1024,
+            "description" : "Object Transfer",
+            "buildDate" : "2024.07.19 13:59",
+            "version" : "16.1M00"
+          } ]
+        }
+      },
+      "systemInfo" : {
+        "summary" : "Result from the system info call",
+        "value" : {
+          "isExitManager" : true,
+          "timeZoneOffset" : 120,
+          "isSecurityManager" : true,
+          "isOMSManager" : true,
+          "fetchTime" : 1727283173,
+          "timeZone" : "QP0100CET4",
+          "applications" : [ {
+            "applicationCode" : "XMP",
+            "applicationName" : "Core Comics Supplies Service",
+            "canCreateRequests" : true,
+            "productionEnvironment" : "*PRD",
+            "authorizationCode" : "3",
+            "release" : "MS03",
+            "emergencyEnvironment" : "*HOT",
+            "requestNumber" : "XR0023",
+            "developmentEnvironment" : "*DEV",
+            "isConfirmTransfer" : false,
+            "requestManager" : "OMS",
+            "isForceConnectionRules" : false,
+            "canCreateTasks" : true,
+            "pathCode" : "MAIN",
+            "isManager" : true,
+            "taskNumber" : "XT0590",
+            "isUser" : true,
+            "isProgrammer" : true,
+            "environments" : [ {
+              "selectionNumber" : 0,
+              "isDevelopmentEnvironment" : false,
+              "sequenceNumber" : 40,
+              "environmentCode" : "*PRD",
+              "isProductionEnvironment" : true,
+              "isEmergencyEnvironment" : false,
+              "selectionCode" : "*ALL",
+              "isOwner" : true,
+              "ratificationType" : "0",
+              "description" : "Production",
+              "applicationCode" : "XMP",
+              "numberOfRatificationGroups" : 0
+            }, {
+              "selectionNumber" : 0,
+              "isDevelopmentEnvironment" : false,
+              "sequenceNumber" : 35,
+              "environmentCode" : "*INT",
+              "isProductionEnvironment" : false,
+              "isEmergencyEnvironment" : false,
+              "selectionCode" : "*ALL",
+              "isOwner" : true,
+              "ratificationType" : "2",
+              "description" : "Integration",
+              "applicationCode" : "XMP",
+              "numberOfRatificationGroups" : 1
+            }, {
+              "selectionNumber" : 0,
+              "isDevelopmentEnvironment" : false,
+              "sequenceNumber" : 20,
+              "environmentCode" : "*TST",
+              "isProductionEnvironment" : false,
+              "isEmergencyEnvironment" : false,
+              "selectionCode" : "*PATH",
+              "isOwner" : true,
+              "ratificationType" : "2",
+              "description" : "Development Ready",
+              "applicationCode" : "XMP",
+              "numberOfRatificationGroups" : 1
+            }, {
+              "selectionNumber" : 0,
+              "isDevelopmentEnvironment" : true,
+              "sequenceNumber" : 10,
+              "environmentCode" : "*DEV",
+              "isProductionEnvironment" : false,
+              "isEmergencyEnvironment" : false,
+              "selectionCode" : "*PATH",
+              "isOwner" : true,
+              "ratificationType" : "0",
+              "description" : "Development",
+              "applicationCode" : "XMP",
+              "numberOfRatificationGroups" : 0
+            }, {
+              "selectionNumber" : 0,
+              "isDevelopmentEnvironment" : false,
+              "sequenceNumber" : 0,
+              "environmentCode" : "*HOT",
+              "isProductionEnvironment" : false,
+              "isEmergencyEnvironment" : true,
+              "selectionCode" : "*ALL",
+              "isOwner" : true,
+              "ratificationType" : "0",
+              "description" : "Hotfix",
+              "applicationCode" : "XMP",
+              "numberOfRatificationGroups" : 0
+            } ]
+          } ]
+        }
+      }
+    },
+    "requestBodies" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "JWT Token security",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
     "callbacks" : { }
   }
 }
