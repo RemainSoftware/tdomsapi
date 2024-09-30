@@ -62,15 +62,6 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/request"
-              },
-              "examples" : {
-                "parseEvent" : {
-                  "summary" : "How to specify the parse event input parameters value.",
-                  "value" : {
-                    "memberName" : "PGM",
-                    "library" : "O_XT0585D"
-                  }
-                }
               }
             }
           },
@@ -83,6 +74,84 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "parseEvent200" : {
+                    "summary" : "Response for a successful call to the API. ",
+                    "description" : "Response for parseEvent 200.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "timestampRecord" : {
+                        "version" : "0",
+                        "timestamp" : "20240917112246"
+                      },
+                      "fileEndRecord" : [ {
+                        "version" : "0",
+                        "fileId" : "001",
+                        "expansion" : "000000"
+                      }, {
+                        "version" : "0",
+                        "fileId" : "000",
+                        "expansion" : "000000"
+                      } ],
+                      "fileIdRecord" : [ {
+                        "sourceId" : "001",
+                        "sourcefileTimestamp" : "20240913113736",
+                        "fileName" : "O_XT0585DS/QCLLESRC(PGM)",
+                        "line" : "000000",
+                        "length" : "024",
+                        "tempFlag" : "0",
+                        "version" : "0"
+                      }, {
+                        "sourceId" : "000",
+                        "sourcefileTimestamp" : "19700101010000",
+                        "fileName" : "",
+                        "line" : "000000",
+                        "length" : "000",
+                        "tempFlag" : "0",
+                        "version" : "0"
+                      } ],
+                      "expansionRecord" : [ ],
+                      "processorRecord" : [ {
+                        "outputId" : "000",
+                        "lineClass" : "1",
+                        "version" : "0"
+                      }, {
+                        "outputId" : "000",
+                        "lineClass" : "1",
+                        "version" : "0"
+                      } ],
+                      "errorInfoRecord" : [ {
+                        "msg" : "No data areas, variables, or labels used in program.",
+                        "sevNum" : "10",
+                        "length" : "116",
+                        "endErrLine" : "000008",
+                        "msgId" : "CPD0792",
+                        "tokenStart" : "000",
+                        "version" : "0",
+                        "startErrLine" : "000008",
+                        "tokenEnd" : "000",
+                        "annotClass" : "1",
+                        "stmtLine" : "000008",
+                        "sevChar" : "W",
+                        "fileId" : "001"
+                      }, {
+                        "msg" : "Program PGM created in library O_XT0585D.",
+                        "sevNum" : "00",
+                        "length" : "041",
+                        "endErrLine" : "000000",
+                        "msgId" : "CPC5D07",
+                        "tokenStart" : "000",
+                        "version" : "0",
+                        "startErrLine" : "000000",
+                        "tokenEnd" : "000",
+                        "annotClass" : "0",
+                        "stmtLine" : "000000",
+                        "sevChar" : "I",
+                        "fileId" : "000"
+                      } ]
+                    }
+                  }
                 }
               }
             }
@@ -116,15 +185,13 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Specify the member's name.",
-            "default" : "",
-            "enum" : [ "" ]
+            "example" : "PGM"
           },
           "library" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "Specify the library.",
-            "default" : "",
-            "enum" : [ "" ]
+            "example" : "O_XT0585D"
           }
         },
         "description" : "Request data to parse the EVF event file."
@@ -213,7 +280,8 @@
             "description" : "The date and time the Events File was created in yyyymmddhhmmss format."
           }
         },
-        "description" : "This record indicates when the Events File was created, and allows an application to determine if the Events File is current (if the timestamp is older than a file indicated in a File ID record, the Events File may be incorrect for that file). This record is always the first record in the Events File."
+        "description" : "This record indicates when the Events File was created, and allows an application to determine if the Events File is current (if the timestamp is older than a file indicated in a File ID record, the Events File may be incorrect for that file). This record is always the first record in the Events File.",
+        "example" : ""
       },
       "fileEnd" : {
         "type" : "object",
