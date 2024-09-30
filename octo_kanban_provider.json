@@ -21,19 +21,25 @@
     }
   },
   "servers" : [ {
-    "url" : "https://{host}:{port}/{library}/omkban",
+    "url" : "{protocol}://{host}:{port}/{library}/omkban",
     "description" : "The server to contact the API on",
     "variables" : {
       "host" : {
         "description" : "The host of this API",
         "default" : "plato"
       },
-      "port" : {
-        "default" : "45211"
-      },
       "library" : {
         "description" : "The library",
         "default" : "OMS"
+      },
+      "{protocol}" : {
+        "description" : "Protocol",
+        "enum" : [ "https", "http" ],
+        "default" : "https"
+      },
+      "port" : {
+        "description" : "",
+        "default" : "45011"
       }
     }
   } ],
@@ -70,6 +76,17 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/CardMoveRequest"
+              },
+              "examples" : {
+                "provider/boards/cards/move/1" : {
+                  "summary" : "Move a card to another lane",
+                  "value" : {
+                    "target_column_id" : "Working",
+                    "board_id" : "MileStone1",
+                    "card_id" : "T0001",
+                    "current_column_id" : "ToDo"
+                  }
+                }
               }
             }
           },
@@ -142,15 +159,22 @@
       "description" : "Path  to handle cards",
       "post" : {
         "tags" : [ "Cards" ],
-        "summary" : "Create a Kanban card",
+        "summary" : "Create a Kanban card. Prototype: Do not implement.",
         "description" : "Create a new Kanban card with the incoming data",
         "operationId" : "CreateCard",
         "requestBody" : {
-          "description" : "Create a new Kanban card",
+          "description" : "Create a new Kanban card. (Prototype)",
           "content" : {
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/Card"
+              },
+              "examples" : {
+                "provider/boards/cards/1" : {
+                  "summary" : "Create a Card",
+                  "description" : "Card creation is a prototype path. Contact us if you want to implement this.",
+                  "value" : "Card creation is a prototype path. Contact us if you want to implement this."
+                }
               }
             }
           },
@@ -586,7 +610,8 @@
           "explode" : false,
           "schema" : {
             "type" : "string",
-            "description" : "The id of the user whose avatar to be fetched"
+            "description" : "The id of the user whose avatar to be fetched",
+            "example" : "alice"
           }
         } ],
         "responses" : {
@@ -658,22 +683,27 @@
         "properties" : {
           "board_id" : {
             "type" : "string",
-            "nullable" : false
+            "description" : "The id of the board",
+            "nullable" : false,
+            "example" : "MileStone1"
           },
           "card_id" : {
             "type" : "string",
             "description" : "The id of the card to move",
-            "nullable" : false
+            "nullable" : false,
+            "example" : "T0001"
           },
           "current_column_id" : {
             "type" : "string",
             "description" : "The id of the current column containing the card",
-            "nullable" : false
+            "nullable" : false,
+            "example" : "ToDo"
           },
           "target_column_id" : {
             "type" : "string",
             "description" : "The id of the target column to move the card to.",
-            "nullable" : false
+            "nullable" : false,
+            "example" : "Working"
           }
         },
         "description" : "Contains request data for a card move from one column to another"
@@ -685,13 +715,15 @@
           "msg" : {
             "type" : "string",
             "description" : "The response message",
-            "readOnly" : true
+            "readOnly" : true,
+            "example" : "Card was moved"
           },
           "is_success" : {
             "type" : "boolean",
             "description" : "Wether the move request was successful",
             "nullable" : false,
-            "readOnly" : true
+            "readOnly" : true,
+            "example" : true
           },
           "updated_card" : {
             "$ref" : "#/components/schemas/Card"
@@ -705,84 +737,102 @@
         "properties" : {
           "severity" : {
             "type" : "string",
-            "description" : "The severity of this Kanban card"
+            "description" : "The severity of this Kanban card",
+            "example" : "high"
           },
           "workflow_name" : {
             "type" : "string",
-            "description" : "The name of the workflow this Kanban card belongs to."
+            "description" : "The name of the workflow this Kanban card belongs to.",
+            "example" : "Workflow 1"
           },
           "column_name" : {
             "type" : "string",
             "description" : "The name of the column this Kanban card belongs to.",
-            "nullable" : false
+            "nullable" : false,
+            "example" : "todoColumn"
           },
           "title" : {
             "maxLength" : 100,
             "type" : "string",
             "description" : "The  Kanban card title",
-            "nullable" : false
+            "nullable" : false,
+            "example" : "T0001 Walk the dog"
           },
           "assignee_name" : {
             "type" : "string",
-            "description" : "The name of the user this Kanban card is assigned to."
+            "description" : "The name of the user this Kanban card is assigned to.",
+            "example" : "Bob"
           },
           "column_id" : {
             "type" : "string",
             "description" : "The id of the Kanban column this card belongs to.",
-            "nullable" : false
+            "nullable" : false,
+            "example" : "todoColumn"
           },
           "app_name" : {
             "type" : "string",
-            "description" : "The name of the application this Kanban card belongs to."
+            "description" : "The name of the application this Kanban card belongs to.",
+            "example" : "Demo"
           },
           "creator_id" : {
             "type" : "string",
             "description" : "The id of the creator of this Kanban card.",
-            "nullable" : false
+            "nullable" : false,
+            "example" : "Alice"
           },
           "creator_name" : {
             "type" : "string",
-            "description" : "The name of the creator of this Kanban card in mills."
+            "description" : "The name of the creator of this Kanban card in mills.",
+            "example" : "Alice DeVries"
           },
           "id" : {
             "type" : "string",
             "description" : "The Kanban card id",
-            "nullable" : false
+            "nullable" : false,
+            "example" : "fde522ef"
           },
           "status" : {
             "type" : "string",
-            "description" : "The status of this Kanban card"
+            "description" : "The status of this Kanban card",
+            "example" : "*BACKLOG"
           },
           "assignee_id" : {
             "type" : "string",
-            "description" : "The id of the user this Kanban card is assigned to."
+            "description" : "The id of the user this Kanban card is assigned to.",
+            "example" : "Alice"
           },
           "title_url" : {
             "maxLength" : 250,
             "type" : "string",
-            "description" : "An optional URL linking the card title"
+            "description" : "An optional URL linking the card title",
+            "example" : "https://helpdesk.remainsoftware.com/gravity/wm/?viewitem=MD8AaYH1RDCzxPhruHo-4w"
           },
           "cardboard_id" : {
             "type" : "string",
             "description" : "The name of the board this Kanban card belongs to.",
-            "nullable" : false
+            "nullable" : false,
+            "example" : "Milestone1"
           },
           "priority" : {
             "type" : "string",
-            "description" : "The Kanban card priority"
+            "description" : "The Kanban card priority",
+            "example" : "low"
           },
           "commentCount" : {
             "type" : "integer",
-            "description" : "The count of comments belonging to this card.\r\nReturn the value -1 in the response to instruct Octo to fetch this count using a separate call to \"/provider/boards/{board_id}/cards/{card_id}/comments/count\" as described in the paths section. "
+            "description" : "The count of comments belonging to this card.\r\nReturn the value -1 in the response to instruct Octo to fetch this count using a separate call to \"/provider/boards/{board_id}/cards/{card_id}/comments/count\" as described in the paths section. ",
+            "example" : 12
           },
           "attachmentCount" : {
             "type" : "integer",
-            "description" : "The count of attachments belonging to this card. \r\nReturn  the value -1 in the response to instruct Octo to fetch this count using a separate requet call to \"/provider/boards/{board_id}/cards/{card_id}/attachments/count\" as described in the paths section."
+            "description" : "The count of attachments belonging to this card. \r\nReturn  the value -1 in the response to instruct Octo to fetch this count using a separate requet call to \"/provider/boards/{board_id}/cards/{card_id}/attachments/count\" as described in the paths section.",
+            "example" : 4
           },
           "link" : {
             "type" : "string",
             "description" : "The weblink of the card",
-            "format" : "uri"
+            "format" : "uri",
+            "example" : "https://helpdesk.remainsoftware.com/gravity/wm/?viewitem=MD8AaYH1RDCzxPhruHo-4w"
           },
           "creation_date" : {
             "type" : "string",
@@ -796,11 +846,13 @@
           },
           "creator_avatar_url" : {
             "type" : "string",
-            "description" : "An optional URL of this card creator avatar. Omit this property or return null in the response to instruct Octo to generate a letter-based avatar.\r\nReturn the string value \"-1\" in the response to instruct Octo to fetch this avatar URL using a separate call to \"/provider/avatars/{user_id}\" as described in the paths section."
+            "description" : "An optional URL of this card creator avatar. Omit this property or return null in the response to instruct Octo to generate a letter-based avatar.\r\nReturn the string value \"-1\" in the response to instruct Octo to fetch this avatar URL using a separate call to \"/provider/avatars/{user_id}\" as described in the paths section.",
+            "example" : "https://gravatar.com/avatar/b7e7954de66"
           },
           "assignee_avatar_url" : {
             "type" : "string",
-            "description" : "An optional URL of this card asignee avatar. Omit this property or return null in the response to instruct Octo to generate a letter-based avatar.\r\nReturn the string value \"-1\" in the response to instruct Octo to fetch this avatar URL using a separate call to \"/provider/avatars/{user_id}\" as described in the paths section."
+            "description" : "An optional URL of this card asignee avatar. Omit this property or return null in the response to instruct Octo to generate a letter-based avatar.\r\nReturn the string value \"-1\" in the response to instruct Octo to fetch this avatar URL using a separate call to \"/provider/avatars/{user_id}\" as described in the paths section.",
+            "example" : "https://gravatar.com/avatar/b7e7954de66"
           }
         },
         "description" : "A KanBan board card model"
@@ -812,17 +864,22 @@
           "name" : {
             "type" : "string",
             "description" : "The name of the Kanban board",
-            "nullable" : false
+            "nullable" : false,
+            "example" : "BackLog",
+            "default" : ""
           },
           "provider_id" : {
             "type" : "string",
             "description" : "The id of the provider of this Kanban board",
-            "nullable" : false
+            "nullable" : false,
+            "example" : "TD/OMS Kanban Provider"
           },
           "cardboard_id" : {
             "type" : "string",
             "description" : "The id of the Kanban board",
-            "nullable" : false
+            "nullable" : false,
+            "example" : "Milestone1",
+            "default" : ""
           },
           "columns" : {
             "maxItems" : 50,
@@ -833,7 +890,8 @@
           },
           "title" : {
             "type" : "string",
-            "description" : "The description of this Kanban board"
+            "description" : "The description of this Kanban board",
+            "example" : "Board for Milestone1"
           }
         },
         "description" : "A KanBan board model"
@@ -847,17 +905,20 @@
             "type" : "string",
             "description" : "The name of the KanBan provider to be displayed by  Octo",
             "nullable" : false,
-            "readOnly" : true
+            "readOnly" : true,
+            "example" : "My Kanban Provider"
           },
           "creator_name" : {
             "type" : "string",
             "description" : "The name of the person who created the KanBan boards provider",
-            "nullable" : false
+            "nullable" : false,
+            "example" : "ACME Inc."
           },
           "id" : {
             "type" : "string",
             "description" : "The ID of the KanBan boards provider",
-            "nullable" : false
+            "nullable" : false,
+            "example" : "aaea4422ff"
           }
         },
         "description" : "A model containing the main info about an Octo KanBan provider service."
@@ -870,19 +931,22 @@
             "type" : "integer",
             "description" : "It denotes how many documents were deleted.",
             "nullable" : true,
-            "readOnly" : true
+            "readOnly" : true,
+            "example" : 12
           },
           "ok" : {
             "type" : "integer",
             "description" : "It denotes whether the  deletion operation was successful. 1= success. 0=failure.",
             "nullable" : false,
-            "readOnly" : true
+            "readOnly" : true,
+            "example" : 1
           },
           "n" : {
             "type" : "integer",
             "description" : "It denotes how many documents were matched.",
             "nullable" : false,
-            "readOnly" : true
+            "readOnly" : true,
+            "example" : 12
           }
         },
         "additionalProperties" : false,
@@ -903,7 +967,8 @@
           }
         },
         "additionalProperties" : false,
-        "description" : "The error response"
+        "description" : "The error response",
+        "example" : "PUR0004: Something unexpected happened."
       },
       "Column" : {
         "required" : [ "column_id", "title" ],
@@ -911,15 +976,19 @@
         "properties" : {
           "title" : {
             "type" : "string",
-            "description" : "The column header title"
+            "description" : "The column header title",
+            "example" : "Things to do",
+            "default" : ""
           },
           "description" : {
             "type" : "string",
-            "description" : "The column description"
+            "description" : "The column description",
+            "example" : "Open Items"
           },
           "column_id" : {
             "type" : "string",
-            "description" : "The column id"
+            "description" : "The column id",
+            "example" : "todoColumn"
           }
         },
         "description" : "A Kanban board column"
@@ -930,7 +999,8 @@
         "properties" : {
           "description" : {
             "type" : "string",
-            "description" : "The description"
+            "description" : "The description",
+            "example" : "Walk the dog"
           }
         },
         "description" : "An  entity description"
@@ -942,7 +1012,8 @@
           "creator_name" : {
             "type" : "string",
             "description" : "The user who created this comment",
-            "nullable" : false
+            "nullable" : false,
+            "example" : "Alice"
           },
           "creation_date" : {
             "type" : "integer",
@@ -952,16 +1023,19 @@
           "title" : {
             "type" : "string",
             "description" : "The comment title",
-            "nullable" : false
+            "nullable" : false,
+            "example" : "Walk the dog"
           },
           "content" : {
             "type" : "string",
-            "description" : "The comment content (the comment itself)"
+            "description" : "The comment content (the comment itself)",
+            "example" : "Walk the dog before work."
           },
           "id" : {
             "type" : "string",
             "description" : "The comment id",
-            "nullable" : false
+            "nullable" : false,
+            "example" : "ffea33ae"
           },
           "update_date" : {
             "type" : "integer",
@@ -970,15 +1044,18 @@
           },
           "creator_id" : {
             "type" : "string",
-            "description" : "The id of the comment creator"
+            "description" : "The id of the comment creator",
+            "example" : "Bob"
           },
           "card_id" : {
             "type" : "string",
-            "description" : "The id of the card the comments belong to."
+            "description" : "The id of the card the comments belong to.",
+            "example" : "T0001"
           },
           "board_id" : {
             "type" : "string",
-            "description" : "The id of the board this comment belongs to"
+            "description" : "The id of the board this comment belongs to",
+            "example" : "Milestone1"
           },
           "sub_comments" : {
             "type" : "array",
@@ -998,13 +1075,15 @@
             "type" : "string",
             "description" : "It represents the number of entities modified by an update request",
             "nullable" : false,
-            "readOnly" : true
+            "readOnly" : true,
+            "example" : "4"
           },
           "matchedCount" : {
             "type" : "string",
             "description" : "It represents the number of entities matched by an update request",
             "nullable" : false,
-            "readOnly" : true
+            "readOnly" : true,
+            "example" : "4"
           }
         },
         "additionalProperties" : false,
@@ -1020,7 +1099,8 @@
             "type" : "string",
             "description" : "The message content of this message object",
             "nullable" : false,
-            "readOnly" : true
+            "readOnly" : true,
+            "example" : "All is good that ends good,"
           }
         },
         "description" : "A message schema for extra info for an OK response."
@@ -1035,6 +1115,7 @@
           }
         },
         "description" : "The Json web token to be used to authorize requests",
+        "example" : "ffea556e-3412...",
         "externalDocs" : {
           "description" : "JSON web tokens site",
           "url" : "https://jwt.io"
@@ -1048,14 +1129,16 @@
             "minLength" : 3,
             "type" : "string",
             "nullable" : false,
-            "writeOnly" : true
+            "writeOnly" : true,
+            "example" : "$ecret"
           },
           "email_or_username" : {
             "minLength" : 1,
             "type" : "string",
             "description" : "Sign in with email or username",
             "nullable" : false,
-            "writeOnly" : true
+            "writeOnly" : true,
+            "example" : "Alice"
           }
         },
         "description" : "Object sent to sign in to the Octo server"
@@ -1069,7 +1152,8 @@
             "description" : "A count",
             "format" : "int32",
             "nullable" : false,
-            "readOnly" : true
+            "readOnly" : true,
+            "example" : 22
           }
         },
         "description" : "A result of count request"
@@ -1080,10 +1164,12 @@
         "properties" : {
           "url" : {
             "type" : "string",
-            "description" : "The user public avatar URL"
+            "description" : "The user public avatar URL",
+            "example" : "https://gravatar.com/avatar/b7e7954de66"
           }
         },
-        "description" : "It contains a user avatar info"
+        "description" : "It contains a user avatar info",
+        "example" : "https://gravatar.com/avatar/b7e7954de66"
       }
     },
     "responses" : {
@@ -1132,6 +1218,7 @@
         }
       }
     },
+    "examples" : { },
     "securitySchemes" : {
       "Basic" : {
         "type" : "http",
