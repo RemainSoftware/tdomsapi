@@ -21,20 +21,25 @@
     }
   },
   "servers" : [ {
-    "url" : "https://{host}:{port}/{library}/OMGAUTH",
+    "url" : "{protocol}://{host}:{port}/{library}/OMGAUTH",
     "description" : "A dynamic https host",
     "variables" : {
       "host" : {
         "description" : "The host serving the API",
         "default" : "plato.remainsoftware.com"
       },
-      "port" : {
-        "description" : "The port to which the server is listening",
-        "default" : "45211"
-      },
       "library" : {
         "description" : "The TD/OMS library",
         "default" : "OMS"
+      },
+      "protocol" : {
+        "description" : "Protocol",
+        "enum" : [ "https", "http" ],
+        "default" : "https"
+      },
+      "port" : {
+        "description" : "The port to which the server is listening",
+        "default" : "45011"
       }
     }
   } ],
@@ -55,6 +60,16 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/signIn"
+              },
+              "examples" : {
+                "login1" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/login1"
+                },
+                "login2" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/login2"
+                }
               }
             }
           },
@@ -62,20 +77,10 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/JWT"
-                }
-              }
-            }
+            "$ref" : "#/components/responses/200"
           },
           "401" : {
             "$ref" : "#/components/responses/401"
-          },
-          "422" : {
-            "$ref" : "#/components/responses/422"
           }
         },
         "callbacks" : { },
@@ -99,7 +104,8 @@
           "err_msg" : {
             "maxLength" : 100,
             "type" : "string",
-            "description" : "The error message"
+            "description" : "The error message",
+            "example" : "Invalid user name or password"
           }
         },
         "description" : "The error message"
@@ -110,7 +116,8 @@
           "token" : {
             "maxLength" : 1024,
             "type" : "string",
-            "description" : "The Json web token to be used to authorize requests"
+            "description" : "The Json web token to be used to authorize requests",
+            "example" : "eyJhbGciOiJIUzZg0bz1p3_WLXbggo..."
           }
         },
         "description" : "The Json web token to be used to authorize requests"
@@ -122,24 +129,26 @@
           "password" : {
             "maxLength" : 128,
             "type" : "string",
-            "description" : "The password or an empty string in combnination with an auth token."
+            "description" : "The password or an empty string in combnination with an auth token.",
+            "example" : "secretpa$$word"
           },
           "email_or_username" : {
             "maxLength" : 100,
             "type" : "string",
-            "description" : "Sign in with username."
+            "description" : "Sign in with username.",
+            "example" : "alice"
           }
         },
         "description" : "Object sent to sign in to the Octo server."
       }
     },
     "responses" : {
-      "422" : {
-        "description" : "Unprocessable Entity",
+      "200" : {
+        "description" : "Success",
         "content" : {
           "application/json" : {
             "schema" : {
-              "$ref" : "#/components/schemas/Error"
+              "$ref" : "#/components/schemas/JWT"
             }
           }
         }
@@ -152,6 +161,24 @@
               "$ref" : "#/components/schemas/Error"
             }
           }
+        }
+      }
+    },
+    "examples" : {
+      "login1" : {
+        "summary" : "Login with a user name and password",
+        "description" : "",
+        "value" : {
+          "password" : "secretpa$$word",
+          "email_or_username" : "alice"
+        }
+      },
+      "login2" : {
+        "summary" : "Refresh an existing active or expired access token",
+        "description" : "Supply your existing access token in the Authorization header and leave the password blanks. If the user matches the token and the token is still valid, a new token is returned. A token can only be  traded in one time for a new token.",
+        "value" : {
+          "password" : "",
+          "email_or_username" : "alice"
         }
       }
     },
