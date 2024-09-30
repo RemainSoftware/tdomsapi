@@ -2,6 +2,7 @@
   "openapi" : "3.0.1",
   "info" : {
     "title" : "OMS - Remain API Generator",
+    "description" : "The OMS - Remain API Generator is a RESTful API provided by Remain Software that facilitates the generation of API program skeletons. It allows users to specify various parameters such as object masks, libraries, specifications, and generation types to customize the creation process. The API processes the input parameters and returns the status of the generation along with details of the generated objects.",
     "termsOfService" : "https://remainsoftware.com/terms-and-conditions",
     "contact" : {
       "name" : "Remain Software",
@@ -12,21 +13,33 @@
       "name" : "Remain Software",
       "url" : "https://remainsoftware.com/terms-and-conditions"
     },
-    "version" : "TD/OMS 11.0 Milestone 1 - Pre"
+    "version" : "TD/OMS 11.0 Milestone 1 - Pre",
+    "x-restgeninfo" : {
+      "server" : "",
+      "library" : "",
+      "srclibrary" : "",
+      "object" : ""
+    }
+  },
+  "externalDocs" : {
+    "description" : " This document describes how you can generate OpenAPI specifications. In combination with the generator you are able to also generate RPGLE programs from this specification.",
+    "url" : "https://remainsoftware.com/wiki/index.php/RESTGEN:OpenAPI_Studio_Integration"
   },
   "servers" : [ {
     "url" : "{protocol}://{host}:{port}/generator",
     "description" : "TD/OMS generator server",
     "variables" : {
-      "protocol" : {
-        "default" : "http",
-        "enum" : [ "http", "https" ]
-      },
-      "port" : {
-        "default" : "5010"
-      },
       "host" : {
         "default" : "plato"
+      },
+      "protocol" : {
+        "description" : "",
+        "enum" : [ "http", "https" ],
+        "default" : "http"
+      },
+      "port" : {
+        "description" : "",
+        "default" : "45011"
       }
     }
   } ],
@@ -87,12 +100,14 @@
           "message" : {
             "maxLength" : 500,
             "type" : "string",
-            "description" : "Application code"
+            "description" : "Application code",
+            "example" : "Generation completed normally"
           },
           "status" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "Result status. \r\n\r\n*NORM - Normal ending\r\n*TERM - Failed. See the message for the cause",
+            "example" : "*NORM",
             "default" : "*NORM"
           }
         },
@@ -103,59 +118,70 @@
         "properties" : {
           "generate" : {
             "type" : "boolean",
-            "description" : "Generate the main program skeleton."
+            "description" : "Generate the main program skeleton.",
+            "example" : true
           },
           "object" : {
             "maxLength" : 7,
             "type" : "string",
-            "description" : "The mask of the generated program. For example OMS012."
+            "description" : "The mask of the generated program. For example LOGIN.",
+            "example" : "LOGIN"
           },
           "library" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "target object library"
+            "description" : "target object library",
+            "example" : "DEVLIB"
           },
           "sourceLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The name of the source library, in case the library is omitted, the object library will be used as the source library."
+            "description" : "The name of the source library, in case the library is omitted, the object library will be used as the source library.",
+            "example" : "DEVLIB"
           },
           "specification" : {
             "maxLength" : 9999999,
             "type" : "string",
-            "description" : "This will keep the open api specification. Mutually exclusive with specificationPath."
+            "description" : "This will keep the open api specification. Mutually exclusive with specificationPath.",
+            "example" : "{ \"openapi\": \"3.0.1\", \"info\": { \"title\": \"Sample API\" }, \"paths\": {} }"
           },
           "sourcePath" : {
             "maxLength" : 640,
             "type" : "string",
-            "description" : "The path of the generated source in case the source must be generated in the IFS. "
+            "description" : "The path of the generated source in case the source must be generated in the IFS. ",
+            "example" : "/usr/local/src/generated"
           },
           "specificationPath" : {
             "maxLength" : 640,
             "type" : "string",
-            "description" : "This will keep the open api specification location path. Mutually exclusive with specification."
+            "description" : "This will keep the open api specification location path. Mutually exclusive with specification.",
+            "example" : "/configs/api_spec.json"
           },
           "description" : {
             "maxLength" : 100,
             "type" : "string",
             "description" : "Description of generated \r\nsource member.",
+            "example" : "Login Rest API",
             "default" : "Program description"
           },
           "pathName" : {
             "maxLength" : 500,
             "type" : "string",
-            "description" : "This will keep the specific path name to be generate among the multiple paths."
+            "description" : "This will keep the specific path name to be generate among the multiple paths.",
+            "example" : "/login/"
           },
           "callType" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "This will keep the callType deatils.It has two values either CGI or ILEASTIC.",
+            "example" : "CGI",
             "enum" : [ "CGI", "ILEASTIC" ]
           },
           "generationType" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "It will keep the generationType details. It has two values either CLIENT or SERVER.",
+            "example" : "SERVER",
             "enum" : [ "CLIENT", "SERVER" ]
           }
         },
@@ -167,57 +193,67 @@
           "detail" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "This is filled in case it is a member or a message"
+            "description" : "This is filled in case it is a member or a message",
+            "example" : "LOGIN"
           },
           "ifsSource" : {
             "maxLength" : 500,
             "type" : "string",
-            "description" : "The source of the object in case it is generated it in the IFS."
+            "description" : "The source of the object in case it is generated it in the IFS.",
+            "example" : "/src/ifs/path"
           },
           "library" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The library of the generated object."
+            "description" : "The library of the generated object.",
+            "example" : "DEV"
           },
           "name" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The name of the generated object"
+            "description" : "The name of the generated object",
+            "example" : "LOGIN"
           },
           "sourceFile" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The sourcefile of the generated object (can be blanks)\r\n"
+            "description" : "The sourcefile of the generated object (can be blanks)\r\n",
+            "example" : "QRPGLESRC"
           },
           "sourceLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The source library of the generated object (can be blanks)"
+            "description" : "The source library of the generated object (can be blanks)",
+            "example" : "DEV"
           },
           "sourceMember" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The source memberof the generated object (can be blanks)"
+            "description" : "The source memberof the generated object (can be blanks)",
+            "example" : "LOGIN"
           },
           "ifsObject" : {
             "maxLength" : 640,
             "type" : "string",
-            "description" : "Full IFS path name"
+            "description" : "Full IFS path name",
+            "example" : "/ifs/order/api/login.rpgle"
           },
           "type" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Type of the generated object."
+            "description" : "Type of the generated object.",
+            "example" : "*PGM"
           },
           "generated" : {
             "type" : "boolean",
-            "description" : "True if the object was generated"
+            "description" : "True if the object was generated",
+            "example" : true
           }
         },
         "description" : "Object Schema"
       }
     },
-    "parameters" : { },
+    "responses" : { },
     "examples" : {
       "example71" : {
         "summary" : "example",
@@ -235,7 +271,6 @@
           "object" : "sss"
         }
       }
-    },
-    "requestBodies" : { }
+    }
   }
 }
