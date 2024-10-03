@@ -251,17 +251,20 @@
           "messageFile" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The IBM i message file."
+            "description" : "The IBM i message file.",
+            "example" : "OMSAPI"
           },
           "messageId" : {
             "maxLength" : 7,
             "type" : "string",
-            "description" : "Message Id"
+            "description" : "Message Id",
+            "example" : "OMQF201"
           },
           "messageText" : {
             "maxLength" : 644,
             "type" : "string",
-            "description" : "The human-readable message text."
+            "description" : "The human-readable message text.",
+            "example" : "Unauthorized or expired token. Please login again."
           }
         },
         "description" : "The return message."
@@ -481,8 +484,6 @@
       }
     },
     "responses" : { },
-    "parameters" : { },
-    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
