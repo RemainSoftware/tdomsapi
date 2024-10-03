@@ -2,7 +2,7 @@
   "openapi" : "3.0.1",
   "info" : {
     "title" : "User Options API",
-    "description" : "The API enables you to perform all the actions allowed in the User Options. You can use this REST API to add, change, copy or delete the user option definition.\r\n\r\nThe user option function enables you to select and maintain user-defined options. If you are a TD/OMS manager, you are able to define global and private user options. As a non-manager, you can define your own user options which can be promoted to global user options by the TD/OMS manager. ",
+    "description" : "The API enables you to perform all the actions allowed in the User Options. You can use this REST API to add, change, copy, delete or execute the user option definition.\r\n\r\nThe user option function enables you to select and maintain user-defined options. If you are a TD/OMS manager, you are able to define global and private user options. As a non-manager, you can define your own user options which can be promoted to global user options by the TD/OMS manager. ",
     "termsOfService" : "",
     "contact" : {
       "name" : "https://remainsoftware.com",
@@ -100,6 +100,38 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "addResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQD504",
+                        "messageType" : "N",
+                        "messageData" : "*ADD",
+                        "field" : "",
+                        "messageText" : "Action *ADD for user options completed normally. &N Cause . . . . . :   Your request for action *ADD for user options completed normally. &N Recovery  . . . :   None needed, this message is informational."
+                      },
+                      "responseData" : {
+                        "userOption3" : "xx",
+                        "userIdOrUserClass" : "",
+                        "entityCode" : "02",
+                        "actionGroupCode" : "",
+                        "userOptionDescription" : "User option added.",
+                        "authorisationCode2" : "3",
+                        "programName" : "",
+                        "programLibrary" : "",
+                        "passParametersIndicator" : "1",
+                        "interfaceLevel" : "*V3R0M0",
+                        "commandString" : "dlyjob 1",
+                        "whereToActivateIndicator" : "1",
+                        "checkEntry" : "1",
+                        "whereVisibleIndicator" : "2"
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -110,6 +142,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/errorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -120,6 +158,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -138,8 +182,8 @@
       "summary" : "Use this path to change the user option.",
       "description" : "Use this path to change the user option.",
       "post" : {
-        "summary" : "Use this operation to add the user option.",
-        "description" : "Use this operation to add the user option.",
+        "summary" : "Use this operation to change the user option.",
+        "description" : "Use this operation to change the user option.",
         "operationId" : "change",
         "requestBody" : {
           "description" : "Use this input to change the user option.",
@@ -186,6 +230,38 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "changeResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQD504",
+                        "messageType" : "N",
+                        "messageData" : "*CHANGE",
+                        "field" : "",
+                        "messageText" : "Action *CHANGE for user options completed normally. &N Cause . . . . . :   Your request for action *CHANGE for user options completed normally. &N Recovery  . . . :   None needed, this message is informational."
+                      },
+                      "responseData" : {
+                        "userOption3" : "xx",
+                        "userIdOrUserClass" : "",
+                        "entityCode" : "02",
+                        "actionGroupCode" : "",
+                        "userOptionDescription" : "User option was changed.",
+                        "authorisationCode2" : "3",
+                        "programName" : "",
+                        "programLibrary" : "",
+                        "passParametersIndicator" : "1",
+                        "interfaceLevel" : "*V3R0M0",
+                        "commandString" : "dlyjob 1",
+                        "whereToActivateIndicator" : "1",
+                        "checkEntry" : "1",
+                        "whereVisibleIndicator" : "2"
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -196,6 +272,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/errorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -206,6 +288,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -228,6 +316,7 @@
         "description" : "Use this operation to copy the user option.",
         "operationId" : "copy",
         "requestBody" : {
+          "description" : "Use this input to copy the user option.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -272,6 +361,38 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "copyResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQD504",
+                        "messageType" : "N",
+                        "messageData" : "*COPY",
+                        "field" : "",
+                        "messageText" : "Action *COPY for user options completed normally. &N Cause . . . . . :   Your request for action *COPY for user options completed normally. &N Recovery  . . . :   None needed, this message is informational."
+                      },
+                      "responseData" : {
+                        "userOption3" : "xy",
+                        "userIdOrUserClass" : "",
+                        "entityCode" : "02",
+                        "actionGroupCode" : "",
+                        "userOptionDescription" : "User option was changed.",
+                        "authorisationCode2" : "3",
+                        "programName" : "",
+                        "programLibrary" : "",
+                        "passParametersIndicator" : "1",
+                        "interfaceLevel" : "*V3R0M0",
+                        "commandString" : "dlyjob 1",
+                        "whereToActivateIndicator" : "1",
+                        "checkEntry" : "1",
+                        "whereVisibleIndicator" : "2"
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -282,6 +403,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/errorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -292,6 +419,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -345,6 +478,38 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "deleteResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQD504",
+                        "messageType" : "N",
+                        "messageData" : "*DELETE",
+                        "field" : "",
+                        "messageText" : "Action *DELETE for user options completed normally. &N Cause . . . . . :   Your request for action *DELETE for user options completed normally. &N Recovery  . . . :   None needed, this message is informational."
+                      },
+                      "responseData" : {
+                        "userOption3" : "",
+                        "userIdOrUserClass" : "",
+                        "entityCode" : "",
+                        "actionGroupCode" : "",
+                        "userOptionDescription" : "",
+                        "authorisationCode2" : "",
+                        "programName" : "",
+                        "programLibrary" : "",
+                        "passParametersIndicator" : "",
+                        "interfaceLevel" : "",
+                        "commandString" : "",
+                        "whereToActivateIndicator" : "",
+                        "checkEntry" : "",
+                        "whereVisibleIndicator" : ""
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -355,6 +520,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/errorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -365,6 +536,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -394,40 +571,21 @@
                 "$ref" : "#/components/schemas/executeRequest"
               },
               "examples" : {
-                "executeRequest" : {
-                  "summary" : "How to specify the execute request input parameters value.",
-                  "value" : {
-                    "userOption3" : "",
-                    "entityCode" : "*TASK",
-                    "taskKey" : {
-                      "applicationCode" : "XMP",
-                      "taskNumber" : "XT0585",
-                      "relatedReqApplication" : "",
-                      "relatedRequestNum" : ""
-                    },
-                    "requestKey" : {
-                      "applicationCode" : "",
-                      "requestNumber" : ""
-                    },
-                    "solutionKey" : {
-                      "applicationCode" : "",
-                      "taskNumber" : "",
-                      "objectCode" : "",
-                      "objectType" : "",
-                      "memberCode" : "",
-                      "routeCode" : "",
-                      "pathExtensionCode" : ""
-                    },
-                    "objectKey" : {
-                      "objectCode" : "",
-                      "objectLibrary" : "",
-                      "objectType" : "",
-                      "memberCode" : ""
-                    },
-                    "executeProcessingOption" : {
-                      "checkProcessingInd" : "2"
-                    }
-                  }
+                "executeTaskLevel" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/executeTaskLavel"
+                },
+                "executeRequestLevel" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/executeRequestLevel"
+                },
+                "executeSolutionLevel" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/executeSolutionLevel"
+                },
+                "executeObjectLevel" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/executeObjectLevel"
                 }
               }
             }
@@ -441,6 +599,22 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/executeResponse"
+                },
+                "examples" : {
+                  "executeResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQF223",
+                        "messageType" : "N",
+                        "messageData" : "xx",
+                        "field" : "",
+                        "messageText" : "The user option xx executed successfully. &N Cause . . . . . :   You tried to execute the user option xx, which was executed successfully. &N Recovery  . . . :   None needed. This message is informational."
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -451,6 +625,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/errorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -461,6 +641,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -875,7 +1061,7 @@
       "interfaceLevel" : {
         "maxLength" : 8,
         "type" : "string",
-        "description" : "The interface level must be V16R1M0.",
+        "description" : "The interface level must be V17R1M0.",
         "default" : "V17R1M0",
         "enum" : [ "V17R1M0" ]
       },
@@ -995,9 +1181,7 @@
           "toUserOption" : {
             "maxLength" : 2,
             "type" : "string",
-            "description" : "Specify the to user option.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Specify the to user option."
           },
           "toUserIDOrUserClass" : {
             "$ref" : "#/components/schemas/toUserIDOrUserClass"
@@ -1011,9 +1195,7 @@
       "userOption3" : {
         "maxLength" : 2,
         "type" : "string",
-        "description" : "Specify the user option.",
-        "default" : "",
-        "enum" : [ "" ]
+        "description" : "Specify the user option."
       },
       "userIDOrUserClass" : {
         "maxLength" : 10,
@@ -1075,37 +1257,27 @@
       "applicationCode" : {
         "maxLength" : 5,
         "type" : "string",
-        "description" : "Specify the application code.",
-        "default" : "",
-        "enum" : [ "" ]
+        "description" : "Specify the application code."
       },
       "taskNumber" : {
         "maxLength" : 10,
         "type" : "string",
-        "description" : "Specify the task number.",
-        "default" : "",
-        "enum" : [ "" ]
+        "description" : "Specify the task number."
       },
       "objectCode" : {
         "maxLength" : 12,
         "type" : "string",
-        "description" : "Specify the object code.",
-        "default" : "",
-        "enum" : [ "" ]
+        "description" : "Specify the object code."
       },
       "memberCode" : {
         "maxLength" : 10,
         "type" : "string",
-        "description" : "Specify the member code.",
-        "default" : "",
-        "enum" : [ "" ]
+        "description" : "Specify the member code."
       },
       "objectType" : {
         "maxLength" : 9,
         "type" : "string",
-        "description" : "Specify the object type.",
-        "default" : "",
-        "enum" : [ "" ]
+        "description" : "Specify the object type."
       },
       "taskKey" : {
         "type" : "object",
@@ -1119,16 +1291,12 @@
           "relatedReqApplication" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the related request application.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Specify the related request application."
           },
           "relatedRequestNum" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the related request number.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Specify the related request number."
           }
         },
         "description" : "The task information to execute the user option at the task lavel.   \r\n\r\nNote:     \r\nIf you specify the task key information, the request key, solution key, and object key information will be ignored because the user option will be executed at the task level.\r\n \r\n\r\n"
@@ -1142,9 +1310,7 @@
           "requestNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the request number.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Specify the request number."
           }
         },
         "description" : "The request information to execute the user option at the request lavel.  \r\n\r\nNote:     \r\nIf you specify the request key information, the task key, solution key, and object key information will be ignored because the user option will be executed at the request level."
@@ -1170,16 +1336,12 @@
           "routeCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the route code.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Specify the route code."
           },
           "pathExtensionCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the path extension code.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Specify the path extension code."
           }
         },
         "description" : "The solution information to execute the user option at the solution lavel.   \r\n\r\nNote:     \r\nIf you specify the solution key information, the request key, task key, and object key information will be ignored because the user option will be executed at the solution level."
@@ -1193,9 +1355,7 @@
           "objectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the object library.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Specify the object library."
           },
           "objectType" : {
             "$ref" : "#/components/schemas/objectType"
@@ -1222,7 +1382,96 @@
     },
     "responses" : { },
     "parameters" : { },
-    "examples" : { },
+    "examples" : {
+      "response400" : {
+        "summary" : "Something went wrong.",
+        "value" : {
+          "status" : "*TERM",
+          "messages" : [ {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQD500",
+            "messageType" : "E",
+            "messageData" : "",
+            "field" : "userOption3",
+            "messageText" : "User option must contain at least one alphabetical character. &N Cause . . . . . :   You did not enter an alphabetical character in the user option field. This is not allowed. The user option must at least contain 1 character in the 'A' - 'Z' range. &N Recovery  . . . :   Change the user option and try your request again."
+          } ]
+        }
+      },
+      "response401" : {
+        "summary" : "Not authorized.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQF201",
+          "messageType" : "E",
+          "messageData" : "",
+          "field" : "",
+          "messageText" : "Unauthorized or expired token. Please login again."
+        }
+      },
+      "executeRequestLevel" : {
+        "summary" : "How to specify the execute request input parameters value at the request level.",
+        "value" : {
+          "userOption3" : "xx",
+          "entityCode" : "*REQUEST",
+          "requestKey" : {
+            "applicationCode" : "XMP",
+            "requestNumber" : "XR0021"
+          },
+          "executeProcessingOption" : {
+            "checkProcessingInd" : "2"
+          }
+        }
+      },
+      "executeTaskLavel" : {
+        "summary" : "How to specify the execute request input parameters value at the task level.",
+        "value" : {
+          "userOption3" : "xx",
+          "entityCode" : "*TASK",
+          "taskKey" : {
+            "applicationCode" : "XMP",
+            "taskNumber" : "XT0585"
+          },
+          "executeProcessingOption" : {
+            "checkProcessingInd" : "2"
+          }
+        }
+      },
+      "executeSolutionLevel" : {
+        "summary" : "How to specify the execute request input parameters value at the solution level.",
+        "value" : {
+          "userOption3" : "xx",
+          "entityCode" : "*SOLUTION",
+          "solutionKey" : {
+            "applicationCode" : "XMP",
+            "taskNumber" : "XT0585",
+            "objectCode" : "PGM",
+            "objectType" : "*PGM",
+            "memberCode" : "",
+            "routeCode" : "",
+            "pathExtensionCode" : ""
+          },
+          "executeProcessingOption" : {
+            "checkProcessingInd" : "2"
+          }
+        }
+      },
+      "executeObjectLevel" : {
+        "summary" : "How to specify the execute request input parameters value at the object level.",
+        "value" : {
+          "userOption3" : "xx",
+          "entityCode" : "*OBJECT",
+          "objectKey" : {
+            "objectCode" : "PGM",
+            "objectLibrary" : "OMHD_PRD",
+            "objectType" : "*PGM",
+            "memberCode" : ""
+          },
+          "executeProcessingOption" : {
+            "checkProcessingInd" : "2"
+          }
+        }
+      }
+    },
     "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
