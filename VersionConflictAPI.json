@@ -65,25 +65,12 @@
               },
               "examples" : {
                 "confirmVersionConflict" : {
-                  "summary" : "How to specify the confirm version conflict input parameters value. ",
-                  "value" : {
-                    "interfaceLevel" : "V16R1M0",
-                    "applicationCode" : "XMP",
-                    "fixNumber" : "XT0585",
-                    "objectCode" : "PGM",
-                    "objectType" : "*PGM",
-                    "memberCode" : "*NONE",
-                    "iFSFullPathName" : "*OBJC",
-                    "relatedApplicationCode" : "XMP",
-                    "relatedFixNumber" : "XT0586",
-                    "routeCode" : "",
-                    "pathExtensionLibraryCode" : "",
-                    "processingOptions" : {
-                      "updateDb" : "1",
-                      "updateBuffer" : "1",
-                      "forceConfirmIndicator" : "*NO"
-                    }
-                  }
+                  "value" : null,
+                  "$ref" : "#/components/examples/confirmVersionConflict"
+                },
+                "confirmVersionConflictIFSObject" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/confirmVersionConflictIFSObject"
                 }
               }
             }
@@ -97,6 +84,16 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  },
+                  "response200IFSObject" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200IFSObject"
+                  }
                 }
               }
             }
@@ -107,6 +104,40 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response400" : {
+                    "summary" : "Something went wrong.",
+                    "value" : {
+                      "status" : "*TERM",
+                      "messages" : [ {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQD204",
+                        "messageType" : "E",
+                        "messageData" : "",
+                        "field" : "versionConflictDefinition",
+                        "messageText" : "Version conflict was not found. &N Cause . . . . . :   Version conflict was not found for specified version conflict definition. &N Recovery  . . . :   Specify the existing version conflict definition and try your request again."
+                      } ],
+                      "responseData" : {
+                        "applicationCode" : "",
+                        "fixNumber" : "",
+                        "objectCode" : "",
+                        "objectType" : "",
+                        "memberCode" : "",
+                        "relatedApplicationCode" : "",
+                        "relatedFixNumber" : "",
+                        "relatedMemberCode" : "",
+                        "objectVersionConflictType" : "",
+                        "confirmationRequired1required" : "",
+                        "userWhoGaveConfirmation" : "",
+                        "confirmationDate" : 0,
+                        "confirmationTime" : 0,
+                        "confirmed1confirmed" : "",
+                        "routeCode" : "",
+                        "pathExtensionCode" : ""
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -117,6 +148,19 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessages"
+                },
+                "examples" : {
+                  "response401" : {
+                    "summary" : "Not authorized.",
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQF201",
+                      "messageType" : "E",
+                      "messageData" : "",
+                      "field" : "",
+                      "messageText" : "Unauthorized or expired token. Please login again."
+                    }
+                  }
                 }
               }
             }
@@ -147,16 +191,12 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the application code.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Specify the application code."
           },
           "fixNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the task to which the object must be connected.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Specify the task to which the object must be connected."
           },
           "objectCode" : {
             "maxLength" : 12,
@@ -168,9 +208,7 @@
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Specify the object type.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Specify the object type."
           },
           "memberCode" : {
             "maxLength" : 10,
@@ -189,30 +227,22 @@
           "relatedApplicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the related application code.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Specify the related application code."
           },
           "relatedFixNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the Related Task number.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Specify the Related Task number."
           },
           "routeCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the Route code code if you have provided the short name of the IFS object.\r\n\r\nNote:  You do not need to specify the route code when you provide the IFS full path name, because the entered route code will be ignored and calculated automatically.\r\n\r\n*NONE                                                    \r\n    No route code is involved, it contains a blank value.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Specify the Route code code if you have provided the short name of the IFS object.\r\n\r\nNote:  You do not need to specify the route code when you provide the IFS full path name, because the entered route code will be ignored and calculated automatically.\r\n\r\n*NONE                                                    \r\n    No route code is involved, it contains a blank value."
           },
           "pathExtensionLibraryCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the Path Extension library code if you have provided the short name of the IFS object.\r\n\r\nNote:  You do not need to specify the path extension library code when you provide the IFS full path name, because the entered path extension library code will be ignored and calculated automatically.    \r\n\r\n*NONE                                                             \r\n    No path extension library code is involved, it contains a blank value.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Specify the Path Extension library code if you have provided the short name of the IFS object.\r\n\r\nNote:  You do not need to specify the path extension library code when you provide the IFS full path name, because the entered path extension library code will be ignored and calculated automatically.    \r\n\r\n*NONE                                                             \r\n    No path extension library code is involved, it contains a blank value."
           },
           "processingOptions" : {
             "$ref" : "#/components/schemas/processingOptions"
@@ -415,7 +445,7 @@
           "updateBuffer" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
+            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
             "default" : "1",
             "enum" : [ "0", "1" ]
           },
@@ -432,6 +462,112 @@
     },
     "responses" : { },
     "parameters" : { },
+    "examples" : {
+      "confirmVersionConflict" : {
+        "summary" : "How to specify the confirm version conflict input parameters value. ",
+        "value" : {
+          "interfaceLevel" : "V16R1M0",
+          "applicationCode" : "XMP",
+          "fixNumber" : "XT0586",
+          "objectCode" : "PGM",
+          "objectType" : "*PGM",
+          "memberCode" : "*NONE",
+          "iFSFullPathName" : "*OBJC",
+          "relatedApplicationCode" : "XMP",
+          "relatedFixNumber" : "XT0585",
+          "processingOptions" : {
+            "updateDb" : "1",
+            "updateBuffer" : "1",
+            "forceConfirmIndicator" : "*NO"
+          }
+        }
+      },
+      "confirmVersionConflictIFSObject" : {
+        "summary" : "How to specify the confirm version conflict input parameters value for IFS object.",
+        "value" : {
+          "interfaceLevel" : "V16R1M0",
+          "applicationCode" : "XMP",
+          "fixNumber" : "XT0589",
+          "objectCode" : "copyme?1.rpg",
+          "objectType" : "*STMF",
+          "memberCode" : "*NONE",
+          "iFSFullPathName" : "*OBJC",
+          "relatedApplicationCode" : "XMP",
+          "relatedFixNumber" : "XT0586",
+          "routeCode" : "NONIBMI",
+          "pathExtensionLibraryCode" : "589",
+          "processingOptions" : {
+            "updateDb" : "1",
+            "updateBuffer" : "1",
+            "forceConfirmIndicator" : "*NO"
+          }
+        }
+      },
+      "response200" : {
+        "summary" : "Response to a successful API call.",
+        "value" : {
+          "status" : "*NORM",
+          "messages" : [ {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQD206",
+            "messageType" : "N",
+            "messageData" : "",
+            "field" : "",
+            "messageText" : "Version conflict has been confirmed. &N Cause . . . . . :   Your request to confirm the version conflict completed normally. &N Recovery  . . . :   None needed, this message is informational."
+          } ],
+          "responseData" : {
+            "applicationCode" : "XMP",
+            "fixNumber" : "XT0586",
+            "objectCode" : "PGM",
+            "objectType" : "*PGM",
+            "memberCode" : "",
+            "relatedApplicationCode" : "XMP",
+            "relatedFixNumber" : "XT0585",
+            "relatedMemberCode" : "",
+            "objectVersionConflictType" : "3",
+            "confirmationRequired1required" : "1",
+            "userWhoGaveConfirmation" : "ALICE",
+            "confirmationDate" : 1241003,
+            "confirmationTime" : 131559,
+            "confirmed1confirmed" : "1",
+            "routeCode" : "",
+            "pathExtensionCode" : ""
+          }
+        }
+      },
+      "response200IFSObject" : {
+        "summary" : "Response to a successful API call for an IFS object.",
+        "value" : {
+          "status" : "*NORM",
+          "messages" : [ {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQD206",
+            "messageType" : "N",
+            "messageData" : "",
+            "field" : "",
+            "messageText" : "Version conflict has been confirmed. &N Cause . . . . . :   Your request to confirm the version conflict completed normally. &N Recovery  . . . :   None needed, this message is informational."
+          } ],
+          "responseData" : {
+            "applicationCode" : "XMP",
+            "fixNumber" : "XT0589",
+            "objectCode" : "copyme?1.rpg",
+            "objectType" : "*STMF",
+            "memberCode" : "",
+            "relatedApplicationCode" : "XMP",
+            "relatedFixNumber" : "XT0586",
+            "relatedMemberCode" : "",
+            "objectVersionConflictType" : "3",
+            "confirmationRequired1required" : "1",
+            "userWhoGaveConfirmation" : "ALICE",
+            "confirmationDate" : 1241003,
+            "confirmationTime" : 131559,
+            "confirmed1confirmed" : "1",
+            "routeCode" : "NONIBMI",
+            "pathExtensionCode" : "       589"
+          }
+        }
+      }
+    },
     "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
