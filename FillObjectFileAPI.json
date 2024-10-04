@@ -65,25 +65,12 @@
               },
               "examples" : {
                 "fillObject" : {
-                  "summary" : "How to specify the fill object file input parameters value.",
-                  "value" : {
-                    "applicationCode" : "XMP",
-                    "environmentCode" : "*ALL",
-                    "routeCode" : "*NONE",
-                    "objectLibrary" : "*ALL",
-                    "objectCode" : "PGM",
-                    "objectType" : "*ALL",
-                    "objectAttribute" : "*ALL",
-                    "processingOptions" : {
-                      "processingMode" : "*INTERACTIVE",
-                      "processingMethod" : "*FILL",
-                      "processOnlyRelations" : "*NO",
-                      "objectAndOr4GLGroup" : "*OBJECT",
-                      "typeCA2ESelection" : "*ANY",
-                      "cA2EObjectCode" : "*ALL",
-                      "cA2EOwningObject" : "*ALLOBJ"
-                    }
-                  }
+                  "value" : null,
+                  "$ref" : "#/components/examples/fillObject"
+                },
+                "fillObjectFor4GLObject" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/fillObjectFor4GLObject"
                 }
               }
             }
@@ -97,6 +84,25 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "jobName" : "OMSXMP",
+                      "userId" : "ALIICE",
+                      "jobNumber" : 111111,
+                      "messages" : [ {
+                        "messageFile" : "OMSMSG",
+                        "messageId" : "OBJE011",
+                        "messageType" : "",
+                        "messageData" : "",
+                        "field" : "",
+                        "messageText" : "1 objects added, 0 changed and 0 removed for environment *DEV &N Cause . . . . . : The fill object file you requested has been processed for environment *DEV. 1 objects have been added, 0 objects have been changed and 0 objects have been removed from the database. &N Recovery. . . . : No recovery necessary. This is an informational message."
+                      } ]
+                    }
+                  }
                 }
               }
             }
@@ -107,6 +113,25 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response400" : {
+                    "summary" : "Something went wrong.",
+                    "value" : {
+                      "status" : "*TERM",
+                      "jobName" : "OMSXMP",
+                      "userId" : "ALICE",
+                      "jobNumber" : 111111,
+                      "messages" : [ {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQ5112",
+                        "messageType" : "E",
+                        "messageData" : "application code                XXXXX",
+                        "field" : "applicationCode",
+                        "messageText" : "The application code XXXXX does not exist. &N Cause . . . . . :   You have specified the application code XXXXX that does not exist. &N Recovery  . . . :   Specify the existing application code and try your request again."
+                      } ]
+                    }
+                  }
                 }
               }
             }
@@ -117,6 +142,19 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "summary" : "Not authorized.",
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQF201",
+                      "messageType" : "E",
+                      "messageData" : "",
+                      "field" : "",
+                      "messageText" : "Unauthorized or expired token. Please login again."
+                    }
+                  }
                 }
               }
             }
@@ -178,9 +216,7 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the application code to fill objects from.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Specify the application code to fill objects from."
           },
           "environmentCode" : {
             "maxLength" : 5,
@@ -215,9 +251,7 @@
             "description" : "Object Code",
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Object_Code_-_(OBJC)"
-            },
-            "default" : "",
-            "enum" : [ "" ]
+            }
           },
           "objectType" : {
             "maxLength" : 9,
@@ -358,8 +392,47 @@
       }
     },
     "responses" : { },
-    "parameters" : { },
-    "requestBodies" : { },
+    "examples" : {
+      "fillObject" : {
+        "summary" : "How to specify the fill object file input parameters value for normal OS/400 objects.",
+        "value" : {
+          "applicationCode" : "XMP",
+          "environmentCode" : "*ALL",
+          "routeCode" : "*NONE",
+          "objectLibrary" : "*ALL",
+          "objectCode" : "PGM",
+          "objectType" : "*ALL",
+          "objectAttribute" : "*ALL",
+          "processingOptions" : {
+            "processingMode" : "*INTERACTIVE",
+            "processingMethod" : "*FILL",
+            "processOnlyRelations" : "*NO",
+            "objectAndOr4GLGroup" : "*OBJECT"
+          }
+        }
+      },
+      "fillObjectFor4GLObject" : {
+        "summary" : "How to specify the fill object file input parameters value for 4GL objects.",
+        "value" : {
+          "applicationCode" : "XMP",
+          "environmentCode" : "*ALL",
+          "routeCode" : "*NONE",
+          "objectLibrary" : "*ALL",
+          "objectCode" : "*ALL",
+          "objectType" : "*ALL",
+          "objectAttribute" : "*ALL",
+          "processingOptions" : {
+            "processingMode" : "*INTERACTIVE",
+            "processingMethod" : "*FILL",
+            "processOnlyRelations" : "*NO",
+            "objectAndOr4GLGroup" : "*GROUP",
+            "typeCA2ESelection" : "*ANY",
+            "cA2EObjectCode" : "*ALL",
+            "cA2EOwningObject" : "*ALLOBJ"
+          }
+        }
+      }
+    },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
