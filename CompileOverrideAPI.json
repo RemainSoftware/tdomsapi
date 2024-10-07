@@ -363,9 +363,32 @@
                   "$ref" : "#/components/schemas/response"
                 },
                 "examples" : {
-                  "response200" : {
-                    "value" : null,
-                    "$ref" : "#/components/examples/response200"
+                  "deleteResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQF803",
+                        "messageType" : "",
+                        "messageData" : "*DELETE",
+                        "field" : "",
+                        "messageText" : "Action *DELETE for command detail completed normally. &N Cause . . . . . :   Your request for action *DELETE for command detail completed normally. &N Recovery  . . . :   None needed, this message is informational."
+                      },
+                      "compileOverrideHeader" : {
+                        "objectCode" : "PGM",
+                        "objectType" : "*PGM",
+                        "objectAttribute" : "CLLE",
+                        "memberCode" : "",
+                        "applicationCode" : "*ALL",
+                        "environmentCode" : "*ALL",
+                        "objectLibrary" : "*ALL",
+                        "createCommandKeyNumber" : 127,
+                        "authorizedByUser" : "",
+                        "typeCode" : ""
+                      },
+                      "compileOverrideDetail" : [ ]
+                    }
                   }
                 }
               }
@@ -1051,6 +1074,7 @@
       }
     },
     "responses" : { },
+    "parameters" : { },
     "examples" : {
       "addCompileOverride" : {
         "summary" : "How to specify the request input parameters value to add compile override with default command detail.",
@@ -1247,6 +1271,7 @@
         }
       }
     },
+    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
