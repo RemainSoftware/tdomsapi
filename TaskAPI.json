@@ -15,9 +15,9 @@
     "version" : "0.0.1",
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
-      "library" : "V17T0074",
+      "library" : "V15T0201",
       "file" : "ChangeAPI.json",
-      "srclibrary" : "V17T0074S",
+      "srclibrary" : "V15T0201S",
       "object" : "OMQRTA",
       "additionalBindingDirs" : "OMRESTUTIL",
       "includeLogging" : "*YES"
@@ -35,14 +35,14 @@
         "description" : "The TD/OMS library",
         "default" : "OMS"
       },
+      "port" : {
+        "description" : "The port to which the server is listening",
+        "default" : "45011"
+      },
       "protocol" : {
         "description" : "Protocol",
         "default" : "https",
         "enum" : [ "https", "http" ]
-      },
-      "port" : {
-        "description" : "The port to which the server is listening",
-        "default" : "45011"
       }
     }
   } ],
@@ -63,35 +63,6 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/addTaskRequest"
-              },
-              "examples" : {
-                "addRequest" : {
-                  "summary" : "How to specify the add request input parameters value.",
-                  "value" : {
-                    "interfaceLevel" : "V3R0M0",
-                    "addProcessingOptions" : {
-                      "sendMessageToProgrammer" : "1",
-                      "updateDb" : "1",
-                      "updateBuffer" : "1"
-                    },
-                    "addData" : {
-                      "applicationCode" : "XMP",
-                      "fixNumber" : "*GEN",
-                      "fixType" : "*SAME",
-                      "release" : "*SAME",
-                      "priorityNumeric" : "*SAME",
-                      "programmer" : "*SAME",
-                      "expectedStartDate" : -1,
-                      "expectedCompletionDate" : -1,
-                      "expectedDevEndDate" : -1,
-                      "expectedNumberOfHours" : -1,
-                      "shortFixDescription" : "New task is created",
-                      "freeUserSpace" : "*SAME",
-                      "pathCode" : "*SAME",
-                      "longDescription" : ""
-                    }
-                  }
-                }
               }
             }
           },
@@ -104,6 +75,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/taskResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -114,6 +91,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -124,6 +107,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -161,36 +150,6 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/changeTaskRequest"
-              },
-              "examples" : {
-                "changeRequest" : {
-                  "summary" : "How to specify the change request input parameters value.",
-                  "value" : {
-                    "interfaceLevel" : "V3R0M0",
-                    "changeProcessingOptions" : {
-                      "hourCounter" : "0",
-                      "updateDb" : "1",
-                      "updateBuffer" : "1"
-                    },
-                    "changeData" : {
-                      "applicationCode" : "XMP",
-                      "fixNumber" : "XT0397",
-                      "fixType" : "*SAME",
-                      "release" : "*SAME",
-                      "priorityNumeric" : "*SAME",
-                      "programmer" : "*SAME",
-                      "expectedStartDate" : -1,
-                      "expectedCompletionDate" : -1,
-                      "expectedDevEndDate" : -1,
-                      "expectedNumberOfHours" : -1,
-                      "realizedNumberOfHours" : -1,
-                      "shortFixDescription" : "Task description is changed.",
-                      "freeUserSpace" : "*SAME",
-                      "pathCode" : "*SAME",
-                      "longDescription" : "*SAME"
-                    }
-                  }
-                }
               }
             }
           },
@@ -203,6 +162,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/taskResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -213,6 +178,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -223,6 +194,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -260,23 +237,6 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/completeTaskRequest"
-              },
-              "examples" : {
-                "completeRequest" : {
-                  "summary" : "How to specify the complete request input parameters value.",
-                  "value" : {
-                    "interfaceLevel" : "V3R0M0",
-                    "completeProcessingOptions" : {
-                      "updateDb" : "1",
-                      "updateBuffer" : "1"
-                    },
-                    "completeData" : {
-                      "applicationCode" : "XMP",
-                      "fixNumber" : "XT0397",
-                      "reasonCode" : "*SAME"
-                    }
-                  }
-                }
               }
             }
           },
@@ -289,6 +249,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/taskResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -299,6 +265,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -309,6 +281,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -346,24 +324,6 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/connectTaskRequest"
-              },
-              "examples" : {
-                "connectRequest" : {
-                  "summary" : "How to specify the connect request input parameters value.",
-                  "value" : {
-                    "interfaceLevel" : "V3R0M0",
-                    "connectProcessingOptions" : {
-                      "applicationCodeRequest" : "*APPL",
-                      "requestCode" : "XR0020",
-                      "updateDb" : "1",
-                      "updateBuffer" : "1"
-                    },
-                    "connectData" : {
-                      "applicationCode" : "XMP",
-                      "fixNumber" : "XT0397"
-                    }
-                  }
-                }
               }
             }
           },
@@ -376,6 +336,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/taskResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -386,6 +352,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -396,6 +368,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -433,24 +411,6 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/disconnectTaskRequest"
-              },
-              "examples" : {
-                "disconnectRequest" : {
-                  "summary" : "How to specify the disconnect request input parameters value.",
-                  "value" : {
-                    "interfaceLevel" : "V3R0M0",
-                    "disconnectProcessingOptions" : {
-                      "applicationCodeRequest" : "*APPL",
-                      "requestCode" : "XR0020",
-                      "updateDb" : "1",
-                      "updateBuffer" : "1"
-                    },
-                    "disconnectData" : {
-                      "applicationCode" : "XMP",
-                      "fixNumber" : "XT0397"
-                    }
-                  }
-                }
               }
             }
           },
@@ -463,6 +423,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/taskResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -473,6 +439,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -483,6 +455,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -520,25 +498,6 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/copyTaskRequest"
-              },
-              "examples" : {
-                "copyRequest" : {
-                  "summary" : "How to specify the copy request input parameters value.",
-                  "value" : {
-                    "interfaceLevel" : "V3R0M0",
-                    "copyProcessingOptions" : {
-                      "copySolutions" : "0",
-                      "toApplicationCode" : "XMP",
-                      "toFixNumber" : "*GEN",
-                      "updateDb" : "1",
-                      "updateBuffer" : "1"
-                    },
-                    "copyData" : {
-                      "applicationCode" : "XMP",
-                      "fixNumber" : "XT0397"
-                    }
-                  }
-                }
               }
             }
           },
@@ -551,6 +510,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/taskResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -561,6 +526,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -571,6 +542,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -608,22 +585,6 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/deleteTaskRequest"
-              },
-              "examples" : {
-                "deleteRequest" : {
-                  "summary" : "How to specify the delete request input parameters value.",
-                  "value" : {
-                    "interfaceLevel" : "V3R0M0",
-                    "deleteProcessingOptions" : {
-                      "updateDb" : "1",
-                      "updateBuffer" : "1"
-                    },
-                    "deleteData" : {
-                      "applicationCode" : "XMP",
-                      "fixNumber" : "XT0397"
-                    }
-                  }
-                }
               }
             }
           },
@@ -636,6 +597,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/taskResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -646,6 +613,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -656,6 +629,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -693,25 +672,6 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/ratifyTaskRequest"
-              },
-              "examples" : {
-                "ratifyRequest" : {
-                  "summary" : "How to specify the ratify request input parameters value.",
-                  "value" : {
-                    "interfaceLevel" : "V3R0M0",
-                    "ratifyProcessingOptions" : {
-                      "ratificationCode" : "1",
-                      "ratificationGroup" : "USERS",
-                      "updateDb" : "1",
-                      "updateBuffer" : "1"
-                    },
-                    "ratifyData" : {
-                      "applicationCode" : "XMP",
-                      "fixNumber" : "XT0397",
-                      "longDescription" : ""
-                    }
-                  }
-                }
               }
             }
           },
@@ -724,6 +684,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/taskResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -734,6 +700,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -744,6 +716,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -781,22 +759,6 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/statusTaskRequest"
-              },
-              "examples" : {
-                "statusRequest" : {
-                  "summary" : "How to specify the status request input parameters value.",
-                  "value" : {
-                    "interfaceLevel" : "V3R0M0",
-                    "statusProcessingOptions" : {
-                      "updateDb" : "1",
-                      "updateBuffer" : "1"
-                    },
-                    "statusData" : {
-                      "applicationCode" : "XMP",
-                      "fixNumber" : "XT0397"
-                    }
-                  }
-                }
               }
             }
           },
@@ -809,6 +771,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/taskResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -819,6 +787,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -829,6 +803,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -849,176 +829,6 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "09",
-          "generate" : false
-        }
-      }
-    },
-    "/lock" : {
-      "summary" : "lock",
-      "description" : "Lock Task",
-      "post" : {
-        "summary" : "Lock Task",
-        "description" : "Lock Task",
-        "operationId" : "lockTask",
-        "requestBody" : {
-          "description" : "The lock task request",
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/lockTaskRequest"
-              },
-              "examples" : {
-                "lockRequest" : {
-                  "summary" : "How to specify the lock request input parameters value.",
-                  "value" : {
-                    "interfaceLevel" : "V3R0M0",
-                    "lockProcessingOptions" : {
-                      "updateDb" : "1",
-                      "updateBuffer" : "1"
-                    },
-                    "lockData" : {
-                      "applicationCode" : "XMP",
-                      "fixNumber" : "XT0588"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/taskResponse"
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "Something went wrong",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/extendedMessage"
-                }
-              }
-            }
-          },
-          "401" : {
-            "description" : "Not Authorized",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/extendedMessage"
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Not Found",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/message"
-                }
-              }
-            }
-          }
-        },
-        "callbacks" : { },
-        "x-generate" : {
-          "session" : false,
-          "jwtlogin" : false,
-          "suffix" : "10",
-          "generate" : false
-        }
-      }
-    },
-    "/unlock" : {
-      "summary" : "unlock",
-      "description" : "Unlock Task",
-      "post" : {
-        "summary" : "Unlock Task",
-        "description" : "Unlock Task",
-        "operationId" : "unlockTask",
-        "requestBody" : {
-          "description" : "The unlock task request",
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/unlockTaskRequest"
-              },
-              "examples" : {
-                "unlockRequest" : {
-                  "summary" : "How to specify the unlock request input parameters value.",
-                  "value" : {
-                    "interfaceLevel" : "V3R0M0",
-                    "unlockProcessingOptions" : {
-                      "updateDb" : "1",
-                      "updateBuffer" : "1"
-                    },
-                    "unlockData" : {
-                      "applicationCode" : "XMP",
-                      "fixNumber" : "XT0588"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/taskResponse"
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "Something went wrong",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/extendedMessage"
-                }
-              }
-            }
-          },
-          "401" : {
-            "description" : "Not Authorized",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/extendedMessage"
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Not found",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/message"
-                }
-              }
-            }
-          }
-        },
-        "callbacks" : { },
-        "x-generate" : {
-          "session" : false,
-          "jwtlogin" : false,
-          "suffix" : "11",
           "generate" : false
         }
       }
@@ -1087,7 +897,8 @@
       },
       "message" : {
         "type" : "string",
-        "description" : "simple return message"
+        "description" : "simple return message",
+        "example" : "Not found."
       },
       "taskResponseData" : {
         "type" : "object",
@@ -1278,11 +1089,10 @@
             "maxLength" : 5,
             "type" : "string",
             "description" : "Application code",
+            "example" : "XMP",
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Application_code_fix_(APPL)"
             },
-            "default" : "",
-            "enum" : [ "" ],
             "x-column" : "RSAPPC",
             "x-sequence" : "10"
           },
@@ -1402,6 +1212,7 @@
             "maxLength" : 50,
             "type" : "string",
             "description" : "Short fix description",
+            "example" : "The task is added.",
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Short_fix_description_(SHFD)_2"
             },
@@ -1438,8 +1249,7 @@
             "maxLength" : 65536,
             "type" : "string",
             "description" : "Specify the long description.",
-            "default" : "",
-            "enum" : [ "" ]
+            "example" : ""
           }
         },
         "description" : "Input data for action add",
@@ -1468,7 +1278,7 @@
           "updateBuffer" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest task data.",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
             "default" : "1",
             "enum" : [ "0", "1" ]
           }
@@ -1503,11 +1313,10 @@
             "maxLength" : 5,
             "type" : "string",
             "description" : "Application code",
+            "example" : "XMP",
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Application_code_fix_(APPL)"
             },
-            "default" : "",
-            "enum" : [ "" ],
             "x-column" : "RSAPPC",
             "x-sequence" : "10"
           },
@@ -1515,11 +1324,10 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Fix number",
+            "example" : "XT0588",
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
             },
-            "default" : "",
-            "enum" : [ "" ],
             "x-column" : "RSFIX#",
             "x-sequence" : "20"
           },
@@ -1640,6 +1448,7 @@
             "maxLength" : 50,
             "type" : "string",
             "description" : "Short fix description",
+            "example" : "Task description is changed.",
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Short_fix_description_(SHFD)_2"
             },
@@ -1726,7 +1535,7 @@
           "updateBuffer" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest task data.",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
             "default" : "1",
             "enum" : [ "0", "1" ]
           }
@@ -1741,11 +1550,10 @@
             "maxLength" : 5,
             "type" : "string",
             "description" : "Application code",
+            "example" : "XMP",
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Application_code_fix_(APPL)"
             },
-            "default" : "",
-            "enum" : [ "" ],
             "x-column" : "RSAPPC",
             "x-sequence" : "10"
           },
@@ -1753,11 +1561,10 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Fix number",
+            "example" : "XT0588",
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
             },
-            "default" : "",
-            "enum" : [ "" ],
             "x-column" : "RSFIX#",
             "x-sequence" : "20"
           },
@@ -1813,7 +1620,7 @@
           "updateBuffer" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest task data.",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
             "default" : "1",
             "enum" : [ "0", "1" ]
           }
@@ -1828,11 +1635,10 @@
             "maxLength" : 5,
             "type" : "string",
             "description" : "Application code",
+            "example" : "XMP",
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Application_code_fix_(APPL)"
             },
-            "default" : "",
-            "enum" : [ "" ],
             "x-column" : "RSAPPC",
             "x-sequence" : "10"
           },
@@ -1840,11 +1646,10 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Fix number",
+            "example" : "XT0588",
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
             },
-            "default" : "",
-            "enum" : [ "" ],
             "x-column" : "RSFIX#",
             "x-sequence" : "20"
           }
@@ -1873,11 +1678,10 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Request code",
+            "example" : "XR0020",
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Request_number_(REQ)"
-            },
-            "default" : "",
-            "enum" : [ "" ]
+            }
           },
           "updateDb" : {
             "maxLength" : 1,
@@ -1889,7 +1693,7 @@
           "updateBuffer" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest task data.",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
             "default" : "1",
             "enum" : [ "0", "1" ]
           }
@@ -1924,11 +1728,10 @@
             "maxLength" : 5,
             "type" : "string",
             "description" : "Application code",
+            "example" : "XMP",
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Application_code_fix_(APPL)"
             },
-            "default" : "",
-            "enum" : [ "" ],
             "x-column" : "RSAPPC",
             "x-sequence" : "10"
           },
@@ -1936,11 +1739,10 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Fix number",
+            "example" : "XT0588",
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
             },
-            "default" : "",
-            "enum" : [ "" ],
             "x-column" : "RSFIX#",
             "x-sequence" : "20"
           }
@@ -1969,6 +1771,7 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Request code",
+            "example" : "XR0020",
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Request_number_(REQ)"
             },
@@ -1985,7 +1788,7 @@
           "updateBuffer" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest task data.",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
             "default" : "1",
             "enum" : [ "0", "1" ]
           }
@@ -2020,11 +1823,10 @@
             "maxLength" : 5,
             "type" : "string",
             "description" : "Application code",
+            "example" : "XMP",
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Application_code_fix_(APPL)"
             },
-            "default" : "",
-            "enum" : [ "" ],
             "x-column" : "RSAPPC",
             "x-sequence" : "10"
           },
@@ -2032,11 +1834,10 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Fix number",
+            "example" : "XT0588",
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
             },
-            "default" : "",
-            "enum" : [ "" ],
             "x-column" : "RSFIX#",
             "x-sequence" : "20"
           }
@@ -2062,8 +1863,7 @@
             "maxLength" : 5,
             "type" : "string",
             "description" : "Used for copying a fix to another application.",
-            "default" : "",
-            "enum" : [ "" ]
+            "example" : "XMP"
           },
           "toFixNumber" : {
             "maxLength" : 10,
@@ -2085,7 +1885,7 @@
           "updateBuffer" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest task data.",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
             "default" : "1",
             "enum" : [ "0", "1" ]
           }
@@ -2120,11 +1920,10 @@
             "maxLength" : 5,
             "type" : "string",
             "description" : "Application code",
+            "example" : "XMP",
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Application_code_fix_(APPL)"
             },
-            "default" : "",
-            "enum" : [ "" ],
             "x-column" : "RSAPPC",
             "x-sequence" : "10"
           },
@@ -2132,11 +1931,10 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Fix number",
+            "example" : "XT0588",
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
             },
-            "default" : "",
-            "enum" : [ "" ],
             "x-column" : "RSFIX#",
             "x-sequence" : "20"
           }
@@ -2160,7 +1958,7 @@
           "updateBuffer" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest task data.",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
             "default" : "1",
             "enum" : [ "0", "1" ]
           }
@@ -2195,11 +1993,10 @@
             "maxLength" : 5,
             "type" : "string",
             "description" : "Application code",
+            "example" : "XMP",
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Application_code_fix_(APPL)"
             },
-            "default" : "",
-            "enum" : [ "" ],
             "x-column" : "RSAPPC",
             "x-sequence" : "10"
           },
@@ -2207,11 +2004,10 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Fix number",
+            "example" : "XT0588",
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
             },
-            "default" : "",
-            "enum" : [ "" ],
             "x-column" : "RSFIX#",
             "x-sequence" : "20"
           },
@@ -2219,8 +2015,7 @@
             "maxLength" : 65536,
             "type" : "string",
             "description" : "Specify the long description.",
-            "default" : "",
-            "enum" : [ "" ]
+            "example" : ""
           }
         },
         "description" : "Input data for action ratify",
@@ -2244,8 +2039,7 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Enter the ratification group for which you want to do the ratification. You must be a member of the ratification group. Otherwise, your ratification is not accepted.",
-            "default" : "",
-            "enum" : [ "" ]
+            "example" : "USERS"
           },
           "updateDb" : {
             "maxLength" : 1,
@@ -2257,7 +2051,7 @@
           "updateBuffer" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest task data.",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
             "default" : "1",
             "enum" : [ "0", "1" ]
           }
@@ -2284,6 +2078,59 @@
         },
         "description" : "Input schema for action ratify"
       },
+      "statusData" : {
+        "required" : [ "applicationCode", "fixNumber" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "example" : "XMP",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Application_code_fix_(APPL)"
+            },
+            "x-column" : "RSAPPC",
+            "x-sequence" : "10"
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Fix number",
+            "example" : "XT0588",
+            "externalDocs" : {
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
+            },
+            "x-column" : "RSFIX#",
+            "x-sequence" : "20"
+          }
+        },
+        "description" : "Input data for action status",
+        "x-pfname" : "OMERS",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "statusProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Input processing options for action status"
+      },
       "statusTaskRequest" : {
         "required" : [ "interfaceLevel" ],
         "type" : "object",
@@ -2303,203 +2150,84 @@
           }
         },
         "description" : "Input schema for action status"
-      },
-      "lockProcessingOptions" : {
-        "type" : "object",
-        "properties" : {
-          "updateDb" : {
-            "maxLength" : 1,
-            "type" : "string",
-            "description" : "Specify '1' to update the database or '0' to not update but check only.",
-            "default" : "1",
-            "enum" : [ "0", "1" ]
-          },
-          "updateBuffer" : {
-            "maxLength" : 1,
-            "type" : "string",
-            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest task data.",
-            "default" : "1",
-            "enum" : [ "0", "1" ]
-          }
-        },
-        "description" : "Input processing options for action lock"
-      },
-      "lockTaskRequest" : {
-        "required" : [ "interfaceLevel" ],
-        "type" : "object",
-        "properties" : {
-          "interfaceLevel" : {
-            "maxLength" : 8,
-            "type" : "string",
-            "description" : "The interface level must be V3R0M0",
-            "default" : "V3R0M0",
-            "enum" : [ "V3R0M0" ]
-          },
-          "lockProcessingOptions" : {
-            "$ref" : "#/components/schemas/lockProcessingOptions"
-          },
-          "lockData" : {
-            "$ref" : "#/components/schemas/lockData"
-          }
-        },
-        "description" : "Input schema for action lock"
-      },
-      "unlockTaskRequest" : {
-        "required" : [ "interfaceLevel" ],
-        "type" : "object",
-        "properties" : {
-          "interfaceLevel" : {
-            "maxLength" : 8,
-            "type" : "string",
-            "description" : "The interface level must be V3R0M0",
-            "default" : "V3R0M0",
-            "enum" : [ "V3R0M0" ]
-          },
-          "unlockProcessingOptions" : {
-            "$ref" : "#/components/schemas/unlockProcessingOptions"
-          },
-          "unlockData" : {
-            "$ref" : "#/components/schemas/unlockData"
-          }
-        },
-        "description" : "Input schema for action unlock"
-      },
-      "unlockProcessingOptions" : {
-        "type" : "object",
-        "properties" : {
-          "updateDb" : {
-            "maxLength" : 1,
-            "type" : "string",
-            "description" : "Specify '1' to update the database or '0' to not update but check only.",
-            "default" : "1",
-            "enum" : [ "0", "1" ]
-          },
-          "updateBuffer" : {
-            "maxLength" : 1,
-            "type" : "string",
-            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest task data.",
-            "default" : "1",
-            "enum" : [ "0", "1" ]
-          }
-        },
-        "description" : "Input processing options for action unlock"
-      },
-      "unlockData" : {
-        "required" : [ "applicationCode", "fixNumber" ],
-        "type" : "object",
-        "properties" : {
-          "applicationCode" : {
-            "maxLength" : 5,
-            "type" : "string",
-            "description" : "Application code",
-            "externalDocs" : {
-              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Application_code_fix_(APPL)"
-            },
-            "default" : "",
-            "enum" : [ "" ],
-            "x-column" : "RSAPPC",
-            "x-sequence" : "10"
-          },
-          "fixNumber" : {
-            "maxLength" : 10,
-            "type" : "string",
-            "description" : "Fix number",
-            "externalDocs" : {
-              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
-            },
-            "default" : "",
-            "enum" : [ "" ],
-            "x-column" : "RSFIX#",
-            "x-sequence" : "20"
-          }
-        },
-        "description" : "Input data for action unlock",
-        "x-pfname" : "OMERS",
-        "x-library" : "OMSRUN51",
-        "x-host" : "plato",
-        "x-fieldSchemaNameType" : "Normalized"
-      },
-      "statusData" : {
-        "required" : [ "applicationCode", "fixNumber" ],
-        "type" : "object",
-        "properties" : {
-          "applicationCode" : {
-            "maxLength" : 5,
-            "type" : "string",
-            "description" : "Specify the application code.",
-            "default" : "",
-            "enum" : [ "" ],
-            "x-column" : "RSAPPC",
-            "x-sequence" : "10"
-          },
-          "fixNumber" : {
-            "maxLength" : 10,
-            "type" : "string",
-            "description" : "Specify the fix number.",
-            "default" : "",
-            "enum" : [ "" ],
-            "x-column" : "RSFIX#",
-            "x-sequence" : "20"
-          }
-        },
-        "description" : "Input data for action status.",
-        "x-pfname" : "OMERS",
-        "x-host" : "plato",
-        "x-fieldSchemaNameType" : "Normalized",
-        "x-library" : "OMSRUN51"
-      },
-      "statusProcessingOptions" : {
-        "type" : "object",
-        "properties" : {
-          "updateDb" : {
-            "maxLength" : 1,
-            "type" : "string",
-            "description" : "Specify '1' to update the database or '0' to not update but check only.",
-            "default" : "1",
-            "enum" : [ "0", "1" ]
-          },
-          "updateBuffer" : {
-            "maxLength" : 1,
-            "type" : "string",
-            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest task data.",
-            "default" : "1",
-            "enum" : [ "0", "1" ]
-          }
-        },
-        "description" : "Input processing options for action status"
-      },
-      "lockData" : {
-        "required" : [ "applicationCode", "fixNumber" ],
-        "type" : "object",
-        "properties" : {
-          "applicationCode" : {
-            "maxLength" : 5,
-            "type" : "string",
-            "description" : "Specify the application code.",
-            "default" : "",
-            "enum" : [ "" ],
-            "x-column" : "RSAPPC",
-            "x-sequence" : "10"
-          },
-          "fixNumber" : {
-            "maxLength" : 10,
-            "type" : "string",
-            "description" : "Specify the fix number.",
-            "default" : "",
-            "enum" : [ "" ],
-            "x-column" : "RSFIX#",
-            "x-sequence" : "20"
-          }
-        },
-        "description" : "Input data for action lock.",
-        "x-pfname" : "OMERS",
-        "x-host" : "plato",
-        "x-fieldSchemaNameType" : "Normalized",
-        "x-library" : "OMSRUN51"
       }
     },
     "responses" : { },
     "parameters" : { },
+    "examples" : {
+      "response400" : {
+        "summary" : "Something went wrong.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageID" : "OMQ6001",
+          "messageType" : "E",
+          "messageData" : "INVLD",
+          "field" : "",
+          "messageText" : "Application code INVLD does not exist. &N Cause . . . . . :   You have entered an application code which does not exist. &N Recovery  . . . :   Enter a valid application code and try your request again."
+        }
+      },
+      "response401" : {
+        "summary" : "Not authorized.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageID" : "OMQF201",
+          "messageType" : "E",
+          "messageData" : "",
+          "field" : "",
+          "messageText" : "Unauthorized or expired token. Please login again."
+        }
+      },
+      "response200" : {
+        "summary" : "Response to a successful API call.",
+        "value" : {
+          "messages" : {
+            "messageFile" : "OMSAPI",
+            "messageID" : "OMQ2011",
+            "messageType" : "",
+            "messageData" : "XMP  XT0588",
+            "field" : "",
+            "messageText" : "Action for fix XT0588 in application XMP completed normally"
+          },
+          "status" : "*NORM",
+          "taskResponseData" : {
+            "applicationCode" : "XMP",
+            "fixNumber" : "XT0588",
+            "fixType" : "C",
+            "release" : "MS03",
+            "developmentExitCount" : 0,
+            "reasonCode" : "",
+            "fixStatus" : "*NEW",
+            "priorityNumeric" : "5",
+            "programmer" : "ALICE",
+            "expectedStartDate" : 1240917,
+            "realizedStartDate" : 0,
+            "expectedCompletionDate" : 1240917,
+            "realizedCompletionDate" : 0,
+            "expectedDevEndDate" : 1240917,
+            "realizedDevEndDate" : 0,
+            "expectedNumberOfHours" : 0,
+            "realizedNumberOfHours" : 0,
+            "shortFixDescription" : "Description of the task.",
+            "numberOfRatificationGrps" : 0,
+            "ratificationCount" : 0,
+            "rejectedIndicator" : "0",
+            "freeUserSpace" : "",
+            "pathCode" : "MAIN",
+            "commentCount" : 0,
+            "completedSolutionsCount" : 0,
+            "activeSolutionCount" : 0,
+            "linkedItemsCount" : 0,
+            "linkedRequestsCount" : 0,
+            "priorityValueDescription" : "Normal priority",
+            "typeValueDescription" : "Change",
+            "reasonValueDescription" : "",
+            "taskURI" : "https://octo.remainsoftware.com/org/Remain/?handle=tdoms/tasks/XMP/XT0588&config=Example",
+            "activeJobsCount" : 0
+          },
+          "longDescription" : ""
+        }
+      }
+    },
     "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
