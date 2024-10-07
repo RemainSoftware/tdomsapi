@@ -64,27 +64,13 @@
                 "$ref" : "#/components/schemas/addRequest"
               },
               "examples" : {
-                "add" : {
-                  "summary" : "How to specify the add request input parameters value.",
-                  "value" : {
-                    "interfaceLevel" : "V16R1M0",
-                    "request" : {
-                      "objectCode" : "PGM",
-                      "objectType" : "*PGM",
-                      "memberCode" : "*NONE",
-                      "applicationCode" : "*ALL",
-                      "environmentCode" : "*ALL",
-                      "objectLibrary" : "*ALL"
-                    },
-                    "createCommandType" : "*HEADER",
-                    "createCommandSequenceNumber" : -1,
-                    "behaviourOnError" : "*SAME",
-                    "commandString" : "*SAME",
-                    "addProcessingOptions" : {
-                      "updateDb" : "1",
-                      "updateBuffer" : "1"
-                    }
-                  }
+                "addCompileOverride" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/addCompileOverride"
+                },
+                "addCompileOverrideDetail" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/addCompileOverrideDetail"
                 }
               }
             }
@@ -98,6 +84,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -108,6 +100,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/errorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -118,6 +116,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -147,31 +151,13 @@
                 "$ref" : "#/components/schemas/changeRequest"
               },
               "examples" : {
-                "change" : {
-                  "summary" : "How to specify the change request input parameters value.",
-                  "value" : {
-                    "interfaceLevel" : "V16R1M0",
-                    "request" : {
-                      "objectCode" : "PGM",
-                      "objectType" : "*PGM",
-                      "memberCode" : "*NONE",
-                      "applicationCode" : "*ALL",
-                      "environmentCode" : "*ALL",
-                      "objectLibrary" : "*ALL"
-                    },
-                    "createCommandType" : "*COMPILE",
-                    "createCommandSequenceNumber" : 1,
-                    "behaviourOnError" : "*NOTERROR",
-                    "commandString" : "*SAME",
-                    "changeProcessingOptions" : {
-                      "updateDb" : "1",
-                      "updateBuffer" : "1",
-                      "toApplicationCode" : "*SAME",
-                      "toEnvironmentCode" : "*SAME",
-                      "toObjectLibrary" : "*SAME",
-                      "crtCmdNewSeqNum" : -1
-                    }
-                  }
+                "changeCompileOverrideHeader" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/changeCompileOverrideHeader"
+                },
+                "changeCompileOverrideDetail" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/changeCompileOverrideDetail"
                 }
               }
             }
@@ -185,6 +171,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -195,6 +187,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/errorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -205,6 +203,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -270,6 +274,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -280,6 +290,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/errorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -290,6 +306,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -319,25 +341,13 @@
                 "$ref" : "#/components/schemas/deleteRequest"
               },
               "examples" : {
-                "delete" : {
-                  "summary" : "How to specify the delete request input parameters value.",
-                  "value" : {
-                    "interfaceLevel" : "V16R1M0",
-                    "request" : {
-                      "objectCode" : "PGM",
-                      "objectType" : "*PGM",
-                      "memberCode" : "*NONE",
-                      "applicationCode" : "*ALL",
-                      "environmentCode" : "*ALL",
-                      "objectLibrary" : "*ALL"
-                    },
-                    "createCommandType" : "*HEADER",
-                    "createCommandSequenceNumber" : -1,
-                    "deleteProcessingOptions" : {
-                      "updateDb" : "1",
-                      "updateBuffer" : "1"
-                    }
-                  }
+                "deleteCompileOverrideDetail" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/deleteCompileOverrideDetail"
+                },
+                "deleteCompileOverrideHeader" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/deleteCompileOverrideHeader"
                 }
               }
             }
@@ -351,6 +361,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -361,6 +377,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/errorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -371,6 +393,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -430,6 +458,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -440,6 +474,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/errorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -450,6 +490,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -939,16 +985,12 @@
           "objectCode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Specify the object code.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Specify the object code."
           },
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Specify the object type.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Specify the object type."
           },
           "memberCode" : {
             "maxLength" : 10,
@@ -1009,8 +1051,202 @@
       }
     },
     "responses" : { },
-    "parameters" : { },
-    "requestBodies" : { },
+    "examples" : {
+      "addCompileOverride" : {
+        "summary" : "How to specify the request input parameters value to add compile override with default command detail.",
+        "value" : {
+          "interfaceLevel" : "V16R1M0",
+          "request" : {
+            "objectCode" : "PGM",
+            "objectType" : "*PGM",
+            "memberCode" : "*NONE",
+            "applicationCode" : "*ALL",
+            "environmentCode" : "*ALL",
+            "objectLibrary" : "*ALL"
+          },
+          "createCommandType" : "*HEADER",
+          "addProcessingOptions" : {
+            "updateDb" : "1",
+            "updateBuffer" : "1"
+          }
+        }
+      },
+      "addCompileOverrideDetail" : {
+        "summary" : "How to specify the request input parameters value to add compile override command detail.",
+        "value" : {
+          "interfaceLevel" : "V16R1M0",
+          "request" : {
+            "objectCode" : "PGM",
+            "objectType" : "*PGM",
+            "memberCode" : "*NONE",
+            "applicationCode" : "*ALL",
+            "environmentCode" : "*ALL",
+            "objectLibrary" : "*ALL"
+          },
+          "createCommandType" : "*PRE",
+          "createCommandSequenceNumber" : -1,
+          "behaviourOnError" : "*SAME",
+          "commandString" : "dlyjob 1",
+          "addProcessingOptions" : {
+            "updateDb" : "1",
+            "updateBuffer" : "1"
+          }
+        }
+      },
+      "changeCompileOverrideHeader" : {
+        "summary" : "How to specify the request input parameters value to change compile override header.",
+        "value" : {
+          "interfaceLevel" : "V16R1M0",
+          "request" : {
+            "objectCode" : "PGM",
+            "objectType" : "*PGM",
+            "memberCode" : "*NONE",
+            "applicationCode" : "*ALL",
+            "environmentCode" : "*ALL",
+            "objectLibrary" : "*ALL"
+          },
+          "createCommandType" : "*HEADER",
+          "changeProcessingOptions" : {
+            "updateDb" : "1",
+            "updateBuffer" : "1",
+            "toApplicationCode" : "XMP",
+            "toEnvironmentCode" : "*SAME",
+            "toObjectLibrary" : "*SAME"
+          }
+        }
+      },
+      "changeCompileOverrideDetail" : {
+        "summary" : "How to specify the request input parameters value to change compile override detail.",
+        "value" : {
+          "interfaceLevel" : "V16R1M0",
+          "request" : {
+            "objectCode" : "PGM",
+            "objectType" : "*PGM",
+            "memberCode" : "*NONE",
+            "applicationCode" : "*ALL",
+            "environmentCode" : "*ALL",
+            "objectLibrary" : "*ALL"
+          },
+          "createCommandType" : "*PRE",
+          "createCommandSequenceNumber" : 10,
+          "behaviourOnError" : "*NOTERROR",
+          "commandString" : "Dlyjob 1",
+          "changeProcessingOptions" : {
+            "updateDb" : "1",
+            "updateBuffer" : "1",
+            "crtCmdNewSeqNum" : -1
+          }
+        }
+      },
+      "deleteCompileOverrideDetail" : {
+        "summary" : "How to specify the request input parameters value to delete compile override detail.",
+        "value" : {
+          "interfaceLevel" : "V16R1M0",
+          "request" : {
+            "objectCode" : "PGM",
+            "objectType" : "*PGM",
+            "memberCode" : "*NONE",
+            "applicationCode" : "*ALL",
+            "environmentCode" : "*ALL",
+            "objectLibrary" : "*ALL"
+          },
+          "createCommandType" : "*ALL",
+          "deleteProcessingOptions" : {
+            "updateDb" : "1",
+            "updateBuffer" : "1"
+          }
+        }
+      },
+      "deleteCompileOverrideHeader" : {
+        "summary" : "How to specify the request input parameters value to delete compile override header with detail.",
+        "value" : {
+          "interfaceLevel" : "V16R1M0",
+          "request" : {
+            "objectCode" : "PGM",
+            "objectType" : "*PGM",
+            "memberCode" : "*NONE",
+            "applicationCode" : "*ALL",
+            "environmentCode" : "*ALL",
+            "objectLibrary" : "*ALL"
+          },
+          "createCommandType" : "*HEADER",
+          "deleteProcessingOptions" : {
+            "updateDb" : "1",
+            "updateBuffer" : "1"
+          }
+        }
+      },
+      "response401" : {
+        "summary" : "Not authorized.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQF201",
+          "messageType" : "E",
+          "messageData" : "",
+          "field" : "",
+          "messageText" : "Unauthorized or expired token. Please login again."
+        }
+      },
+      "response400" : {
+        "summary" : "Something went wrong.",
+        "value" : {
+          "status" : "*TERM",
+          "messages" : [ {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQF807",
+            "messageType" : "E",
+            "messageData" : "PGMC        *PGM",
+            "field" : "objectCode",
+            "messageText" : "Object code PGMC is not found. &N Cause . . . . . :   Object code PGMC is not found with specified object type *PGM. &N Recovery  . . . :   Specify the existing one and try your request again."
+          } ]
+        }
+      },
+      "response200" : {
+        "summary" : "Response to a successful API call.",
+        "value" : {
+          "status" : "*NORM",
+          "message" : {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQF810",
+            "messageType" : "",
+            "messageData" : "*ADD",
+            "field" : "",
+            "messageText" : "Action for compile override completed normally. &N Cause . . . . . :   Your request for action for compile override completed normally. &N Recovery  . . . :   None needed, this message is informational."
+          },
+          "compileOverrideHeader" : {
+            "objectCode" : "PGM",
+            "objectType" : "*PGM",
+            "objectAttribute" : "CLLE",
+            "memberCode" : "",
+            "applicationCode" : "*ALL",
+            "environmentCode" : "*ALL",
+            "objectLibrary" : "*ALL",
+            "createCommandKeyNumber" : 127,
+            "authorizedByUser" : "",
+            "typeCode" : ""
+          },
+          "compileOverrideDetail" : [ {
+            "createCommandKeyNumber" : 127,
+            "createCommandType" : "1",
+            "createCommandSequenceNumber" : 10,
+            "commandString" : "Dlyjob 1",
+            "behaviourOnError" : "1"
+          }, {
+            "createCommandKeyNumber" : 127,
+            "createCommandType" : "2",
+            "createCommandSequenceNumber" : 1,
+            "commandString" : "CRTBNDCL PGM(&TOOL/&OBJC) SRCFILE(&SRCL/&SRCF) SRCMBR(&SRCM) OPTION(&UDVEVTF) TGTRLS(&UDVTRLS) DBGVIEW(*SOURCE)",
+            "behaviourOnError" : "1"
+          }, {
+            "createCommandKeyNumber" : 127,
+            "createCommandType" : "3",
+            "createCommandSequenceNumber" : 10,
+            "commandString" : "Dlyjob 1",
+            "behaviourOnError" : "1"
+          } ]
+        }
+      }
+    },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
