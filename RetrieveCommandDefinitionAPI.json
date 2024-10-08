@@ -81,6 +81,22 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQ5128",
+                        "messageType" : "N",
+                        "messageData" : "WRKSPLF",
+                        "messageText" : "Command definition for WRKSPLF retrieved successfully. &N Cause . . . . . :   The command definition retrieved successfully. &N Recovery. . . . :   No recovery necessary. This is an informational message."
+                      },
+                      "generatedXML" : "<QcdCLCmd DTDVersion=\"1.0\"><Cmd CmdName=\"WRKSPLF\" CmdLib=\"__LIBL\" CCSID=\"37\" HlpPnlGrp=\"QHSPCMD\" HlpPnlGrpLib=\"__LIBL\" HlpID=\"WRKSPLF\" MaxPos=\"2\" Prompt=\"Work with Spooled Files\" MsgF=\"QCPFMSG\" MsgFLib=\"__LIBL\" ExecBatch=\"YES\" ChgCmdExit=\"NO\" RtvCmdExit=\"NO\"><Parm Kwd=\"SELECT\" PosNbr=\"1\" KeyParm=\"NO\" Type=\"ELEM\" Min=\"0\" Max=\"1\" Prompt=\"Select files for\" Rstd=\"NO\" AlwUnprt=\"YES\" AlwVar=\"YES\" Expr=\"YES\" Full=\"NO\" DspInput=\"YES\" ><Elem Type=\"GENERIC\" Min=\"0\" Max=\"1\" Prompt=\"User\" Len=\"10\" Rstd=\"NO\" Dft=\"*CURRENT\" AlwUnprt=\"YES\" AlwVar=\"YES\" Expr=\"YES\" Full=\"NO\" DspInput=\"YES\" Choice=\"Name, generic*\" ><SpcVal><Value Val=\"*CURRENT\" MapTo=\"*CURRENT\"/><Value Val=\"*ALL\" MapTo=\"*ALL\"/></SpcVal></Elem><Elem Type=\"NAME\" Min=\"0\" Max=\"1\" Prompt=\"Print device\" Len=\"10\" Rstd=\"NO\" Dft=\"*ALL\" AlwUnprt=\"YES\" AlwVar=\"YES\" Expr=\"YES\" Full=\"NO\" DspInput=\"YES\" Choice=\"Name\" ><SpcVal><Value Val=\"*ALL\" MapTo=\"*ALL\"/><Value Val=\"*OUTQ\" MapTo=\"*OUTQ\"/></SpcVal></Elem><Elem Type=\"CHAR\" Min=\"0\" Max=\"1\" Prompt=\"Form type\" Len=\"10\" Rstd=\"NO\" Dft=\"*ALL\" AlwUnprt=\"YES\" AlwVar=\"YES\" Expr=\"YES\" Full=\"NO\" DspInput=\"YES\" Choice=\"Form type, *ALL, *STD\" ><SpcVal><Value Val=\"*ALL\" MapTo=\"*ALL\"/><Value Val=\"*STD\" MapTo=\"*STD\"/></SpcVal></Elem><Elem Type=\"CHAR\" Min=\"0\" Max=\"1\" Prompt=\"User data\" Len=\"10\" Rstd=\"NO\" Dft=\"*ALL\" AlwUnprt=\"YES\" AlwVar=\"YES\" Expr=\"YES\" Full=\"NO\" DspInput=\"YES\" Choice=\"User data, generic*, *ALL\" ><SpcVal><Value Val=\"*ALL\" MapTo=\"*ALL\"/></SpcVal></Elem><Elem Type=\"INT2\" Min=\"0\" Max=\"1\" Prompt=\"ASP\" Rstd=\"NO\" Dft=\"*ALL\" RangeMinVal=\"1\" RangeMaxVal=\"32\" AlwUnprt=\"YES\" AlwVar=\"YES\" Expr=\"YES\" Full=\"NO\" DspInput=\"YES\" Choice=\"1-32\" ><SpcVal><Value Val=\"*ALL\" MapTo=\"0\"/><Value Val=\"*ASPDEV\" MapTo=\"-1\"/></SpcVal></Elem><Elem Type=\"GENERIC\" Min=\"0\" Max=\"1\" Prompt=\"Spooled file\" Len=\"10\" Rstd=\"NO\" Dft=\"*ALL\" AlwUnprt=\"YES\" AlwVar=\"YES\" Expr=\"YES\" Full=\"NO\" DspInput=\"YES\" Choice=\"Name, generic*\" ><SpcVal><Value Val=\"*ALL\" MapTo=\"*ALL\"/></SpcVal></Elem></Parm><Parm Kwd=\"DSPFMT\" PosNbr=\"6\" KeyParm=\"NO\" PmtCtl=\"PMTRQS\" Type=\"CHAR\" Min=\"0\" Max=\"1\" Prompt=\"Display format\" Len=\"7\" Rstd=\"YES\" Dft=\"*INLENV\" AlwUnprt=\"YES\" AlwVar=\"YES\" Expr=\"YES\" Full=\"NO\" DspInput=\"YES\" Choice=\"*INLENV, *S36FMT, *NORMAL\" ><SpcVal><Value Val=\"*INLENV\" MapTo=\"*INLENV\"/><Value Val=\"*S36FMT\" MapTo=\"*S36FMT\"/><Value Val=\"*NORMAL\" MapTo=\"*NORMAL\"/></SpcVal></Parm><Parm Kwd=\"ASTLVL\" PosNbr=\"7\" KeyParm=\"NO\" PmtCtl=\"PMTRQS\" Type=\"CHAR\" Min=\"0\" Max=\"1\" Prompt=\"Assistance level\" Len=\"10\" Rstd=\"YES\" Dft=\"*PRV\" AlwUnprt=\"YES\" AlwVar=\"YES\" Expr=\"YES\" Full=\"NO\" DspInput=\"YES\" Choice=\"*PRV, *USRPRF, *BASIC...\" ><SpcVal><Value Val=\"*PRV\" MapTo=\"*PRV\"/><Value Val=\"*USRPRF\" MapTo=\"*USRPRF\"/><Value Val=\"*BASIC\" MapTo=\"*BASIC\"/><Value Val=\"*INTERMED\" MapTo=\"*INTERMED\"/></SpcVal></Parm><Parm Kwd=\"JOB\" PosNbr=\"2\" KeyParm=\"NO\" Type=\"QUAL\" Min=\"0\" Max=\"1\" Prompt=\"Job name\" Rstd=\"NO\" Dft=\"*ALL\" AlwUnprt=\"YES\" AlwVar=\"YES\" Expr=\"YES\" Full=\"NO\" DspInput=\"YES\" Choice=\"*ALL\" ><SngVal><Value Val=\"*ALL\" MapTo=\"*ALL\"/></SngVal><Qual Type=\"GENERIC\" Min=\"1\" Max=\"1\" Len=\"10\" Rstd=\"NO\" AlwUnprt=\"YES\" AlwVar=\"YES\" Expr=\"YES\" Full=\"NO\" DspInput=\"YES\" Choice=\"Name, generic*\" ></Qual><Qual Type=\"GENERIC\" Min=\"0\" Max=\"1\" Prompt=\"User\" Len=\"10\" Rstd=\"NO\" Dft=\"*ALL\" AlwUnprt=\"YES\" AlwVar=\"YES\" Expr=\"YES\" Full=\"NO\" DspInput=\"YES\" Choice=\"Name, generic*\" ><SpcVal><Value Val=\"*ALL\" MapTo=\"*ALL\"/></SpcVal></Qual><Qual Type=\"CHAR\" Min=\"0\" Max=\"1\" Prompt=\"Number\" Len=\"6\" Rstd=\"NO\" Dft=\"*ALL\" RangeMinVal=\"000000\" RangeMaxVal=\"999999\" AlwUnprt=\"YES\" AlwVar=\"YES\" Expr=\"YES\" Full=\"YES\" DspInput=\"YES\" Choice=\"000000-999999\" ><SpcVal><Value Val=\"*ALL\" MapTo=\"*ALL\"/></SpcVal></Qual></Parm><Parm Kwd=\"PERIOD\" PosNbr=\"3\" KeyParm=\"NO\" Type=\"ELEM\" Min=\"0\" Max=\"1\" Prompt=\"Time period\" Rstd=\"NO\" AlwUnprt=\"YES\" AlwVar=\"YES\" Expr=\"YES\" Full=\"NO\" DspInput=\"YES\" ><Elem Type=\"ELEM\" Min=\"0\" Max=\"1\" Prompt=\"Start time and date\" Rstd=\"NO\" AlwUnprt=\"YES\" AlwVar=\"YES\" Expr=\"YES\" Full=\"NO\" DspInput=\"YES\" ><Elem Type=\"TIME\" Min=\"0\" Max=\"1\" Prompt=\"Beginning time\" Rstd=\"NO\" Dft=\"*AVAIL\" AlwUnprt=\"YES\" AlwVar=\"YES\" Expr=\"YES\" Full=\"NO\" DspInput=\"YES\" Choice=\"Time\" ><SpcVal><Value Val=\"*AVAIL\" MapTo=\"000000\"/></SpcVal></Elem><Elem Type=\"DATE\" Min=\"0\" Max=\"1\" Prompt=\"Beginning date\" Rstd=\"NO\" Dft=\"*BEGIN\" AlwUnprt=\"YES\" AlwVar=\"YES\" Expr=\"YES\" Full=\"NO\" DspInput=\"YES\" Choice=\"Date\" ><SpcVal><Value Val=\"*BEGIN\" MapTo=\"0000000\"/><Value Val=\"*CURRENT\" MapTo=\"0400000\"/></SpcVal></Elem></Elem><Elem Type=\"ELEM\" Min=\"0\" Max=\"1\" Prompt=\"End time and date\" Rstd=\"NO\" AlwUnprt=\"YES\" AlwVar=\"YES\" Expr=\"YES\" Full=\"NO\" DspInput=\"YES\" ><Elem Type=\"TIME\" Min=\"0\" Max=\"1\" Prompt=\"Ending time\" Rstd=\"NO\" Dft=\"*AVAIL\" AlwUnprt=\"YES\" AlwVar=\"YES\" Expr=\"YES\" Full=\"NO\" DspInput=\"YES\" Choice=\"Time\" ><SpcVal><Value Val=\"*AVAIL\" MapTo=\"235959\"/></SpcVal></Elem><Elem Type=\"DATE\" Min=\"0\" Max=\"1\" Prompt=\"Ending date\" Rstd=\"NO\" Dft=\"*END\" AlwUnprt=\"YES\" AlwVar=\"YES\" Expr=\"YES\" Full=\"NO\" DspInput=\"YES\" Choice=\"Date\" ><SpcVal><Value Val=\"*END\" MapTo=\"0000000\"/></SpcVal></Elem></Elem></Parm><Parm Kwd=\"ASPDEV\" PosNbr=\"4\" KeyParm=\"NO\" Type=\"NAME\" Min=\"0\" Max=\"1\" Prompt=\"ASP device\" Len=\"10\" Rstd=\"NO\" Dft=\"*\" AlwUnprt=\"YES\" AlwVar=\"YES\" Expr=\"YES\" Full=\"NO\" DspInput=\"YES\" Choice=\"Name\" ><SpcVal><Value Val=\"*\" MapTo=\"*\"/><Value Val=\"*SYSBAS\" MapTo=\"*SYSBAS\"/><Value Val=\"*CURASPGRP\" MapTo=\"*CURASPGRP\"/></SpcVal></Parm><Parm Kwd=\"OUTPUT\" PosNbr=\"5\" KeyParm=\"NO\" Type=\"CHAR\" Min=\"0\" Max=\"1\" Prompt=\"Output\" Len=\"1\" Rstd=\"YES\" Dft=\"*\" AlwUnprt=\"YES\" AlwVar=\"YES\" Expr=\"YES\" Full=\"NO\" DspInput=\"YES\" Choice=\"*, *PRINT\" ><SpcVal><Value Val=\"*\" MapTo=\"*\"/><Value Val=\"*PRINT\" MapTo=\"L\"/></SpcVal></Parm><Dep CtlKwdRel=\"NE\" CtlKwd=\"SELECT\" CmpVal=\"*ALL\" NbrTrueRel=\"EQ\" NbrTrue=\"1\" MsgID=\"CPD33BE\"><DepParm Kwd=\"JOB\" Rel=\"EQ\" CmpVal=\"*ALL\" /></Dep></Cmd></QcdCLCmd>"
+                    }
+                  }
                 }
               }
             }
@@ -91,6 +107,21 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/errorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "summary" : "Something went wrong.",
+                    "value" : {
+                      "status" : "*TERM",
+                      "messages" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQ5127",
+                        "messageType" : "E",
+                        "messageData" : "XXXXX        YYYYY",
+                        "messageText" : "Command XXXXX in library YYYYY not found."
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -101,6 +132,18 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "summary" : "Not authorized.",
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQF201",
+                      "messageType" : "E",
+                      "messageData" : "",
+                      "messageText" : "Unauthorized or expired token. Please login again."
+                    }
+                  }
                 }
               }
             }
@@ -124,9 +167,7 @@
           "commandName" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the command name for which definition has to be retrieved.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Enter the command name for which definition has to be retrieved."
           },
           "commandLibrary" : {
             "maxLength" : 10,
