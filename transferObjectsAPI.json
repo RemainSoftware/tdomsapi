@@ -35,8 +35,8 @@
       },
       "protocol" : {
         "description" : "Protocol",
-        "enum" : [ "https", "http" ],
-        "default" : "https"
+        "default" : "https",
+        "enum" : [ "https", "http" ]
       },
       "port" : {
         "description" : "The port to which the server is listening",
@@ -62,13 +62,8 @@
               },
               "examples" : {
                 "select" : {
-                  "summary" : "How to specify the select request input parameters value.",
-                  "value" : {
-                    "action" : "Checkout",
-                    "taskNumber" : "XT0497",
-                    "application" : "XMP",
-                    "fromEnvironment" : " "
-                  }
+                  "value" : null,
+                  "$ref" : "#/components/examples/select"
                 }
               }
             }
@@ -82,6 +77,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/targets"
+                },
+                "examples" : {
+                  "selectResponse200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/selectResponse200"
+                  }
                 }
               }
             }
@@ -92,6 +93,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/errorMessages"
+                },
+                "examples" : {
+                  "selectResponse400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/selectResponse400"
+                  }
                 }
               }
             }
@@ -102,6 +109,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/errorMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -130,18 +143,21 @@
                 "$ref" : "#/components/schemas/prepareRequest"
               },
               "examples" : {
-                "prepare" : {
-                  "summary" : "How to specify the prepare request input parameters value.",
-                  "value" : {
-                    "action" : "copy",
-                    "application" : "XMP",
-                    "taskNumber" : "XT0497",
-                    "fromEnvironment" : "*PRD",
-                    "toEnvironment" : "*DEV",
-                    "objects" : [ ],
-                    "targetSubEnviornments" : [ ],
-                    "confimation" : true
-                  }
+                "prepareTaskLavel" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/prepareTaskLavel"
+                },
+                "prepareRequestObjectLevel" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/prepareRequestObjectLevel"
+                },
+                "prepareRequestForCopybook" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/prepareRequestForCopybook"
+                },
+                "prepareRequestForIFSObject" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/prepareRequestForIFSObject"
                 }
               }
             }
@@ -165,6 +181,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/errorMessages"
+                },
+                "examples" : {
+                  "selectResponse400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/selectResponse400"
+                  }
                 }
               }
             }
@@ -175,6 +197,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/errorMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -211,14 +239,6 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/executeRequest"
-              },
-              "examples" : {
-                "execute" : {
-                  "summary" : "How to specify the execute request input parameters value.",
-                  "value" : {
-                    "transferNumber" : "OT322458"
-                  }
-                }
               }
             }
           },
@@ -241,6 +261,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/errorMessages"
+                },
+                "examples" : {
+                  "executeResponse400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/executeResponse400"
+                  }
                 }
               }
             }
@@ -251,6 +277,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/errorMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -402,30 +434,22 @@
           "application" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Application name",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Application name"
           },
           "taskNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Task Number",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Task Number"
           },
           "fromEnvironment" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "From Environment",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "From Environment"
           },
           "toEnvironment" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "To environments",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "To environments"
           },
           "objects" : {
             "maxItems" : 100,
@@ -592,23 +616,17 @@
           "taskNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Task Number",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Task Number"
           },
           "application" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Application name",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Application name"
           },
           "fromEnvironment" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "From Environment",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "From Environment"
           }
         },
         "description" : "Prepare the transfer request"
@@ -619,37 +637,27 @@
           "memberCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Member Code",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Member Code"
           },
           "routeCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Route Code",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Route Code"
           },
           "pathExtensionpCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Path Extension Code",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Path Extension Code"
           },
           "objectCode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Object name",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Object name"
           },
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Object Type",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Object Type"
           }
         },
         "description" : "Object information"
@@ -661,8 +669,7 @@
             "maxLength" : 8,
             "type" : "string",
             "description" : "Transfer number",
-            "default" : "",
-            "enum" : [ "" ]
+            "example" : "OT369492"
           }
         },
         "description" : "Execute the request input"
@@ -675,7 +682,8 @@
           },
           "transferNumber" : {
             "maxLength" : 8,
-            "type" : "string"
+            "type" : "string",
+            "example" : "OM050309"
           }
         },
         "description" : "Execute response"
@@ -686,17 +694,20 @@
           "jobName" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Job "
+            "description" : "Job ",
+            "example" : "OM050309"
           },
           "userName" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "User Name"
+            "description" : "User Name",
+            "example" : "ALICE"
           },
           "jobNumber" : {
             "type" : "number",
             "description" : "Job number",
-            "format" : "zoned(6:0)"
+            "format" : "zoned(6:0)",
+            "example" : 392383.0
           }
         }
       },
@@ -706,15 +717,134 @@
           "transferNumber" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "Transfer Number"
+            "description" : "Transfer Number",
+            "example" : "OT369492"
           }
         },
         "description" : "Prepare response"
       }
     },
     "responses" : { },
-    "parameters" : { },
-    "requestBodies" : { },
+    "examples" : {
+      "response401" : {
+        "summary" : "Not authorized.",
+        "value" : {
+          "messageText" : "Unauthorized or expired token. Please login again.",
+          "messageID" : "OMQF201",
+          "messageTextExtended" : ""
+        }
+      },
+      "select" : {
+        "summary" : "How to specify the select request input parameters value.",
+        "value" : {
+          "action" : "Checkout",
+          "taskNumber" : "XT0497",
+          "application" : "XMP",
+          "fromEnvironment" : "*PRD"
+        }
+      },
+      "selectResponse200" : {
+        "summary" : "Response to a successful API call.",
+        "value" : {
+          "targets" : [ {
+            "fromEnvironment" : "*PRD",
+            "fromEnvironmentDescription" : "Production",
+            "toEnvironment" : "*DEV",
+            "toEnvironmentDescription" : "Development",
+            "default" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          } ]
+        }
+      },
+      "selectResponse400" : {
+        "summary" : "Something went wrong.",
+        "value" : [ {
+          "messageText" : "Action code is not valid.",
+          "messageID" : "OMQ5073",
+          "messageTextExtended" : "&N Cause . . . . . :   You have specified the invalid action code. &N Recovery  . . . :   Specify the valid action code and try your request again."
+        } ]
+      },
+      "prepareTaskLavel" : {
+        "summary" : "How to specify the prepare request input parameter value at the task level.",
+        "value" : {
+          "action" : "copy",
+          "application" : "XMP",
+          "taskNumber" : "XT0497",
+          "fromEnvironment" : "*PRD",
+          "toEnvironment" : "*DEV",
+          "objects" : [ ],
+          "targetSubEnviornments" : [ ],
+          "confimation" : true
+        }
+      },
+      "executeResponse400" : {
+        "summary" : "Something went wrong.",
+        "value" : [ {
+          "messageText" : "Fix Processing ended ABNORMALLY. One ore more objects are not moved or copied.",
+          "messageID" : "OMQF216",
+          "messageTextExtended" : "&N Cause . . . . . :   Fix Processing did not end normally. One or more objects are not processed successfully. &N Recovery. . . . :   See the OMS-log and the joblog for more detailed messages, correct the problem and restart Fix Processing."
+        } ]
+      },
+      "prepareRequestObjectLevel" : {
+        "summary" : "How to specify the prepare request input parameter value at the object level.",
+        "value" : {
+          "action" : "copy",
+          "application" : "XMP",
+          "taskNumber" : "XT0497",
+          "fromEnvironment" : "*PRD",
+          "toEnvironment" : "*DEV",
+          "objects" : [ {
+            "memberCode" : "",
+            "routeCode" : "",
+            "pathExtensionpCode" : "",
+            "objectCode" : "BAS",
+            "objectType" : "*PGM"
+          } ],
+          "targetSubEnviornments" : [ ],
+          "confimation" : true
+        }
+      },
+      "prepareRequestForCopybook" : {
+        "summary" : "How to specify the prepare request input parameter value for copybook.",
+        "value" : {
+          "action" : "copy",
+          "application" : "XMP",
+          "taskNumber" : "XT0497",
+          "fromEnvironment" : "*PRD",
+          "toEnvironment" : "*DEV",
+          "objects" : [ {
+            "memberCode" : "OMHLPDS",
+            "routeCode" : "",
+            "pathExtensionpCode" : "",
+            "objectCode" : "QCPYLESRC",
+            "objectType" : "*FILE"
+          } ],
+          "targetSubEnviornments" : [ ],
+          "confimation" : true
+        }
+      },
+      "prepareRequestForIFSObject" : {
+        "summary" : "How to specify the prepare request input parameter value for IFS object.",
+        "value" : {
+          "action" : "copy",
+          "application" : "XMP",
+          "taskNumber" : "XT0497",
+          "fromEnvironment" : "*PRD",
+          "toEnvironment" : "*DEV",
+          "objects" : [ {
+            "memberCode" : "",
+            "routeCode" : "PHP",
+            "pathExtensionpCode" : "        88",
+            "objectCode" : "dashboard.js",
+            "objectType" : "*STMF"
+          } ],
+          "targetSubEnviornments" : [ ],
+          "confimation" : true
+        }
+      }
+    },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
