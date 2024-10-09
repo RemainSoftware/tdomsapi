@@ -23,20 +23,25 @@
     }
   },
   "servers" : [ {
-    "url" : "https://{host}:{port}/{library}/OMQRRE",
+    "url" : "{protocol}://{host}:{port}/{library}/OMQRRE",
     "description" : "A dynamic https host",
     "variables" : {
       "host" : {
         "description" : "The host serving the API",
         "default" : "plato.remainsoftware.com"
       },
-      "port" : {
-        "description" : "The port to which the server is listening",
-        "default" : "45211"
-      },
       "library" : {
         "description" : "The TD/OMS library",
         "default" : "OMS"
+      },
+      "protocol" : {
+        "description" : "Protocol",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
+      },
+      "port" : {
+        "description" : "The port to which the server is listening",
+        "default" : "45011"
       }
     }
   } ],
@@ -69,6 +74,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/requestResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -79,6 +90,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -89,6 +106,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -138,6 +161,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/requestResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -148,6 +177,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -158,6 +193,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -207,6 +248,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/requestResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -217,6 +264,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -227,6 +280,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -276,6 +335,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/requestResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -286,6 +351,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -296,6 +367,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -345,6 +422,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/requestResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -355,6 +438,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -365,6 +454,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -414,6 +509,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/requestResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -424,6 +525,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -434,6 +541,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -483,6 +596,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/requestResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -493,6 +612,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -503,6 +628,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -552,6 +683,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/requestResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -562,6 +699,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -572,6 +715,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -621,6 +770,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/requestResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -631,6 +786,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -641,6 +802,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -690,6 +857,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/requestResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -700,6 +873,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -710,6 +889,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -901,7 +1086,8 @@
       },
       "message" : {
         "type" : "string",
-        "description" : "message"
+        "description" : "message",
+        "example" : "Not found."
       },
       "addProcessingOption" : {
         "type" : "object",
@@ -956,6 +1142,7 @@
             "maxLength" : 5,
             "type" : "string",
             "description" : "Application code",
+            "example" : "XMP",
             "x-column" : "RRAPPC",
             "x-sequence" : "10"
           },
@@ -963,6 +1150,7 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Request number",
+            "enum" : [ "XR0019" ],
             "x-column" : "RRERR#",
             "x-sequence" : "20"
           },
@@ -1034,6 +1222,7 @@
             "maxLength" : 50,
             "type" : "string",
             "description" : "Short request description",
+            "example" : "Request description is changed.",
             "default" : "*SAME",
             "enum" : [ "*SAME" ],
             "x-column" : "RRSHED",
@@ -1078,12 +1267,14 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "application code"
+            "description" : "application code",
+            "example" : "XMP"
           },
           "requestCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "request Code"
+            "description" : "request Code",
+            "example" : "XR0019"
           }
         },
         "description" : "schema to connect the task with request."
@@ -1102,6 +1293,7 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Enter the task number that needs to be connected to the request.",
+            "example" : "XT0588",
             "default" : "*ALL",
             "enum" : [ "*ALL" ]
           },
@@ -1129,6 +1321,7 @@
             "maxLength" : 5,
             "type" : "string",
             "description" : "Application code",
+            "example" : "XMP",
             "x-column" : "RRAPPC",
             "x-sequence" : "10"
           },
@@ -1136,6 +1329,7 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Request number",
+            "example" : "XR0019",
             "x-column" : "RRERR#",
             "x-sequence" : "20"
           },
@@ -1199,6 +1393,7 @@
             "maxLength" : 5,
             "type" : "string",
             "description" : "Application code",
+            "example" : "XMP",
             "x-column" : "RRAPPC",
             "x-sequence" : "10"
           },
@@ -1206,6 +1401,7 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Request number",
+            "example" : "XR0019",
             "x-column" : "RRERR#",
             "x-sequence" : "20"
           }
@@ -1236,12 +1432,14 @@
           "toApplicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "To Application Code"
+            "description" : "To Application Code",
+            "example" : "XMP"
           },
           "toRequestNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "To Request Number"
+            "description" : "To Request Number",
+            "example" : "*GEN"
           }
         },
         "description" : "Enter processing array input here for copy request"
@@ -1253,6 +1451,7 @@
             "maxLength" : 5,
             "type" : "string",
             "description" : "Application code",
+            "example" : "XMP",
             "x-column" : "RRAPPC",
             "x-sequence" : "10"
           },
@@ -1260,6 +1459,7 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Request number",
+            "example" : "XR0019",
             "x-column" : "RRERR#",
             "x-sequence" : "20"
           }
@@ -1298,6 +1498,7 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Enter the task code",
+            "example" : "XT0588",
             "default" : "*ALL",
             "enum" : [ "*ALL" ]
           }
@@ -1330,6 +1531,7 @@
             "maxLength" : 5,
             "type" : "string",
             "description" : "Application code",
+            "example" : "XMP",
             "x-column" : "RRAPPC",
             "x-sequence" : "10"
           },
@@ -1337,6 +1539,7 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Request number",
+            "example" : "XR0019",
             "x-column" : "RRERR#",
             "x-sequence" : "20"
           }
@@ -1367,7 +1570,8 @@
           "ratificationGroupCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "ratification Group Code"
+            "description" : "ratification Group Code",
+            "example" : "USERS"
           },
           "ratificationCode" : {
             "maxLength" : 1,
@@ -1405,6 +1609,7 @@
             "maxLength" : 5,
             "type" : "string",
             "description" : "Application code",
+            "example" : "XMP",
             "x-column" : "RRAPPC",
             "x-sequence" : "10"
           },
@@ -1412,6 +1617,7 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Request number",
+            "example" : "XR0019",
             "x-column" : "RRERR#",
             "x-sequence" : "20"
           }
@@ -1442,7 +1648,8 @@
           "toApplicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "To Application Code"
+            "description" : "To Application Code",
+            "example" : "XMP"
           },
           "toRequestNumber" : {
             "maxLength" : 10,
@@ -1519,6 +1726,7 @@
             "maxLength" : 5,
             "type" : "string",
             "description" : "Application code",
+            "example" : "XMP",
             "x-column" : "RRAPPC",
             "x-sequence" : "10"
           },
@@ -1526,6 +1734,7 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Request number",
+            "example" : "XR0019",
             "x-column" : "RRERR#",
             "x-sequence" : "20"
           }
@@ -1542,12 +1751,14 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "name of the application"
+            "description" : "name of the application",
+            "example" : "XMP"
           },
           "requestNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Request Number"
+            "description" : "Request Number",
+            "example" : "*GEN"
           },
           "requestType" : {
             "maxLength" : 5,
@@ -1611,6 +1822,7 @@
             "maxLength" : 50,
             "type" : "string",
             "description" : "Short Request Description",
+            "example" : "Request is added.",
             "default" : "*SAME",
             "enum" : [ "*SAME" ]
           },
@@ -1624,7 +1836,8 @@
           "longDescription" : {
             "maxLength" : 65535,
             "type" : "string",
-            "description" : "Error Description"
+            "description" : "Error Description",
+            "example" : ""
           }
         },
         "description" : "A request is created using this input schema",
@@ -1679,6 +1892,7 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Request number",
+            "example" : "XR0019",
             "x-column" : "RRERR#",
             "x-sequence" : "20"
           },
@@ -1686,6 +1900,7 @@
             "maxLength" : 5,
             "type" : "string",
             "description" : "Application code",
+            "example" : "XMP",
             "x-column" : "RRAPPC",
             "x-sequence" : "10"
           }
@@ -1755,6 +1970,66 @@
       }
     },
     "responses" : { },
+    "examples" : {
+      "response401" : {
+        "summary" : "Not authorized.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQF201",
+          "messageType" : "E",
+          "messageData" : "",
+          "field" : "",
+          "messageText" : "Unauthorized or expired token. Please login again."
+        }
+      },
+      "response400" : {
+        "summary" : "Something went wrong.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQ6001",
+          "messageType" : "E",
+          "messageData" : "XXXXX",
+          "field" : "",
+          "messageText" : "Application code XXXXX does not exist. &N Cause . . . . . :   You have entered an application code which does not exist. &N Recovery  . . . :   Enter a valid application code and try your request again."
+        }
+      },
+      "response200" : {
+        "summary" : "Response to a successful API call.",
+        "value" : {
+          "messages" : {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQ3012",
+            "messageType" : "",
+            "messageData" : "XMP  XR0019",
+            "field" : "",
+            "messageText" : "Action for Request XR0019 in application XMP completed normally"
+          },
+          "status" : "*NORM",
+          "requestResponseData" : {
+            "applicationCode" : "XMP",
+            "requestNumber" : "XR0019",
+            "requestType" : "S",
+            "environmentCode" : "*NEW",
+            "reasonCode" : "",
+            "priorityNumeric" : "5",
+            "userIDOrUserClass" : "ALICE",
+            "userAddressDistribution" : "",
+            "distributedUserID" : "",
+            "telephoneNumber" : "",
+            "requestedCompletionDate" : 1231108,
+            "realizedCompletionDate" : 0,
+            "incomeDate" : 1231108,
+            "incomeTime" : 60723,
+            "shortRequestDescription" : "Description of the request.",
+            "numberOfAccordees" : 0,
+            "accordanceCount" : 0,
+            "rejectedIndicator" : "0",
+            "freeUserSpace" : ""
+          },
+          "longDescription" : ""
+        }
+      }
+    },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
