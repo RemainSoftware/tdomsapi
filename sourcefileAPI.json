@@ -35,8 +35,8 @@
       },
       "protocol" : {
         "description" : "Protocol",
-        "enum" : [ "https", "http" ],
-        "default" : "https"
+        "default" : "https",
+        "enum" : [ "https", "http" ]
       },
       "port" : {
         "description" : "",
@@ -68,16 +68,20 @@
               },
               "examples" : {
                 "objectGet" : {
-                  "summary" : "How to specify the objectGet input parameters value.",
-                  "value" : {
-                    "applicationCode" : "XMP",
-                    "taskNumber" : "XT0509",
-                    "objectCode" : "OMCCA",
-                    "objectType" : "*FILE",
-                    "objectLibrary" : "O_XT0497D",
-                    "memberCode" : "",
-                    "pageNumber" : 1
-                  }
+                  "value" : null,
+                  "$ref" : "#/components/examples/getAnyMemberReadOnly"
+                },
+                "objectGet_IFS_Object" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/objectGet_IFS_Object"
+                },
+                "objectget_copybook" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/objectget_copybook"
+                },
+                "objectget" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/objectget"
                 }
               }
             }
@@ -91,6 +95,23 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/sourceReply"
+                },
+                "examples" : {
+                  "response200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "canEdit" : true,
+                      "sourceCode" : "",
+                      "includes" : [ ],
+                      "references" : [ ],
+                      "ccsid" : 37,
+                      "sourceType" : "CLLE",
+                      "pageNumber" : 0,
+                      "numberOfPages" : 1,
+                      "maximumLineLength" : 80,
+                      "lastChangeDate" : "2024-01-06-22.04.16.000000"
+                    }
+                  }
                 }
               }
             }
@@ -101,6 +122,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -111,6 +138,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -139,22 +172,17 @@
                 "$ref" : "#/components/schemas/objectSaveRequest"
               },
               "examples" : {
-                "sourceSave" : {
-                  "summary" : "How to specify the objectSave input parameters value.",
-                  "value" : {
-                    "objectLibrary" : "O_XT0497D",
-                    "memberCode" : "",
-                    "sourceCode" : "ICAgICAgKiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSAqDQogICAgICAqIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tICoNCiAgICAgICogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gKg0KICAgICAgKiBEZXNjcmlwdGlvbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAqDQogICAgICAqIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tICogDQogICAgICAqICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICoNCiAgICAgICogRmlsZSAuLi4uLi4uOiBPTUNDQSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKg0KICAgICAgKiBNb2R1bGUgLi4uLi46IEhlbHBEZXNrICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAqDQogICAgICAqIEZ1bmN0aW9uIC4uLjogQ3VzdG9tZXIgY2FsbHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICoNCiAgICAgICogQXV0aG9yIC4uLi4uOiBSZW1haW4gU29mdHdhcmUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKg0KICAgICAgKiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAqDQogICAgICAqIFRoaXMgZmlsZSBjb250YWlucyB0aGUgY3VzdG9tZXIgY2FsbHMuICAgICAgICAgICAgICAgICAgICAgICoNCiAgICAgICogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKg0KICAgICAgKiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSAqDQoNCiAgICAgICogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tICoNCiAgICAgICogUmVmZXJlbmNlIGZpbGUgT01TUkVGSEQNCiAgICAgICogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tICoNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUkVGKE9NU1JFRkhEKQ0KDQogICAgICAqIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSAqDQogICAgICAqIFJlY29yZCBPTUNDQVINCiAgICAgICogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tICoNCiAgICAgICAgICAgICAgICBSIE9NQ0NBUg0KDQogICAgICAqIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSAqDQogICAgICAqIEZpZWxkIGRlc2NyaXB0aW9ucw0KICAgICAgKiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gKg0KICAgICAgICAgICAgICAgICAgQ0FIRURDICAgIFIgICAgICAgICAgICAgICBSRUZGTEQoSEVEQykNCiAgICAgICAgICAgICAgICAgIENBQ1ROIyAgICBSICAgICAgICAgICAgICAgUkVGRkxEKENUTiMpDQogICAgICAgICAgICAgICAgICBDQUNVU0MgICAgUiAgICAgICAgICAgICAgIFJFRkZMRChDVVNDKQ0KICAgICAgICAgICAgICAgICAgQ0FDQ1RDICAgIFIgICAgICAgICAgICAgICBSRUZGTEQoQ0NUQykNCiAgICAgICAgICAgICAgICAgIENBSU5EVCAgICBSICAgICAgICAgICAgICAgUkVGRkxEKElORFQpDQogICAgICAgICAgICAgICAgICBDQUlOVE0gICAgUiAgICAgICAgICAgICAgIFJFRkZMRChJTlRNKQ0KICAgICAgICAgICAgICAgICAgQ0FSQ1RNICAgIFIgICAgICAgICAgICAgICBSRUZGTEQoUkNUTSkNCiAgICAgICAgICAgICAgICAgIENBVVNJRCAgICBSICAgICAgICAgICAgICAgUkVGRkxEKFVTSUQpDQogICAgICAgICAgICAgICAgICBDQUNTUkMgICAgUiAgICAgICAgICAgICAgIFJFRkZMRChDU1JDKQ0KICAgICAgICAgICAgICAgICAgQ0FVU0YxICAgIFIgICAgICAgICAgICAgICBSRUZGTEQoVVNGMSkNCiAgICAgICAgICAgICAgICAgIENBVVNGMiAgICBSICAgICAgICAgICAgICAgUkVGRkxEKFVTRjIpDQogICAgICAgICAgICAgICAgICBDQVVTRjMgICAgUiAgICAgICAgICAgICAgIFJFRkZMRChVU0YzKQ0K",
-                    "objectCode" : "OMCCA",
-                    "taskNumber" : "XT0509",
-                    "applicationCode" : "XMP",
-                    "objectType" : "*FILE",
-                    "ccsid" : 37,
-                    "pageNumber" : 1,
-                    "numberOfPages" : 1,
-                    "forceSave" : false,
-                    "lastChangeDate" : "2024-03-18-09.25.11.000000"
-                  }
+                "objectSave_IFS_Object" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/objectSave_IFS_Object"
+                },
+                "objectSave_copybook" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/objectSave_copybook"
+                },
+                "objectSave" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/objectSave"
                 }
               }
             }
@@ -168,6 +196,20 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQF209",
+                      "messageType" : "",
+                      "messageData" : "",
+                      "field" : "",
+                      "messageText" : "The source code saved successfully. &N Cause . . . . . :   The source code was saved successfully. Recovery: No recovery necessary. This is an informational message.",
+                      "lastChangeDate" : "2024-10-09-06.52.40.000000"
+                    }
+                  }
                 }
               }
             }
@@ -178,6 +220,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -188,6 +236,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -236,51 +290,37 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "The application code.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "The application code."
           },
           "taskNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The task number.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "The task number."
           },
           "path" : {
             "maxLength" : 1024,
             "type" : "string",
-            "description" : "The location of the IFS file to read.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "The location of the IFS file to read."
           },
           "objectCode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "the object code",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "the object code"
           },
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "The object type",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "The object type"
           },
           "objectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The object library",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "The object library"
           },
           "memberCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The member code",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "The member code"
           },
           "pageNumber" : {
             "type" : "integer",
@@ -369,58 +409,42 @@
           "objectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The object library",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "The object library"
           },
           "memberCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The member code",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "The member code"
           },
           "path" : {
             "maxLength" : 1024,
             "type" : "string",
-            "description" : "The location of the IFS file to read.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "The location of the IFS file to read."
           },
           "sourceCode" : {
             "maxLength" : 65535,
             "type" : "string",
-            "description" : "The source code",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "The source code"
           },
           "objectCode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "the object code",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "the object code"
           },
           "taskNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The task number.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "The task number."
           },
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "The application code.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "The application code."
           },
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "The object Type",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "The object Type"
           },
           "ccsid" : {
             "type" : "integer",
@@ -441,9 +465,7 @@
           },
           "lastChangeDate" : {
             "type" : "string",
-            "description" : "Last change date of source member in timestap format.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Last change date of source member in timestap format."
           }
         },
         "description" : "The request for save object",
@@ -494,6 +516,128 @@
     },
     "responses" : { },
     "parameters" : { },
+    "examples" : {
+      "objectget_copybook" : {
+        "summary" : "Get a member that is attached to a task",
+        "description" : "If the member is in development on the task, you can get it in change mode. Specify zero for the pageNumber to get only information about the member and not the source itself.",
+        "value" : {
+          "objectLibrary" : "IRESTLIB",
+          "memberCode" : "OMHLPDS",
+          "objectCode" : "QCPYLESRC",
+          "pageNumber" : 1,
+          "taskNumber" : "XT0497",
+          "applicationCode" : "XMP",
+          "objectType" : "*FILE"
+        }
+      },
+      "objectSave_copybook" : {
+        "summary" : "Save a source member",
+        "description" : "Make sure to return the last change date that you got from the read request. This allows us to detect if a source was changed by someone else.",
+        "value" : {
+          "objectLibrary" : "IRESTLIB",
+          "memberCode" : "OMHLPDS",
+          "sourceCode" : "CAgRCAgRDhDVEZQICAgIC...CA3NQ0KICAgICBEICBEOENURkwgICA",
+          "objectCode" : "QCPYLESRC",
+          "pageNumber" : 1,
+          "numberOfPages" : 1,
+          "lastChangeDate" : "2018-12-03-12.07.15.000000",
+          "taskNumber" : "XT0497",
+          "forceSave" : false,
+          "applicationCode" : "XMP",
+          "objectType" : "*FILE",
+          "ccsid" : 37
+        }
+      },
+      "objectSave" : {
+        "summary" : "Save an object source",
+        "description" : "",
+        "value" : {
+          "objectLibrary" : "O_XT0497D",
+          "memberCode" : "",
+          "sourceCode" : "cGdtICAgI...A0KDQplbmRwZ20NCg==",
+          "objectCode" : "BAS",
+          "pageNumber" : 1,
+          "numberOfPages" : 1,
+          "lastChangeDate" : "2024-01-06-22.04.16.000000",
+          "taskNumber" : "XT0497",
+          "forceSave" : false,
+          "applicationCode" : "XMP",
+          "objectType" : "*PGM",
+          "ccsid" : 37
+        }
+      },
+      "objectSave_IFS_Object" : {
+        "summary" : "Save an IFS source",
+        "description" : "Specify zero for the pageNumber to get only information about the member and not the source itself.",
+        "value" : {
+          "path" : "/QOpenSys/OMSIFS/XMP/DEV/PHP_XT0497/htdocs/public/js/dashboard.js",
+          "sourceCode" : "JChmdW5jdGlvbigpIH...C8vIExvYWQgdGhlIFZpc",
+          "pageNumber" : 1,
+          "numberOfPages" : 1,
+          "lastChangeDate" : "",
+          "taskNumber" : "XT0497",
+          "forceSave" : false,
+          "applicationCode" : "XMP",
+          "ccsid" : 1208
+        }
+      },
+      "objectGet_IFS_Object" : {
+        "summary" : "Read an IFS source",
+        "description" : "Specify zero for the pageNumber to get only information about the member and not the source.",
+        "value" : {
+          "path" : "/QOpenSys/OMSIFS/XMP/DEV/PHP_XT0497/htdocs/public/js/dashboard.js",
+          "pageNumber" : 1,
+          "taskNumber" : "XT0497",
+          "applicationCode" : "XMP"
+        }
+      },
+      "objectget" : {
+        "summary" : "Read the source of an object,",
+        "description" : "Specify zero for the pageNumber to get only information about the member and not the source itself.",
+        "value" : {
+          "objectLibrary" : "O_XT0497D",
+          "memberCode" : "",
+          "objectCode" : "BAS",
+          "pageNumber" : 1,
+          "taskNumber" : "XT0497",
+          "applicationCode" : "XMP",
+          "objectType" : "*PGM"
+        }
+      },
+      "getAnyMemberReadOnly" : {
+        "summary" : "Get any member read only",
+        "description" : "This does not contain an application or task. So this member will be fetched if it exists as read only. Specify zero for the pageNumber to get only information about the member and not the source.",
+        "value" : {
+          "objectLibrary" : "V170DMP",
+          "memberCode" : "DMP0001365",
+          "objectCode" : "QRPGLESRC",
+          "pageNumber" : 1,
+          "objectType" : "*FILE"
+        }
+      },
+      "response401" : {
+        "summary" : "Not authorized.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQF201",
+          "messageType" : "",
+          "messageData" : "",
+          "field" : "",
+          "messageText" : "Unauthorized or expired token. Please login again."
+        }
+      },
+      "response400" : {
+        "summary" : "Something went wrong.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQB325",
+          "messageType" : "E",
+          "messageData" : "xxxxx       *PGM     *N",
+          "field" : "",
+          "messageText" : "Object xxxxx type *PGM detail *N not found. &N Cause . . . . . :   The requested action for object xxxxx type *PGM detail *N could not be done because the detail or the object was not found. If the detail is *N then the object was not found. &N Recovery  . . . :   Add the detail and try your request again."
+        }
+      }
+    },
     "requestBodies" : { },
     "securitySchemes" : {
       "jwt" : {
