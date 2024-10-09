@@ -106,6 +106,49 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/result"
+                },
+                "examples" : {
+                  "response200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "returnStatus" : {
+                        "status" : "*NORM",
+                        "messages" : [ ],
+                        "fieldMessages" : [ ]
+                      },
+                      "listStatus" : {
+                        "totalRecords" : 0,
+                        "recordsReturned" : 4,
+                        "pageNumber" : 1
+                      },
+                      "records" : [ {
+                        "applicationCode" : "XMP",
+                        "objectCode" : "OCTOCL1",
+                        "objectType" : "*PGM",
+                        "objectLibrary" : "OMHD_TST",
+                        "objectDescription" : "CLLE Test Object"
+                      }, {
+                        "applicationCode" : "XMP",
+                        "objectCode" : "OCTOCL1",
+                        "objectType" : "*PGM",
+                        "objectLibrary" : "OMHD_DEV",
+                        "objectDescription" : "CLLE Test Object"
+                      }, {
+                        "applicationCode" : "XMP",
+                        "objectCode" : "OCTOCL1",
+                        "objectType" : "*PGM",
+                        "objectLibrary" : "O_XT0453T",
+                        "objectDescription" : "CLLE Test Object"
+                      }, {
+                        "applicationCode" : "XMP",
+                        "objectCode" : "OCTOCL2",
+                        "objectType" : "*PGM",
+                        "objectLibrary" : "OMHD_DEV",
+                        "objectDescription" : "CL Testing object"
+                      } ],
+                      "fileName" : "ObjectExtended"
+                    }
+                  }
                 }
               }
             }
@@ -155,31 +198,23 @@
             "type" : "array",
             "description" : "Fields to be returned, default is to return all fields.",
             "items" : {
-              "type" : "string",
-              "default" : "",
-              "enum" : [ "" ]
+              "type" : "string"
             }
           },
           "schemaOverride" : {
             "maxLength" : 128,
             "type" : "string",
-            "description" : "Instead of fetching from the database library, fetch it from this library.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Instead of fetching from the database library, fetch it from this library."
           },
           "whereClause" : {
             "maxLength" : 2048,
             "type" : "string",
-            "description" : "An additional where clause to manipulate the list even further.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "An additional where clause to manipulate the list even further."
           },
           "table" : {
             "maxLength" : 128,
             "type" : "string",
-            "description" : "The table to read.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "The table to read."
           },
           "fieldSelections" : {
             "maxItems" : 250,
@@ -286,15 +321,11 @@
         "properties" : {
           "fieldName" : {
             "type" : "string",
-            "description" : "Enter field name on which you want to do the sorting.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Enter field name on which you want to do the sorting."
           },
           "sortBy" : {
             "type" : "string",
-            "description" : "Enter sorting order of the field. The possible values are : \r\n\r\nDESC - Descending order \r\n\r\nASC - Ascending order",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Enter sorting order of the field. The possible values are : \r\n\r\nDESC - Descending order \r\n\r\nASC - Ascending order"
           }
         },
         "description" : "Enter Fields to be sorted"
@@ -327,16 +358,12 @@
         "properties" : {
           "field" : {
             "type" : "string",
-            "description" : "The field to select from.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "The field to select from."
           },
           "value" : {
             "maxLength" : 1024,
             "type" : "string",
-            "description" : "The value",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "The value"
           },
           "operator" : {
             "maxLength" : 20,
@@ -396,6 +423,16 @@
           "application/json" : {
             "schema" : {
               "$ref" : "#/components/schemas/message"
+            },
+            "examples" : {
+              "response401" : {
+                "summary" : "Not authorized.",
+                "value" : {
+                  "messageText" : "Unauthorized or expired token. Please login again.",
+                  "messageID" : "OMQF201",
+                  "messageTextExtended" : ""
+                }
+              }
             }
           }
         }
@@ -406,6 +443,16 @@
           "application/json" : {
             "schema" : {
               "$ref" : "#/components/schemas/message"
+            },
+            "examples" : {
+              "response422" : {
+                "summary" : "Unprocessable Entity",
+                "value" : {
+                  "messageText" : "Unprocessable Entity.",
+                  "messageID" : "OMQF201",
+                  "messageTextExtended" : ""
+                }
+              }
             }
           }
         }
