@@ -25,8 +25,8 @@
     "description" : "TD/OMS Dashboard server",
     "variables" : {
       "protocol" : {
-        "enum" : [ "http", "https" ],
-        "default" : "https"
+        "default" : "https",
+        "enum" : [ "http", "https" ]
       },
       "host" : {
         "default" : "plato.remainsoftware.com"
@@ -75,6 +75,42 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/listResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "returnStatus" : {
+                        "status" : "*NORM",
+                        "messages" : [ ]
+                      },
+                      "rows" : [ {
+                        "columns" : [ {
+                          "name" : "Application",
+                          "value" : "XMP"
+                        }, {
+                          "name" : "Stale",
+                          "value" : 10
+                        } ]
+                      }, {
+                        "columns" : [ {
+                          "name" : "Application",
+                          "value" : "XMP2"
+                        }, {
+                          "name" : "Stale",
+                          "value" : 2
+                        } ]
+                      }, {
+                        "columns" : [ {
+                          "name" : "Application",
+                          "value" : "GIT"
+                        }, {
+                          "name" : "Stale",
+                          "value" : 1
+                        } ]
+                      } ]
+                    }
+                  }
                 }
               }
             }
@@ -85,6 +121,16 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/message"
+                },
+                "examples" : {
+                  "response401" : {
+                    "summary" : "Not authorized.",
+                    "value" : {
+                      "messageText" : "Unauthorized or expired token. Please login again.",
+                      "messageID" : "OMQF201",
+                      "messageTextExtended" : ""
+                    }
+                  }
                 }
               }
             }
@@ -95,6 +141,16 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/message"
+                },
+                "examples" : {
+                  "response400" : {
+                    "summary" : "Something went wrong.",
+                    "value" : {
+                      "messageText" : "Value xx not valid for parameter UUID.",
+                      "messageID" : "OMQ5030",
+                      "messageTextExtended" : "&N Cause . . . . . :   Parameter UUID contains the invalid value xx. &N Recovery  . . . :   Change the value of xx to a valid value."
+                    }
+                  }
                 }
               }
             }
@@ -158,9 +214,7 @@
         "properties" : {
           "UUID" : {
             "type" : "string",
-            "description" : "The uuid of the chart to get the data for.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "The uuid of the chart to get the data for."
           }
         },
         "description" : "The list input"
