@@ -2,7 +2,7 @@
   "openapi" : "3.0.1",
   "info" : {
     "title" : "newObjectAPI.",
-    "description" : "The new object API enables you to create the new objects.",
+    "description" : "The new object API enables you to create new objects. New objects will be connected to the associated task.",
     "termsOfService" : "",
     "contact" : {
       "name" : "Remain Software",
@@ -23,20 +23,25 @@
     }
   },
   "servers" : [ {
-    "url" : "https://{host}:{port}/{library}/OMQRNO",
-    "description" : "172.17.4.10",
+    "url" : "{protocol}://{host}:{port}/{library}/OMQRNO",
+    "description" : "",
     "variables" : {
       "host" : {
         "description" : "The host serving the API",
         "default" : "plato.remainsoftware.com"
       },
-      "port" : {
-        "description" : "The port to which the server is listening",
-        "default" : "45211"
-      },
       "library" : {
         "description" : "The TD/OMS library",
         "default" : "OMS"
+      },
+      "protocol" : {
+        "description" : "Protocol",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
+      },
+      "port" : {
+        "description" : "The port to which the server is listening",
+        "default" : "45011"
       }
     }
   } ],
@@ -57,6 +62,16 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/addRequest"
+              },
+              "examples" : {
+                "addObject" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/addObject"
+                },
+                "newMember" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/newMember"
+                }
               }
             }
           },
@@ -69,6 +84,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "addObject200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/addObject200"
+                  }
                 }
               }
             }
@@ -89,6 +110,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -105,10 +132,10 @@
     },
     "/location" : {
       "summary" : "/location",
-      "description" : "Use this to retrieve the target library and source file.",
+      "description" : "Use this to retrieve the target library and target source library based on the object code and object type.",
       "post" : {
         "summary" : "location",
-        "description" : "Use this operation to retrieve the target library and the source file.",
+        "description" : "Use this operation to retrieve the target library and the source file of the object that you are going to create. It is used to prefill the target in the new object UI.",
         "operationId" : "location",
         "requestBody" : {
           "description" : "getLocation",
@@ -128,6 +155,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/locationResponse"
+                },
+                "examples" : {
+                  "addObject200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/addObject200"
+                  }
                 }
               }
             }
@@ -148,6 +181,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/locationResponse"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -171,23 +210,27 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Input the application code required for creating a new object."
+            "description" : "Input the application code required for creating a new object.",
+            "example" : "XMP"
           },
           "task" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Input the task name required for creating a new object."
+            "description" : "Input the task name required for creating a new object.",
+            "example" : "T0014"
           },
           "environmentCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Input the environment code required for creating a new object."
+            "description" : "Input the environment code required for creating a new object.",
+            "example" : "DEV"
           },
           "copyObject" : {
             "maxLength" : 1,
             "type" : "string",
             "description" : "Enter your choice if you wan to copy the source from the related object template.\r\n\r\n '0' - Enter '0' if you don't want to copy the source. \r\n\r\n'1' - Enter '1' if you want to copy the source. ",
             "nullable" : true,
+            "example" : "1",
             "default" : "0",
             "enum" : [ null, "0", "1" ]
           },
@@ -197,22 +240,26 @@
           "newObjectTemplate" : {
             "maxLength" : 50,
             "type" : "string",
-            "description" : "Enter the template name."
+            "description" : "Enter the template name.",
+            "example" : "Example RPG Program      Program"
           },
           "newObject" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Enter the new object name that you wish to create."
+            "description" : "Enter the new object name that you wish to create.",
+            "example" : "NEWOBJ"
           },
           "newObjectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the new object library here."
+            "description" : "Enter the new object library here.",
+            "example" : "OMHD_DEV"
           },
           "newObjectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Enter the new object type here."
+            "description" : "Enter the new object type here.",
+            "example" : "*PGM"
           },
           "newDetail" : {
             "maxLength" : 10,
@@ -222,37 +269,44 @@
           "newDescription" : {
             "maxLength" : 50,
             "type" : "string",
-            "description" : "Enter the new object description here."
+            "description" : "Enter the new object description here.",
+            "example" : "This is my new object"
           },
           "newAttribute" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the new object attribute here."
+            "description" : "Enter the new object attribute here.",
+            "example" : "RPGLE"
           },
           "newSourceFile" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the source physical file name here for the new object."
+            "description" : "Enter the source physical file name here for the new object.",
+            "example" : "QRPGLESRC"
           },
           "newSourceLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the source library name."
+            "description" : "Enter the source library name.",
+            "example" : "OMHD_DEV"
           },
           "newSourceMember" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the source member name that has to be created."
+            "description" : "Enter the source member name that has to be created.",
+            "example" : "NEWOBJ"
           },
           "newSourceAttribute" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the attribute of the source member."
+            "description" : "Enter the attribute of the source member.",
+            "example" : "RPGLE"
           },
           "temporaryOrVirtualObject" : {
             "maxLength" : 1,
             "type" : "string",
             "description" : "Enter '1' if you want to create it as a virtual object otherwise '0'.",
+            "example" : "0",
             "default" : "0",
             "enum" : [ "0", "1" ]
           }
@@ -265,7 +319,8 @@
           "status" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "The return status which can be *NORM or *TERM. In case of *TERM look at the messages for more information."
+            "description" : "The return status which can be *NORM or *TERM. In case of *TERM look at the messages for more information.",
+            "enum" : [ "*TERM" ]
           },
           "message" : {
             "$ref" : "#/components/schemas/extendedMessage"
@@ -279,22 +334,26 @@
           "messageFile" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The IBM i message file."
+            "description" : "The IBM i message file.",
+            "example" : "QRPGLESRC"
           },
           "messageId" : {
             "maxLength" : 7,
             "type" : "string",
-            "description" : "The message id."
+            "description" : "The message id.",
+            "example" : "CPF1234"
           },
           "messageData" : {
             "maxLength" : 80,
             "type" : "string",
-            "description" : "The message substitution Data. "
+            "description" : "The message substitution Data. ",
+            "example" : "*FILE"
           },
           "messageText" : {
             "maxLength" : 512,
             "type" : "string",
-            "description" : "The humen readable messaget Text."
+            "description" : "The humen readable messaget Text.",
+            "example" : "Object of type *FILE not found."
           }
         },
         "description" : "Contains the response message details."
@@ -305,22 +364,26 @@
           "templateObject" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Enter the name of the object you wish to use as a template for copying."
+            "description" : "Enter the name of the object you wish to use as a template for copying.",
+            "example" : "TMPLOBJ"
           },
           "templateObjectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the name of the library which contains the template object."
+            "description" : "Enter the name of the library which contains the template object.",
+            "example" : "OMHD_PRD"
           },
           "templateObjectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Enter the template object type."
+            "description" : "Enter the template object type.",
+            "example" : "*PGM"
           },
           "templateObjectDetail" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the name of the detail."
+            "description" : "Enter the name of the detail.",
+            "example" : ""
           }
         },
         "description" : "Use this schema if you want to copy the template from related object."
@@ -331,28 +394,33 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Enter the name of the application in which you want to create the new object."
+            "description" : "Enter the name of the application in which you want to create the new object.",
+            "example" : "XMP"
           },
           "environmentCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Enter the name of the environment in which you want to create the new object."
+            "description" : "Enter the name of the environment in which you want to create the new object.",
+            "example" : "DEV"
           },
           "task" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the name of the task in which you want to create the new object."
+            "description" : "Enter the name of the task in which you want to create the new object.",
+            "example" : "T0014"
           },
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
             "description" : "Enter the object type of the new object.",
-            "format" : ""
+            "format" : "",
+            "example" : "*PGM"
           },
           "objectAttribute" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the object attribute."
+            "description" : "Enter the object attribute.",
+            "example" : "RPGLE"
           }
         },
         "description" : "Use this input schema to retrieve the object library and source library."
@@ -363,17 +431,20 @@
           "status" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "The return status which can be *NORM or *TERM. In case of *TERM object and source libraries are not returned."
+            "description" : "The return status which can be *NORM or *TERM. In case of *TERM object and source libraries are not returned.",
+            "example" : "*TERM"
           },
           "objectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Contains the name of the object library."
+            "description" : "Contains the name of the object library.",
+            "example" : "OMHD_DEV"
           },
           "sourceLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "contains the name of the source library,"
+            "description" : "contains the name of the source library,",
+            "example" : "OMHD_DEV"
           },
           "message" : {
             "$ref" : "#/components/schemas/extendedMessage"
@@ -383,6 +454,72 @@
       }
     },
     "responses" : { },
+    "examples" : {
+      "addObject" : {
+        "summary" : "How to add a new object with a template",
+        "description" : "The template object is the object that contains the source that you want to copy for this new object.",
+        "value" : {
+          "template" : {
+            "templateObjectType" : "*PGM",
+            "templateObject" : "TMPLOBJ",
+            "templateObjectLibrary" : "OMHD_PRD",
+            "templateObjectDetail" : ""
+          },
+          "newSourceLibrary" : "OMHD_DEV",
+          "newObjectType" : "*PGM",
+          "newDetail" : "",
+          "environmentCode" : "DEV",
+          "newSourceFile" : "QRPGLESRC",
+          "newDescription" : "This is my new object",
+          "newObjectLibrary" : "OMHD_DEV",
+          "newObjectTemplate" : "Example RPG Program      Program",
+          "newAttribute" : "RPGLE",
+          "newSourceAttribute" : "RPGLE",
+          "task" : "T0014",
+          "temporaryOrVirtualObject" : "0",
+          "newObject" : "NEWOBJ",
+          "newSourceMember" : "NEWOBJ",
+          "copyObject" : "1",
+          "applicationCode" : "XMP"
+        }
+      },
+      "newMember" : {
+        "summary" : "How to add a new member without a template",
+        "description" : "An empty member will be created and added to the task",
+        "value" : {
+          "newObjectTemplate" : "Source Prototype         Member",
+          "newAttribute" : "RPGLE",
+          "task" : "T0014",
+          "newObjectType" : "*FILE",
+          "newDetail" : "NEWMEMBER",
+          "environmentCode" : "DEV",
+          "temporaryOrVirtualObject" : "0",
+          "newObject" : "QCPYLESRC",
+          "copyObject" : "0",
+          "applicationCode" : "XMP",
+          "newDescription" : "This is my new member",
+          "newObjectLibrary" : "OMHD_DEV"
+        }
+      },
+      "addObject200" : {
+        "summary" : "Response for a successful call to the API",
+        "value" : {
+          "status" : "*NORM"
+        }
+      },
+      "response401" : {
+        "summary" : "Not authorized.",
+        "value" : {
+          "status" : "*TERM",
+          "message" : {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQF201",
+            "messageData" : "",
+            "messageText" : "Unauthorized or expired token. Please login again."
+          }
+        }
+      }
+    },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
