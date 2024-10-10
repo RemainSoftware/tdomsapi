@@ -65,24 +65,12 @@
               },
               "examples" : {
                 "addConnectionList" : {
-                  "summary" : "How to specify the add request input parameters value.",
-                  "value" : {
-                    "addProcessingOption" : {
-                      "connectWithRules" : "0",
-                      "applicationRelation" : "0"
-                    },
-                    "addData" : {
-                      "applicationCode" : "XMP",
-                      "connectionListCode" : "*USER",
-                      "taskNumber" : "XT0275",
-                      "objectCode" : "PFCONV",
-                      "objectLibrary" : "OMHD_TST",
-                      "objectType" : "*FILE",
-                      "memberCode" : "*NONE",
-                      "ifsObject" : "*OBJC",
-                      "solutionType" : "*CHANGE"
-                    }
-                  }
+                  "value" : null,
+                  "$ref" : "#/components/examples/addConnectionList"
+                },
+                "addConnectionListIFSObject" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/addConnectionListIFSObject"
                 }
               }
             }
@@ -96,6 +84,22 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/connectionListResponse"
+                },
+                "examples" : {
+                  "addResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "messages" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQB502",
+                        "messageType" : "",
+                        "messageData" : "*ADD      ALICE     XMP",
+                        "field" : "",
+                        "messageText" : "Action *ADD for connection list ALICE in application XMP completed normally. &N Cause . . . . . :   Action *ADD for connection list ALICE in application XMP completed normally. The following actions are used for connection list API: 60 - Add, 40 - Delete, 22 - Process, 23 - Change. &N Recovery  . . . :   None needed, this message is informational."
+                      },
+                      "status" : "*NORM"
+                    }
+                  }
                 }
               }
             }
@@ -106,6 +110,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -126,6 +136,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -186,6 +202,22 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/connectionListResponse"
+                },
+                "examples" : {
+                  "processResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "messages" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQB502",
+                        "messageType" : "",
+                        "messageData" : "*PROCESS  ALICE     XMP",
+                        "field" : "",
+                        "messageText" : "Action *PROCESS for connection list ALICE in application XMP completed normally. &N Cause . . . . . :   Action *PROCESS for connection list ALICE in application XMP completed normally. The following actions are used for connection list API: 60 - Add, 40 - Delete, 22 - Process, 23 - Change. &N Recovery  . . . :   None needed, this message is informational."
+                      },
+                      "status" : "*NORM"
+                    }
+                  }
                 }
               }
             }
@@ -196,6 +228,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -216,6 +254,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -269,6 +313,22 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/connectionListResponse"
+                },
+                "examples" : {
+                  "deleteResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "messages" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQB502",
+                        "messageType" : "",
+                        "messageData" : "*DELETE  ALICE     XMP",
+                        "field" : "",
+                        "messageText" : "Action *DELETE for connection list ALICE in application XMP completed normally. &N Cause . . . . . :   Action *DELETE for connection list ALICE in application XMP completed normally. The following actions are used for connection list API: 60 - Add, 40 - Delete, 22 - Process, 23 - Change. &N Recovery  . . . :   None needed, this message is informational."
+                      },
+                      "status" : "*NORM"
+                    }
+                  }
                 }
               }
             }
@@ -279,6 +339,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -299,6 +365,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -354,6 +426,22 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/connectionListResponse"
+                },
+                "examples" : {
+                  "changeResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "messages" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQB502",
+                        "messageType" : "",
+                        "messageData" : "*CHANGE  ALICE     XMP",
+                        "field" : "",
+                        "messageText" : "Action *CHANGE for connection list ALICE in application XMP completed normally. &N Cause . . . . . :   Action *CHANGE for connection list ALICE in application XMP completed normally. The following actions are used for connection list API: 60 - Add, 40 - Delete, 22 - Process, 23 - Change. &N Recovery  . . . :   None needed, this message is informational."
+                      },
+                      "status" : "*NORM"
+                    }
+                  }
                 }
               }
             }
@@ -364,6 +452,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -374,6 +468,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -397,9 +497,7 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Application Code",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Application Code"
           },
           "connectionListCode" : {
             "maxLength" : 10,
@@ -425,16 +523,12 @@
           "objectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Object Library",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Object Library"
           },
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Object Type",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Object Type"
           },
           "memberCode" : {
             "maxLength" : 10,
@@ -475,7 +569,8 @@
       },
       "message" : {
         "type" : "string",
-        "description" : "message"
+        "description" : "message",
+        "example" : "Not found."
       },
       "extendedMessage" : {
         "type" : "object",
@@ -551,9 +646,7 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Application Code",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Application Code"
           },
           "connectionListCode" : {
             "maxLength" : 10,
@@ -579,16 +672,12 @@
           "objectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Object Library",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Object Library"
           },
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Object Type",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Object Type"
           },
           "memberCode" : {
             "maxLength" : 10,
@@ -645,9 +734,7 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Application Code",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Application Code"
           },
           "connectionListCode" : {
             "maxLength" : 10,
@@ -673,16 +760,12 @@
           "objectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Object Library",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Object Library"
           },
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Object Type",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Object Type"
           },
           "memberCode" : {
             "maxLength" : 10,
@@ -700,9 +783,7 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Application Code",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Application Code"
           },
           "connectionListCode" : {
             "maxLength" : 10,
@@ -714,30 +795,22 @@
           "taskNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Task Number",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Task Number"
           },
           "objectCode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Object Code",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Object Code"
           },
           "objectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Object Library",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Object Library"
           },
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Object Type",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Object Type"
           },
           "memberCode" : {
             "maxLength" : 10,
@@ -766,6 +839,69 @@
     },
     "responses" : { },
     "parameters" : { },
+    "examples" : {
+      "response401" : {
+        "summary" : "Not authorized.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQF201",
+          "messageType" : "E",
+          "messageData" : "",
+          "field" : "",
+          "messageText" : "Unauthorized or expired token. Please login again."
+        }
+      },
+      "response400" : {
+        "summary" : "Something went wrong.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQ6001",
+          "messageType" : "E",
+          "messageData" : "XXXX",
+          "field" : "applicatio",
+          "messageText" : "Application code XXXX does not exist. &N Cause . . . . . :   You have entered an application code which does not exist. &N Recovery  . . . :   Enter a valid application code and try your request again."
+        }
+      },
+      "addConnectionList" : {
+        "summary" : "How to specify the add connection list request input parameters value.",
+        "value" : {
+          "addProcessingOption" : {
+            "connectWithRules" : "0",
+            "applicationRelation" : "0"
+          },
+          "addData" : {
+            "applicationCode" : "XMP",
+            "connectionListCode" : "*USER",
+            "taskNumber" : "XT0497",
+            "objectCode" : "PFCONV",
+            "objectLibrary" : "OMHD_TST",
+            "objectType" : "*FILE",
+            "memberCode" : "*NONE",
+            "solutionType" : "*CHANGE"
+          }
+        }
+      },
+      "addConnectionListIFSObject" : {
+        "summary" : "How to specify the add connection list request input parameters value for IFS.",
+        "value" : {
+          "addProcessingOption" : {
+            "connectWithRules" : "0",
+            "applicationRelation" : "0"
+          },
+          "addData" : {
+            "applicationCode" : "XMP",
+            "connectionListCode" : "*USER",
+            "taskNumber" : "XT0497",
+            "objectCode" : "dashboard.js",
+            "objectLibrary" : "       485",
+            "objectType" : "*STMF",
+            "memberCode" : "*NONE",
+            "ifsObject" : "/QOpenSys/OMSIFS/XMP/PRD/PHP/htdocs/public/js/dashboard.js",
+            "solutionType" : "*CHANGE"
+          }
+        }
+      }
+    },
     "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
