@@ -24,7 +24,7 @@
   },
   "servers" : [ {
     "url" : "{protocol}://{host}:{port}/{library}/OMQRCN",
-    "description" : "A dynamic http host.",
+    "description" : "",
     "variables" : {
       "host" : {
         "description" : "The host serves the API.",
@@ -64,23 +64,17 @@
                 "$ref" : "#/components/schemas/addRequest"
               },
               "examples" : {
-                "addConversionDefinition" : {
-                  "summary" : "How to specify the add request input parameters value.",
-                  "value" : {
-                    "interfaceLevel" : "V17R1M0",
-                    "applicationCode" : "XMP",
-                    "objectCode" : "PFCONV",
-                    "memberCode" : "*ALL",
-                    "conversionType" : "*DATA",
-                    "programName" : "*SAME",
-                    "programLibrary" : "*SAME",
-                    "referenceObject" : "*SAME",
-                    "addProcessingOptions" : {
-                      "updateDb" : "1",
-                      "updateBuffer" : "1",
-                      "ignoreWarning" : "*NO"
-                    }
-                  }
+                "addConversionDefinitionWithNODATA" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/addConversionDefinitionWithNODATA"
+                },
+                "addConversionDefinitionWithOTHOBJ" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/addConversionDefinitionWithOTHOBJ"
+                },
+                "addConversionDefinitionWithUSRPGM" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/addConversionDefinitionWithUSRPGM"
                 }
               }
             }
@@ -104,6 +98,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/errorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -114,6 +114,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -146,23 +152,21 @@
                 "$ref" : "#/components/schemas/changeRequest"
               },
               "examples" : {
-                "changeConversionDefinition" : {
-                  "summary" : "How to specify the change request input parameters value.",
-                  "value" : {
-                    "interfaceLevel" : "V17R1M0",
-                    "applicationCode" : "XMP",
-                    "objectCode" : "PFCONV",
-                    "memberCode" : "*ALL",
-                    "conversionType" : "*NODATA",
-                    "programName" : "*SAME",
-                    "programLibrary" : "*SAME",
-                    "referenceObject" : "*SAME",
-                    "changeProcessingOptions" : {
-                      "updateDb" : "1",
-                      "updateBuffer" : "1",
-                      "ignoreWarning" : "*NO"
-                    }
-                  }
+                "changeConversionDefinitionWithUSRPGM" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/changeConversionDefinitionWithUSRPGM"
+                },
+                "changeConversionDefinitionWithNODATA" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/changeConversionDefinitionWithNODATA"
+                },
+                "changeConversionDefinitionWithOTHOBJ" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/changeConversionDefinitionWithOTHOBJ"
+                },
+                "changeConversionDefinitionWithDATA" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/changeConversionDefinitionWithDATA"
                 }
               }
             }
@@ -186,6 +190,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/errorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -196,6 +206,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -223,21 +239,6 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/deleteRequest"
-              },
-              "examples" : {
-                "deleteConversionDefinition" : {
-                  "summary" : "How to specify the delete request input parameters value.",
-                  "value" : {
-                    "interfaceLevel" : "V17R1M0",
-                    "applicationCode" : "XMP",
-                    "objectCode" : "PFCONV",
-                    "memberCode" : "*ALL",
-                    "deleteProcessingOptions" : {
-                      "updateDb" : "1",
-                      "updateBuffer" : "1"
-                    }
-                  }
-                }
               }
             }
           },
@@ -250,6 +251,34 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "deleteResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQD402",
+                        "messageType" : "",
+                        "messageData" : "*DELETE",
+                        "field" : "",
+                        "messageText" : "Action *DELETE for conversion definition completed normally. &N Cause . . . . . :   Your request for action *DELETE for conversion definition completed normally. &N Recovery  . . . :   None needed, this message is informational."
+                      },
+                      "responseData" : {
+                        "applicationCode" : "",
+                        "conversionCode" : "",
+                        "objectCode" : "",
+                        "objectType" : "",
+                        "memberCode" : "",
+                        "conversionType" : "",
+                        "programName" : "",
+                        "programLibrary" : "",
+                        "referenceObject" : "",
+                        "referenceObjectLibrary" : ""
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -260,6 +289,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/errorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -270,6 +305,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -293,32 +334,38 @@
           "messageFile" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The message file."
+            "description" : "The message file.",
+            "example" : "OMSAPI"
           },
           "messageId" : {
             "maxLength" : 7,
             "type" : "string",
-            "description" : "The message id."
+            "description" : "The message id.",
+            "enum" : [ "OMQD402" ]
           },
           "messageType" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "The message type 'E' indicates an error message, 'W' indicates a warning, while a blank indicates a normal message with no error."
+            "description" : "The message type 'E' indicates an error message, 'W' indicates a warning, while a blank indicates a normal message with no error.",
+            "example" : ""
           },
           "messageData" : {
             "maxLength" : 80,
             "type" : "string",
-            "description" : "The message substitution data."
+            "description" : "The message substitution data.",
+            "example" : ""
           },
           "field" : {
             "maxLength" : 50,
             "type" : "string",
-            "description" : "The field in error."
+            "description" : "The field in error.",
+            "example" : ""
           },
           "messageText" : {
             "maxLength" : 644,
             "type" : "string",
-            "description" : "The human readable message text."
+            "description" : "The human readable message text.",
+            "example" : "Action *ADD for conversion definition completed normally."
           }
         },
         "description" : "The return messages."
@@ -327,13 +374,13 @@
         "maxLength" : 5,
         "type" : "string",
         "description" : "Specify the application code.\r\n                                                         \r\nA blank value is not allowed in the application code field.                                                    ",
-        "default" : "",
-        "enum" : [ "" ]
+        "example" : "XMP"
       },
       "conversionType" : {
         "maxLength" : 7,
         "type" : "string",
         "description" : "The data conversion type instructs OMS what action must be taken on the data in a physical file. Default conversion will be performed by OMS if no conversion type is defined for a specific physical file: The contents of the replaced\r\nphysical file will be copied to the newly created physical using the *MAP and *DROP parameters.                      \r\n\r\nThe possible values are: \r\n\r\n1=Including data (*DATA)                               \r\n    The object will be copied as will the data it contains, thus replacing existing data members. Use this value for physical files containing changed parameter values.                                  \r\n\r\n2=Without data (*NODATA)                                 \r\n    The object will be copied without the data it contains, thus creating a empty file.                \r\n                                                         \r\n8=Call user program (*USRPGM)                            \r\n    A user conversion program which can be defined in the OMS conversion file (See technical description below) will be called after the physical file has been created.                                           \r\n\r\n9=Convert from other file (*OTHOBJ)                                    \r\n    Standard conversion will be executed, though not from an equally amed physical file but from a physical file with a different name.\r\n\r\nTechnical description                                             \r\nA user program is called using the following parameters for type '8'(*USRPGM). All parameters are character fields:                \r\nParameter   Description (length)                                     \r\n                                                                     \r\nFENV        The From-environment code (C5)                           \r\n                                                                     \r\nFOBC        The From-object code; the physical file with data (C10)  \r\n                                                                     \r\nFOBL        The library of the physical file to be copied (C10)      \r\n                                                                     \r\nTENV        The To-environment code (C5)                             \r\n                                                                     \r\nTOBJ        The To-object code; the newly created physical file (C10)\r\n                                                                     \r\nTOBL        To library of the newly created physical file (C10)      \r\n                                                                     \r\nSTAT        The status after converting the data (C5). Use the value '*NORM' for normal ending of program and '*TERM' for abnormal ending.                                    ",
+        "example" : "*DATA",
         "default" : "*DATA",
         "enum" : [ "*DATA", "*NODATA", "*USRPGM", "*OTHOBJ" ]
       },
@@ -348,6 +395,7 @@
         "maxLength" : 8,
         "type" : "string",
         "description" : "Enter the interface level code.",
+        "example" : "V17R1M0",
         "default" : "V17R1M0",
         "enum" : [ "V17R1M0" ]
       },
@@ -498,7 +546,8 @@
       "status" : {
         "maxLength" : 5,
         "type" : "string",
-        "description" : "returns the status of the api request."
+        "description" : "returns the status of the api request.",
+        "example" : "*NORM"
       },
       "response" : {
         "type" : "object",
@@ -522,6 +571,7 @@
             "maxLength" : 5,
             "type" : "string",
             "description" : "Application code",
+            "example" : "XMP",
             "x-column" : "NVAPPC",
             "x-sequence" : "10"
           },
@@ -529,6 +579,7 @@
             "maxLength" : 1,
             "type" : "string",
             "description" : "Conversion code",
+            "example" : "0",
             "x-column" : "NVCNVC",
             "x-sequence" : "20"
           },
@@ -536,6 +587,7 @@
             "maxLength" : 12,
             "type" : "string",
             "description" : "Object code",
+            "example" : "PFCONV",
             "x-column" : "NVOBJC",
             "x-sequence" : "30"
           },
@@ -543,6 +595,7 @@
             "maxLength" : 9,
             "type" : "string",
             "description" : "Object type",
+            "example" : "*FILE",
             "x-column" : "NVOBJT",
             "x-sequence" : "40"
           },
@@ -550,6 +603,7 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Member code",
+            "example" : "",
             "x-column" : "NVMBRC",
             "x-sequence" : "50"
           },
@@ -557,6 +611,7 @@
             "maxLength" : 1,
             "type" : "string",
             "description" : "Conversion type",
+            "example" : "1",
             "x-column" : "NVCNVT",
             "x-sequence" : "60"
           },
@@ -564,6 +619,7 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Program name",
+            "example" : "CONVPGM",
             "x-column" : "NVPGMN",
             "x-sequence" : "70"
           },
@@ -571,6 +627,7 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Program library",
+            "example" : "OMHD_PRD",
             "x-column" : "NVPGML",
             "x-sequence" : "80"
           },
@@ -578,6 +635,7 @@
             "maxLength" : 12,
             "type" : "string",
             "description" : "Reference object",
+            "example" : "REFOBJ",
             "x-column" : "NVROBC",
             "x-sequence" : "90"
           },
@@ -585,6 +643,7 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Reference object library",
+            "example" : "*SCOPE",
             "x-column" : "NVROBL",
             "x-sequence" : "100"
           }
@@ -615,6 +674,7 @@
         "maxLength" : 10,
         "type" : "string",
         "description" : "Use this prompt to enter a specific member name if a single member is connected to a fix, not the physical file itself.  The value *ALL must be used if a physical file is connected to a fix.                                        ",
+        "example" : "",
         "default" : "*ALL",
         "enum" : [ "*ALL" ]
       },
@@ -622,6 +682,7 @@
         "maxLength" : 10,
         "type" : "string",
         "description" : "Specify the conversion program name and the library for the conversion definition. Blank values are not allowed.                                \r\n                                                                         \r\nQualifier 1: conversion program name                                     \r\n    Use this value in combination with conversion type *USRPGM to enter the object code of the conversion program to be called.              \r\n                                                                         \r\n*SAME                                                                    \r\n    Use this value to indicate that conversion program name does not change. In *ADD mode, this value is not allowed.                     \r\n                                                                         \r\n    In *change this value is allowed only if database does not have a blank value.                                                         ",
+        "example" : "CONVPGM",
         "default" : "*SAME",
         "enum" : [ "*SAME" ]
       },
@@ -629,6 +690,7 @@
         "maxLength" : 10,
         "type" : "string",
         "description" : "    Use this value in combination with conversion type *USRPGM to enter  the object code library of the conversion program to be called.     \r\n                                                                        \r\n*SAME                                                                   \r\n    Use this value to indicate that conversion library name does not change. In *ADD mode, this value is not allowed.                    \r\n                                                                        \r\n    In *change this value is allowed only if database does not have a blank value.                \r\n\r\n*LIBL                                                                   \r\n    Use this value to indicate that conversion program will be referred from the library list.                                                                                      ",
+        "example" : "OMHD_PRD",
         "default" : "*SAME",
         "enum" : [ "*SAME", "*LIBL" ]
       },
@@ -636,6 +698,7 @@
         "maxLength" : 12,
         "type" : "string",
         "description" : "Use this prompt in combination with conversion type *OTHOBJ to enter the related object code. This must be a physical file which will be used to copy the data from.                                                     \r\n                                                                        \r\n*SAME                                                                   \r\n    Use this value to indicate that related object code does not change. In *ADD mode, this value is not allowed.                            \r\n                                                                        \r\n    In *change this value is allowed only if database does not have a blank value.                                                        ",
+        "example" : "REFOBJ",
         "default" : "*SAME",
         "enum" : [ "*SAME" ]
       },
@@ -643,12 +706,150 @@
         "maxLength" : 12,
         "type" : "string",
         "description" : "Use this prompt to enter the object code of the physical file you are defining the conversion for. A blank value is not allowed.                                               ",
-        "default" : "",
-        "enum" : [ "" ]
+        "example" : "PFCONV"
       }
     },
     "responses" : { },
     "parameters" : { },
+    "examples" : {
+      "addConversionDefinitionWithNODATA" : {
+        "summary" : "How to add the conversionDefinition with conversion type *NODATA",
+        "description" : "The object will be copied without the data it contains.",
+        "value" : {
+          "interfaceLevel" : "V17R1M0",
+          "applicationCode" : "XMP",
+          "objectCode" : "PFCONV",
+          "memberCode" : "*ALL",
+          "conversionType" : "*NODATA",
+          "addProcessingOptions" : {
+            "updateDb" : "1",
+            "updateBuffer" : "1",
+            "ignoreWarning" : "*NO"
+          }
+        }
+      },
+      "addConversionDefinitionWithUSRPGM" : {
+        "summary" : "How to add conversion definition with conversion type *USRPGM",
+        "description" : "A user conversion program which can be defined in the OMS conversion file.",
+        "value" : {
+          "applicationCode" : "XMP",
+          "objectCode" : "PFCONV",
+          "memberCode" : "*ALL",
+          "conversionType" : "*USRPGM",
+          "programName" : "CONVPGM",
+          "programLibrary" : "OMHD_PRD",
+          "addProcessingOptions" : {
+            "updateDb" : "1",
+            "updateBuffer" : "1",
+            "ignoreWarning" : "*NO"
+          }
+        }
+      },
+      "addConversionDefinitionWithOTHOBJ" : {
+        "summary" : "How to add conversion definition with conversion type *OTHOBJ",
+        "description" : "Standard conversion will be executed,though not from an equally named physical file but from a physical file with a different name.",
+        "value" : {
+          "applicationCode" : "XMP",
+          "objectCode" : "PFCONV",
+          "memberCode" : "*ALL",
+          "conversionType" : "*OTHOBJ",
+          "referenceObject" : "REFOBJ",
+          "addProcessingOptions" : {
+            "updateDb" : "1",
+            "updateBuffer" : "1",
+            "ignoreWarning" : "*NO"
+          }
+        }
+      },
+      "changeConversionDefinitionWithDATA" : {
+        "summary" : "How to change the conversionDefinition with conversion type *DATA",
+        "description" : "Conversion type can be changed here for the selected object.",
+        "value" : {
+          "applicationCode" : "XMP",
+          "objectCode" : "PFCONV",
+          "memberCode" : "*ALL",
+          "conversionType" : "*DATA",
+          "changeProcessingOptions" : {
+            "updateDb" : "1",
+            "updateBuffer" : "1",
+            "ignoreWarning" : "*NO"
+          }
+        }
+      },
+      "changeConversionDefinitionWithNODATA" : {
+        "summary" : "How to change the conversionDefinition with conversion type *NODATA",
+        "description" : "Conversion type can be changed here for the selected object.",
+        "value" : {
+          "applicationCode" : "XMP",
+          "objectCode" : "PFCONV",
+          "memberCode" : "*ALL",
+          "conversionType" : "*NODATA",
+          "changeProcessingOptions" : {
+            "updateDb" : "1",
+            "updateBuffer" : "1",
+            "ignoreWarning" : "*NO"
+          }
+        }
+      },
+      "changeConversionDefinitionWithUSRPGM" : {
+        "summary" : "How to change the conversionDefinition with conversion type *USRPGM",
+        "description" : "Conversion type can be changed here for the selected object.",
+        "value" : {
+          "applicationCode" : "XMP",
+          "objectCode" : "PFCONV",
+          "memberCode" : "*ALL",
+          "conversionType" : "*USRPGM",
+          "programName" : "CONVPGM",
+          "programLibrary" : "OMHD_PRD",
+          "changeProcessingOptions" : {
+            "updateDb" : "1",
+            "updateBuffer" : "1",
+            "ignoreWarning" : "*NO"
+          }
+        }
+      },
+      "changeConversionDefinitionWithOTHOBJ" : {
+        "summary" : "How to change the conversionDefinition with conversion type *OTHOBJ",
+        "description" : "Conversion type can be changed here for the selected object.",
+        "value" : {
+          "applicationCode" : "XMP",
+          "objectCode" : "PFCONV",
+          "memberCode" : "*ALL",
+          "conversionType" : "*OTHOBJ",
+          "referenceObject" : "REFOBJ",
+          "changeProcessingOptions" : {
+            "updateDb" : "1",
+            "updateBuffer" : "1",
+            "ignoreWarning" : "*NO"
+          }
+        }
+      },
+      "response401" : {
+        "summary" : "Not authorized.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQF201",
+          "messageType" : "E",
+          "messageData" : "",
+          "field" : "",
+          "messageText" : "Unauthorized or expired token. Please login again."
+        }
+      },
+      "response400" : {
+        "summary" : "Something went wrong.",
+        "value" : {
+          "status" : "*TERM",
+          "messages" : [ {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQ5112",
+            "messageType" : "E",
+            "messageData" : "application code                XXXX",
+            "field" : "applicationCode",
+            "messageText" : "The application code XXXX does not exist. &N Cause . . . . . :   You have specified the application code GGGG that does not exist. &N Recovery  . . . :   Specify the existing application code and try your request again."
+          } ]
+        }
+      }
+    },
     "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
