@@ -24,7 +24,7 @@
   },
   "servers" : [ {
     "url" : "{protocol}://{host}:{port}/{library}/OMQRBR",
-    "description" : "A dynamic https host",
+    "description" : "",
     "variables" : {
       "host" : {
         "description" : "The host serving the API",
@@ -69,8 +69,8 @@
                   "value" : {
                     "applicationCode" : "XMP",
                     "pathCode" : "XT0275",
-                    "connectToFix" : "*NONE",
-                    "transferPathDescription" : "XT0275 Created."
+                    "connectToFix" : "*BRANCH",
+                    "transferPathDescription" : "Branch for task XT0275."
                   }
                 }
               }
@@ -85,6 +85,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -95,6 +101,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -105,6 +117,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -139,7 +157,7 @@
                   "value" : {
                     "applicationCode" : "XMP",
                     "pathCode" : "XT0275",
-                    "transferPathDescription" : "XT0275 changed."
+                    "transferPathDescription" : "Branch for task XT0275 changed."
                   }
                 }
               }
@@ -154,6 +172,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -164,6 +188,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -174,6 +204,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -223,6 +259,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -233,6 +275,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -243,6 +291,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -291,6 +345,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -301,6 +361,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -311,6 +377,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -364,23 +436,17 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Enter the application code.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Enter the application code."
           },
           "pathCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the branch name to be changed.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Enter the branch name to be changed."
           },
           "transferPathDescription" : {
             "maxLength" : 50,
             "type" : "string",
-            "description" : "Enter the branch description to be changed.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Enter the branch description to be changed."
           }
         },
         "description" : "A branch is changed using this input schema."
@@ -405,30 +471,24 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Enter the name of the application.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Enter the name of the application."
           },
           "pathCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "enter the name of the branch to be created.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "enter the name of the branch to be created."
           },
           "connectToFix" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "Enter the task name to which the transfer path is connected.\r\n*NONE                                                     \r\n    No task is involved.                              \r\n                                                          \r\n*BRANCH                                                   \r\n    The branch code would be set the name of the task.\r\ntask-code                              \r\n    Specify the name of the task.",
             "default" : "*NONE",
-            "enum" : [ "*NONE", "*BRANCH" ]
+            "enum" : [ "*NONE", "*BRANCH", "Task Number" ]
           },
           "transferPathDescription" : {
             "maxLength" : 50,
             "type" : "string",
-            "description" : "The description contains a short description of the branch. A blank value is not allowed.                \r\n\r\n*SAME                                                     \r\n    Use this value to indicate that the description does not change. \r\n\r\ndescription                    \r\n    Enter a branch description.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "The description contains a short description of the branch. A blank value is not allowed.                \r\n\r\n*SAME                                                     \r\n    Use this value to indicate that the description does not change. \r\n\r\ndescription                    \r\n    Enter a branch description."
           }
         },
         "description" : "A branch is created using this input schema."
@@ -439,16 +499,12 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Enter the application code.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Enter the application code."
           },
           "pathCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the branch code for which status has to be calculated.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Enter the branch code for which status has to be calculated."
           }
         },
         "description" : "A branch status is calculated and updated using this input schema."
@@ -459,16 +515,12 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Enter the application code for which branch has to be deleted.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Enter the application code for which branch has to be deleted."
           },
           "pathCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the branch code that has to be deleted.",
-            "default" : "",
-            "enum" : [ "" ]
+            "description" : "Enter the branch code that has to be deleted."
           },
           "forceInd" : {
             "maxLength" : 1,
@@ -483,6 +535,38 @@
     },
     "responses" : { },
     "parameters" : { },
+    "examples" : {
+      "response401" : {
+        "summary" : "Not authorized.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQF201",
+          "messageData" : "",
+          "messageText" : "Unauthorized or expired token. Please login again."
+        }
+      },
+      "response400" : {
+        "summary" : "Something went wrong.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQ6001",
+          "messageData" : "XXX",
+          "messageText" : "Application code XXX does not exist. &N Cause . . . . . :   You have entered an application code which does not exist. &N Recovery  . . . :   Enter a valid application code and try your request again."
+        }
+      },
+      "response200" : {
+        "summary" : "Response to a successful API call.",
+        "value" : {
+          "messages" : {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQ2016",
+            "messageData" : "XT0275     XMP",
+            "messageText" : "Action for branch XT0275 in application XMP completed normally"
+          },
+          "status" : "*NORM"
+        }
+      }
+    },
     "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
