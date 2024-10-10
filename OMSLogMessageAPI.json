@@ -1,0 +1,733 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "OMS Log Message API",
+    "description" : "This API is used to show to job log messages.",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License ",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "object" : "OMQRLH",
+      "library" : "V17T0075",
+      "srclibrary" : "V17T0075S",
+      "file" : "OMSLogMessageAPI.json"
+    }
+  },
+  "servers" : [ {
+    "url" : "{protocol}://{host}:{port}/{library}/OMQRLH",
+    "description" : "plato",
+    "variables" : {
+      "protocol" : {
+        "description" : "Protocol",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
+      },
+      "host" : {
+        "description" : "The host serves the API.",
+        "default" : "plato.remainsoftware.com"
+      },
+      "library" : {
+        "description" : "The TD/OMS library.",
+        "default" : "OMS"
+      },
+      "port" : {
+        "description" : "The port to which the server is listening.",
+        "default" : "45011"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/getMessage" : {
+      "summary" : "It will return the second level message.",
+      "description" : "It will return the second level message.",
+      "post" : {
+        "summary" : "it will return the second level message.",
+        "description" : "it will return the second level message.",
+        "operationId" : "getMessage",
+        "requestBody" : {
+          "description" : "Post Method",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/messageRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/messageResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request from Client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "03",
+          "generate" : true
+        }
+      }
+    },
+    "/getLogHistory" : {
+      "summary" : "Get the log history",
+      "description" : "Get the log history",
+      "post" : {
+        "summary" : "Get the log history",
+        "description" : "Get the log history",
+        "operationId" : "getLogHistory",
+        "requestBody" : {
+          "description" : "Post Method",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/logHistoryRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/logHistoryResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request from Client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : false
+        }
+      }
+    },
+    "/listMessages" : {
+      "summary" : "Get the list of messages.",
+      "description" : "Get the list of messages.",
+      "post" : {
+        "summary" : "List the messages where messageid starts with OTPXXXX.",
+        "description" : "List the messages where messageid starts with OTPXXXX.",
+        "operationId" : "listMessages",
+        "requestBody" : {
+          "description" : "Post Method",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/messageListRequest"
+              }
+            }
+          },
+          "required" : false
+        },
+        "responses" : {
+          "200" : {
+            "description" : "return code 200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/messageListResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request from Client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "02",
+          "generate" : false
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "extendedMessage" : {
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The IBMi message file."
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "The IBMi message id."
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The IBMi message type."
+          },
+          "messageData" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "The IBMi message data."
+          },
+          "field" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "The error in field."
+          },
+          "messageText" : {
+            "maxLength" : 644,
+            "type" : "string",
+            "description" : "The human readable message text."
+          }
+        }
+      },
+      "errorResponse" : {
+        "type" : "object",
+        "properties" : {
+          "messages" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "It returns the status."
+          }
+        }
+      },
+      "messageInfo" : {
+        "type" : "object",
+        "properties" : {
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "It will contain the message id."
+          },
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "It will contain the message file."
+          },
+          "messageData" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "It will contain the message data."
+          }
+        },
+        "description" : "It will contain the message information."
+      },
+      "messageResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "It contains the status."
+          },
+          "startDate" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The start date in YYYY-MM-DD format."
+          },
+          "startTime" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The start time HH:MM:SS format."
+          },
+          "program" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "It contains the program name."
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "It contains the message id."
+          },
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "It contains the application name."
+          },
+          "firstLevelMessage" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "It contains the main message."
+          },
+          "secondLevelMessage" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "It contains the cause and recovery of message."
+          },
+          "severityCode" : {
+            "maximum" : 10,
+            "type" : "integer",
+            "description" : "It contains the severity code."
+          },
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "It contains the message file."
+          }
+        }
+      },
+      "logHistoryRequest" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The application name."
+          },
+          "pagingDetails" : {
+            "$ref" : "#/components/schemas/pagingDetails"
+          },
+          "filterRecords" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/filterRecords"
+            }
+          },
+          "searchFlags" : {
+            "$ref" : "#/components/schemas/searchFlags"
+          }
+        }
+      },
+      "filterRecords" : {
+        "type" : "object",
+        "properties" : {
+          "startDate" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The start date in YYYY-MM-DD format."
+          },
+          "startTime" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The start time HH:MM:SS format."
+          },
+          "taskNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The task number."
+          },
+          "requestNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The request number."
+          },
+          "releaseNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The release number."
+          },
+          "jobName" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "It contains the job name."
+          },
+          "userIDOrUserClass" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "It contains the user name."
+          },
+          "jobNumber" : {
+            "maxLength" : 6,
+            "type" : "string",
+            "description" : "It contains the job number."
+          }
+        }
+      },
+      "logHistoryResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "It returns the status."
+          },
+          "totalRecords" : {
+            "maximum" : 10,
+            "type" : "integer",
+            "description" : "Return the total number of records."
+          },
+          "jobLogsHistory" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/jobLogsHistory"
+            }
+          }
+        },
+        "description" : "It contains the DSPLOGOMS log."
+      },
+      "jobLogsHistory" : {
+        "type" : "object",
+        "properties" : {
+          "jobName" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "It contains the job name."
+          },
+          "jobNumber" : {
+            "maximum" : 6,
+            "type" : "number",
+            "description" : "It contains the job number."
+          },
+          "userIDOrUserClass" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "it contains the user name."
+          },
+          "requestNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "It contains the request number."
+          },
+          "taskNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "It contains the task number."
+          },
+          "releaseNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "It contains the release number."
+          },
+          "incomeDate" : {
+            "type" : "number",
+            "description" : "Income Date.",
+            "format" : "zoned(7:0)"
+          },
+          "incomeTime" : {
+            "type" : "number",
+            "description" : "Income time.",
+            "format" : "zoned(6:0)"
+          },
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "It contains the application code."
+          }
+        },
+        "description" : "It contains the DSPLOGOMS log."
+      },
+      "messageListRequest" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "It contains the application Code."
+          },
+          "pagingDetails" : {
+            "$ref" : "#/components/schemas/pagingDetails"
+          },
+          "userIDOrUserClass" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "It contains the user name."
+          },
+          "jobName" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "It contains the job name."
+          },
+          "jobNumber" : {
+            "type" : "number",
+            "description" : "It contains the job number.",
+            "format" : "zoned(6:0)"
+          },
+          "messageFilterRecords" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/messageFilterRecords"
+            }
+          },
+          "searchFlags" : {
+            "$ref" : "#/components/schemas/searchFlags"
+          },
+          "fromRelativeRecordNumber" : {
+            "maximum" : 10,
+            "type" : "integer",
+            "description" : "It will contain from relative record number."
+          },
+          "toRelativeRecordNumber" : {
+            "maximum" : 10,
+            "type" : "integer",
+            "description" : "It will contain to relative record number."
+          }
+        },
+        "description" : ""
+      },
+      "messageListResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "It contains the status."
+          },
+          "totalRecords" : {
+            "maximum" : 10,
+            "type" : "integer",
+            "description" : "The total number of message entries in the list. Divide this by 50 to get the number of pages."
+          },
+          "messageLists" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/messageLists"
+            }
+          }
+        },
+        "description" : ""
+      },
+      "pagingDetails" : {
+        "type" : "object",
+        "properties" : {
+          "pageNumber" : {
+            "maximum" : 10,
+            "type" : "integer",
+            "description" : "The page number to view. If the file contains 100 records and you want 50 records back then you can specify the page number e.g. 1 to get records 1 to 50."
+          },
+          "pageSize" : {
+            "maximum" : 10,
+            "type" : "integer",
+            "description" : "It contains the number of records to be returned."
+          }
+        }
+      },
+      "messageFilterRecords" : {
+        "type" : "object",
+        "properties" : {
+          "messageTexts" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "This contains the message texts."
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "It contains the message id."
+          },
+          "startTime" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The start time HH:MM:SS format."
+          },
+          "startDate" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The start date in YYYY-MM-DD format."
+          },
+          "severityCode" : {
+            "maximum" : 10,
+            "type" : "integer",
+            "description" : "It contains severity code."
+          }
+        },
+        "description" : ""
+      },
+      "messageLists" : {
+        "type" : "object",
+        "properties" : {
+          "messageText" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "It contains the message text."
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "it contains the message id."
+          },
+          "startTime" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The start time HH:MM:SS format."
+          },
+          "severityCode" : {
+            "maximum" : 10,
+            "type" : "integer",
+            "description" : "It contains the severity code."
+          },
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "It contains the message file."
+          },
+          "startDate" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The start date in YYYY-MM-DD format."
+          },
+          "messageData" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "It contains the message data."
+          },
+          "isParent" : {
+            "type" : "boolean",
+            "description" : "If OTPXXXX message has subsequent message then return true else false.",
+            "default" : false
+          },
+          "relativeRecordNumber" : {
+            "maximum" : 10,
+            "type" : "integer",
+            "description" : "It contains the relative record number."
+          }
+        },
+        "description" : ""
+      },
+      "messageRequest" : {
+        "type" : "object",
+        "properties" : {
+          "jobName" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "It contains the job name."
+          },
+          "userIDOrUserClass" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "it contains the user name."
+          },
+          "jobNumber" : {
+            "maximum" : 6,
+            "type" : "number",
+            "description" : "It contains the job number."
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "It contains the message id."
+          },
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "It contains the message file."
+          },
+          "messageData" : {
+            "type" : "string",
+            "description" : "It contains the message data."
+          }
+        },
+        "description" : ""
+      },
+      "searchFlags" : {
+        "type" : "object",
+        "properties" : {
+          "exactMatch" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "It will contain 0 = false and 1 = true."
+          },
+          "caseSensitive" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "It will contain 0 = false and 1 = true."
+          },
+          "isOROperator" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "It will contain 0 = false and 1 = true."
+          }
+        },
+        "description" : "It contains the job information."
+      }
+    },
+    "responses" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "The HTTP API Token",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
