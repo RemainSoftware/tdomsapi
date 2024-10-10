@@ -365,7 +365,7 @@
             "maxLength" : 644,
             "type" : "string",
             "description" : "The human readable message text.",
-            "example" : "Action *ADD for conversion definition completed normally."
+            "example" : "Action for conversion definition completed normally."
           }
         },
         "description" : "The return messages."
