@@ -2,7 +2,7 @@
   "openapi" : "3.0.1",
   "info" : {
     "title" : "User Defined Variable API.",
-    "description" : "The TD/OMS Label API allows you to perform all allowed actions on a user defined variable. With this API the characteristics of an User defined substitution variable are maintained. These variables can be used in action definitions.",
+    "description" : "The User Defined Variable API allows you to perform all allowed actions on a user defined variable. With this API the characteristics of an User defined substitution variable are maintained. These variables can be used in action definitions.",
     "termsOfService" : "",
     "contact" : {
       "name" : "Remain Software",
@@ -30,10 +30,6 @@
         "description" : "The host serving the API",
         "default" : "plato.remainsoftware.com"
       },
-      "port" : {
-        "description" : "The port to which server is listening.",
-        "default" : "45611"
-      },
       "library" : {
         "description" : "TD/OMS library",
         "default" : "OMS"
@@ -42,6 +38,10 @@
         "description" : "Protocol",
         "default" : "https",
         "enum" : [ "https", "http" ]
+      },
+      "port" : {
+        "description" : "The port to which server is listening.",
+        "default" : "45011"
       }
     }
   } ],
@@ -74,6 +74,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "Response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/Response401"
+                  }
                 }
               }
             }
@@ -84,6 +90,28 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "addResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "extendedMessage" : {
+                        "messageFile" : "OMSAPI",
+                        "messageID" : "OMQ7032",
+                        "messageType" : "",
+                        "messageData" : "*ADD",
+                        "field" : "",
+                        "messageText" : "Action *ADD for user defined substitution variable completed normally. &N Cause . . . . . :   Your request for action *ADD for user defined substitution variable completed normally. &N Recovery  . . . :   None needed, this message is informational."
+                      },
+                      "responseData" : {
+                        "keyword" : "VAR1",
+                        "applicationCode" : "XMP",
+                        "environmentCode" : "*DEV",
+                        "keyValue" : "TESTKEYWORD"
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -94,6 +122,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/errorResponse"
+                },
+                "examples" : {
+                  "Response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/Response400"
+                  }
                 }
               }
             }
@@ -133,6 +167,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "Response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/Response401"
+                  }
                 }
               }
             }
@@ -143,6 +183,28 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "changeResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "extendedMessage" : {
+                        "messageFile" : "OMSAPI",
+                        "messageID" : "OMQ7032",
+                        "messageType" : "",
+                        "messageData" : "*CHANGE",
+                        "field" : "",
+                        "messageText" : "Action *CHANGE for user defined substitution variable completed normally. &N Cause . . . . . :   Your request for action *CHANGE for user defined substitution variable completed normally. &N Recovery  . . . :   None needed, this message is informational."
+                      },
+                      "responseData" : {
+                        "keyword" : "VAR1",
+                        "applicationCode" : "XMP",
+                        "environmentCode" : "*DEV",
+                        "keyValue" : "TESTKEYWORD"
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -153,6 +215,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/errorResponse"
+                },
+                "examples" : {
+                  "Response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/Response400"
+                  }
                 }
               }
             }
@@ -192,6 +260,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "Response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/Response401"
+                  }
                 }
               }
             }
@@ -202,6 +276,28 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "deleteResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "extendedMessage" : {
+                        "messageFile" : "OMSAPI",
+                        "messageID" : "OMQ7032",
+                        "messageType" : "",
+                        "messageData" : "*DELETE",
+                        "field" : "",
+                        "messageText" : "Action *DELETE for user defined substitution variable completed normally. &N Cause . . . . . :   Your request for action *DELETE for user defined substitution variable completed normally. &N Recovery  . . . :   None needed, this message is informational."
+                      },
+                      "responseData" : {
+                        "keyword" : "",
+                        "applicationCode" : "",
+                        "environmentCode" : "",
+                        "keyValue" : ""
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -212,6 +308,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "Response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/Response400"
+                  }
                 }
               }
             }
@@ -390,22 +492,26 @@
           "keyword" : {
             "maxLength" : 15,
             "type" : "string",
-            "description" : "The User defined substitution variable which can be used in action definition and will be substituted with the defined substitution value when the action is executed. The prefix '&UDV' will be added to the variable name you provide."
+            "description" : "The User defined substitution variable which can be used in action definition and will be substituted with the defined substitution value when the action is executed. The prefix '&UDV' will be added to the variable name you provide.",
+            "example" : "VAR1"
           },
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the application code.\r\nA blank value is allowed in the application code field."
+            "description" : "Specify the application code.\r\nA blank value is allowed in the application code field.",
+            "example" : "XMP"
           },
           "environmentCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the environment code.\r\nA blank value is allowed in the environment code field."
+            "description" : "Specify the environment code.\r\nA blank value is allowed in the environment code field.",
+            "example" : "*DEV"
           },
           "keyValue" : {
             "maxLength" : 256,
             "type" : "string",
-            "description" : "The substition value by which the substitution is replaced when an user defined substition variable is used in an action definition.                                        "
+            "description" : "The substition value by which the substitution is replaced when an user defined substition variable is used in an action definition.                                        ",
+            "example" : "TESTKEYWORD"
           }
         },
         "description" : "",
@@ -433,11 +539,39 @@
       }
     },
     "responses" : { },
+    "parameters" : { },
+    "examples" : {
+      "Response401" : {
+        "summary" : "Not authorized.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageID" : "OMQF201",
+          "messageType" : "E",
+          "messageData" : "",
+          "field" : "",
+          "messageText" : "Unauthorized or expired token. Please login again."
+        }
+      },
+      "Response400" : {
+        "summary" : "Something went wrong.",
+        "value" : {
+          "status" : "*TERM",
+          "extendedMessage" : [ {
+            "messageFile" : "OMSAPI",
+            "messageID" : "OMQ5111",
+            "messageType" : "E",
+            "messageData" : "Value",
+            "field" : "keyValue",
+            "messageText" : "The Value may not be blank. &N Cause . . . . . :   You cannot specify the blank value for Value. &N Recovery  . . . :   Specify the valid Value and try your request again."
+          } ]
+        }
+      }
+    },
+    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
         "description" : "JWT security",
-        "name" : "JWT",
         "scheme" : "bearer",
         "bearerFormat" : "JWT"
       }
