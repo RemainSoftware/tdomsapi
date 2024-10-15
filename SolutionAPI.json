@@ -23,20 +23,25 @@
     }
   },
   "servers" : [ {
-    "url" : "https://{host}:{port}/{library}/OMQRSO",
+    "url" : "{protocol}://{host}:{port}/{library}/OMQRSO",
     "description" : "A dynamic https host",
     "variables" : {
       "host" : {
         "description" : "The host serving the API",
         "default" : "plato.remainsoftware.com"
       },
-      "port" : {
-        "description" : "The port to which the server is listening",
-        "default" : "45211"
-      },
       "library" : {
         "description" : "The TD/OMS library",
         "default" : "OMS"
+      },
+      "protocol" : {
+        "description" : "Protocol",
+        "enum" : [ "https", "http" ],
+        "default" : "https"
+      },
+      "port" : {
+        "description" : "The port to which the server is listening",
+        "default" : "45011"
       }
     }
   } ],
@@ -57,6 +62,28 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/changeSolutionRequest"
+              },
+              "examples" : {
+                "changeSolutiopn" : {
+                  "summary" : "How to specify the change solutuion request input parameters value.",
+                  "value" : {
+                    "interfaceLevel" : "V3R0M0",
+                    "changeProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1"
+                    },
+                    "changeData" : {
+                      "applicationCode" : "XMP",
+                      "fixNumber" : "XT0497",
+                      "objectCode" : "BAS",
+                      "objectType" : "*PGM",
+                      "memberCode" : "",
+                      "sourceProcessing" : "1",
+                      "overrideCode" : "",
+                      "solutionType" : "1"
+                    }
+                  }
+                }
               }
             }
           },
@@ -69,6 +96,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/solutionResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -79,6 +112,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -89,6 +128,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -126,6 +171,16 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/connectSolutionRequest"
+              },
+              "examples" : {
+                "connectObject" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/connectObject"
+                },
+                "connectIFSObject" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/connectIFSObject"
+                }
               }
             }
           },
@@ -138,6 +193,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/solutionResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -148,6 +209,97 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/connectResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : {
+                      "messages" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQ404C",
+                        "messageType" : "E",
+                        "messageData" : "XMP  XT0497    .classpath  *STMF                     626XT0589    .classpath",
+                        "field" : "",
+                        "messageText" : "Solution .classpath... type *STMF already connected to fix XT0589. &N Cause . . . . . :   You requested the connection of IFS-object .classpath... type *STMF in directory  to fix XT0497 in application XMP. The object itself or one of its details serves however already as main object in fix XT0589. You cannot connect the same object to several fixes without using the override code. &N Recovery  . . . :   Use the override code and connect the object again or refer to fix XT0589."
+                      },
+                      "solutionConflictDetail" : [ {
+                        "sequenceNumber" : 1,
+                        "action" : "*SKIP",
+                        "txt" : "Skip this object"
+                      }, {
+                        "sequenceNumber" : 2,
+                        "action" : "*REMOVE",
+                        "txt" : "Remove from connection list"
+                      }, {
+                        "sequenceNumber" : 3,
+                        "action" : "*CONNECT",
+                        "txt" : "Connect"
+                      }, {
+                        "sequenceNumber" : 4,
+                        "action" : "*CONNECTMRG",
+                        "txt" : "Connect as merged"
+                      } ],
+                      "solutionAlternative" : {
+                        "solutionAlternativeNumber" : 0,
+                        "solutionAlternativeText" : { }
+                      },
+                      "solutionResponse" : {
+                        "applicationCode" : "XMP",
+                        "fixNumber" : "XT0497",
+                        "objectCode" : ".classpath",
+                        "objectType" : "*STMF",
+                        "memberCode" : "",
+                        "objectAttribute" : "",
+                        "objectLibrary" : "       626",
+                        "objectClass" : "B",
+                        "environmentCode" : "*DEV",
+                        "sourceProcessing" : "",
+                        "versionNumberBasedOn" : 0,
+                        "modificNumberBasedOn" : 0,
+                        "versionNumber" : 0,
+                        "modificationNumber" : 0,
+                        "overrideCode" : "",
+                        "solutionType" : "1",
+                        "statusField" : "*ACT",
+                        "routeCode" : "JAVA",
+                        "pathExtensionLibraryCode" : "         0",
+                        "iFSObjectCode" : ".classpath",
+                        "iFSDirectoryCode" : "/QOpenSys/tdoms/xmp/java/dev/",
+                        "relatedLibraryCode" : "",
+                        "routeCode2" : "",
+                        "levelWithinRoute" : 0,
+                        "libraryCode" : "",
+                        "fixType" : "",
+                        "release" : "",
+                        "developmentExitCount" : 0,
+                        "reasonCode" : "",
+                        "fixStatus" : "",
+                        "priorityNumeric" : "",
+                        "programmer" : "",
+                        "expectedStartDate" : 0,
+                        "realizedStartDate" : 0,
+                        "expectedCompletionDate" : 0,
+                        "realizedCompletionDate" : 0,
+                        "expectedDevEndDate" : 0,
+                        "realizedDevEndDate" : 0,
+                        "expectedNumberOfHours2" : 0,
+                        "realizedNumberOfHours2" : 0,
+                        "shortFixDescription" : "",
+                        "numberOfRatificationGrps" : 0,
+                        "ratificationCount" : 0,
+                        "rejectedIndicator" : "",
+                        "freeUserSpace" : "",
+                        "pathCode" : "",
+                        "pathExtensionLibraryCode2" : "",
+                        "iFSPathExtension" : "",
+                        "objectAttribute3" : "",
+                        "objectDescription" : "",
+                        "sourceFile" : "",
+                        "sourceLibrary" : "",
+                        "sourceMember" : "",
+                        "sourcesBelongToObject" : null
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -158,6 +310,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -195,6 +353,12 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/solutionRequest"
+              },
+              "examples" : {
+                "disconnectObject" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/solutionRequestObject"
+                }
               }
             }
           }
@@ -206,6 +370,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/solutionResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -216,6 +386,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -226,6 +402,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -263,6 +445,12 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/solutionRequest"
+              },
+              "examples" : {
+                "lockObject" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/solutionRequestObject"
+                }
               }
             }
           }
@@ -274,6 +462,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/solutionResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -284,6 +478,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -294,6 +494,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -331,6 +537,30 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/unlockSolutionRequest"
+              },
+              "examples" : {
+                "unlockSolutiopn" : {
+                  "summary" : "How to specify the unlock solutuion request input parameters value.",
+                  "value" : {
+                    "interfaceLevel" : "V3R0M0",
+                    "unlockProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "forceActiveSolution" : "0"
+                    },
+                    "unlockData" : {
+                      "applicationCode" : "XMP",
+                      "fixNumber" : "XT0497",
+                      "objectCode" : "BAS",
+                      "objectType" : "*PGM",
+                      "memberCode" : "*NONE",
+                      "routeCode" : "*ONLY",
+                      "pathExtensionLibraryCode" : "*ONLY",
+                      "iFSObjectCode" : "*OBJC",
+                      "iFSDirectoryCode" : ""
+                    }
+                  }
+                }
               }
             }
           }
@@ -342,6 +572,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/solutionResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -352,6 +588,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -362,6 +604,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -399,6 +647,26 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/moveSolutionRequest"
+              },
+              "examples" : {
+                "changeSolutiopn" : {
+                  "summary" : "How to specify the move solutuion request input parameters value.",
+                  "value" : {
+                    "interfaceLevel" : "V3R0M0",
+                    "moveProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "toFix" : "XT0405"
+                    },
+                    "moveData" : {
+                      "applicationCode" : "XMP",
+                      "fixNumber" : "XT0497",
+                      "objectCode" : "#WO",
+                      "objectType" : "*PGM",
+                      "memberCode" : ""
+                    }
+                  }
+                }
               }
             }
           }
@@ -410,6 +678,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/solutionResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
                 }
               }
             }
@@ -420,6 +694,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
                 }
               }
             }
@@ -430,6 +710,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -495,7 +781,8 @@
       },
       "message" : {
         "type" : "string",
-        "description" : "Message"
+        "description" : "Message",
+        "example" : "Not found."
       },
       "solutionResponse" : {
         "type" : "object",
@@ -1671,6 +1958,187 @@
     },
     "responses" : { },
     "parameters" : { },
+    "examples" : {
+      "response401" : {
+        "summary" : "Not authorized.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQF201",
+          "messageType" : "E",
+          "messageData" : "",
+          "field" : "",
+          "messageText" : "Unauthorized or expired token. Please login again."
+        }
+      },
+      "response400" : {
+        "summary" : "Something went wrong.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQ6001",
+          "messageType" : "E",
+          "messageData" : "XXXX",
+          "field" : "",
+          "messageText" : "Application code XXXX does not exist. &N Cause . . . . . :   You have entered an application code which does not exist. &N Recovery  . . . :   Enter a valid application code and try your request again."
+        }
+      },
+      "response200" : {
+        "summary" : "Response to a successful API call.",
+        "value" : {
+          "status" : "*NORM",
+          "messages" : {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQ4012",
+            "messageType" : "",
+            "messageData" : "XMP  XT0497    #WO         *PGM               RPGLE",
+            "field" : "",
+            "messageText" : "Action for solution #WO type *PGM detail RPGLE completed normally &N Cause . . . . . : Your request for the OMS solution API has been successfully executed. The action was performed for application XMP fix XT0497 and detail RPGLE. The object attribute is . &N Recovery. . . . : No recovery necessary. This is an informational message."
+          },
+          "solutionResponseData" : {
+            "applicationCode" : "XMP",
+            "fixNumber" : "XT0497",
+            "objectCode" : "#WO",
+            "objectType" : "*PGM",
+            "memberCode" : "",
+            "objectAttribute" : "RPGLE",
+            "objectLibrary" : "OMHD_TST",
+            "objectClass" : "0",
+            "environmentCode" : "*TST",
+            "sourceProcessing" : "1",
+            "versionNumberBasedOn" : 2,
+            "modificNumberBasedOn" : 0,
+            "versionNumber" : 2,
+            "modificationNumber" : 0,
+            "overrideCode" : "",
+            "solutionType" : "1",
+            "statusField" : "*ACT",
+            "routeCode" : "",
+            "pathExtensionLibraryCode" : "",
+            "iFSObjectCode" : "#WO",
+            "iFSDirectoryCode" : "",
+            "relatedLibraryCode" : "",
+            "routeCode2" : "",
+            "levelWithinRoute" : 0,
+            "libraryCode" : "",
+            "fixType" : "C",
+            "release" : "MS02",
+            "developmentExitCount" : 0,
+            "reasonCode" : "",
+            "fixStatus" : "*PRD",
+            "priorityNumeric" : "5",
+            "programmer" : "YADAN",
+            "expectedStartDate" : 1240226,
+            "realizedStartDate" : 1240309,
+            "expectedCompletionDate" : 1240226,
+            "realizedCompletionDate" : 0,
+            "expectedDevEndDate" : 1240226,
+            "realizedDevEndDate" : 0,
+            "expectedNumberOfHours2" : 0,
+            "realizedNumberOfHours2" : 0,
+            "shortFixDescription" : "Connection List Testing",
+            "numberOfRatificationGrps" : 0,
+            "ratificationCount" : 0,
+            "rejectedIndicator" : "0",
+            "freeUserSpace" : "",
+            "pathCode" : "XT0497",
+            "pathExtensionLibraryCode2" : "",
+            "iFSPathExtension" : "",
+            "objectAttribute3" : "RPGLE",
+            "objectDescription" : "OpenWeatherMap API",
+            "sourceFile" : "QRPGLESRC",
+            "sourceLibrary" : "OMHD_TST",
+            "sourceMember" : "#WO",
+            "sourcesBelongToObject" : "1",
+            "sourceChangeDate" : "1210812071946",
+            "objectSourceChangeDate" : "1210812071946",
+            "objectModified" : "",
+            "userWhichCreatedObject" : "MISHD",
+            "userDefined" : "0",
+            "temporaryOrVirtual" : "0",
+            "objectChangeDate" : "1210812072835",
+            "memberAttributeMBSEU" : "",
+            "memberText" : "",
+            "objectAttribute2" : "",
+            "sRMId" : "",
+            "projectCode" : "",
+            "repositoryURL" : "",
+            "revision" : "",
+            "programmer2" : "",
+            "dateSent" : 0,
+            "timeSent" : 0,
+            "locked" : 0,
+            "markedForDeletion" : "",
+            "lastTag" : "",
+            "labelCount" : 0,
+            "activeSolutionCount" : 0,
+            "createOverrideCount" : 0,
+            "commentCount" : 0
+          },
+          "longDescription" : "OpenWeatherMap API"
+        }
+      },
+      "connectObject" : {
+        "summary" : "How to specify the connect solution request input parameters value.",
+        "value" : {
+          "interfaceLevel" : "V3R0M0",
+          "connectProcessingOptions" : {
+            "updateDb" : "1",
+            "updateBuffer" : "1",
+            "suggestAlternativeObject" : "1"
+          },
+          "connectData" : {
+            "applicationCode" : "XMP",
+            "fixNumber" : "XT0497",
+            "objectCode" : "#WO",
+            "objectType" : "*PGM",
+            "objectLibrary" : "OMHD_TST",
+            "environmentCode" : "*TST"
+          }
+        }
+      },
+      "connectIFSObject" : {
+        "summary" : "How to specify the connect solution request input parameters value for IFS.",
+        "value" : {
+          "interfaceLevel" : "V3R0M0",
+          "connectProcessingOptions" : {
+            "updateDb" : "1",
+            "updateBuffer" : "1",
+            "suggestAlternativeObject" : "1"
+          },
+          "connectData" : {
+            "applicationCode" : "XMP",
+            "fixNumber" : "XT0497",
+            "objectLibrary" : "       626",
+            "environmentCode" : "*ANY",
+            "sourceProcessing" : "",
+            "overrideCode" : " ",
+            "solutionType" : "1",
+            "statusField" : "*ACT",
+            "iFSObjectCode" : ".classpath",
+            "iFSDirectoryCode" : "/QOpenSys/tdoms/xmp/java/dev/"
+          }
+        }
+      },
+      "solutionRequestObject" : {
+        "summary" : "How to specify the solution request input parameters value.",
+        "value" : {
+          "interfaceLevel" : "V3R0M0",
+          "solutionProcessingOptions" : {
+            "updateDb" : "1",
+            "updateBuffer" : "1",
+            "deleteObjectAndSource" : "0"
+          },
+          "solutionData" : {
+            "applicationCode" : "XMP",
+            "fixNumber" : "XT0497",
+            "objectCode" : "BAS",
+            "objectType" : "*PGM",
+            "memberCode" : "",
+            "routeCode" : "",
+            "pathExtensionLibraryCode" : ""
+          }
+        }
+      }
+    },
     "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
