@@ -23,20 +23,25 @@
     }
   },
   "servers" : [ {
-    "url" : "https://{host}:{port}/{library}/OMQRSF",
+    "url" : "{protocol}://{host}:{port}/{library}/OMQRSF",
     "description" : "A dynamic https host",
     "variables" : {
       "host" : {
         "description" : "The host serving the API",
         "default" : "plato.remainsoftware.com"
       },
-      "port" : {
-        "description" : "The port to which the server is listening",
-        "default" : "45211"
-      },
       "library" : {
         "description" : "The TD/OMS library",
         "default" : "OMS"
+      },
+      "protocol" : {
+        "description" : "Protocol",
+        "enum" : [ "https", "http" ],
+        "default" : "https"
+      },
+      "port" : {
+        "description" : "The port to which the server is listening",
+        "default" : "45011"
       }
     }
   } ],
@@ -57,9 +62,33 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/deleteRequest"
+              },
+              "examples" : {
+                "deleteSpoolFile" : {
+                  "summary" : "How to specify the input request to delete the particular spool file",
+                  "value" : "{\r\n  \"spooledFileName\": \"JWTLOGI01M\",\r\n  \"qualifiedJobName\": \"399358/ALICE/JWTLOGI01M\",\r\n  \"spooledFileNumber\": \"2\",\r\n  \"system\": \"*ONLY\",\r\n  \"creationDate\": \"*ONLY\",\r\n  \"creationTime\": \"*ONLY\",\r\n  \"user\": \"ALICE\",\r\n  \"outputQueue\": \"*ALL\",\r\n  \"formType\": \"*ALL\",\r\n  \"userData\": \"*ALL\",\r\n  \"asp\": \"*ALL\",\r\n  \"aspDevice\": \"*\"\r\n}\r\n"
+                },
+                "deleteAllSpoolFile" : {
+                  "summary" : "How to specify the input request to delete all spoolFiles for particular user",
+                  "value" : {
+                    "spooledFileName" : "*SELECT",
+                    "qualifiedJobName" : "*ALL",
+                    "spooledFileNumber" : "*ONLY",
+                    "system" : "*ONLY",
+                    "creationDate" : "*ONLY",
+                    "creationTime" : "*ONLY",
+                    "user" : "*CURRENT",
+                    "outputQueue" : "*ALL",
+                    "formType" : "*ALL",
+                    "userData" : "*ALL",
+                    "asp" : "*ALL",
+                    "aspDevice" : "*"
+                  }
+                }
               }
             }
-          }
+          },
+          "required" : true
         },
         "responses" : {
           "200" : {
@@ -68,6 +97,26 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/deleteResponse"
+                },
+                "examples" : {
+                  "responseDeleteSpoolFile200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/responseDeleteSpoolFile200"
+                  },
+                  "responseDeleteAllSpoolFile200" : {
+                    "summary" : "Response when all spool files deleted for particular user",
+                    "value" : {
+                      "status" : "*NORM",
+                      "messages" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQF503",
+                        "messageType" : "",
+                        "messageData" : "",
+                        "field" : "",
+                        "messageText" : "All spool files deleted. &N Cause . . . . . :   All spool files deleted. &N Recovery  . . . :   No recover  necessary. This is an informational message."
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -78,6 +127,19 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "summary" : "Something went wrong.",
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQF501",
+                      "messageType" : "E",
+                      "messageData" : "",
+                      "field" : "",
+                      "messageText" : "No spool files were found. &N Cause . . . . . : There were no spool files found. &N Recovery  . . . : No recover necessary. This is an informational message."
+                    }
+                  }
                 }
               }
             }
@@ -88,6 +150,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -115,10 +183,19 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/fetchRequest"
+              },
+              "examples" : {
+                "fetchSpoolFile" : {
+                  "summary" : "How to specify the request input parameters value to fetch spool files.",
+                  "value" : {
+                    "jobName" : "398595/ALICE/JWTLOGI02M",
+                    "spoolFileName" : "OMX016P",
+                    "spoolFileNumber" : "4"
+                  }
+                }
               }
             }
-          },
-          "required" : false
+          }
         },
         "responses" : {
           "200" : {
@@ -127,6 +204,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/fetchResponse"
+                },
+                "examples" : {
+                  "fetchSpoolFile200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/fetchSpoolFile200"
+                  }
                 }
               }
             }
@@ -137,6 +220,19 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "fetchSpoolFile400" : {
+                    "summary" : "Response when something went wrong with fetch",
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQF501",
+                      "meaageType" : "E",
+                      "messageData" : "",
+                      "field" : "",
+                      "messageText" : "No spool files were found. &N Cause . . . . . : There were no spool files found. &N Recovery  . . . : No recover necessary. This is an informational message."
+                    }
+                  }
                 }
               }
             }
@@ -147,6 +243,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -174,6 +276,42 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/listRequest"
+              },
+              "examples" : {
+                "getListOfALLSpoolFiles" : {
+                  "summary" : "Get list of spool files for *ALL user",
+                  "value" : {
+                    "pageNumber" : 1,
+                    "user" : "*ALL",
+                    "startingTime" : "*AVAIL",
+                    "startingDate" : "*BEGIN",
+                    "endingTime" : "*AVAIL",
+                    "endingDate" : "*END",
+                    "status" : "*ALL",
+                    "jobName" : "*ALL",
+                    "outputQueue" : "*ALL",
+                    "userData" : "*ALL",
+                    "formType" : "*ALL",
+                    "systemName" : "*ALL"
+                  }
+                },
+                "getListOfSpoolFiles" : {
+                  "summary" : "Get list of spool files for *CURRENT user",
+                  "value" : {
+                    "pageNumber" : 1,
+                    "user" : "*CURRENT",
+                    "startingTime" : "*AVAIL",
+                    "startingDate" : "*BEGIN",
+                    "endingTime" : "*AVAIL",
+                    "endingDate" : "*END",
+                    "status" : "*ALL",
+                    "jobName" : "*ALL",
+                    "outputQueue" : "*ALL",
+                    "userData" : "*ALL",
+                    "formType" : "*ALL",
+                    "systemName" : "*ALL"
+                  }
+                }
               }
             }
           }
@@ -185,6 +323,271 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/listResponse"
+                },
+                "examples" : {
+                  "reponse200" : {
+                    "summary" : "Response for all spool files",
+                    "value" : {
+                      "status" : "*NORM",
+                      "messages" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQF500",
+                        "messageType" : "",
+                        "messageData" : "8 8",
+                        "field" : "",
+                        "messageText" : "This comprises a list of 8 spool files from a total of 8. &N Cause . . . . . :   Your request to display latest 8 spool files from a total of 8 successfully executed. &N Recovery. . . . :   No recovery necessary. This is an informational message."
+                      },
+                      "totalRecords" : 8,
+                      "spoolfileList" : [ {
+                        "spoolFileName" : "JWTLOGI01M",
+                        "spoolFileNumber" : 1,
+                        "status" : "READY",
+                        "priority" : 5,
+                        "date" : "2024-10-10-09.12.41",
+                        "userData" : "",
+                        "size" : 266240,
+                        "pages" : 34,
+                        "copies" : 1,
+                        "qualifiedJobName" : "399209/ALICE/JWTLOGI01M",
+                        "jobName" : "JWTLOGI01M",
+                        "jobUser" : "ALICE",
+                        "jobNumber" : "399209",
+                        "fileAvailable" : "*FILEEND",
+                        "formType" : "*STD",
+                        "outputQueueLibrary" : "QUSRSYS",
+                        "outputQueue" : "PRT01",
+                        "aspNumber" : 1,
+                        "system" : "L712EBD0",
+                        "internetPrintProtocolJobId" : 960391
+                      }, {
+                        "spoolFileName" : "JWTLOGI01M",
+                        "spoolFileNumber" : 2,
+                        "status" : "READY",
+                        "priority" : 5,
+                        "date" : "2024-10-10-09.12.41",
+                        "userData" : "CRTSQLRPGI",
+                        "size" : 28672,
+                        "pages" : 2,
+                        "copies" : 1,
+                        "qualifiedJobName" : "399209/ALICE/JWTLOGI01M",
+                        "jobName" : "JWTLOGI01M",
+                        "jobUser" : "ALICE",
+                        "jobNumber" : "399209",
+                        "fileAvailable" : "*FILEEND",
+                        "formType" : "*STD",
+                        "outputQueueLibrary" : "QUSRSYS",
+                        "outputQueue" : "PRT01",
+                        "aspNumber" : 1,
+                        "system" : "L712EBD0",
+                        "internetPrintProtocolJobId" : 960392
+                      }, {
+                        "spoolFileName" : "JWTLOGI01M",
+                        "spoolFileNumber" : 3,
+                        "status" : "READY",
+                        "priority" : 5,
+                        "date" : "2024-10-10-09.12.41",
+                        "userData" : "",
+                        "size" : 331776,
+                        "pages" : 49,
+                        "copies" : 1,
+                        "qualifiedJobName" : "399209/ALICE/JWTLOGI01M",
+                        "jobName" : "JWTLOGI01M",
+                        "jobUser" : "ALICE",
+                        "jobNumber" : "399209",
+                        "fileAvailable" : "*FILEEND",
+                        "formType" : "*STD",
+                        "outputQueueLibrary" : "QUSRSYS",
+                        "outputQueue" : "PRT01",
+                        "aspNumber" : 1,
+                        "system" : "L712EBD0",
+                        "internetPrintProtocolJobId" : 960393
+                      }, {
+                        "spoolFileName" : "OMX016P",
+                        "spoolFileNumber" : 4,
+                        "status" : "READY",
+                        "priority" : 5,
+                        "date" : "2024-10-10-09.12.40",
+                        "userData" : "OMX016",
+                        "size" : 28672,
+                        "pages" : 1,
+                        "copies" : 1,
+                        "qualifiedJobName" : "399208/ALICE/JWTLOGISHR",
+                        "jobName" : "JWTLOGISHR",
+                        "jobUser" : "ALICE",
+                        "jobNumber" : "399208",
+                        "fileAvailable" : "*FILEEND",
+                        "formType" : "*STD",
+                        "outputQueueLibrary" : "QUSRSYS",
+                        "outputQueue" : "PRT01",
+                        "aspNumber" : 1,
+                        "system" : "L712EBD0",
+                        "internetPrintProtocolJobId" : 960390
+                      }, {
+                        "spoolFileName" : "QPJOBLOG",
+                        "spoolFileNumber" : 5,
+                        "status" : "READY",
+                        "priority" : 5,
+                        "date" : "2024-10-10-09.12.40",
+                        "userData" : "JWTLOGISHR",
+                        "size" : 69632,
+                        "pages" : 8,
+                        "copies" : 1,
+                        "qualifiedJobName" : "399208/ALICE/JWTLOGISHR",
+                        "jobName" : "JWTLOGISHR",
+                        "jobUser" : "ALICE",
+                        "jobNumber" : "399208",
+                        "fileAvailable" : "*FILEEND",
+                        "formType" : "*STD",
+                        "outputQueueLibrary" : "QUSRSYS",
+                        "outputQueue" : "QEZJOBLOG",
+                        "aspNumber" : 1,
+                        "system" : "L712EBD0",
+                        "internetPrintProtocolJobId" : 958820
+                      }, {
+                        "spoolFileName" : "JWTLOGISHR",
+                        "spoolFileNumber" : 1,
+                        "status" : "READY",
+                        "priority" : 5,
+                        "date" : "2024-10-10-09.12.37",
+                        "userData" : "",
+                        "size" : 217088,
+                        "pages" : 26,
+                        "copies" : 1,
+                        "qualifiedJobName" : "399208/ALICE/JWTLOGISHR",
+                        "jobName" : "JWTLOGISHR",
+                        "jobUser" : "ALICE",
+                        "jobNumber" : "399208",
+                        "fileAvailable" : "*FILEEND",
+                        "formType" : "*STD",
+                        "outputQueueLibrary" : "QUSRSYS",
+                        "outputQueue" : "PRT01",
+                        "aspNumber" : 1,
+                        "system" : "L712EBD0",
+                        "internetPrintProtocolJobId" : 960386
+                      }, {
+                        "spoolFileName" : "JWTLOGISHR",
+                        "spoolFileNumber" : 2,
+                        "status" : "READY",
+                        "priority" : 5,
+                        "date" : "2024-10-10-09.12.37",
+                        "userData" : "CRTSQLRPGI",
+                        "size" : 28672,
+                        "pages" : 2,
+                        "copies" : 1,
+                        "qualifiedJobName" : "399208/ALICE/JWTLOGISHR",
+                        "jobName" : "JWTLOGISHR",
+                        "jobUser" : "ALICE",
+                        "jobNumber" : "399208",
+                        "fileAvailable" : "*FILEEND",
+                        "formType" : "*STD",
+                        "outputQueueLibrary" : "QUSRSYS",
+                        "outputQueue" : "PRT01",
+                        "aspNumber" : 1,
+                        "system" : "L712EBD0",
+                        "internetPrintProtocolJobId" : 960387
+                      }, {
+                        "spoolFileName" : "JWTLOGISHR",
+                        "spoolFileNumber" : 3,
+                        "status" : "READY",
+                        "priority" : 5,
+                        "date" : "2024-10-10-09.12.37",
+                        "userData" : "",
+                        "size" : 266240,
+                        "pages" : 39,
+                        "copies" : 1,
+                        "qualifiedJobName" : "399208/ALICE/JWTLOGISHR",
+                        "jobName" : "JWTLOGISHR",
+                        "jobUser" : "ALICE",
+                        "jobNumber" : "399208",
+                        "fileAvailable" : "*FILEEND",
+                        "formType" : "*STD",
+                        "outputQueueLibrary" : "QUSRSYS",
+                        "outputQueue" : "PRT01",
+                        "aspNumber" : 1,
+                        "system" : "L712EBD0",
+                        "internetPrintProtocolJobId" : 960388
+                      } ]
+                    }
+                  },
+                  "response200" : {
+                    "summary" : "Response for spool files on basis of particular job",
+                    "value" : {
+                      "status" : "*NORM",
+                      "messages" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQF500",
+                        "messageType" : "",
+                        "messageData" : "3 3",
+                        "field" : "",
+                        "messageText" : "This comprises a list of 3 spool files from a total of 3. &N Cause . . . . . : Your request to display the latest 3 spool files from a total of 8 successfully executed. &N Recovery. . . . : No recovery necessary. This is an informational message."
+                      },
+                      "totalRecords" : 3,
+                      "spoolfileList" : [ {
+                        "status" : "READY",
+                        "qualifiedJobName" : "399209/ALICE/JWTLOGI01M",
+                        "date" : "2024-10-10-09.12.41",
+                        "jobName" : "JWTLOGI01M",
+                        "spoolFileName" : "JWTLOGI01M",
+                        "formType" : "*STD",
+                        "outputQueueLibrary" : "QUSRSYS",
+                        "userData" : "",
+                        "jobUser" : "ALICE",
+                        "outputQueue" : "PRT01",
+                        "aspNumber" : 1,
+                        "priority" : 5,
+                        "internetPrintProtocolJobId" : 960391,
+                        "pages" : 34,
+                        "copies" : 1,
+                        "system" : "L712EBD0",
+                        "size" : 266240,
+                        "spoolFileNumber" : 1,
+                        "fileAvailable" : "*FILEEND",
+                        "jobNumber" : 399209
+                      }, {
+                        "status" : "READY",
+                        "qualifiedJobName" : "399209/ALICE/JWTLOGI01M",
+                        "date" : "2024-10-10-09.12.41",
+                        "jobName" : "JWTLOGI01M",
+                        "spoolFileName" : "JWTLOGI01M",
+                        "formType" : "*STD",
+                        "outputQueueLibrary" : "QUSRSYS",
+                        "userData" : "CRTSQLRPGI",
+                        "jobUser" : "ALICE",
+                        "outputQueue" : "PRT01",
+                        "aspNumber" : 1,
+                        "priority" : 5,
+                        "internetPrintProtocolJobId" : 960392,
+                        "pages" : 2,
+                        "copies" : 1,
+                        "system" : "L712EBD0",
+                        "size" : 28672,
+                        "spoolFileNumber" : 2,
+                        "fileAvailable" : "*FILEEND",
+                        "jobNumber" : 399209
+                      }, {
+                        "status" : "READY",
+                        "qualifiedJobName" : "399209/ALICE/JWTLOGI01M",
+                        "date" : "2024-10-10-09.12.41",
+                        "jobName" : "JWTLOGI01M",
+                        "spoolFileName" : "JWTLOGI01M",
+                        "formType" : "*STD",
+                        "outputQueueLibrary" : "QUSRSYS",
+                        "userData" : "",
+                        "jobUser" : "ALICE",
+                        "outputQueue" : "PRT01",
+                        "aspNumber" : 1,
+                        "priority" : 5,
+                        "internetPrintProtocolJobId" : 960393,
+                        "pages" : 49,
+                        "copies" : 1,
+                        "system" : "L712EBD0",
+                        "size" : 331776,
+                        "spoolFileNumber" : 3,
+                        "fileAvailable" : "*FILEEND",
+                        "jobNumber" : 399209
+                      } ]
+                    }
+                  }
                 }
               }
             }
@@ -195,6 +598,19 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "summary" : "Something went wrong",
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQF505",
+                      "messageType" : "E",
+                      "messageData" : "2334",
+                      "field" : "startingTime",
+                      "messageText" : "Time value 2334 is invalid or has an invalid time format '&N Cause . . . . . :   The time value 2334 is invalid or it was passed in an invalid format. &N Recovery  . . . :   Enter a correct time in the *HMS format."
+                    }
+                  }
                 }
               }
             }
@@ -205,6 +621,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -373,18 +795,20 @@
             "maxLength" : 28,
             "type" : "string",
             "description" : "The Qualified job Name of the spool file",
+            "example" : "398540/ALICE/BAS",
             "default" : ""
           },
           "spoolFileName" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The spool file name of the spool file"
+            "description" : "The spool file name of the spool file",
+            "example" : "BAS"
           },
           "spoolFileNumber" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "The spool file number of the spool file",
-            "example" : "*LAST",
+            "example" : "1",
             "enum" : [ "*LAST" ]
           }
         },
@@ -621,6 +1045,50 @@
       }
     },
     "responses" : { },
+    "parameters" : { },
+    "examples" : {
+      "response401" : {
+        "summary" : "Not authorized.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQF201",
+          "messageType" : "E",
+          "messageData" : "",
+          "field" : "",
+          "messageText" : "Unauthorized or expired token. Please login again."
+        }
+      },
+      "responseDeleteSpoolFile200" : {
+        "summary" : "Response when a particular spoolFile is deleted for user",
+        "value" : {
+          "status" : "*NORM",
+          "messages" : {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQF502",
+            "messageType" : "",
+            "messageData" : "QPJOBLOG 400125/ALICE/QPADEV0007",
+            "field" : "",
+            "messageText" : "The spoolFile QPJOBLOG is deleted for the job 400125/ALICE/QPADEV0007. &N Cause . . . . . : The spoolFile QPJOBLOG is deleted for the job 400125/ALICE/QPADEV0007. &N Recovery  . . . : No recover necessary. This is an informational message."
+          }
+        }
+      },
+      "fetchSpoolFile200" : {
+        "summary" : "Response for successful fetch",
+        "value" : {
+          "status" : "*NORM",
+          "messages" : {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQF504",
+            "messageType" : "",
+            "messageData" : "QPJOBLOG",
+            "field" : "",
+            "messageText" : "The spool file QPJOBLOG is fetched successfully. &N Cause . . . . . : The spool file QPJOBLOG fetched successfully. &N Recovery  . . . : No recover necessary. This is an informational message."
+          },
+          "spoolFilePath" : "/tmp/remain/octo/spoolfile/evenday/400124ALICEQPADEV0007QPJOBLOG1"
+        }
+      }
+    },
+    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
