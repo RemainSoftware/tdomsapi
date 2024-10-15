@@ -23,20 +23,25 @@
     }
   },
   "servers" : [ {
-    "url" : "https://{host}:{port}/{library}/OMQRSQ",
+    "url" : "{protocol}://{host}:{port}/{library}/OMQRSQ",
     "description" : "A dynamic https host",
     "variables" : {
       "host" : {
         "description" : "The host serving the API",
         "default" : "plato.remainsoftware.com"
       },
-      "port" : {
-        "description" : "The port to which the server is listening",
-        "default" : "45211"
-      },
       "library" : {
         "description" : "The TD/OMS library",
         "default" : "OMS"
+      },
+      "port" : {
+        "description" : "The port to which the server is listening",
+        "default" : "45011"
+      },
+      "protocol" : {
+        "description" : "Protocol",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
       }
     }
   } ],
@@ -57,6 +62,36 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/request"
+              },
+              "examples" : {
+                "requestReleaseQueue200" : {
+                  "summary" : "How to specify the input request to release object from the compile queue",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "taskNumber" : "XT0403",
+                    "objectCode" : "JWTLOGI01M",
+                    "objectType" : "*MODULE",
+                    "objectLibrary" : "OMHD_DEV",
+                    "detail" : "",
+                    "processingArray" : {
+                      "clearAll" : false
+                    }
+                  }
+                },
+                "requestReleaseQueueAllObjects200" : {
+                  "summary" : "How to specify the input request to release an entire fix from the compile queue",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "taskNumber" : "XT0403",
+                    "objectCode" : "",
+                    "objectType" : "",
+                    "objectLibrary" : "",
+                    "detail" : "",
+                    "processingArray" : {
+                      "clearAll" : false
+                    }
+                  }
+                }
               }
             }
           }
@@ -68,6 +103,22 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "responseReleaseQueue200" : {
+                    "summary" : "Response when object is released from the compile queue",
+                    "value" : {
+                      "messages" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQF314",
+                        "messageType" : "",
+                        "messageData" : "JWTLOGI01M  *MODULE  OMHD_DEV",
+                        "field" : "",
+                        "messageText" : "The Object OMHD_DEV/JWTLOGI01M type *MODULE with detail released from the build queue in compile queue. &N Cause . . . . . :  The Object releaseed from the queue successfully. &N Recovery. . . . :   No recovery necessary. This is an informational message."
+                      },
+                      "status" : "*NORM"
+                    }
+                  }
                 }
               }
             }
@@ -78,6 +129,19 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "responseReleaseQueue400" : {
+                    "summary" : "Response when object object is not released from the compile queue",
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQF301",
+                      "messageType" : "",
+                      "messageData" : "JWTLOGI01M  *MODULE  OMHD_DEV",
+                      "field" : "",
+                      "messageText" : "Compile not submitted for Object OMHD_DEV/JWTLOGI01M type *MODULE with detail. &N Cause . . . . . :  Submit compile object option did not end successfully. One or more errors have been detected. &N Recovery. . . . :   Refer to to the OMS-log and the joblog for more detailed information. Correct the problem and try again."
+                    }
+                  }
                 }
               }
             }
@@ -88,6 +152,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -125,6 +195,36 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/request"
+              },
+              "examples" : {
+                "requestAddQueue200" : {
+                  "summary" : "How to specify the input request to add object into the compile queue",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "taskNumber" : "XT0403",
+                    "objectCode" : "JWTLOGI01M",
+                    "objectType" : "*MODULE",
+                    "objectLibrary" : "OMHD_DEV",
+                    "detail" : "",
+                    "processingArray" : {
+                      "clearAll" : false
+                    }
+                  }
+                },
+                "requestAddQueueAllObjects200" : {
+                  "summary" : "How to specify the input request to add an entire fix into the compile queue",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "taskNumber" : "XT0403",
+                    "objectCode" : "",
+                    "objectType" : "",
+                    "objectLibrary" : "",
+                    "detail" : "",
+                    "processingArray" : {
+                      "clearAll" : false
+                    }
+                  }
+                }
               }
             }
           }
@@ -136,6 +236,22 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "responseAddQueue200" : {
+                    "summary" : "Response when object is added into the compile queue",
+                    "value" : {
+                      "messages" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQF302",
+                        "messageType" : "",
+                        "messageData" : "JWTLOGI01M  *MODULE  OMHD_DEV",
+                        "field" : "",
+                        "messageText" : "Object OMHD_DEV/JWTLOGI01M type *MODULE with detail  placed in compile queue. &N Cause . . . . . :   Object placed in compile queue. &N Recovery. . . . :   No recovery necessary. This is an informational message."
+                      },
+                      "status" : "*NORM"
+                    }
+                  }
                 }
               }
             }
@@ -146,6 +262,19 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "responseAddQueue400" : {
+                    "summary" : "Response when no compile command found for object",
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQF301",
+                      "messageType" : "",
+                      "messageData" : "JWTLOGI01M  *MODULE  OMHD_DEV",
+                      "field" : "",
+                      "messageText" : "No compile command found for object OMHD_DEV/JWTLOGI01M type *MODULE with detail. &N Cause . . . . . :  No compile command found for object OMHD_DEV/JWTLOGI01M type *MODULE with detail. &N Recovery. . . . :   Refer to to the OMS-log and the joblog for more detailed information. Correct the problem and try again."
+                    }
+                  }
                 }
               }
             }
@@ -156,6 +285,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -193,6 +328,50 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/request"
+              },
+              "examples" : {
+                "requestDeleteQueue200" : {
+                  "summary" : "How to specify the input request to delete object from the compile queue",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "taskNumber" : "XT0403",
+                    "objectCode" : "JWTLOGI01M",
+                    "objectType" : "*MODULE",
+                    "objectLibrary" : "OMHD_DEV",
+                    "detail" : "",
+                    "processingArray" : {
+                      "clearAll" : false
+                    }
+                  }
+                },
+                "requestDeleteQueueAllObjects200" : {
+                  "summary" : "How to specify the input request to delete an entire fix from the compile queue",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "taskNumber" : "XT0403",
+                    "objectCode" : "",
+                    "objectType" : "",
+                    "objectLibrary" : "",
+                    "detail" : "",
+                    "processingArray" : {
+                      "clearAll" : false
+                    }
+                  }
+                },
+                "requestDeletObjectsAllOccurence200" : {
+                  "summary" : "How to specify the input request to delete all entries of a particular object from the compile queue.",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "taskNumber" : "XT0403",
+                    "objectCode" : "JWTLOGI01M",
+                    "objectType" : "*MODULE",
+                    "objectLibrary" : "OMHD_DEV",
+                    "detail" : "",
+                    "processingArray" : {
+                      "clearAll" : true
+                    }
+                  }
+                }
               }
             }
           }
@@ -204,6 +383,22 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "responseDeleteQueue200" : {
+                    "summary" : "Response when object is removed from the compile queue",
+                    "value" : {
+                      "messages" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQF307",
+                        "messageType" : "",
+                        "messageData" : "JWTLOGI01M",
+                        "field" : "",
+                        "messageText" : "The Object JWTLOGI01M has been removed from the build queue. Cause . . . . . :   The Object JWTLOGI01M has been removed from the queue successfully . &N Recovery. . . . :   No recovery necessary. This is an informational message."
+                      },
+                      "status" : "*NORM"
+                    }
+                  }
                 }
               }
             }
@@ -214,6 +409,19 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "responseDeleteQueue400" : {
+                    "summary" : "Response when object is not removed from the compile queue",
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQF308",
+                      "messageType" : "",
+                      "messageData" : "*SUBM",
+                      "field" : "",
+                      "messageText" : "Option not allowed for solution with compile status *SUBM. &N Cause . . . . . :  The delete compile record is only allowed for records with status *HOLD.No compile command found for object OMHD_DEV/JWTLOGI01M type *MODULE with detail. &N Recovery. . . . :   Change your option or choose another solution and try your request again."
+                    }
+                  }
                 }
               }
             }
@@ -224,6 +432,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -290,7 +504,8 @@
       "message" : {
         "maxLength" : 50,
         "type" : "string",
-        "description" : "Message"
+        "description" : "Message",
+        "example" : "Not found."
       },
       "request" : {
         "required" : [ "applicationCode", "taskNumber" ],
@@ -341,7 +556,7 @@
           "status" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "To store status"
+            "description" : "To store status."
           }
         },
         "description" : "This will return a message and status."
@@ -359,6 +574,19 @@
       }
     },
     "responses" : { },
+    "examples" : {
+      "response401" : {
+        "summary" : "Not authorized.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQF201",
+          "messageType" : "E",
+          "messageData" : "",
+          "field" : "",
+          "messageText" : "Unauthorized or expired token. Please login again."
+        }
+      }
+    },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
