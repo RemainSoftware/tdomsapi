@@ -2,7 +2,7 @@
   "openapi" : "3.0.1",
   "info" : {
     "title" : "TD/OMS - Task API",
-    "description" : "The TD/OMS Task API allows you to interact with a task. You can Create, Change or Delete a task. Also other actions like Copy, Connect, Disconnect, Ratify, Complete and Status Recalculations are available.",
+    "description" : "The TD/OMS Task API allows you to interact with a task. You can Create, Change or Delete a task. Also other actions like Copy, Connect, Disconnect, Ratify, Complete, Status Recalculations, Link ticket and Unlink ticket are available.",
     "contact" : {
       "name" : "Remain Software",
       "url" : "https://remainsoftware.com",
@@ -15,9 +15,9 @@
     "version" : "0.0.1",
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
-      "library" : "V15T0201",
+      "library" : "V17T0139",
       "file" : "ChangeAPI.json",
-      "srclibrary" : "V15T0201S",
+      "srclibrary" : "V17T0139S",
       "object" : "OMQRTA",
       "additionalBindingDirs" : "OMRESTUTIL",
       "includeLogging" : "*YES"
@@ -830,6 +830,272 @@
           "jwtlogin" : false,
           "suffix" : "09",
           "generate" : false
+        }
+      }
+    },
+    "/linkTicket" : {
+      "summary" : "Use this path to link the ticket to the task.",
+      "description" : "Use this path to link the ticket to the task.",
+      "post" : {
+        "summary" : "Use this operation to link the ticket to the task.",
+        "description" : "Use this operation to link the ticket to the task.",
+        "operationId" : "linkTicket",
+        "requestBody" : {
+          "description" : "Link ticket request.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/linkTicketRequest"
+              },
+              "examples" : {
+                "linkTicketToTask" : {
+                  "summary" : "How to specify the request input parameter value to link the ticket to the task.",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "taskNumber" : "XT0397",
+                    "freeFormatProductId" : "Gravity",
+                    "urlToItem" : "http://plato:45050/gravity/wm/?viewitem=oREbYnf3SD-hr0rgPKd2EA",
+                    "urlToProduct" : "http://plato:45050/gravity/restful",
+                    "universalUniqueId" : "c035b4e2-4c37-43cc-b5c4-eb369432bace",
+                    "remoteIssueInformation" : "I02949 - REST task API - Add Ticket Functionality",
+                    "processingOption" : {
+                      "entityCode" : "*TASK"
+                    }
+                  }
+                },
+                "linkTicketToRequest" : {
+                  "summary" : "How to specify the request input parameter value to link the ticket to the request.",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "requestNumber" : "XR0019",
+                    "freeFormatProductId" : "Gravity",
+                    "urlToItem" : "http://plato:45050/gravity/wm/?viewitem=oREbYnf3SD-hr0rgPKd2EA",
+                    "urlToProduct" : "http://plato:45050/gravity/restful",
+                    "universalUniqueId" : "c035b4e2-4c37-43cc-b5c4-eb369432bace",
+                    "remoteIssueInformation" : "I02949 - REST task API - Add Ticket Functionality",
+                    "processingOption" : {
+                      "entityCode" : "*REQUEST"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ticketResponse"
+                },
+                "examples" : {
+                  "linkTicketResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageID" : "OMQF226",
+                        "messageType" : "N",
+                        "messageData" : "",
+                        "field" : "",
+                        "messageText" : "Action to link the ticket has completed successfully. &N Cause . . . . . :   Your request to link the ticket has completed successfully. &N Recovery  . . . :   None needed. This message is informational."
+                      },
+                      "ticketResponseData" : {
+                        "applicationCode" : "XMP",
+                        "taskNumber" : "XT0397",
+                        "requestNumber" : "",
+                        "freeFormatProductId" : "Gravity",
+                        "urlToItem" : "http://plato:45050/gravity/wm/?viewitem=oREbYnf3SD-hr0rgPKd2EA",
+                        "urlToProduct" : "http://plato:45050/gravity/restful",
+                        "universalUniqueId" : "c035b4e2-4c37-43cc-b5c4-eb369432bace",
+                        "createdByUser" : "WIM",
+                        "creationDate" : 1241120,
+                        "creationTime" : 124349,
+                        "changedByUser" : "",
+                        "changeDate" : 0,
+                        "changeTime" : 0,
+                        "disableIndicator" : "0",
+                        "remoteIssueInformation" : "I02949 - REST task API - Add Ticket Functionality"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "10",
+          "generate" : true
+        }
+      }
+    },
+    "/unlinkTicket" : {
+      "summary" : "Use this path to unlink the ticket to the task.",
+      "description" : "Use this path to unlink the ticket to the task.",
+      "post" : {
+        "summary" : "Use this operation to unlink the ticket to the task.",
+        "description" : "Use this operation to unlink the ticket to the task.",
+        "operationId" : "unlinkTicket",
+        "requestBody" : {
+          "description" : "Unlink ticket request.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/unlinkTicketRequest"
+              },
+              "examples" : {
+                "unlinkTicketToTask" : {
+                  "summary" : "How to specify the request input parameter value to unlink the ticket to the task.",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "taskNumber" : "XT0397",
+                    "freeFormatProductId" : "Gravity",
+                    "urlToItem" : "http://plato:45050/gravity/wm/?viewitem=oREbYnf3SD-hr0rgPKd2EA",
+                    "processingOption" : {
+                      "entityCode" : "*TASK"
+                    }
+                  }
+                },
+                "unlinkTicketToRequest" : {
+                  "summary" : "How to specify the request input parameter value to unlink the ticket to the request.",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "requestNumber" : "XR0019",
+                    "freeFormatProductId" : "Gravity",
+                    "urlToItem" : "http://plato:45050/gravity/wm/?viewitem=oREbYnf3SD-hr0rgPKd2EA",
+                    "processingOption" : {
+                      "entityCode" : "*REQUEST"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ticketResponse"
+                },
+                "examples" : {
+                  "unlinkTicketResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageID" : "OMQF227",
+                        "messageType" : "N",
+                        "messageData" : "",
+                        "field" : "",
+                        "messageText" : "Action to unlink the ticket has completed successfully. &N Cause . . . . . :   Your request to unlink the ticket has completed successfully. &N Recovery  . . . :   None needed. This message is informational."
+                      },
+                      "ticketResponseData" : {
+                        "applicationCode" : "",
+                        "taskNumber" : "",
+                        "requestNumber" : "",
+                        "freeFormatProductId" : "",
+                        "urlToItem" : "",
+                        "urlToProduct" : "",
+                        "universalUniqueId" : "",
+                        "createdByUser" : "",
+                        "creationDate" : 0,
+                        "creationTime" : 0,
+                        "changedByUser" : "",
+                        "changeDate" : 0,
+                        "changeTime" : 0,
+                        "disableIndicator" : "",
+                        "remoteIssueInformation" : ""
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "11",
+          "generate" : true
         }
       }
     }
@@ -2150,6 +2416,241 @@
           }
         },
         "description" : "Input schema for action status"
+      },
+      "linkTicketRequest" : {
+        "required" : [ "applicationCode", "freeFormatProductId", "remoteIssueInformation", "requestNumber", "taskNumber", "universalUniqueId", "urlToItem", "urlToProduct" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code."
+          },
+          "taskNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the task number."
+          },
+          "requestNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the request number."
+          },
+          "freeFormatProductId" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the product id."
+          },
+          "urlToItem" : {
+            "maxLength" : 512,
+            "type" : "string",
+            "description" : "Specify the URL for the item."
+          },
+          "urlToProduct" : {
+            "maxLength" : 512,
+            "type" : "string",
+            "description" : "Specify the URL for the product.",
+            "format" : ""
+          },
+          "universalUniqueId" : {
+            "maxLength" : 36,
+            "type" : "string",
+            "description" : "Specify the universal unique ID."
+          },
+          "remoteIssueInformation" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "Specify the issue description."
+          },
+          "processingOption" : {
+            "$ref" : "#/components/schemas/processingOption"
+          }
+        },
+        "description" : "Use this schema to link the ticket with task."
+      },
+      "ticketResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string",
+            "description" : "The return status which can be *NORM or *TERM. In case of *TERM look at the messages for more information."
+          },
+          "message" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "ticketResponseData" : {
+            "$ref" : "#/components/schemas/ticketResponseData"
+          }
+        },
+        "description" : "Display the response data for ticket linking."
+      },
+      "ticketResponseData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "FLAPPC",
+            "x-sequence" : "10"
+          },
+          "taskNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Task number",
+            "x-column" : "FLFIX#",
+            "x-sequence" : "20"
+          },
+          "requestNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Request number",
+            "x-column" : "FLERR#",
+            "x-sequence" : "30"
+          },
+          "freeFormatProductId" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Free Format Product ID",
+            "x-column" : "FLPRDC",
+            "x-sequence" : "40"
+          },
+          "urlToItem" : {
+            "maxLength" : 512,
+            "type" : "string",
+            "description" : "URL to Item",
+            "x-column" : "FLURLC",
+            "x-sequence" : "50"
+          },
+          "urlToProduct" : {
+            "maxLength" : 512,
+            "type" : "string",
+            "description" : "URL to Product",
+            "x-column" : "FLURL2",
+            "x-sequence" : "60"
+          },
+          "universalUniqueId" : {
+            "maxLength" : 36,
+            "type" : "string",
+            "description" : "Universal Unique ID",
+            "x-column" : "FLUUID",
+            "x-sequence" : "70"
+          },
+          "createdByUser" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Created by user",
+            "x-column" : "FLUSID",
+            "x-sequence" : "80"
+          },
+          "creationDate" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Creation date",
+            "format" : "zoned(7:0)",
+            "x-column" : "FLINDT",
+            "x-sequence" : "90"
+          },
+          "creationTime" : {
+            "maxLength" : 6,
+            "type" : "number",
+            "description" : "Creation Time",
+            "format" : "zoned(6:0)",
+            "x-column" : "FLINTM",
+            "x-sequence" : "100"
+          },
+          "changedByUser" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Changed by user",
+            "x-column" : "FLUSI2",
+            "x-sequence" : "110"
+          },
+          "changeDate" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Change Date",
+            "format" : "zoned(7:0)",
+            "x-column" : "FLCHGD",
+            "x-sequence" : "120"
+          },
+          "changeTime" : {
+            "maxLength" : 6,
+            "type" : "number",
+            "description" : "Change Time",
+            "format" : "zoned(6:0)",
+            "x-column" : "FLCHGT",
+            "x-sequence" : "130"
+          },
+          "disableIndicator" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Disable indicator",
+            "x-column" : "FLDISI",
+            "x-sequence" : "140"
+          },
+          "remoteIssueInformation" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "Remote Issue Information",
+            "x-column" : "FLRMTN",
+            "x-sequence" : "150"
+          }
+        },
+        "description" : "Respons data for linked ticket.",
+        "x-pfname" : "OMRFL",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "processingOption" : {
+        "required" : [ "entityCode" ],
+        "type" : "object",
+        "properties" : {
+          "entityCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the entity code. The possible vales are:   \r\n\r\n*TASK   \r\nUse this value to Link or Unlink the ticket to the task. In this case you do not need to pass the request number because it will be ignored.\r\n\r\n*REQUEST  \r\nUse this value to Link or Unlink the ticket to the request. In this case you do not need to pass the task number because it will be ignored.",
+            "default" : "*TASK",
+            "enum" : [ "*TASK", "*REQUEST" ]
+          }
+        },
+        "description" : "Processing options to link the ticket."
+      },
+      "unlinkTicketRequest" : {
+        "required" : [ "applicationCode", "freeFormatProductId", "requestNumber", "taskNumber", "urlToItem" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code."
+          },
+          "taskNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the task number."
+          },
+          "requestNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the request number."
+          },
+          "freeFormatProductId" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the product id."
+          },
+          "urlToItem" : {
+            "maxLength" : 512,
+            "type" : "string",
+            "description" : "Specify the URL for the item."
+          },
+          "processingOption" : {
+            "$ref" : "#/components/schemas/processingOption"
+          }
+        },
+        "description" : "Use this schema to unlink the ticket with task."
       }
     },
     "responses" : { },
