@@ -833,7 +833,7 @@
         }
       }
     },
-    "/linkTicket" : {
+    "/link/ticket" : {
       "summary" : "Use this path to link the ticket to the task.",
       "description" : "Use this path to link the ticket to the task.",
       "post" : {
@@ -857,10 +857,8 @@
                     "urlToItem" : "http://plato:45050/gravity/wm/?viewitem=oREbYnf3SD-hr0rgPKd2EA",
                     "urlToProduct" : "http://plato:45050/gravity/restful",
                     "universalUniqueId" : "c035b4e2-4c37-43cc-b5c4-eb369432bace",
-                    "remoteIssueInformation" : "I02949 - REST task API - Add Ticket Functionality",
-                    "processingOption" : {
-                      "entityCode" : "*TASK"
-                    }
+                    "disableIndicator" : "0",
+                    "remoteIssueInformation" : "I02949 - REST task API - Add Ticket Functionality"
                   }
                 },
                 "linkTicketToRequest" : {
@@ -872,10 +870,8 @@
                     "urlToItem" : "http://plato:45050/gravity/wm/?viewitem=oREbYnf3SD-hr0rgPKd2EA",
                     "urlToProduct" : "http://plato:45050/gravity/restful",
                     "universalUniqueId" : "c035b4e2-4c37-43cc-b5c4-eb369432bace",
-                    "remoteIssueInformation" : "I02949 - REST task API - Add Ticket Functionality",
-                    "processingOption" : {
-                      "entityCode" : "*REQUEST"
-                    }
+                    "disableIndicator" : "0",
+                    "remoteIssueInformation" : "I02949 - REST task API - Add Ticket Functionality"
                   }
                 }
               }
@@ -969,7 +965,7 @@
         }
       }
     },
-    "/unlinkTicket" : {
+    "/unlink/ticket" : {
       "summary" : "Use this path to unlink the ticket to the task.",
       "description" : "Use this path to unlink the ticket to the task.",
       "post" : {
@@ -990,10 +986,7 @@
                     "applicationCode" : "XMP",
                     "taskNumber" : "XT0397",
                     "freeFormatProductId" : "Gravity",
-                    "urlToItem" : "http://plato:45050/gravity/wm/?viewitem=oREbYnf3SD-hr0rgPKd2EA",
-                    "processingOption" : {
-                      "entityCode" : "*TASK"
-                    }
+                    "urlToItem" : "http://plato:45050/gravity/wm/?viewitem=oREbYnf3SD-hr0rgPKd2EA"
                   }
                 },
                 "unlinkTicketToRequest" : {
@@ -1002,10 +995,7 @@
                     "applicationCode" : "XMP",
                     "requestNumber" : "XR0019",
                     "freeFormatProductId" : "Gravity",
-                    "urlToItem" : "http://plato:45050/gravity/wm/?viewitem=oREbYnf3SD-hr0rgPKd2EA",
-                    "processingOption" : {
-                      "entityCode" : "*REQUEST"
-                    }
+                    "urlToItem" : "http://plato:45050/gravity/wm/?viewitem=oREbYnf3SD-hr0rgPKd2EA"
                   }
                 }
               }
@@ -2418,7 +2408,7 @@
         "description" : "Input schema for action status"
       },
       "linkTicketRequest" : {
-        "required" : [ "applicationCode", "freeFormatProductId", "remoteIssueInformation", "requestNumber", "taskNumber", "universalUniqueId", "urlToItem", "urlToProduct" ],
+        "required" : [ "applicationCode", "disableIndicator", "freeFormatProductId", "remoteIssueInformation", "requestNumber", "taskNumber", "universalUniqueId", "urlToItem", "urlToProduct" ],
         "type" : "object",
         "properties" : {
           "applicationCode" : {
@@ -2457,13 +2447,17 @@
             "type" : "string",
             "description" : "Specify the universal unique ID."
           },
+          "disableIndicator" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify the disable indicator.  The possible values are 0 or 1. \r\n",
+            "default" : "0",
+            "enum" : [ "0", "1" ]
+          },
           "remoteIssueInformation" : {
             "maxLength" : 50,
             "type" : "string",
             "description" : "Specify the issue description."
-          },
-          "processingOption" : {
-            "$ref" : "#/components/schemas/processingOption"
           }
         },
         "description" : "Use this schema to link the ticket with task."
@@ -2603,20 +2597,6 @@
         "x-host" : "plato",
         "x-fieldSchemaNameType" : "Normalized"
       },
-      "processingOption" : {
-        "required" : [ "entityCode" ],
-        "type" : "object",
-        "properties" : {
-          "entityCode" : {
-            "maxLength" : 10,
-            "type" : "string",
-            "description" : "Specify the entity code. The possible vales are:   \r\n\r\n*TASK   \r\nUse this value to Link or Unlink the ticket to the task. In this case you do not need to pass the request number because it will be ignored.\r\n\r\n*REQUEST  \r\nUse this value to Link or Unlink the ticket to the request. In this case you do not need to pass the task number because it will be ignored.",
-            "default" : "*TASK",
-            "enum" : [ "*TASK", "*REQUEST" ]
-          }
-        },
-        "description" : "Processing options to link the ticket."
-      },
       "unlinkTicketRequest" : {
         "required" : [ "applicationCode", "freeFormatProductId", "requestNumber", "taskNumber", "urlToItem" ],
         "type" : "object",
@@ -2645,16 +2625,12 @@
             "maxLength" : 512,
             "type" : "string",
             "description" : "Specify the URL for the item."
-          },
-          "processingOption" : {
-            "$ref" : "#/components/schemas/processingOption"
           }
         },
         "description" : "Use this schema to unlink the ticket with task."
       }
     },
     "responses" : { },
-    "parameters" : { },
     "examples" : {
       "response400" : {
         "summary" : "Something went wrong.",
@@ -2729,7 +2705,6 @@
         }
       }
     },
-    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
