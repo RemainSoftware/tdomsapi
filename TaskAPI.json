@@ -2,7 +2,7 @@
   "openapi" : "3.0.1",
   "info" : {
     "title" : "TD/OMS - Task API",
-    "description" : "The TD/OMS Task API allows you to interact with a task. You can Create, Change or Delete a task. Also other actions like Copy, Connect, Disconnect, Ratify, Complete, Status Recalculations, Link ticket and Unlink ticket are available.",
+    "description" : "The TD/OMS Task API allows you to interact with a task. You can Create, Change or Delete a task. Also other actions like Copy, Link Request, Unlink Request, Ratify, Complete, Status Recalculations, Link ticket and Unlink ticket are available.",
     "contact" : {
       "name" : "Remain Software",
       "url" : "https://remainsoftware.com",
@@ -51,11 +51,11 @@
   } ],
   "paths" : {
     "/add" : {
-      "summary" : "add",
-      "description" : "Add task",
+      "summary" : "Use this path to add the task.",
+      "description" : "Use this path to add the task.",
       "post" : {
-        "summary" : "Add task",
-        "description" : "Add task",
+        "summary" : "Use this operation to add the task.",
+        "description" : "Use this operation to add the task.",
         "operationId" : "addTask",
         "requestBody" : {
           "description" : "The add task request",
@@ -138,11 +138,11 @@
       }
     },
     "/change" : {
-      "summary" : "change",
-      "description" : "Change task definition",
+      "summary" : "Use this path to change the task.",
+      "description" : "Use this path to change the task.",
       "post" : {
-        "summary" : "Change task",
-        "description" : "Change task",
+        "summary" : "Use this operation to change the task.",
+        "description" : "Use this operation to change the task.",
         "operationId" : "changeTask",
         "requestBody" : {
           "description" : "The change task request",
@@ -225,11 +225,11 @@
       }
     },
     "/complete" : {
-      "summary" : "complete",
-      "description" : "Complete task",
+      "summary" : "Use this path to complete the task.",
+      "description" : "Use this path to complete the task.",
       "post" : {
-        "summary" : "Complete task",
-        "description" : "Complete task",
+        "summary" : "Use this operation to complete the task.",
+        "description" : "Use this operation to complete the task.",
         "operationId" : "completeTask",
         "requestBody" : {
           "description" : "The complete task request",
@@ -311,19 +311,19 @@
         }
       }
     },
-    "/connect" : {
-      "summary" : "connect",
-      "description" : "Connect task",
+    "/link/request" : {
+      "summary" : "Use this path to link the request to the task.",
+      "description" : "Use this path to link the request to the task.",
       "post" : {
-        "summary" : "Connect task",
-        "description" : "Connect task",
-        "operationId" : "connectTask",
+        "summary" : "Use this operation to link the request to the task.",
+        "description" : "Use this operation to link the request to the task.",
+        "operationId" : "linkRequest",
         "requestBody" : {
-          "description" : "The connect task request",
+          "description" : "The request to the task.",
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/connectTaskRequest"
+                "$ref" : "#/components/schemas/linkRequest"
               }
             }
           },
@@ -398,19 +398,19 @@
         }
       }
     },
-    "/disconnect" : {
-      "summary" : "disconnect",
-      "description" : "Disconnect task",
+    "/unlink/request" : {
+      "summary" : "Use this path to unlink the request to the task.",
+      "description" : "Use this path to unlink the request to the task.",
       "post" : {
-        "summary" : "Disconnect task",
-        "description" : "Disconnect task",
-        "operationId" : "disconnectTask",
+        "summary" : "Use this operation to unlink the request to the task.",
+        "description" : "Use this operation to unlink the request to the task.",
+        "operationId" : "unlinkRequest",
         "requestBody" : {
-          "description" : "The disconnect task request",
+          "description" : "Unlink the request to the task.",
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/disconnectTaskRequest"
+                "$ref" : "#/components/schemas/unlinkRequest"
               }
             }
           },
@@ -486,11 +486,11 @@
       }
     },
     "/copy" : {
-      "summary" : "copy",
-      "description" : "Copy task",
+      "summary" : "Use this path to copy the task.",
+      "description" : "Use this path to copy the task.",
       "post" : {
-        "summary" : "Copy task",
-        "description" : "Copy task",
+        "summary" : "Use this operation to copy the task.",
+        "description" : "Use this operation to copy the task.",
         "operationId" : "copyTask",
         "requestBody" : {
           "description" : "The copy task request",
@@ -573,11 +573,11 @@
       }
     },
     "/delete" : {
-      "summary" : "delete",
-      "description" : "Delete task",
+      "summary" : "Use this path to delete the task.",
+      "description" : "Use this path to delete the task.",
       "post" : {
-        "summary" : "Delete task",
-        "description" : "Delete task",
+        "summary" : "Use this operation to delete the task.",
+        "description" : "Use this operation to delete the task.",
         "operationId" : "deleteTask",
         "requestBody" : {
           "description" : "The delete task request",
@@ -660,11 +660,11 @@
       }
     },
     "/ratify" : {
-      "summary" : "ratify",
-      "description" : "Ratify Task",
+      "summary" : "Use this path to ratify the task.",
+      "description" : "Use this path to ratify the task.",
       "post" : {
-        "summary" : "Ratify task",
-        "description" : "Ratify task",
+        "summary" : "Use this operation to ratify the task.",
+        "description" : "Use this operation to ratify the task.",
         "operationId" : "ratifyTask",
         "requestBody" : {
           "description" : "The ratify task request",
@@ -747,11 +747,11 @@
       }
     },
     "/status" : {
-      "summary" : "status",
-      "description" : "Recalculate status",
+      "summary" : "Use this path to recalculate the status.",
+      "description" : "Use this path to recalculate the status.",
       "post" : {
-        "summary" : "Status task",
-        "description" : "Status task",
+        "summary" : "Use this operation to recalculate the status.",
+        "description" : "Use this operation to recalculate the status.",
         "operationId" : "statusTask",
         "requestBody" : {
           "description" : "The status task request",
@@ -1883,7 +1883,7 @@
         },
         "description" : "Input processing options for action complete"
       },
-      "connectData" : {
+      "linkRequestData" : {
         "required" : [ "applicationCode", "fixNumber" ],
         "type" : "object",
         "properties" : {
@@ -1910,13 +1910,13 @@
             "x-sequence" : "20"
           }
         },
-        "description" : "Input data for action connect",
+        "description" : "Input data for action link request",
         "x-pfname" : "OMERS",
         "x-library" : "OMSRUN51",
         "x-host" : "plato",
         "x-fieldSchemaNameType" : "Normalized"
       },
-      "connectProcessingOptions" : {
+      "linkRequestProcessingOptions" : {
         "required" : [ "applicationCodeRequest", "requestCode" ],
         "type" : "object",
         "properties" : {
@@ -1954,9 +1954,9 @@
             "enum" : [ "0", "1" ]
           }
         },
-        "description" : "Input processing option for action connect"
+        "description" : "Input processing option for action link request"
       },
-      "connectTaskRequest" : {
+      "linkRequest" : {
         "required" : [ "interfaceLevel" ],
         "type" : "object",
         "properties" : {
@@ -1967,16 +1967,16 @@
             "default" : "V3R0M0",
             "enum" : [ "V3R0M0" ]
           },
-          "connectProcessingOptions" : {
-            "$ref" : "#/components/schemas/connectProcessingOptions"
+          "linkRequestProcessingOptions" : {
+            "$ref" : "#/components/schemas/linkRequestProcessingOptions"
           },
-          "connectData" : {
-            "$ref" : "#/components/schemas/connectData"
+          "linkRequestData" : {
+            "$ref" : "#/components/schemas/linkRequestData"
           }
         },
-        "description" : "Input schema for action connect"
+        "description" : "Input schema for action link request"
       },
-      "disconnectData" : {
+      "unlinkRequestData" : {
         "required" : [ "applicationCode", "fixNumber" ],
         "type" : "object",
         "properties" : {
@@ -2003,13 +2003,13 @@
             "x-sequence" : "20"
           }
         },
-        "description" : "Input data for action disconnect",
+        "description" : "Input data for action unlink request",
         "x-pfname" : "OMERS",
         "x-library" : "OMSRUN51",
         "x-host" : "plato",
         "x-fieldSchemaNameType" : "Normalized"
       },
-      "disconnectProcessingOptions" : {
+      "unlinkRequestProcessingOptions" : {
         "required" : [ "applicationCodeRequest", "requestCode" ],
         "type" : "object",
         "properties" : {
@@ -2049,9 +2049,9 @@
             "enum" : [ "0", "1" ]
           }
         },
-        "description" : "Input processing options for action disconnect"
+        "description" : "Input processing options for action unlink request"
       },
-      "disconnectTaskRequest" : {
+      "unlinkRequest" : {
         "required" : [ "interfaceLevel" ],
         "type" : "object",
         "properties" : {
@@ -2062,14 +2062,14 @@
             "default" : "V3R0M0",
             "enum" : [ "V3R0M0" ]
           },
-          "disconnectProcessingOptions" : {
-            "$ref" : "#/components/schemas/disconnectProcessingOptions"
+          "unlinkRequestProcessingOptions" : {
+            "$ref" : "#/components/schemas/unlinkRequestProcessingOptions"
           },
-          "disconnectData" : {
-            "$ref" : "#/components/schemas/disconnectData"
+          "unlinkRequestData" : {
+            "$ref" : "#/components/schemas/unlinkRequestData"
           }
         },
-        "description" : "Input schema for action disconnect"
+        "description" : "Input schema for action unlink request"
       },
       "copyData" : {
         "required" : [ "applicationCode", "fixNumber" ],
@@ -2631,6 +2631,7 @@
       }
     },
     "responses" : { },
+    "parameters" : { },
     "examples" : {
       "response400" : {
         "summary" : "Something went wrong.",
@@ -2705,6 +2706,7 @@
         }
       }
     },
+    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
