@@ -2,7 +2,7 @@
   "openapi" : "3.0.1",
   "info" : {
     "title" : "TD/OMS - Solution API",
-    "description" : "The TD/OMS Solution API allows you to interact with objects. You can Connect, Change or Disconnect an object. Also other actions like Lock, Unlock and Move are availabe.",
+    "description" : "The TD/OMS Solution API allows you to interact with objects. You can Connect, Change or Disconnect an object. Also other actions like Lock, Unlock and Move are availabe.\r\n\r\nYou can also perform operation on multiple solutions under a single request.",
     "termsOfService" : "",
     "contact" : {
       "name" : "Remain Software",
@@ -16,10 +16,10 @@
     "version" : "0.0.1",
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
-      "library" : "V16T0248",
+      "library" : "V17T0146",
       "file" : "SolutionAPI.json",
-      "srclibrary" : "V16T0248S",
-      "object" : "@OMQRS"
+      "srclibrary" : "V17T0146S",
+      "object" : "OMQRSO"
     }
   },
   "servers" : [ {
@@ -36,8 +36,8 @@
       },
       "protocol" : {
         "description" : "Protocol",
-        "enum" : [ "https", "http" ],
-        "default" : "https"
+        "default" : "https",
+        "enum" : [ "https", "http" ]
       },
       "port" : {
         "description" : "The port to which the server is listening",
@@ -739,6 +739,576 @@
           "generate" : false
         }
       }
+    },
+    "/multiChange" : {
+      "summary" : "Use this path to change the multiple solutions.",
+      "description" : "Use this path to change the multiple solutions.",
+      "post" : {
+        "summary" : "Use this operation to change the multiple solutions.",
+        "description" : "Use this operation to change the multiple solutions.",
+        "operationId" : "multiChange",
+        "requestBody" : {
+          "description" : "Post Method",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/multiChangeRequest"
+              },
+              "examples" : {
+                "multiChangeExampleRequest200" : {
+                  "summary" : "This example should change the object details",
+                  "description" : "This example should change the object details",
+                  "value" : {
+                    "interfaceLevel" : "V3R0M0",
+                    "multiChangeProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1"
+                    },
+                    "multiChangeData" : [ {
+                      "applicationCode" : "XMP",
+                      "fixNumber" : "XT0607",
+                      "objectCode" : "AB1",
+                      "objectType" : "*PGM",
+                      "memberCode" : "*NONE",
+                      "sourceProcessing" : "*SAME",
+                      "overrideCode" : "*SAME",
+                      "solutionType" : "*SAME",
+                      "routeCode" : "*ONLY",
+                      "pathExtensionLibraryCode" : "*ONLY",
+                      "iFSObjectCode" : "*OBJC",
+                      "iFSDirectoryCode" : " ",
+                      "longDescription" : "Desc change worked"
+                    }, {
+                      "applicationCode" : "XMP",
+                      "fixNumber" : "XT0607",
+                      "objectCode" : "AB2",
+                      "objectType" : "*PGM",
+                      "memberCode" : "*NONE",
+                      "sourceProcessing" : "*SAME",
+                      "overrideCode" : "*SAME",
+                      "solutionType" : "*SAME",
+                      "routeCode" : "*ONLY",
+                      "pathExtensionLibraryCode" : "*ONLY",
+                      "iFSObjectCode" : "*OBJC",
+                      "iFSDirectoryCode" : " ",
+                      "longDescription" : "Desc change worked"
+                    } ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/multiChangeResponse_200"
+                },
+                "examples" : {
+                  "multiChangeResponse200" : {
+                    "summary" : "This example displays the response for successfull multi change operation.",
+                    "description" : "This example displays the response for successfull multi change operation.",
+                    "value" : {
+                      "messages" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQ4012",
+                        "messageType" : "",
+                        "messageData" : "XMPXT0607     XAB1        *PGM               CLLE",
+                        "field" : "",
+                        "messageText" : "Action for solution XAB1 type *PGM detail CLLE completed normally &N Cause . . . . . :   Your request for the OMS solution API has been succesfully executed. The action was performed for application XMP fix XT0607 and detail CLLE. The object attribute is . &N Recovery. . . . :    No recovery necessary. This is an informational message.\n",
+                        "status" : "*NORM",
+                        "solutionResponseData" : {
+                          "applicationCode" : "XMP",
+                          "fixNumber" : "XT0607",
+                          "objectCode" : "XAB1",
+                          "objectType" : "*PGM",
+                          "memberCode" : "",
+                          "objectAttribute" : "CLLE",
+                          "objectLibrary" : "OMHD_DEV",
+                          "objectClass" : "0",
+                          "environmentCode" : "*DEV",
+                          "sourceProcessing" : "1",
+                          "versionNumberBasedOn" : 0,
+                          "modificNumberBasedOn" : 0,
+                          "versionNumber" : 0,
+                          "modificationNumber" : 0,
+                          "overrideCode" : "",
+                          "solutionType" : "1",
+                          "statusField" : "*ACT",
+                          "routeCode" : "",
+                          "pathExtensionLibraryCode" : "",
+                          "iFSObjectCode" : "XAB1",
+                          "iFSDirectoryCode" : "",
+                          "relatedLibraryCode" : "",
+                          "routeCode2" : "",
+                          "levelWithinRoute" : 0,
+                          "libraryCode" : "",
+                          "fixType" : "",
+                          "release" : "",
+                          "developmentExitCount" : 0,
+                          "reasonCode" : "",
+                          "fixStatus" : "*DEV",
+                          "priorityNumeric" : "F",
+                          "programmer" : "SHUKV",
+                          "expectedStartDate" : 1241203,
+                          "realizedStartDate" : 1241203,
+                          "expectedCompletionDate" : 1241203,
+                          "realizedCompletionDate" : 0,
+                          "expectedDevEndDate" : 1241203,
+                          "realizedDevEndDate" : 0,
+                          "expectedNumberOfHours2" : 0,
+                          "realizedNumberOfHours2" : 0,
+                          "shortFixDescription" : "test soulution rest api",
+                          "numberOfRatificationGrps" : 0,
+                          "ratificationCount" : 0,
+                          "rejectedIndicator" : "0",
+                          "freeUserSpace" : "",
+                          "pathCode" : "",
+                          "pathExtensionLibraryCode2" : "",
+                          "iFSPathExtension" : "",
+                          "objectAttribute3" : "CLLE",
+                          "objectDescription" : "test",
+                          "sourceFile" : "QCLLESRC",
+                          "sourceLibrary" : "OMHD_DEV",
+                          "sourceMember" : "XAB1",
+                          "sourcesBelongToObject" : "1",
+                          "sourceChangeDate" : "1241203052847",
+                          "objectSourceChangeDate" : "1241203052847",
+                          "objectModified" : "",
+                          "userWhichCreatedObject" : "SHUKV",
+                          "userDefined" : "1",
+                          "temporaryOrVirtual" : "0",
+                          "objectChangeDate" : "1241203052915",
+                          "memberAttributeMBSEU" : "",
+                          "memberText" : "",
+                          "objectAttribute2" : "",
+                          "sRMId" : "",
+                          "projectCode" : "",
+                          "repositoryURL" : "",
+                          "revision" : "",
+                          "programmer2" : "",
+                          "dateSent" : 0,
+                          "timeSent" : 0,
+                          "locked" : 0,
+                          "markedForDeletion" : "",
+                          "lastTag" : "",
+                          "labelCount" : 0,
+                          "activeSolutionCount" : 0,
+                          "createOverrideCount" : 0,
+                          "commentCount" : 0
+                        },
+                        "longDescription" : "Desc change worked",
+                        "messages" : {
+                          "messageFile" : "OMSAPI",
+                          "messageId" : "OMQ4012",
+                          "messageType" : "",
+                          "messageData" : "XMPXT0607     XAB2        *PGM               CLLE",
+                          "field" : "",
+                          "messageText" : "Action for solution XAB2 type *PGM detail CLLE completed normally &N Cause . . . . . :   Your request for the OMS solution API has been succesfully executed. The action was performed for application XMP fix XT0607 and detail CLLE. The object attribute is . &N Recovery. . . . :    No recovery necessary. This is an informational message.\n",
+                          "status" : "*NORM",
+                          "solutionResponseData" : {
+                            "applicationCode" : "XMP",
+                            "fixNumber" : "XT0607",
+                            "objectCode" : "XAB2",
+                            "objectType" : "*PGM",
+                            "memberCode" : "",
+                            "objectAttribute" : "CLLE",
+                            "objectLibrary" : "OMHD_DEV",
+                            "objectClass" : "0",
+                            "environmentCode" : "*DEV",
+                            "sourceProcessing" : "1",
+                            "versionNumberBasedOn" : 0,
+                            "modificNumberBasedOn" : 0,
+                            "versionNumber" : 0,
+                            "modificationNumber" : 0,
+                            "overrideCode" : "",
+                            "solutionType" : "1",
+                            "statusField" : "*ACT",
+                            "routeCode" : "",
+                            "pathExtensionLibraryCode" : "",
+                            "iFSObjectCode" : "XAB2",
+                            "iFSDirectoryCode" : "",
+                            "relatedLibraryCode" : "",
+                            "routeCode2" : "",
+                            "levelWithinRoute" : 0,
+                            "libraryCode" : "",
+                            "fixType" : "",
+                            "release" : "",
+                            "developmentExitCount" : 0,
+                            "reasonCode" : "",
+                            "fixStatus" : "*DEV",
+                            "priorityNumeric" : "F",
+                            "programmer" : "SHUKV",
+                            "expectedStartDate" : 1241203,
+                            "realizedStartDate" : 1241203,
+                            "expectedCompletionDate" : 1241203,
+                            "realizedCompletionDate" : 0,
+                            "expectedDevEndDate" : 1241203,
+                            "realizedDevEndDate" : 0,
+                            "expectedNumberOfHours2" : 0,
+                            "realizedNumberOfHours2" : 0,
+                            "shortFixDescription" : "test soulution rest api",
+                            "numberOfRatificationGrps" : 0,
+                            "ratificationCount" : 0,
+                            "rejectedIndicator" : "0",
+                            "freeUserSpace" : "",
+                            "pathCode" : "",
+                            "pathExtensionLibraryCode2" : "",
+                            "iFSPathExtension" : "",
+                            "objectAttribute3" : "CLLE",
+                            "objectDescription" : "test",
+                            "sourceFile" : "QCLLESRC",
+                            "sourceLibrary" : "OMHD_DEV",
+                            "sourceMember" : "XAB2",
+                            "sourcesBelongToObject" : "1",
+                            "sourceChangeDate" : "1241203052905",
+                            "objectSourceChangeDate" : "1241203052905",
+                            "objectModified" : "",
+                            "userWhichCreatedObject" : "SHUKV",
+                            "userDefined" : "1",
+                            "temporaryOrVirtual" : "0",
+                            "objectChangeDate" : "1241203052922",
+                            "memberAttributeMBSEU" : "",
+                            "memberText" : "",
+                            "objectAttribute2" : "",
+                            "sRMId" : "",
+                            "projectCode" : "",
+                            "repositoryURL" : "",
+                            "revision" : "",
+                            "programmer2" : "",
+                            "dateSent" : 0,
+                            "timeSent" : 0,
+                            "locked" : 0,
+                            "markedForDeletion" : "",
+                            "lastTag" : "",
+                            "labelCount" : 0,
+                            "activeSolutionCount" : 0,
+                            "createOverrideCount" : 0,
+                            "commentCount" : 0
+                          },
+                          "longDescription" : "Desc change worked"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "207" : {
+            "description" : "mixed Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/multiChangeResponse_207"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request from client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/multiChangeResponse_400"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "07",
+          "generate" : false
+        }
+      }
+    },
+    "/multiDisconnect" : {
+      "summary" : "use this path to disconnect the multiple solutions",
+      "description" : "use this path to disconnect the multiple solutions",
+      "post" : {
+        "summary" : "use this operation to disconnect the multiple solutions",
+        "description" : "use this operation to disconnect the multiple solutions",
+        "operationId" : "multiDisconnect",
+        "requestBody" : {
+          "description" : "Post Method",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/multiDisconnectRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/multiDisconnectResponse_200"
+                }
+              }
+            }
+          },
+          "207" : {
+            "description" : "mixed response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/multiDisconnectResponse_207"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad request from client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/multiDisconnectResponse_400"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "08",
+          "generate" : false
+        }
+      }
+    },
+    "/multiLock" : {
+      "summary" : "use this operation to lock the multiple solutions",
+      "description" : "use this operation to lock the multiple solutions",
+      "post" : {
+        "summary" : "use this operation to lock the multiple solutions",
+        "description" : "use this operation to lock the multiple solutions",
+        "operationId" : "multiLock",
+        "requestBody" : {
+          "description" : "Post Method",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/multiLockRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/multiLockResponse_200"
+                }
+              }
+            }
+          },
+          "207" : {
+            "description" : "mixed response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/multiLockResponse_207"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad request from client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/multiLockResponse_400"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "09",
+          "generate" : false
+        }
+      }
+    },
+    "/multiMove" : {
+      "summary" : "use this path to move the multiple solutions",
+      "description" : "use this path to move the multiple solutions",
+      "post" : {
+        "summary" : "use this operation to move the multiple solutions",
+        "description" : "use this operation to move the multiple solutions",
+        "operationId" : "multiMove",
+        "requestBody" : {
+          "description" : "Post Method",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/multiMoveRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/multiMoveResponse_200"
+                }
+              }
+            }
+          },
+          "207" : {
+            "description" : "mixed response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/multiMoveResponse_207"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad request from client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/multiMoveResponse_400"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "10",
+          "generate" : false
+        }
+      }
+    },
+    "/multiUnlock" : {
+      "summary" : "use this path to unlock the multiple solutions",
+      "description" : "use this path to unlock the multiple solutions",
+      "post" : {
+        "summary" : "use this operation to unlock the multiple solutions",
+        "description" : "use this operation to unlock the multiple solutions",
+        "operationId" : "multiUnlock",
+        "requestBody" : {
+          "description" : "Post Method",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/multiUnlockRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/multiUnlockResponse_200"
+                }
+              }
+            }
+          },
+          "207" : {
+            "description" : "mixed response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/multiUnlockResponse_207"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad request from client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/multiUnlockResponse_400"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "11",
+          "generate" : false
+        }
+      }
     }
   },
   "components" : {
@@ -799,7 +1369,7 @@
             "$ref" : "#/components/schemas/solutionResponseData"
           },
           "longDescription" : {
-            "maxLength" : 65535,
+            "maxLength" : 65536,
             "type" : "string",
             "description" : "Long description"
           }
@@ -1214,21 +1784,21 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Application code",
+            "description" : "Specify the application code of the task to which the object must be connected.                           ",
             "x-column" : "ROAPPC",
             "x-sequence" : "10"
           },
           "fixNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Fix number",
+            "description" : "Specify the task to which the object must be connected.",
             "x-column" : "ROFIX#",
             "x-sequence" : "20"
           },
           "objectCode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Object code",
+            "description" : "Specify the object which must be connected to the task.\r\n\r\n *IFSOBJ                                                                 \r\n     Use this value if you want to specify an object from the integrated \r\n     file system (IFS) instead of the normal OS/400 library structure.   \r\n                                                                         \r\n character-value                                                         \r\n     Specify the object code of the object.                              \r\n\r\n",
             "default" : "*IFSOBJ",
             "enum" : [ "*IFSOBJ" ],
             "x-column" : "ROOBJC",
@@ -1237,14 +1807,14 @@
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Object type",
+            "description" : "Specify the type of the object which must be connected to the task.                                                  ",
             "x-column" : "ROOBJT",
             "x-sequence" : "40"
           },
           "memberCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Member code",
+            "description" : "When connecting a message or a source member the name of this detail must also be specified. The possible values are:                    \r\n\r\n *NONE                                                \r\n     No detail is involved.                           \r\n                                                      \r\n detail-code                                          \r\n     Specify the name of the message or source member.\r\n                                                      ",
             "default" : "*NONE",
             "enum" : [ "*NONE" ],
             "x-column" : "ROMBRC",
@@ -1253,7 +1823,7 @@
           "sourceProcessing" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Source Processing",
+            "description" : "Indicate if the source also has to be transferred through the maintenance cycle. The possible values are:           \r\n\r\n*SAME                                                    \r\n    The source processing does not change. If the object is connected to the fix the source processing will become *YES if the object has a related source (found or not found) and *NONE if the object does not have a source (like a data area). Future solution types may cause the source processing to depend on it. \r\n\r\n*YES                                                                    \r\n    If the object is transferred through the maintenance cycle, so will the related source.                                                 \r\n\r\n*NO\r\n    The object is related to a source, but the source is not transferred through the maintenance cycle.                                      \r\n                                                                        \r\n*NONE                                                                   \r\n    The object is not related to a source.                              ",
             "default" : "*SAME",
             "enum" : [ "*SAME", "*YES", "*NO", "*NONE" ],
             "x-column" : "ROSRCP",
@@ -1262,7 +1832,7 @@
           "overrideCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Override code",
+            "description" : "If an object is transferred through the maintenance cycle, it is possible that it is overtaking a copy of itself which is connected to another fix. In this case the solutions merge into one but stay connected to two or more\r\ndifferent fixes. This is called solution merging.         \r\n                                                          \r\nWhen a merged solution is transferred all other fixes will follow. This is easy to understand if you see that it is actually the same object which is transferred. The possible values are:                                      \r\n\r\n*SAME                                                    \r\n    Indicates that the override code does not change. If an object is first connected to a fix the solution is not a merged object, not even when it is already connected to another fix. In this case an error is reported to the calling program stating that the object is already connected to another fix.          \r\n\r\n*MERGED                                                \r\n    If the object you are about to connect is already connected to another fix, this value will cause it to be connected as a merged object.         \r\n\r\n*LEAD (DEPRECATED)                                                  \r\n    This value is retained for backwards compatibility. Please see  *MERGED.                                                        \r\n                                                                    \r\n*FOLLOW (DEPRECATED)                                                \r\n    This value is retained for backwards compatibility. Please see  *MERGED.                                                                     \r\n\r\n",
             "default" : "*SAME",
             "enum" : [ "*SAME", "*MERGED", "*RESERVED", "*FOLLOW", "*LEAD" ],
             "x-column" : "ROOVRC",
@@ -1271,7 +1841,7 @@
           "solutionType" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Solution type",
+            "description" : "The solution type indicates what actions are planned on the connected object. The possible values are:         \r\n\r\n*SAME                                                      \r\n    Indicates that the solution type does not change. This value defaults to *CHANGE when an object is first connected connected to a fix.                          \r\n\r\n*CHANGE                                                 \r\n    Use this value to indicate an object on which maintenance is to be performed. The connected source is also transferred through the maintenance cycle and normal version numbering is executed on the object.   \r\n\r\n*COMPILE                                                   \r\n    Use this value to indicate an object on which no maintenance is to be performed. This solution type can be used when only a recompile of the object is required.                                              \r\n\r\n*TERMINATE                                                \r\n    Use this solution type to indicate an object which has reached the end of its life. If this solution is transferred through the maintenance cycle and it finds one or more copies of itself then these copies are deleted. The last step is the deletion of the object in the production environment.                         ",
             "default" : "*SAME",
             "enum" : [ "*SAME", "*CHANGE", "*COMPILE", "*TERMINATE" ],
             "x-column" : "ROSOLT",
@@ -1280,7 +1850,7 @@
           "routeCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Route code",
+            "description" : "Specify the route in which this solution resides. The route code only needs to be specified if you are doing something other then connect.  \r\n                                                                      \r\n*ONLY                                                                 \r\n    There is only one object with this name and type in the solution. \r\n                                                                      \r\nroute code                                                            \r\n    Specify the name of the route code where this solution resides.   ",
             "default" : "*ONLY",
             "enum" : [ "*ONLY" ],
             "x-column" : "ROROTC",
@@ -1289,7 +1859,7 @@
           "pathExtensionLibraryCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Path Extension Library Code",
+            "description" : "Specify the path extension code of this solution. This code only needs to be specified if you are doing something other then connect.         \r\n                                                                       \r\n*ONLY                                                                  \r\n    There is only one object with this name and type in the solution.  \r\n                                                                       \r\npath extension code                                                    \r\n    Specify the path extension code where this solution resides.       \r\n\r\nSee the description of the path extension code for more information.   ",
             "default" : "*ONLY",
             "enum" : [ "*ONLY" ],
             "x-column" : "ROELBC",
@@ -1298,17 +1868,17 @@
           "iFSObjectCode" : {
             "maxLength" : 257,
             "type" : "string",
-            "description" : "IFS Object Code",
+            "description" : "Specify the name of the object (e.g. file or directory) to be used.  The full name of the object is a concatenation of the value specified in the IDRC-parameter followed by the value in this (IFSOBJ) parameter.        \r\n                                                                        \r\n*OBJC                                                                   \r\n    Use this value if you want to specify an object from the OS/400 library structure instead of the integrated file system.            \r\n                                                                        ",
             "default" : "*OBJC",
             "enum" : [ "*OBJC" ]
           },
           "iFSDirectoryCode" : {
             "maxLength" : 642,
             "type" : "string",
-            "description" : "IFS Directory Code"
+            "description" : "Specify the directory containing the object specified on the IFSOBJ-parameter. You cannot specify the directory QSYS.LIB or any directory below QSYS.LIB                 "
           },
           "longDescription" : {
-            "maxLength" : 65535,
+            "maxLength" : 65536,
             "type" : "string",
             "description" : "*SAME Use this value to indicate that long description does not change.",
             "default" : "*SAME",
@@ -1347,21 +1917,21 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Application code",
+            "description" : "Specify the application code of the task to which the object must be connected.                           ",
             "x-column" : "ROAPPC",
             "x-sequence" : "10"
           },
           "fixNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Fix number",
+            "description" : "Specify the task to which the object must be connected.",
             "x-column" : "ROFIX#",
             "x-sequence" : "20"
           },
           "objectCode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Object code",
+            "description" : "Specify the object which must be connected to the task.\r\n\r\n *IFSOBJ                                                                 \r\n     Use this value if you want to specify an object from the integrated \r\n     file system (IFS) instead of the normal OS/400 library structure.   \r\n                                                                         \r\n character-value                                                         \r\n     Specify the object code of the object.                              \r\n\r\n",
             "default" : "*IFSOBJ",
             "enum" : [ "*IFSOBJ" ],
             "x-column" : "ROOBJC",
@@ -1370,14 +1940,14 @@
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Object type",
+            "description" : "Specify the type of the object which must be connected to the task.                                                  ",
             "x-column" : "ROOBJT",
             "x-sequence" : "40"
           },
           "memberCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Member code",
+            "description" : "When connecting a message or a source member the name of this detail must also be specified. The possible values are:                    \r\n\r\n *NONE                                                \r\n     No detail is involved.                           \r\n                                                      \r\n detail-code                                          \r\n     Specify the name of the message or source member.\r\n                                                      ",
             "default" : "*NONE",
             "enum" : [ "*NONE" ],
             "x-column" : "ROMBRC",
@@ -1386,14 +1956,14 @@
           "objectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Object library",
+            "description" : "Specify the library of the object.",
             "x-column" : "ROOBJL",
             "x-sequence" : "70"
           },
           "environmentCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Environment code",
+            "description" : "Specify the environment code of the object. This attribute is used to specify some special values for the solution.  The possible values are:       \r\n\r\n*OBJD                                                                   \r\n    The environment is retrieved from the object's object description. This value is not allowed if a new object is connected. A new object is an object which is not yet known to TD/OMS.             \r\n\r\n*ANY                                                                    \r\n    Use this special value to give the special status *ANY to the object. The *ANY status is a virtual environment which is equal to the actual environment of the object. The *ANY environment is used to allow a quick transport of objects to the development environment and is created because an object transfer cannot handle objects originating from different environments. \r\n   The only transfer possible from the *ANY environment is to the development environment. This enables a mass connection and transfer of related objects which are currently not in the same environment.                                                                  ",
             "default" : "*OBJD",
             "enum" : [ "*OBJD", "*ANY" ],
             "x-column" : "ROPDLC",
@@ -1402,7 +1972,7 @@
           "sourceProcessing" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Source Processing",
+            "description" : "Indicate if the source also has to be transferred through the maintenance cycle. The possible values are:           \r\n\r\n*SAME                                                    \r\n    The source processing does not change. If the object is connected to the fix the source processing will become *YES if the object has a related source (found or not found) and *NONE if the object does not have a source (like a data area). Future solution types may cause the source processing to depend on it. \r\n\r\n*YES                                                                    \r\n    If the object is transferred through the maintenance cycle, so will the related source.                                                 \r\n\r\n*NO\r\n    The object is related to a source, but the source is not transferred through the maintenance cycle.                                      \r\n                                                                        \r\n*NONE                                                                   \r\n    The object is not related to a source.                              ",
             "default" : "*SAME",
             "enum" : [ "*SAME", "*YES", "*NO", "*NONE" ],
             "x-column" : "ROSRCP",
@@ -1411,7 +1981,7 @@
           "overrideCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Override code",
+            "description" : "If an object is transferred through the maintenance cycle, it is possible that it is overtaking a copy of itself which is connected to another fix. In this case the solutions merge into one but stay connected to two or more\r\ndifferent fixes. This is called solution merging.         \r\n                                                          \r\nWhen a merged solution is transferred all other fixes will follow. This is easy to understand if you see that it is actually the same object which is transferred. The possible values are:                                      \r\n\r\n*SAME                                                    \r\n    Indicates that the override code does not change. If an object is first connected to a fix the solution is not a merged object, not even when it is already connected to another fix. In this case an error is reported to the calling program stating that the object is already connected to another fix.          \r\n\r\n*MERGED                                                \r\n    If the object you are about to connect is already connected to another fix, this value will cause it to be connected as a merged object.         \r\n\r\n*LEAD (DEPRECATED)                                                  \r\n    This value is retained for backwards compatibility. Please see  *MERGED.                                                        \r\n                                                                    \r\n*FOLLOW (DEPRECATED)                                                \r\n    This value is retained for backwards compatibility. Please see  *MERGED.                                                                     \r\n\r\n",
             "default" : "*SAME",
             "enum" : [ "*SAME", "*MERGED", "*RESERVED", "*FOLLOW", "*LEAD" ],
             "x-column" : "ROOVRC",
@@ -1420,7 +1990,7 @@
           "solutionType" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Solution type",
+            "description" : "The solution type indicates what actions are planned on the connected object. The possible values are:         \r\n\r\n*SAME                                                      \r\n    Indicates that the solution type does not change. This value defaults to *CHANGE when an object is first connected connected to a fix.                          \r\n\r\n*CHANGE                                                 \r\n    Use this value to indicate an object on which maintenance is to be performed. The connected source is also transferred through the maintenance cycle and normal version numbering is executed on the object.   \r\n\r\n*COMPILE                                                   \r\n    Use this value to indicate an object on which no maintenance is to be performed. This solution type can be used when only a recompile of the object is required.                                              \r\n\r\n*TERMINATE                                                \r\n    Use this solution type to indicate an object which has reached the end of its life. If this solution is transferred through the maintenance cycle and it finds one or more copies of itself then these copies are deleted. The last step is the deletion of the object in the production environment.                         ",
             "default" : "*SAME",
             "enum" : [ "*SAME", "*CHANGE", "*COMPILE", "*TERMINATE" ],
             "x-column" : "ROSOLT",
@@ -1429,7 +1999,7 @@
           "statusField" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Status",
+            "description" : "Specify the status assigned to the solution. The possible values are: \r\n\r\n*ACT                                                                     \r\n    Connect this object as an active solution. The object can only be connected once as an active solution.                                \r\n                                                                         \r\n*LOCK                                                                    \r\n    Connect this object to the fix and lock it in the process. This means that the same object can be connected to another fix.          \r\n                                                                         \r\n*CMP                                                                     \r\n    The object can be completed when it is in the highest environment. You can use this status to build a solution history.                 ",
             "default" : "*ACT",
             "enum" : [ "*ACT", "*LOCK", "*CMP" ],
             "x-column" : "ROSTAT",
@@ -1438,14 +2008,14 @@
           "iFSObjectCode" : {
             "maxLength" : 257,
             "type" : "string",
-            "description" : "IFS Object Code",
+            "description" : "Specify the name of the object (e.g. file or directory) to be used.  The full name of the object is a concatenation of the value specified in the IDRC-parameter followed by the value in this (IFSOBJ) parameter.        \r\n                                                                        \r\n*OBJC                                                                   \r\n    Use this value if you want to specify an object from the OS/400 library structure instead of the integrated file system.            \r\n                                                                        ",
             "default" : "*OBJC",
             "enum" : [ "*OBJC" ]
           },
           "iFSDirectoryCode" : {
             "maxLength" : 642,
             "type" : "string",
-            "description" : "IFS Directory Code"
+            "description" : "Specify the directory containing the object specified on the IFSOBJ-parameter. You cannot specify the directory QSYS.LIB or any directory below QSYS.LIB                 "
           }
         },
         "description" : "Connect Data Object",
@@ -1508,21 +2078,21 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Application code",
+            "description" : "Specify the application code of the task to which the object must be connected.                           ",
             "x-column" : "ROAPPC",
             "x-sequence" : "10"
           },
           "fixNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Fix number",
+            "description" : "Specify the task to which the object must be connected.",
             "x-column" : "ROFIX#",
             "x-sequence" : "20"
           },
           "objectCode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Object code",
+            "description" : "Specify the object which must be connected to the task.\r\n\r\n *IFSOBJ                                                                 \r\n     Use this value if you want to specify an object from the integrated \r\n     file system (IFS) instead of the normal OS/400 library structure.   \r\n                                                                         \r\n character-value                                                         \r\n     Specify the object code of the object.                              \r\n\r\n",
             "default" : "*IFSOBJ",
             "enum" : [ "*IFSOBJ" ],
             "x-column" : "ROOBJC",
@@ -1531,14 +2101,14 @@
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Object type",
+            "description" : "Specify the type of the object which must be connected to the task.                                                  ",
             "x-column" : "ROOBJT",
             "x-sequence" : "40"
           },
           "memberCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Member code",
+            "description" : "When connecting a message or a source member the name of this detail must also be specified. The possible values are:                    \r\n\r\n *NONE                                                \r\n     No detail is involved.                           \r\n                                                      \r\n detail-code                                          \r\n     Specify the name of the message or source member.\r\n                                                      ",
             "default" : "*NONE",
             "enum" : [ "*NONE" ],
             "x-column" : "ROMBRC",
@@ -1547,7 +2117,7 @@
           "routeCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Route code",
+            "description" : "Specify the route in which this solution resides. The route code only needs to be specified if you are doing something other then connect.  \r\n                                                                      \r\n*ONLY                                                                 \r\n    There is only one object with this name and type in the solution. \r\n                                                                      \r\nroute code                                                            \r\n    Specify the name of the route code where this solution resides.   ",
             "default" : "*ONLY",
             "enum" : [ "*ONLY" ],
             "x-column" : "ROROTC",
@@ -1556,7 +2126,7 @@
           "pathExtensionLibraryCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Path Extension Library Code",
+            "description" : "Specify the path extension code of this solution. This code only needs to be specified if you are doing something other then connect.         \r\n                                                                       \r\n*ONLY                                                                  \r\n    There is only one object with this name and type in the solution.  \r\n                                                                       \r\npath extension code                                                    \r\n    Specify the path extension code where this solution resides.       \r\n\r\nSee the description of the path extension code for more information.   ",
             "default" : "*ONLY",
             "enum" : [ "*ONLY" ],
             "x-column" : "ROELBC",
@@ -1565,14 +2135,14 @@
           "iFSObjectCode" : {
             "maxLength" : 257,
             "type" : "string",
-            "description" : "IFS Object Code",
+            "description" : "Specify the name of the object (e.g. file or directory) to be used.  The full name of the object is a concatenation of the value specified in the IDRC-parameter followed by the value in this (IFSOBJ) parameter.        \r\n                                                                        \r\n*OBJC                                                                   \r\n    Use this value if you want to specify an object from the OS/400 library structure instead of the integrated file system.            \r\n                                                                        ",
             "default" : "*OBJC",
             "enum" : [ "*OBJC" ]
           },
           "iFSDirectoryCode" : {
             "maxLength" : 642,
             "type" : "string",
-            "description" : "IFS Directory Code"
+            "description" : "Specify the directory containing the object specified on the IFSOBJ-parameter. You cannot specify the directory QSYS.LIB or any directory below QSYS.LIB                 "
           }
         },
         "description" : "Unlock data object\r\n",
@@ -1614,21 +2184,21 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Application code",
+            "description" : "Specify the application code of the task to which the object must be connected.                           ",
             "x-column" : "ROAPPC",
             "x-sequence" : "10"
           },
           "fixNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Fix number",
+            "description" : "Specify the task to which the object must be connected.",
             "x-column" : "ROFIX#",
             "x-sequence" : "20"
           },
           "objectCode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Object code",
+            "description" : "Specify the object which must be connected to the task.\r\n\r\n *IFSOBJ                                                                 \r\n     Use this value if you want to specify an object from the integrated \r\n     file system (IFS) instead of the normal OS/400 library structure.   \r\n                                                                         \r\n character-value                                                         \r\n     Specify the object code of the object.                              \r\n\r\n",
             "default" : "*IFSOBJ",
             "enum" : [ "*IFSOBJ" ],
             "x-column" : "ROOBJC",
@@ -1637,14 +2207,14 @@
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Object type",
+            "description" : "Specify the type of the object which must be connected to the task.                                                  ",
             "x-column" : "ROOBJT",
             "x-sequence" : "40"
           },
           "memberCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Member code",
+            "description" : "When connecting a message or a source member the name of this detail must also be specified. The possible values are:                    \r\n\r\n *NONE                                                \r\n     No detail is involved.                           \r\n                                                      \r\n detail-code                                          \r\n     Specify the name of the message or source member.\r\n                                                      ",
             "default" : "*NONE",
             "enum" : [ "*NONE" ],
             "x-column" : "ROMBRC",
@@ -1653,14 +2223,14 @@
           "iFSObjectCode" : {
             "maxLength" : 257,
             "type" : "string",
-            "description" : "IFS Object Code",
+            "description" : "Specify the name of the object (e.g. file or directory) to be used.  The full name of the object is a concatenation of the value specified in the IDRC-parameter followed by the value in this (IFSOBJ) parameter.        \r\n                                                                        \r\n*OBJC                                                                   \r\n    Use this value if you want to specify an object from the OS/400 library structure instead of the integrated file system.            \r\n                                                                        ",
             "default" : "*OBJC",
             "enum" : [ "*OBJC" ]
           },
           "iFSDirectoryCode" : {
             "maxLength" : 642,
             "type" : "string",
-            "description" : "IFS Directory Code"
+            "description" : "Specify the directory containing the object specified on the IFSOBJ-parameter. You cannot specify the directory QSYS.LIB or any directory below QSYS.LIB                 "
           }
         },
         "description" : "Move Data",
@@ -1822,21 +2392,21 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Application code",
+            "description" : "Specify the application code of the task to which the object must be connected.                           ",
             "x-column" : "ROAPPC",
             "x-sequence" : "10"
           },
           "fixNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Fix number",
+            "description" : "Specify the task to which the object must be connected.",
             "x-column" : "ROFIX#",
             "x-sequence" : "20"
           },
           "objectCode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Object code",
+            "description" : "Specify the object which must be connected to the task.\r\n\r\n *IFSOBJ                                                                 \r\n     Use this value if you want to specify an object from the integrated \r\n     file system (IFS) instead of the normal OS/400 library structure.   \r\n                                                                         \r\n character-value                                                         \r\n     Specify the object code of the object.                              \r\n\r\n",
             "default" : "*IFSOBJ",
             "enum" : [ "*IFSOBJ" ],
             "x-column" : "ROOBJC",
@@ -1845,14 +2415,14 @@
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Object type",
+            "description" : "Specify the type of the object which must be connected to the task.                                                  ",
             "x-column" : "ROOBJT",
             "x-sequence" : "40"
           },
           "memberCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Member code",
+            "description" : "When connecting a message or a source member the name of this detail must also be specified. The possible values are:                    \r\n\r\n *NONE                                                \r\n     No detail is involved.                           \r\n                                                      \r\n detail-code                                          \r\n     Specify the name of the message or source member.\r\n                                                      ",
             "default" : "*NONE",
             "enum" : [ "*NONE" ],
             "x-column" : "ROMBRC",
@@ -1861,7 +2431,7 @@
           "routeCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Route code",
+            "description" : "Specify the route in which this solution resides. The route code only needs to be specified if you are doing something other then connect.  \r\n                                                                      \r\n*ONLY                                                                 \r\n    There is only one object with this name and type in the solution. \r\n                                                                      \r\nroute code                                                            \r\n    Specify the name of the route code where this solution resides.   ",
             "default" : "*ONLY",
             "enum" : [ "*ONLY" ],
             "x-column" : "ROROTC",
@@ -1870,7 +2440,7 @@
           "pathExtensionLibraryCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Path Extension Library Code",
+            "description" : "Specify the path extension code of this solution. This code only needs to be specified if you are doing something other then connect.         \r\n                                                                       \r\n*ONLY                                                                  \r\n    There is only one object with this name and type in the solution.  \r\n                                                                       \r\npath extension code                                                    \r\n    Specify the path extension code where this solution resides.       \r\n\r\nSee the description of the path extension code for more information.   ",
             "default" : "*ONLY",
             "enum" : [ "*ONLY" ],
             "x-column" : "ROELBC",
@@ -1879,14 +2449,14 @@
           "iFSObjectCode" : {
             "maxLength" : 257,
             "type" : "string",
-            "description" : "IFS Object Code",
+            "description" : "Specify the name of the object (e.g. file or directory) to be used.  The full name of the object is a concatenation of the value specified in the IDRC-parameter followed by the value in this (IFSOBJ) parameter.        \r\n                                                                        \r\n*OBJC                                                                   \r\n    Use this value if you want to specify an object from the OS/400 library structure instead of the integrated file system.            \r\n                                                                        ",
             "default" : "*OBJC",
             "enum" : [ "*OBJC" ]
           },
           "iFSDirectoryCode" : {
             "maxLength" : 642,
             "type" : "string",
-            "description" : "IFS Directory Code"
+            "description" : "Specify the directory containing the object specified on the IFSOBJ-parameter. You cannot specify the directory QSYS.LIB or any directory below QSYS.LIB                 "
           }
         },
         "description" : "Disconnect data object\r\n",
@@ -1954,10 +2524,331 @@
           }
         },
         "description" : "To get the data about the object conflict."
+      },
+      "multiChangeRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level.",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "multiChangeProcessingOptions" : {
+            "$ref" : "#/components/schemas/changeProcessingOptions"
+          },
+          "multiChangeData" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "Use this schema to change the multiple solutions.",
+            "items" : {
+              "$ref" : "#/components/schemas/changeData"
+            }
+          }
+        },
+        "description" : "Use this schema to change the multiple objects with in a task."
+      },
+      "multiLockRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level.",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "multiLockProcessingOptions" : {
+            "$ref" : "#/components/schemas/solutionProcessingOptions"
+          },
+          "multiLockData" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/solutionData"
+            }
+          }
+        },
+        "description" : "use this schema to lock the multiple solutions."
+      },
+      "multiDisconnectRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level.",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "multiDisconnectProcessingOptions" : {
+            "$ref" : "#/components/schemas/solutionProcessingOptions"
+          },
+          "multiDisconnectData" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/solutionData"
+            }
+          }
+        },
+        "description" : "use this schema to disconnect the solutions."
+      },
+      "multiMoveRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level.",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "multiMoveProcessingOptions" : {
+            "$ref" : "#/components/schemas/moveProcessingOptions"
+          },
+          "multiMoveData" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/moveData"
+            }
+          }
+        },
+        "description" : "use this schema to move the multiple soulutions."
+      },
+      "multiUnlockRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level.",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "multiUnlockProcessingOptions" : {
+            "$ref" : "#/components/schemas/unlockProcessingOptions"
+          },
+          "multiUnlockData" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/unlockData"
+            }
+          }
+        },
+        "description" : "use this schema to unlock the multiple objects."
+      },
+      "multiChangeResponse_200" : {
+        "type" : "object",
+        "properties" : {
+          "multiChangeResponse200" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "It contains the response for multiple solution change.",
+            "items" : {
+              "$ref" : "#/components/schemas/solutionResponse"
+            }
+          }
+        },
+        "description" : "It contains the response for multiple solution change."
+      },
+      "multiChangeResponse_207" : {
+        "type" : "object",
+        "properties" : {
+          "multiChangeResponse207" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "It contains the response for multiple solution change.",
+            "items" : {
+              "$ref" : "#/components/schemas/solutionResponse"
+            }
+          }
+        },
+        "description" : "It contains the response for multiple solution change."
+      },
+      "multiChangeResponse_400" : {
+        "type" : "object",
+        "properties" : {
+          "multiChangeResponse_400" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "It contains the response for multiple solution change.",
+            "items" : {
+              "$ref" : "#/components/schemas/solutionResponse"
+            }
+          }
+        },
+        "description" : "It contains the response for multiple solution change."
+      },
+      "multiDisconnectResponse_200" : {
+        "type" : "object",
+        "properties" : {
+          "multiDisconnectResponse_200" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "it contains the response for multiple disconnect.",
+            "items" : {
+              "$ref" : "#/components/schemas/solutionResponse"
+            }
+          }
+        },
+        "description" : "it contains the response for multiple disconnect."
+      },
+      "multiDisconnectResponse_207" : {
+        "type" : "object",
+        "properties" : {
+          "multiDisconnectResponse207" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "it contains the response for multiple disconnect.",
+            "items" : {
+              "$ref" : "#/components/schemas/solutionResponse"
+            }
+          }
+        },
+        "description" : "it contains the response for multiple disconnect."
+      },
+      "multiDisconnectResponse_400" : {
+        "type" : "object",
+        "properties" : {
+          "multiDisconnectResponse400" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "it contains the response for multiple disconnect.",
+            "items" : {
+              "$ref" : "#/components/schemas/solutionResponse"
+            }
+          }
+        },
+        "description" : "it contains the response for multiple disconnect."
+      },
+      "multiLockResponse_200" : {
+        "type" : "object",
+        "properties" : {
+          "multiLockResponse200" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "it contains the response for multiple lock.",
+            "items" : {
+              "$ref" : "#/components/schemas/solutionResponse"
+            }
+          }
+        },
+        "description" : "it contains the response for multiple lock."
+      },
+      "multiLockResponse_207" : {
+        "type" : "object",
+        "properties" : {
+          "multiLockResponse207" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "it contains the response for multiple lock.",
+            "items" : {
+              "$ref" : "#/components/schemas/solutionResponse"
+            }
+          }
+        },
+        "description" : "it contains the response for multiple lock."
+      },
+      "multiLockResponse_400" : {
+        "type" : "object",
+        "properties" : {
+          "multiLockResponse400" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "it contains the response for multiple lock.",
+            "items" : {
+              "$ref" : "#/components/schemas/solutionResponse"
+            }
+          }
+        },
+        "description" : "it contains the response for multiple lock."
+      },
+      "multiMoveResponse_200" : {
+        "type" : "object",
+        "properties" : {
+          "multiMoveResponse200" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "it contains the response for multiple move.",
+            "items" : {
+              "$ref" : "#/components/schemas/solutionResponse"
+            }
+          }
+        },
+        "description" : "it contains the response for multiple move."
+      },
+      "multiMoveResponse_207" : {
+        "type" : "object",
+        "properties" : {
+          "multiMoveResponse207" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "it contains the response for multiple move.",
+            "items" : {
+              "$ref" : "#/components/schemas/solutionResponse"
+            }
+          }
+        },
+        "description" : "it contains the response for multiple move."
+      },
+      "multiMoveResponse_400" : {
+        "type" : "object",
+        "properties" : {
+          "multiMoveResponse400" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "it contains the response for multiple move.",
+            "items" : {
+              "$ref" : "#/components/schemas/solutionResponse"
+            }
+          }
+        },
+        "description" : "it contains the response for multiple move."
+      },
+      "multiUnlockResponse_200" : {
+        "type" : "object",
+        "properties" : {
+          "multiUnlockResponse200" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "it contains the response for multiple unlock.",
+            "items" : {
+              "$ref" : "#/components/schemas/solutionResponse"
+            }
+          }
+        },
+        "description" : "it contains the response for multiple unlock."
+      },
+      "multiUnlockResponse_207" : {
+        "type" : "object",
+        "properties" : {
+          "multiUnlockResponse207" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "it contains the response for multiple unlock.",
+            "items" : {
+              "$ref" : "#/components/schemas/solutionResponse"
+            }
+          }
+        },
+        "description" : "it contains the response for multiple unlock."
+      },
+      "multiUnlockResponse_400" : {
+        "type" : "object",
+        "properties" : {
+          "multiUnlockResponse400" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "it contains the response for multiple unlock.",
+            "items" : {
+              "$ref" : "#/components/schemas/solutionResponse"
+            }
+          }
+        },
+        "description" : "it contains the response for multiple unlock."
       }
     },
     "responses" : { },
-    "parameters" : { },
     "examples" : {
       "response401" : {
         "summary" : "Not authorized.",
@@ -2139,7 +3030,6 @@
         }
       }
     },
-    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
