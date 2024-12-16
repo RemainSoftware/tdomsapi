@@ -15,9 +15,9 @@
     "version" : "0.0.1",
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
-      "library" : "V15T0340",
+      "library" : "V17T0148",
       "file" : "RequestAPI.json",
-      "srclibrary" : "V15T0340S",
+      "srclibrary" : "V17T0148S",
       "object" : "OMQRTO"
     }
   },
@@ -583,14 +583,6 @@
           }
         }
       },
-      "errorMessages" : {
-        "maxItems" : 100,
-        "type" : "array",
-        "description" : "Error messages",
-        "items" : {
-          "$ref" : "#/components/schemas/errorMessage"
-        }
-      },
       "targets" : {
         "type" : "object",
         "properties" : {
@@ -722,9 +714,22 @@
           }
         },
         "description" : "Prepare response"
+      },
+      "errorMessages" : {
+        "type" : "object",
+        "properties" : {
+          "errorMessages" : {
+            "maxItems" : 100,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/errorMessage"
+            }
+          }
+        }
       }
     },
     "responses" : { },
+    "parameters" : { },
     "examples" : {
       "response401" : {
         "summary" : "Not authorized.",
@@ -760,11 +765,13 @@
       },
       "selectResponse400" : {
         "summary" : "Something went wrong.",
-        "value" : [ {
-          "messageText" : "Action code is not valid.",
-          "messageID" : "OMQ5073",
-          "messageTextExtended" : "&N Cause . . . . . :   You have specified the invalid action code. &N Recovery  . . . :   Specify the valid action code and try your request again."
-        } ]
+        "value" : {
+          "errorMessages" : [ {
+            "messageText" : "Action code is not valid.",
+            "messageID" : "OMQ5073",
+            "messageTextExtended" : "&N Cause . . . . . :   You have specified the invalid action code. &N Recovery  . . . :   Specify the valid action code and try your request again."
+          } ]
+        }
       },
       "prepareTaskLavel" : {
         "summary" : "How to specify the prepare request input parameter value at the task level.",
@@ -781,11 +788,13 @@
       },
       "executeResponse400" : {
         "summary" : "Something went wrong.",
-        "value" : [ {
-          "messageText" : "Fix Processing ended ABNORMALLY. One ore more objects are not moved or copied.",
-          "messageID" : "OMQF216",
-          "messageTextExtended" : "&N Cause . . . . . :   Fix Processing did not end normally. One or more objects are not processed successfully. &N Recovery. . . . :   See the OMS-log and the joblog for more detailed messages, correct the problem and restart Fix Processing."
-        } ]
+        "value" : {
+          "errorMessages" : [ {
+            "messageText" : "Fix Processing ended ABNORMALLY. One ore more objects are not moved or copied.",
+            "messageID" : "OMQF216",
+            "messageTextExtended" : "&N Cause . . . . . :   Fix Processing did not end normally. One or more objects are not processed successfully. &N Recovery. . . . :   See the OMS-log and the joblog for more detailed messages, correct the problem and restart Fix Processing."
+          } ]
+        }
       },
       "prepareRequestObjectLevel" : {
         "summary" : "How to specify the prepare request input parameter value at the object level.",
@@ -845,6 +854,7 @@
         }
       }
     },
+    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
