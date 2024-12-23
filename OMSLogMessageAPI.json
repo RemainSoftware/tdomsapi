@@ -17,8 +17,8 @@
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
       "object" : "OMQRLH",
-      "library" : "V17T0075",
-      "srclibrary" : "V17T0075S",
+      "library" : "V17T0119",
+      "srclibrary" : "V17T0119S",
       "file" : "OMSLogMessageAPI.json"
     }
   },
@@ -93,6 +93,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/errorResponse"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -103,7 +109,7 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "03",
-          "generate" : true
+          "generate" : false
         }
       }
     },
@@ -120,6 +126,24 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/logHistoryRequest"
+              },
+              "examples" : {
+                "getLogHistoryRequest" : {
+                  "summary" : "How to specify the get log history request input parameter value.",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "pagingDetails" : {
+                      "pageNumber" : 1,
+                      "pageSize" : 50
+                    },
+                    "filterRecords" : [ ],
+                    "searchFlags" : {
+                      "exactMatch" : "0",
+                      "caseSensitive" : "0",
+                      "isOROperator" : "0"
+                    }
+                  }
+                }
               }
             }
           }
@@ -131,6 +155,66 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/logHistoryResponse"
+                },
+                "examples" : {
+                  "getLoghistory" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "totalRecords" : 46555,
+                      "jobLogsHistory" : [ {
+                        "jobName" : "QZRCSRVS",
+                        "jobNumber" : 620853.0,
+                        "userIDOrUserClass" : "MISHD",
+                        "requestNumber" : "",
+                        "taskNumber" : "",
+                        "releaseNumber" : "",
+                        "incomeDate" : 1241223.0,
+                        "incomeTime" : 33409.0,
+                        "applicationCode" : "XMP"
+                      }, {
+                        "jobName" : "QZRCSRVS",
+                        "jobNumber" : 620850.0,
+                        "userIDOrUserClass" : "MISHD",
+                        "requestNumber" : "",
+                        "taskNumber" : "",
+                        "releaseNumber" : "",
+                        "incomeDate" : 1241223.0,
+                        "incomeTime" : 33404.0,
+                        "applicationCode" : "XMP"
+                      }, {
+                        "jobName" : "QZRCSRVS",
+                        "jobNumber" : 615592.0,
+                        "userIDOrUserClass" : "WIM",
+                        "requestNumber" : "",
+                        "taskNumber" : "",
+                        "releaseNumber" : "",
+                        "incomeDate" : 1241220.0,
+                        "incomeTime" : 133404.0,
+                        "applicationCode" : "XMP"
+                      }, {
+                        "jobName" : "QZRCSRVS",
+                        "jobNumber" : 615589.0,
+                        "userIDOrUserClass" : "WIM",
+                        "requestNumber" : "",
+                        "taskNumber" : "",
+                        "releaseNumber" : "",
+                        "incomeDate" : 1241220.0,
+                        "incomeTime" : 133403.0,
+                        "applicationCode" : "XMP"
+                      }, {
+                        "jobName" : "QZRCSRVS",
+                        "jobNumber" : 615577.0,
+                        "userIDOrUserClass" : "WIM",
+                        "requestNumber" : "",
+                        "taskNumber" : "XT0611",
+                        "releaseNumber" : "",
+                        "incomeDate" : 1241220.0,
+                        "incomeTime" : 133326.0,
+                        "applicationCode" : "XMP"
+                      } ]
+                    }
+                  }
                 }
               }
             }
@@ -151,6 +235,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/errorResponse"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -178,6 +268,28 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/messageListRequest"
+              },
+              "examples" : {
+                "listMessagesRequest" : {
+                  "summary" : "How to specify the list messages request input parameter value.",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "pagingDetails" : {
+                      "pageNumber" : 1,
+                      "pageSize" : 50
+                    },
+                    "userIDOrUserClass" : "WIM",
+                    "jobName" : "QPADEV0002",
+                    "jobNumber" : 408397,
+                    "messageFilterRecords" : [ ],
+                    "searchFlags" : {
+                      "exactMatch" : "0",
+                      "caseSensitive" : "0",
+                      "isOROperator" : "0"
+                    },
+                    "relativeRecordNumber" : 0
+                  }
+                }
               }
             }
           },
@@ -190,6 +302,133 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/messageListResponse"
+                },
+                "examples" : {
+                  "listMessages200" : {
+                    "summary" : "response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "totalRecords" : 9,
+                      "messageLists" : [ {
+                        "messageText" : "This is a subsetted list.",
+                        "messageId" : "SUB0001",
+                        "startTime" : "120910",
+                        "severityCode" : 0,
+                        "messageFile" : "OMSMSG",
+                        "startDate" : "1240305",
+                        "messageData" : "",
+                        "isParent" : false,
+                        "relativeRecordNumber" : 703034,
+                        "program" : "OMO004",
+                        "applicationCode" : "XMP",
+                        "applicationDescription" : "Core Comics Supplies Service"
+                      }, {
+                        "messageText" : "Action 60 for event 'task/add' completed normally.",
+                        "messageId" : "OMQB604",
+                        "startTime" : "121927",
+                        "severityCode" : 0,
+                        "messageFile" : "OMSAPI",
+                        "startDate" : "1240305",
+                        "messageData" : "60         task/add",
+                        "isParent" : false,
+                        "relativeRecordNumber" : 703045,
+                        "program" : "OMQCHGEV",
+                        "applicationCode" : "XMP",
+                        "applicationDescription" : "Core Comics Supplies Service"
+                      }, {
+                        "messageText" : "Fix number XT0509 of application  added.",
+                        "messageId" : "OMQ200D",
+                        "startTime" : "121927",
+                        "severityCode" : 10,
+                        "messageFile" : "OMSAPI",
+                        "startDate" : "1240305",
+                        "messageData" : "                              XT0509    Issue saving in octo",
+                        "isParent" : false,
+                        "relativeRecordNumber" : 703046,
+                        "program" : "OMQUSIFI",
+                        "applicationCode" : "XMP",
+                        "applicationDescription" : "Core Comics Supplies Service"
+                      }, {
+                        "messageText" : "Object *DETAIL, type *FILE added to Fix XT0509.",
+                        "messageId" : "ERO0001",
+                        "startTime" : "122022",
+                        "severityCode" : 0,
+                        "messageFile" : "OMSMSG",
+                        "startDate" : "1240305",
+                        "messageData" : "*DETAIL     *FILE    XT0509",
+                        "isParent" : false,
+                        "relativeRecordNumber" : 703048,
+                        "program" : "OMO008",
+                        "applicationCode" : "XMP",
+                        "applicationDescription" : "Core Comics Supplies Service"
+                      }, {
+                        "messageText" : "Press F5 to refresh the screen.",
+                        "messageId" : "KEY0001",
+                        "startTime" : "122023",
+                        "severityCode" : 0,
+                        "messageFile" : "OMSMSG",
+                        "startDate" : "1240305",
+                        "messageData" : "",
+                        "isParent" : false,
+                        "relativeRecordNumber" : 703049,
+                        "program" : "OMO005",
+                        "applicationCode" : "XMP",
+                        "applicationDescription" : "Core Comics Supplies Service"
+                      }, {
+                        "messageText" : "Object *DETAIL, type *FILE added to Fix XT0509.",
+                        "messageId" : "ERO0001",
+                        "startTime" : "122905",
+                        "severityCode" : 0,
+                        "messageFile" : "OMSMSG",
+                        "startDate" : "1240305",
+                        "messageData" : "*DETAIL     *FILE    XT0509",
+                        "isParent" : false,
+                        "relativeRecordNumber" : 703062,
+                        "program" : "OMO008",
+                        "applicationCode" : "XMP",
+                        "applicationDescription" : "Core Comics Supplies Service"
+                      }, {
+                        "messageText" : "Press F5 to refresh the screen.",
+                        "messageId" : "KEY0001",
+                        "startTime" : "122905",
+                        "severityCode" : 0,
+                        "messageFile" : "OMSMSG",
+                        "startDate" : "1240305",
+                        "messageData" : "",
+                        "isParent" : false,
+                        "relativeRecordNumber" : 703063,
+                        "program" : "OMO005",
+                        "applicationCode" : "XMP",
+                        "applicationDescription" : "Core Comics Supplies Service"
+                      }, {
+                        "messageText" : "Action 60 for event 'task/change' completed normally.",
+                        "messageId" : "OMQB604",
+                        "startTime" : "122954",
+                        "severityCode" : 0,
+                        "messageFile" : "OMSAPI",
+                        "startDate" : "1240305",
+                        "messageData" : "60         task/change",
+                        "isParent" : false,
+                        "relativeRecordNumber" : 703076,
+                        "program" : "OMQCHGEV",
+                        "applicationCode" : "XMP",
+                        "applicationDescription" : "Core Comics Supplies Service"
+                      }, {
+                        "messageText" : "Program ended when the user pressed F12. Panel was not processed.",
+                        "messageId" : "OMQ5008",
+                        "startTime" : "123216",
+                        "severityCode" : 0,
+                        "messageFile" : "OMSAPI",
+                        "startDate" : "1240305",
+                        "messageData" : "",
+                        "isParent" : false,
+                        "relativeRecordNumber" : 703088,
+                        "program" : "OMO005",
+                        "applicationCode" : "XMP",
+                        "applicationDescription" : "Core Comics Supplies Service"
+                      } ]
+                    }
+                  }
                 }
               }
             }
@@ -210,6 +449,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/errorResponse"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -233,32 +478,38 @@
           "messageFile" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The IBMi message file."
+            "description" : "The IBMi message file.",
+            "example" : "OMSMSG"
           },
           "messageId" : {
             "maxLength" : 7,
             "type" : "string",
-            "description" : "The IBMi message id."
+            "description" : "The IBMi message id.",
+            "example" : "DUPXXXX"
           },
           "messageType" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "The IBMi message type."
+            "description" : "The IBMi message type.",
+            "example" : "E"
           },
           "messageData" : {
             "maxLength" : 256,
             "type" : "string",
-            "description" : "The IBMi message data."
+            "description" : "The IBMi message data.",
+            "example" : "DUPXXXX"
           },
           "field" : {
             "maxLength" : 50,
             "type" : "string",
-            "description" : "The error in field."
+            "description" : "The error in field.",
+            "example" : ""
           },
           "messageText" : {
             "maxLength" : 644,
             "type" : "string",
-            "description" : "The human readable message text."
+            "description" : "The human readable message text.",
+            "example" : "The message id is not found."
           }
         }
       },
@@ -271,7 +522,8 @@
           "status" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "It returns the status."
+            "description" : "It returns the status.",
+            "example" : "*TERM"
           }
         }
       },
@@ -302,52 +554,32 @@
           "status" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "It contains the status."
+            "description" : "It contains the status.",
+            "example" : "*NORM"
           },
-          "startDate" : {
-            "maxLength" : 10,
-            "type" : "string",
-            "description" : "The start date in YYYY-MM-DD format."
-          },
-          "startTime" : {
-            "maxLength" : 8,
-            "type" : "string",
-            "description" : "The start time HH:MM:SS format."
-          },
-          "program" : {
-            "maxLength" : 10,
-            "type" : "string",
-            "description" : "It contains the program name."
-          },
-          "messageId" : {
-            "maxLength" : 7,
-            "type" : "string",
-            "description" : "It contains the message id."
-          },
-          "applicationCode" : {
-            "maxLength" : 5,
-            "type" : "string",
-            "description" : "It contains the application name."
-          },
-          "firstLevelMessage" : {
+          "messageText" : {
             "maxLength" : 256,
             "type" : "string",
-            "description" : "It contains the main message."
+            "description" : "This contains the message text.",
+            "example" : "This is a subsetted list."
           },
-          "secondLevelMessage" : {
+          "cause" : {
             "maxLength" : 1024,
             "type" : "string",
-            "description" : "It contains the cause and recovery of message."
+            "description" : "This contains the message cause.",
+            "example" : "The list was built using user defined selection data. This means that probably not all available information is displayed."
+          },
+          "recovery" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "This contains the message recovery.",
+            "example" : "None needed. This message is informational."
           },
           "severityCode" : {
             "maximum" : 10,
             "type" : "integer",
-            "description" : "It contains the severity code."
-          },
-          "messageFile" : {
-            "maxLength" : 10,
-            "type" : "string",
-            "description" : "It contains the message file."
+            "description" : "It contains the severity code.",
+            "example" : 0
           }
         }
       },
@@ -529,15 +761,10 @@
           "searchFlags" : {
             "$ref" : "#/components/schemas/searchFlags"
           },
-          "fromRelativeRecordNumber" : {
+          "relativeRecordNumber" : {
             "maximum" : 10,
             "type" : "integer",
             "description" : "It will contain from relative record number."
-          },
-          "toRelativeRecordNumber" : {
-            "maximum" : 10,
-            "type" : "integer",
-            "description" : "It will contain to relative record number."
           }
         },
         "description" : ""
@@ -658,6 +885,21 @@
             "maximum" : 10,
             "type" : "integer",
             "description" : "It contains the relative record number."
+          },
+          "program" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "It contains the program name."
+          },
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "It contains the application code."
+          },
+          "applicationDescription" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "It contains the application descriptions."
           }
         },
         "description" : ""
@@ -665,34 +907,22 @@
       "messageRequest" : {
         "type" : "object",
         "properties" : {
-          "jobName" : {
-            "maxLength" : 10,
-            "type" : "string",
-            "description" : "It contains the job name."
-          },
-          "userIDOrUserClass" : {
-            "maxLength" : 10,
-            "type" : "string",
-            "description" : "it contains the user name."
-          },
-          "jobNumber" : {
-            "maximum" : 6,
-            "type" : "number",
-            "description" : "It contains the job number."
-          },
           "messageId" : {
             "maxLength" : 7,
             "type" : "string",
-            "description" : "It contains the message id."
+            "description" : "It contains the message id.",
+            "example" : "SUB0001"
           },
           "messageFile" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "It contains the message file."
+            "description" : "It contains the message file.",
+            "example" : "OMSMSG"
           },
           "messageData" : {
             "type" : "string",
-            "description" : "It contains the message data."
+            "description" : "It contains the message data.",
+            "example" : ""
           }
         },
         "description" : ""
@@ -720,6 +950,22 @@
       }
     },
     "responses" : { },
+    "examples" : {
+      "response401" : {
+        "summary" : "Not authorized.",
+        "value" : {
+          "messages" : {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQF201",
+            "messageType" : "E",
+            "messageData" : "",
+            "field" : "",
+            "messageText" : "Unauthorized or expired token. Please login again."
+          },
+          "status" : "*TERM"
+        }
+      }
+    },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
