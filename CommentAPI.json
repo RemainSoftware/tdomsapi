@@ -17,8 +17,8 @@
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
       "object" : "@OMRCM",
-      "library" : "V17T0011",
-      "srclibrary" : "V17T0011S",
+      "library" : "V17T0140",
+      "srclibrary" : "V17T0140S",
       "file" : "CommentAPI.json"
     }
   },
@@ -129,13 +129,13 @@
                         "objectCode" : "",
                         "objectType" : "",
                         "memberCode" : "",
-                        "genericId" : 0,
+                        "genericID" : 0,
                         "entityCode" : "TA",
-                        "commentId" : 301,
-                        "replyId" : 0,
+                        "commentID" : 301,
+                        "replyID" : 0,
                         "incomeDate" : 1241015,
                         "incomeTime" : 124601,
-                        "userIdOrUserClass" : "ALICE",
+                        "userIDOrUserClass" : "ALICE",
                         "shortCommentDescription" : "This is short Description",
                         "commentMarkupType" : "0",
                         "commentText" : "This is long Description"
@@ -221,7 +221,7 @@
                       "topic" : "",
                       "description" : ""
                     },
-                    "commentId" : 301,
+                    "commentID" : 301,
                     "commentTypeAndDescription" : {
                       "commentMarkupType" : "*TEXT",
                       "shortCommentDescription" : "The short description is changed",
@@ -269,13 +269,13 @@
                         "objectCode" : "",
                         "objectType" : "",
                         "memberCode" : "",
-                        "genericId" : 0,
+                        "genericID" : 0,
                         "entityCode" : "TA",
-                        "commentId" : 301,
-                        "replyId" : 0,
+                        "commentID" : 301,
+                        "replyID" : 0,
                         "incomeDate" : 1241015,
                         "incomeTime" : 124601,
-                        "userIdOrUserClass" : "ALICE",
+                        "userIDOrUserClass" : "ALICE",
                         "shortCommentDescription" : "The short description is changed",
                         "commentMarkupType" : "0",
                         "commentText" : "This is long Description"
@@ -361,7 +361,7 @@
                       "topic" : "",
                       "description" : ""
                     },
-                    "commentId" : 301,
+                    "commentID" : 301,
                     "commentProcessingOptions" : {
                       "updateDb" : "1",
                       "updateBuffer" : "1"
@@ -404,13 +404,13 @@
                         "objectCode" : "",
                         "objectType" : "",
                         "memberCode" : "",
-                        "genericId" : 0,
+                        "genericID" : 0,
                         "entityCode" : "",
-                        "commentId" : 0,
-                        "replyId" : 0,
+                        "commentID" : 0,
+                        "replyID" : 0,
                         "incomeDate" : 0,
                         "incomeTime" : 0,
-                        "userIdOrUserClass" : "",
+                        "userIDOrUserClass" : "",
                         "shortCommentDescription" : "",
                         "commentMarkupType" : "",
                         "commentText" : ""
@@ -496,7 +496,7 @@
                       "topic" : "",
                       "description" : ""
                     },
-                    "replyId" : 303,
+                    "replyID" : 303,
                     "commentTypeAndDescription" : {
                       "commentMarkupType" : "*TEXT",
                       "shortCommentDescription" : "This is reply comment",
@@ -544,13 +544,13 @@
                         "objectCode" : "",
                         "objectType" : "",
                         "memberCode" : "",
-                        "genericId" : 0,
+                        "genericID" : 0,
                         "entityCode" : "TA",
-                        "commentId" : 304,
-                        "replyId" : 301,
+                        "commentID" : 304,
+                        "replyID" : 301,
                         "incomeDate" : 1241015,
                         "incomeTime" : 131838,
-                        "userIdOrUserClass" : "ALICE",
+                        "userIDOrUserClass" : "ALICE",
                         "shortCommentDescription" : "This is reply comment",
                         "commentMarkupType" : "0",
                         "commentText" : "Comment"
@@ -674,7 +674,7 @@
             "x-column" : "MNMBRC",
             "x-sequence" : "90"
           },
-          "genericId" : {
+          "genericID" : {
             "maxLength" : 9,
             "type" : "number",
             "description" : "Generic ID",
@@ -689,7 +689,7 @@
             "x-column" : "MNENTC",
             "x-sequence" : "110"
           },
-          "commentId" : {
+          "commentID" : {
             "maxLength" : 9,
             "type" : "number",
             "description" : "Comment ID",
@@ -697,7 +697,7 @@
             "x-column" : "MNCMID",
             "x-sequence" : "120"
           },
-          "replyId" : {
+          "replyID" : {
             "maxLength" : 9,
             "type" : "number",
             "description" : "Reply ID",
@@ -721,7 +721,7 @@
             "x-column" : "MNINTM",
             "x-sequence" : "150"
           },
-          "userIdOrUserClass" : {
+          "userIDOrUserClass" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "User i.d., or user class",
@@ -757,7 +757,11 @@
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
-            "$ref" : "#/components/schemas/interfaceLevel"
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Enter the interface level code.",
+            "default" : "V12R1M0",
+            "enum" : [ "V12R1M0" ]
           },
           "request" : {
             "$ref" : "#/components/schemas/request"
@@ -811,13 +815,19 @@
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
-            "$ref" : "#/components/schemas/interfaceLevel"
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Enter the interface level code.",
+            "default" : "V12R1M0",
+            "enum" : [ "V12R1M0" ]
           },
           "request" : {
             "$ref" : "#/components/schemas/request"
           },
-          "commentId" : {
-            "$ref" : "#/components/schemas/commentId"
+          "commentID" : {
+            "type" : "number",
+            "description" : "Use this value to specify the comment id if you want to change or delete and existing comment.",
+            "format" : "zoned(9:0)"
           },
           "commentTypeAndDescription" : {
             "$ref" : "#/components/schemas/commentTypeAndDescription"
@@ -832,12 +842,16 @@
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
-            "$ref" : "#/components/schemas/interfaceLevel"
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Enter the interface level code.",
+            "default" : "V12R1M0",
+            "enum" : [ "V12R1M0" ]
           },
           "request" : {
             "$ref" : "#/components/schemas/request"
           },
-          "replyId" : {
+          "replyID" : {
             "type" : "number",
             "description" : "Use this value if you want to reply on an existing comment or reply.The comment id of an existing comment or reply is used as reply id. ",
             "format" : "zoned(9:0)"
@@ -855,13 +869,19 @@
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
-            "$ref" : "#/components/schemas/interfaceLevel"
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Enter the interface level code.",
+            "default" : "V12R1M0",
+            "enum" : [ "V12R1M0" ]
           },
           "request" : {
             "$ref" : "#/components/schemas/request"
           },
-          "commentId" : {
-            "$ref" : "#/components/schemas/commentId"
+          "commentID" : {
+            "type" : "number",
+            "description" : "Use this value to specify the comment id if you want to change or delete and existing comment.",
+            "format" : "zoned(9:0)"
           },
           "commentProcessingOptions" : {
             "$ref" : "#/components/schemas/commentProcessingOptions"
@@ -873,7 +893,9 @@
         "type" : "object",
         "properties" : {
           "status" : {
-            "$ref" : "#/components/schemas/status"
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
           },
           "messages" : {
             "$ref" : "#/components/schemas/extendedMessage"
@@ -884,29 +906,19 @@
         },
         "description" : "Comment Response"
       },
-      "status" : {
-        "maxLength" : 5,
-        "type" : "string",
-        "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
-      },
       "errorMessage" : {
         "type" : "object",
         "properties" : {
           "status" : {
-            "$ref" : "#/components/schemas/status"
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
           },
           "messages" : {
             "$ref" : "#/components/schemas/extendedMessage"
           }
         },
         "description" : "The return messages."
-      },
-      "interfaceLevel" : {
-        "maxLength" : 8,
-        "type" : "string",
-        "description" : "Enter the interface level code.",
-        "default" : "V12R1M0",
-        "enum" : [ "V12R1M0" ]
       },
       "commentProcessingOptions" : {
         "type" : "object",
@@ -1012,11 +1024,6 @@
         },
         "description" : "Common fields for all path"
       },
-      "commentId" : {
-        "type" : "number",
-        "description" : "Use this value to specify the comment id if you want to change or delete and existing comment.",
-        "format" : "zoned(9:0)"
-      },
       "commentTypeAndDescription" : {
         "type" : "object",
         "properties" : {
@@ -1095,13 +1102,13 @@
             "objectCode" : "",
             "objectType" : "",
             "memberCode" : "",
-            "genericId" : 0,
+            "genericID" : 0,
             "entityCode" : "TA",
-            "commentId" : 301,
-            "replyId" : 0,
+            "commentID" : 301,
+            "replyID" : 0,
             "incomeDate" : 1241015,
             "incomeTime" : 124601,
-            "userIdOrUserClass" : "ALICE",
+            "userIDOrUserClass" : "ALICE",
             "shortCommentDescription" : "This is short Description",
             "commentMarkupType" : "0",
             "commentText" : "This is long Description"
