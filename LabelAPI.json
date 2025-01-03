@@ -16,9 +16,9 @@
     "version" : "0.0.1",
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
-      "object" : "@OMQRLB",
-      "library" : "V16T0269",
-      "srclibrary" : "V16T0269S",
+      "object" : "OMQRLB",
+      "library" : "V17T0008",
+      "srclibrary" : "V17T0008S",
       "file" : "LabelAPI.json"
     }
   },
@@ -56,7 +56,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/addRequest"
+                "$ref" : "#/components/schemas/addLabelRequest"
               }
             }
           },
@@ -68,7 +68,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/response"
+                  "$ref" : "#/components/schemas/labelResponse"
                 }
               }
             }
@@ -115,7 +115,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/changeRequest"
+                "$ref" : "#/components/schemas/changeLabelRequest"
               }
             }
           },
@@ -127,7 +127,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/response"
+                  "$ref" : "#/components/schemas/labelResponse"
                 }
               }
             }
@@ -158,7 +158,7 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "02",
-          "generate" : true
+          "generate" : false
         }
       }
     },
@@ -174,7 +174,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/deleteRequest"
+                "$ref" : "#/components/schemas/deleteLabelRequest"
               }
             }
           },
@@ -186,7 +186,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/response"
+                  "$ref" : "#/components/schemas/labelResponse"
                 }
               }
             }
@@ -217,7 +217,7 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "03",
-          "generate" : true
+          "generate" : false
         }
       }
     },
@@ -245,7 +245,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/response"
+                  "$ref" : "#/components/schemas/labelResponse"
                 }
               }
             }
@@ -276,7 +276,7 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "04",
-          "generate" : true
+          "generate" : false
         }
       }
     },
@@ -304,7 +304,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/response"
+                  "$ref" : "#/components/schemas/labelResponse"
                 }
               }
             }
@@ -335,44 +335,13 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "05",
-          "generate" : true
+          "generate" : false
         }
       }
     }
   },
   "components" : {
     "schemas" : {
-      "addRequest" : {
-        "type" : "object",
-        "properties" : {
-          "interfaceLevel" : {
-            "maxLength" : 8,
-            "type" : "string",
-            "description" : "The interface level must be V12R1M0",
-            "default" : "'V12R1M0'",
-            "enum" : [ "'V12R1M0'" ]
-          },
-          "labelCode" : {
-            "maxLength" : 30,
-            "type" : "string",
-            "description" : "A label is a 30 character field that can be used to label things like Objects, Requests and Tasks. Labels can be used in filters and selections.",
-            "default" : "*SAME"
-          },
-          "labelDescription" : {
-            "maxLength" : 100,
-            "type" : "string",
-            "description" : "The label description contains a description of the label.",
-            "default" : "*SAME"
-          },
-          "color" : {
-            "$ref" : "#/components/schemas/color"
-          },
-          "processingOptions" : {
-            "$ref" : "#/components/schemas/processingOptions"
-          }
-        },
-        "description" : "Input parameters to add a new Label."
-      },
       "processingOptions" : {
         "type" : "object",
         "properties" : {
@@ -393,100 +362,24 @@
         },
         "description" : "Input parameters to decide on UpdateDB and Update Buffer"
       },
-      "objectDetails" : {
-        "type" : "object",
-        "properties" : {
-          "objectCode" : {
-            "maxLength" : 12,
-            "type" : "string",
-            "description" : "The object code is the OS/400 system name of an object. The length is 10 characters for normal objects and 12 for\r\ndocument library objects.\r\n\r\n*IFSOBJ                                                    \r\n    Use this value if you want to add label to an object   \r\n    from the integrated file system (IFS) instead of the   \r\n    normal OS/400 library structure.                       \r\n                                                           \r\ncharacter-value                                            \r\n    Specify the object code of the object. The object must \r\n    exist in TD/OMS.                                       \r\n                                                  ",
-            "default" : "*IFSOBJ"
-          },
-          "objectType" : {
-            "maxLength" : 9,
-            "type" : "string",
-            "description" : "The object type specifies the type of object. Program objects are of the type *PGM, file objects are of the type \r\n*FILE, etc. Refer to the IBM OS/400 reference quide for more information.\r\n\r\n"
-          },
-          "memberCode" : {
-            "maxLength" : 10,
-            "type" : "string",
-            "description" : "Name of the message or member name.\r\n\r\n*NONE                        \r\n    No detail is involved.   \r\ndetail-code                                          \r\n    Specify the name of the message or source member.",
-            "default" : "*NONE"
-          },
-          "ifsObject" : {
-            "maxLength" : 1000,
-            "type" : "string",
-            "description" : "The IFS Full Path Name is a complete reference to an IFS object. This includes the directory and the object.\r\n*OBJC                                                    \r\n    Use this value if you want to add label to an object \r\n    from the OS/400 library structure instead of the     \r\n    integrated file system (IFS).                        \r\n\r\npath-name                                             \r\n    Specify a full path name to the object. The object\r\n    must exist in TD/OMS.                             ",
-            "default" : "*OBJC"
-          }
-        },
-        "description" : "Input parameters of object Details"
-      },
       "labelKeyDetails" : {
         "type" : "object",
         "properties" : {
           "labelId" : {
             "type" : "number",
-            "description" : "Specify the ID of the label.\r\nThe possible values are:   \r\n                           \r\n*LABEL                     \r\n    If *LABEL is specified then provide the valid label name in KEY \r\n    field.                                                          \r\n                                                                    \r\nLabel ID                                                            \r\n    Specify an existing label ID. A label ID cannot be specified for\r\n    the *ADD Action because an ID is generated for you.             ",
-            "default" : 0.0
+            "description" : "Specify the ID of the label.\r\nThe possible values are:   \r\n                           \r\n0  (*LABEL)                    \r\n    If 0 or *LABEL is specified then provide the valid label name in KEY field.                                                          \r\n                                                                    \r\nLabel ID                                                            \r\n    Specify an existing label ID. A label ID cannot be specified for the *ADD Action because an ID is generated for you.             ",
+            "default" : 0.0,
+            "enum" : [ 0.0 ]
           },
           "labelKey" : {
             "maxLength" : 30,
             "type" : "string",
             "description" : "Specify the existing label name. The possible values are:\r\n*ID                                                       \r\n    If *ID is specified then provide the valid label id in\r\n    the LBID field.                                       \r\n                                                          \r\n*ALL                                                      \r\n    Specify *ALL only when using the *UNLABEL action code.\r\n    *ALL can be used to remove all labels from an object  \r\n    in one action.                                       \r\n                                                         \r\nlabel name                                               \r\n    Specify the label name for the label that you want to\r\n    process.                                             ",
-            "default" : "*ID"
+            "default" : "*ID",
+            "enum" : [ "*ID", "*ALL" ]
           }
         },
         "description" : "Input parameters for Label key - Label id and Label Key"
-      },
-      "changeRequest" : {
-        "type" : "object",
-        "properties" : {
-          "interfaceLevel" : {
-            "maxLength" : 8,
-            "type" : "string",
-            "description" : "The interface level must be V12R1M0"
-          },
-          "labelKeyDetails" : {
-            "$ref" : "#/components/schemas/labelKeyDetails"
-          },
-          "labelCode" : {
-            "maxLength" : 30,
-            "type" : "string",
-            "description" : "A label is a 30 character field that can be used to label things like Objects, Requests and Tasks. Labels can be used in filters and selections.",
-            "default" : "*SAME"
-          },
-          "labelDescription" : {
-            "maxLength" : 100,
-            "type" : "string",
-            "description" : "Description of the Label",
-            "default" : "*SAME"
-          },
-          "color" : {
-            "$ref" : "#/components/schemas/color"
-          },
-          "processingOptions" : {
-            "$ref" : "#/components/schemas/processingOptions"
-          }
-        },
-        "description" : "input parameters to change existing Label."
-      },
-      "deleteRequest" : {
-        "type" : "object",
-        "properties" : {
-          "interfaceLevel" : {
-            "maxLength" : 8,
-            "type" : "string",
-            "description" : "The interface level must be V12R1M0"
-          },
-          "labelKeyDetails" : {
-            "$ref" : "#/components/schemas/labelKeyDetails"
-          },
-          "processingOptions" : {
-            "$ref" : "#/components/schemas/processingOptions"
-          }
-        },
-        "description" : "input parameters to delete the existing Label"
       },
       "labelRequest" : {
         "type" : "object",
@@ -494,13 +387,15 @@
           "interfaceLevel" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "The interface level must be V12R1M0"
+            "description" : "The interface level must be V12R1M0",
+            "default" : "V12R1M0",
+            "enum" : [ "V12R1M0" ]
           },
           "labelKeyDetails" : {
             "$ref" : "#/components/schemas/labelKeyDetails"
           },
           "objectDetails" : {
-            "$ref" : "#/components/schemas/objectDetails"
+            "$ref" : "#/components/schemas/labelObjectDetails"
           },
           "processingOptions" : {
             "$ref" : "#/components/schemas/processingOptions"
@@ -514,36 +409,21 @@
           "interfaceLevel" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "The interface level must be V12R1M0"
+            "description" : "The interface level must be V12R1M0",
+            "default" : "V12R1M0",
+            "enum" : [ "V12R1M0" ]
           },
           "labelKeyDetails" : {
             "$ref" : "#/components/schemas/labelKeyDetails"
           },
           "objectDetails" : {
-            "$ref" : "#/components/schemas/objectDetails"
+            "$ref" : "#/components/schemas/labelObjectDetails"
           },
           "processingOptions" : {
             "$ref" : "#/components/schemas/processingOptions"
           }
         },
         "description" : "Input parameters to remove the Label from an object"
-      },
-      "response" : {
-        "type" : "object",
-        "properties" : {
-          "status" : {
-            "maxLength" : 5,
-            "type" : "string",
-            "description" : "Returned Status"
-          },
-          "extendedMessage" : {
-            "$ref" : "#/components/schemas/extendedMessage"
-          },
-          "responseData" : {
-            "$ref" : "#/components/schemas/responseData"
-          }
-        },
-        "description" : ""
       },
       "extendedMessage" : {
         "type" : "object",
@@ -581,19 +461,101 @@
         },
         "description" : "Output error details"
       },
-      "color" : {
+      "addLabelRequest" : {
         "type" : "object",
         "properties" : {
-          "color" : {
-            "maxLength" : 10,
+          "interfaceLevel" : {
+            "maxLength" : 8,
             "type" : "string",
-            "description" : "The color code to be used in the UI. This field is a three byte hexadecimal value where the first byte is used for the amount of RED the second byte is used for the amount of GREEN and the third byte for the amount of BLUE.       \r\nFF0000 - Red  \r\n00FF00 - Green\r\n0000FF - Blue \r\n8B0000 - Dark Red  \r\nFFFF00 - Yellow \r\n00FFFF - Aqua   \r\n\r\nSpecial values - *SAME   \r\n*WHITE  \r\n*SILVER \r\n*GRAY   \r\n*BLACK  \r\n*RED    \r\n*MAROON \r\n*YELLOW \r\n*OLIVE  \r\n*LIME   \r\n*GREEN  \r\n*AQUA   \r\n*TEAL   \r\n*BLUE   \r\n*NAVY   \r\n*FUCHSIA\r\n*PURPLE",
+            "description" : "The interface level must be V12R1M0",
+            "default" : "V12R1M0",
+            "enum" : [ "V12R1M0" ]
+          },
+          "labelCode" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "A label is a 30 character field that can be used to label things like Objects, Requests and Tasks. Labels can be used in filters and selections.\r\n \r\n*SAME  \r\nUse this value to indicate that the Label code does not change if you are in change mode. In Add Mode it is invalid.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "labelDescription" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "The label description contains a description of the label.\r\n\r\n*SAME\r\nUse this value to indicate that the Label description does not change if you are in change mode. In Add Mode it is invalid.\r\n\r\n*SAME  \r\nIt denotes the blank value.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "color" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The color code to be used in the UI. This field is a three byte hexadecimal value where the first byte is used for the amount of RED the second byte is used for the amount of GREEN and the third byte for the amount of BLUE. *SAME denotes blank. It is invalid in *ADD mode.      \r\nFF0000 - Red  \r\n00FF00 - Green\r\n0000FF - Blue \r\n8B0000 - Dark Red  \r\nFFFF00 - Yellow \r\n00FFFF - Aqua   \r\n\r\nSpecial values - *SAME   \r\n*WHITE  \r\n*SILVER \r\n*GRAY   \r\n*BLACK  \r\n*RED    \r\n*MAROON \r\n*YELLOW \r\n*OLIVE  \r\n*LIME   \r\n*GREEN  \r\n*AQUA   \r\n*TEAL",
             "enum" : [ "*SAME", "*WHITE", "*SILVER", "*GRAY", "*BLACK", "*RED", "*MAROON", "*YELLOW", "*OLIVE", "*LIME", "*GREEN", "*AQUA", "*TEAL", "*BLUE", "*NAVY", "*FUCHSIA", "*PURPLE" ]
+          },
+          "processingOptions" : {
+            "$ref" : "#/components/schemas/processingOptions"
           }
         },
-        "description" : "The color code to be used in the UI. This field is a three byte hexadecimal value where the first byte is used for the amount of RED the second\r\n byte is used for the amount of GREEN and the third byte for the amount of BLUE."
+        "description" : "Input parameters to add a new Label."
       },
-      "responseData" : {
+      "changeLabelRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V12R1M0",
+            "default" : "V12R1M0",
+            "enum" : [ "V12R1M0" ]
+          },
+          "labelKeyDetails" : {
+            "$ref" : "#/components/schemas/labelKeyDetails"
+          },
+          "labelCode" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "A label is a 30 character field that can be used to label things like Objects, Requests and Tasks. Labels can be used in filters and selections.\r\n\r\n*SAME  \r\nUse this value to indicate that the Label code does not change if you are in change mode. In Add Mode it is invalid.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "labelDescription" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "Description of the Label\r\n\r\n*SAME\r\nUse this value to indicate that the Label description does not change if you are in change mode. In Add Mode it is invalid.\r\n*SAME  \r\nIt denotes the blank value.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "color" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The color code to be used in the UI. This field is a three byte hexadecimal value where the first byte is used for the amount of RED the second byte is used for the amount of GREEN and the third byte for the amount of BLUE. *SAME denotes blank. It is invalid in *ADD mode.      \r\nFF0000 - Red  \r\n00FF00 - Green\r\n0000FF - Blue \r\n8B0000 - Dark Red  \r\nFFFF00 - Yellow \r\n00FFFF - Aqua   \r\n\r\nSpecial values - *SAME   \r\n*WHITE  \r\n*SILVER \r\n*GRAY   \r\n*BLACK  \r\n*RED    \r\n*MAROON \r\n*YELLOW \r\n*OLIVE  \r\n*LIME   \r\n*GREEN  \r\n*AQUA   \r\n*TEAL",
+            "enum" : [ "*SAME", "*WHITE", "*SILVER", "*GRAY", "*BLACK", "*RED", "*MAROON", "*YELLOW", "*OLIVE", "*LIME", "*GREEN", "*AQUA", "*TEAL", "*BLUE", "*NAVY", "*FUCHSIA", "*PURPLE" ]
+          },
+          "processingOptions" : {
+            "$ref" : "#/components/schemas/processingOptions"
+          }
+        },
+        "description" : "input parameters to change existing Label.\r\n\r\n*SAME  \r\nUse this value to indicate that the Label code does not change if you are in change mode. In Add Mode it is invalid."
+      },
+      "deleteLabelRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V12R1M0",
+            "default" : "V12R1M0",
+            "enum" : [ "V12R1M0" ]
+          },
+          "labelKeyDetails" : {
+            "$ref" : "#/components/schemas/labelKeyDetails"
+          },
+          "processingOptions" : {
+            "$ref" : "#/components/schemas/processingOptions"
+          }
+        },
+        "description" : "input parameters to delete the existing Label"
+      },
+      "labelResponseData" : {
         "type" : "object",
         "properties" : {
           "labelKeyDetails" : {
@@ -609,31 +571,89 @@
             "type" : "string",
             "description" : "Label Description"
           },
-          "color" : {
-            "$ref" : "#/components/schemas/color"
+          "objectDetails" : {
+            "$ref" : "#/components/schemas/labelObjectDetails"
           },
-          "usercode" : {
+          "color" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The color code to be used in the UI. This field is a three byte hexadecimal value where the first byte is used for the amount of RED the second byte is used for the amount of GREEN and the third byte for the amount of BLUE. *SAME denotes blank. It is invalid in *ADD mode.      \r\nFF0000 - Red  \r\n00FF00 - Green\r\n0000FF - Blue \r\n8B0000 - Dark Red  \r\nFFFF00 - Yellow \r\n00FFFF - Aqua   \r\n\r\nSpecial values - *SAME   \r\n*WHITE  \r\n*SILVER \r\n*GRAY   \r\n*BLACK  \r\n*RED    \r\n*MAROON \r\n*YELLOW \r\n*OLIVE  \r\n*LIME   \r\n*GREEN  \r\n*AQUA   \r\n*TEAL",
+            "enum" : [ "*SAME", "*WHITE", "*SILVER", "*GRAY", "*BLACK", "*RED", "*MAROON", "*YELLOW", "*OLIVE", "*LIME", "*GREEN", "*AQUA", "*TEAL", "*BLUE", "*NAVY", "*FUCHSIA", "*PURPLE" ]
+          },
+          "userCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "User"
+            "description" : "user"
           },
           "incomeDate" : {
-            "maximum" : 7,
             "type" : "number",
             "description" : "Date of incoming",
             "format" : "zoned(7:0)"
           },
-          "incometime" : {
-            "maximum" : 6,
+          "incomeTime" : {
             "type" : "number",
             "description" : "Time of incoming",
             "format" : "zoned(6:0)"
-          },
-          "objectDetails" : {
-            "$ref" : "#/components/schemas/objectDetails"
           }
         },
         "description" : "Data that is returned."
+      },
+      "labelResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Returned Status"
+          },
+          "extendedMessage" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "labelResponseData" : {
+            "$ref" : "#/components/schemas/labelResponseData"
+          }
+        },
+        "description" : "Label response - Status , Error message and Response data."
+      },
+      "labelObjectDetails" : {
+        "type" : "object",
+        "properties" : {
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "The object code is the OS/400 system name of an object. The length is 10 characters for normal objects and 12 for\r\ndocument library objects.\r\n\r\n*IFSOBJ                                                    \r\n    Use this value if you want to add label to an object   \r\n    from the integrated file system (IFS) instead of the   \r\n    normal OS/400 library structure.                       \r\n                                                           \r\ncharacter-value                                            \r\n    Specify the object code of the object. The object must \r\n    exist in TD/OMS.                                       \r\n                                                  ",
+            "default" : "*IFSOBJ",
+            "enum" : [ "*IFSOBJ" ]
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "The object type specifies the type of object. Program objects are of the type *PGM, file objects are of the type \r\n*FILE, etc. Refer to the IBM OS/400 reference quide for more information.\r\n\r\n",
+            "default" : "",
+            "enum" : [ "" ]
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Name of the message or member name.\r\n\r\n*NONE                        \r\n    No detail is involved.   \r\ndetail-code                                          \r\n    Specify the name of the message or source member.",
+            "default" : "*NONE",
+            "enum" : [ "*NONE" ]
+          },
+          "ifsObject" : {
+            "maxLength" : 1000,
+            "type" : "string",
+            "description" : "The IFS Full Path Name is a complete reference to an IFS object. This includes the directory and the object.\r\n*OBJC                                                    \r\n    Use this value if you want to add label to an object \r\n    from the OS/400 library structure instead of the     \r\n    integrated file system (IFS).                        \r\n\r\npath-name                                             \r\n    Specify a full path name to the object. The object\r\n    must exist in TD/OMS.                             ",
+            "default" : "*OBJC",
+            "enum" : [ "*OBJC" ]
+          }
+        },
+        "description" : "Input parameters of object Details"
+      },
+      "color" : {
+        "maxLength" : 10,
+        "type" : "string",
+        "description" : "The color code to be used in the UI. This field is a three byte hexadecimal value where the first byte is used for the amount of RED the second byte is used for the amount of GREEN and the third byte for the amount of BLUE. *SAME denotes blank. It is invalid in *ADD mode.      \r\nFF0000 - Red  \r\n00FF00 - Green\r\n0000FF - Blue \r\n8B0000 - Dark Red  \r\nFFFF00 - Yellow \r\n00FFFF - Aqua   \r\n\r\nSpecial values - *SAME   \r\n*WHITE  \r\n*SILVER \r\n*GRAY   \r\n*BLACK  \r\n*RED    \r\n*MAROON \r\n*YELLOW \r\n*OLIVE  \r\n*LIME   \r\n*GREEN  \r\n*AQUA   \r\n*TEAL",
+        "enum" : [ "*SAME", "*WHITE", "*SILVER", "*GRAY", "*BLACK", "*RED", "*MAROON", "*YELLOW", "*OLIVE", "*LIME", "*GREEN", "*AQUA", "*TEAL", "*BLUE", "*NAVY", "*FUCHSIA", "*PURPLE" ]
       }
     },
     "responses" : { },
