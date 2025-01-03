@@ -23,20 +23,25 @@
     }
   },
   "servers" : [ {
-    "url" : "https://{host}:{port}/{library}/OMQRLB",
+    "url" : "{protocol}://{host}:{port}/{library}/OMQRLB",
     "description" : "A dynamic https host",
     "variables" : {
       "host" : {
         "description" : "The host serving the API",
         "default" : "plato.remainsoftware.com"
       },
-      "port" : {
-        "description" : "The port to which server is listening",
-        "default" : "45211"
-      },
       "library" : {
         "description" : "TD/OMS Library",
         "default" : "OMS"
+      },
+      "port" : {
+        "description" : "The port to which server is listening",
+        "default" : "45011"
+      },
+      "protocol" : {
+        "description" : "Protocol",
+        "enum" : [ "https", "http" ],
+        "default" : "https"
       }
     }
   } ],
