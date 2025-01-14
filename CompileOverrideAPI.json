@@ -541,22 +541,43 @@
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
-            "$ref" : "#/components/schemas/interfaceLevel"
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V16R1M0.",
+            "default" : "V16R1M0",
+            "enum" : [ "V16R1M0" ]
           },
           "request" : {
             "$ref" : "#/components/schemas/request"
           },
           "createCommandType" : {
-            "$ref" : "#/components/schemas/createCommandType"
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "These command type groups create the object commands. The possible values are:\r\n\r\n*PRE   \r\nThis command type must be used for the Pre commands. \r\n\r\n*COMPILE  \r\nThis command type must be used for the create command. \r\n\r\n*POST  \r\nThis command type must be used for the Post commands.  \r\n\r\n*ALL  \r\nUse this value to delete all command types only if you are in delete mode and if you are in add or change mode, this value is not allowed.  \r\n\r\n*HEADER  \r\nUse this value when you want to add, change or delete the compile override header. \r\n\r\nNote:  \r\nWhen the command type is *HEADER, it indicates that you want to execute an action on the compile override header. If the command type is other than *HEADER, it means that you want to execute an action on the compile override details.",
+            "default" : "*HEADER",
+            "enum" : [ "*HEADER", "*PRE", "*COMPILE", "*POST", "*ALL" ]
           },
           "createCommandSequenceNumber" : {
-            "$ref" : "#/components/schemas/createCommandSequenceNumber"
+            "maximum" : 5,
+            "type" : "number",
+            "description" : "Specify the command sequence number. \r\n\r\n-1 (*NEXT)  \r\nUse this value to allocate the next command sequence number. It will increment by 10    \r\nor round off to the nearest multiple of 10 if you are in add mode. However, if you are in \r\nchange or delete mode, this value is not allowed.  \r\n\r\n1 (*ONLY)  \r\nYou can use this value with the command type *COMPILE.\r\n\r\n-2 (*ALL)  \r\nUse this value to delete all command sequence numbers if you are in delete mode and if \r\nyou are in add or change mode, this value is not allowed.",
+            "format" : "packed(5:0)",
+            "default" : -1.0,
+            "enum" : [ -1.0, -2.0, 1.0 ]
           },
           "behaviourOnError" : {
-            "$ref" : "#/components/schemas/behaviourOnError"
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "This field indicates in what circumstances a create command detail should be executed. The possible values are:    \r\n\r\n*ALWAYS  \r\nThis value indicates that the create command detail should always be executed, whether or not there have been errors during the execution of previous create command details.   \r\n\r\n*NOTERROR  \r\nThis value indicates that the create command detail will not be executed if there have been errors during the execution of previous create command details.   \r\n\r\n*ERROR  \r\nThis value indicates that the create command detail will only be executed if there have been errors during the execution of previous create command details.   \r\n\r\n*SAME                                                     \r\nUse this value to indicate that the behavior on error does not change if you are in change mode. If you are in add mode it contains the default value, the default value for the behavior on error is *NOTERROR.",
+            "default" : "*SAME",
+            "enum" : [ "*ALWAYS", "*NOTERROR", "*ERROR", "*SAME" ]
           },
           "commandString" : {
-            "$ref" : "#/components/schemas/commandString"
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "The Command String can be used to enter a command string that can be executed by TD/OMS.  The attributes of the command string can be substituted. The substitution variables used are the same as used in action definitions.  \r\n\r\n*SAME  \r\nUse this value to indicate that the command string does not change if you are in change mode. It is not allowed in add mode when you try to add compile override details.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
           },
           "addProcessingOptions" : {
             "$ref" : "#/components/schemas/addProcessingOptions"
@@ -568,22 +589,43 @@
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
-            "$ref" : "#/components/schemas/interfaceLevel"
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V16R1M0.",
+            "default" : "V16R1M0",
+            "enum" : [ "V16R1M0" ]
           },
           "request" : {
             "$ref" : "#/components/schemas/request"
           },
           "createCommandType" : {
-            "$ref" : "#/components/schemas/createCommandType"
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "These command type groups create the object commands. The possible values are:\r\n\r\n*PRE   \r\nThis command type must be used for the Pre commands. \r\n\r\n*COMPILE  \r\nThis command type must be used for the create command. \r\n\r\n*POST  \r\nThis command type must be used for the Post commands.  \r\n\r\n*ALL  \r\nUse this value to delete all command types only if you are in delete mode and if you are in add or change mode, this value is not allowed.  \r\n\r\n*HEADER  \r\nUse this value when you want to add, change or delete the compile override header. \r\n\r\nNote:  \r\nWhen the command type is *HEADER, it indicates that you want to execute an action on the compile override header. If the command type is other than *HEADER, it means that you want to execute an action on the compile override details.",
+            "default" : "*HEADER",
+            "enum" : [ "*HEADER", "*PRE", "*COMPILE", "*POST", "*ALL" ]
           },
           "createCommandSequenceNumber" : {
-            "$ref" : "#/components/schemas/createCommandSequenceNumber"
+            "maximum" : 5,
+            "type" : "number",
+            "description" : "Specify the command sequence number. \r\n\r\n-1 (*NEXT)  \r\nUse this value to allocate the next command sequence number. It will increment by 10    \r\nor round off to the nearest multiple of 10 if you are in add mode. However, if you are in \r\nchange or delete mode, this value is not allowed.  \r\n\r\n1 (*ONLY)  \r\nYou can use this value with the command type *COMPILE.\r\n\r\n-2 (*ALL)  \r\nUse this value to delete all command sequence numbers if you are in delete mode and if \r\nyou are in add or change mode, this value is not allowed.",
+            "format" : "packed(5:0)",
+            "default" : -1.0,
+            "enum" : [ -1.0, -2.0, 1.0 ]
           },
           "behaviourOnError" : {
-            "$ref" : "#/components/schemas/behaviourOnError"
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "This field indicates in what circumstances a create command detail should be executed. The possible values are:    \r\n\r\n*ALWAYS  \r\nThis value indicates that the create command detail should always be executed, whether or not there have been errors during the execution of previous create command details.   \r\n\r\n*NOTERROR  \r\nThis value indicates that the create command detail will not be executed if there have been errors during the execution of previous create command details.   \r\n\r\n*ERROR  \r\nThis value indicates that the create command detail will only be executed if there have been errors during the execution of previous create command details.   \r\n\r\n*SAME                                                     \r\nUse this value to indicate that the behavior on error does not change if you are in change mode. If you are in add mode it contains the default value, the default value for the behavior on error is *NOTERROR.",
+            "default" : "*SAME",
+            "enum" : [ "*ALWAYS", "*NOTERROR", "*ERROR", "*SAME" ]
           },
           "commandString" : {
-            "$ref" : "#/components/schemas/commandString"
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "The Command String can be used to enter a command string that can be executed by TD/OMS.  The attributes of the command string can be substituted. The substitution variables used are the same as used in action definitions.  \r\n\r\n*SAME  \r\nUse this value to indicate that the command string does not change if you are in change mode. It is not allowed in add mode when you try to add compile override details.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
           },
           "changeProcessingOptions" : {
             "$ref" : "#/components/schemas/changeProcessingOptions"
@@ -595,7 +637,11 @@
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
-            "$ref" : "#/components/schemas/interfaceLevel"
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V16R1M0.",
+            "default" : "V16R1M0",
+            "enum" : [ "V16R1M0" ]
           },
           "request" : {
             "$ref" : "#/components/schemas/request"
@@ -610,16 +656,29 @@
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
-            "$ref" : "#/components/schemas/interfaceLevel"
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V16R1M0.",
+            "default" : "V16R1M0",
+            "enum" : [ "V16R1M0" ]
           },
           "request" : {
             "$ref" : "#/components/schemas/request"
           },
           "createCommandType" : {
-            "$ref" : "#/components/schemas/createCommandType"
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "These command type groups create the object commands. The possible values are:\r\n\r\n*PRE   \r\nThis command type must be used for the Pre commands. \r\n\r\n*COMPILE  \r\nThis command type must be used for the create command. \r\n\r\n*POST  \r\nThis command type must be used for the Post commands.  \r\n\r\n*ALL  \r\nUse this value to delete all command types only if you are in delete mode and if you are in add or change mode, this value is not allowed.  \r\n\r\n*HEADER  \r\nUse this value when you want to add, change or delete the compile override header. \r\n\r\nNote:  \r\nWhen the command type is *HEADER, it indicates that you want to execute an action on the compile override header. If the command type is other than *HEADER, it means that you want to execute an action on the compile override details.",
+            "default" : "*HEADER",
+            "enum" : [ "*HEADER", "*PRE", "*COMPILE", "*POST", "*ALL" ]
           },
           "createCommandSequenceNumber" : {
-            "$ref" : "#/components/schemas/createCommandSequenceNumber"
+            "maximum" : 5,
+            "type" : "number",
+            "description" : "Specify the command sequence number. \r\n\r\n-1 (*NEXT)  \r\nUse this value to allocate the next command sequence number. It will increment by 10    \r\nor round off to the nearest multiple of 10 if you are in add mode. However, if you are in \r\nchange or delete mode, this value is not allowed.  \r\n\r\n1 (*ONLY)  \r\nYou can use this value with the command type *COMPILE.\r\n\r\n-2 (*ALL)  \r\nUse this value to delete all command sequence numbers if you are in delete mode and if \r\nyou are in add or change mode, this value is not allowed.",
+            "format" : "packed(5:0)",
+            "default" : -1.0,
+            "enum" : [ -1.0, -2.0, 1.0 ]
           },
           "deleteProcessingOptions" : {
             "$ref" : "#/components/schemas/deleteProcessingOptions"
@@ -631,7 +690,11 @@
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
-            "$ref" : "#/components/schemas/interfaceLevel"
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V16R1M0.",
+            "default" : "V16R1M0",
+            "enum" : [ "V16R1M0" ]
           },
           "request" : {
             "$ref" : "#/components/schemas/request"
@@ -646,7 +709,9 @@
         "type" : "object",
         "properties" : {
           "status" : {
-            "$ref" : "#/components/schemas/status"
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
           },
           "message" : {
             "$ref" : "#/components/schemas/extendedMessage"
@@ -668,7 +733,9 @@
         "type" : "object",
         "properties" : {
           "status" : {
-            "$ref" : "#/components/schemas/status"
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
           },
           "messages" : {
             "maxItems" : 50,
@@ -716,10 +783,221 @@
         },
         "description" : "The return messages."
       },
-      "status" : {
-        "maxLength" : 5,
-        "type" : "string",
-        "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
+      "addProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Various flags to control the behavior of the API."
+      },
+      "authorizeProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Various flags to control the behavior of the API."
+      },
+      "changeProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "toApplicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the To-application code. The possible values are:  \r\n\r\n*SAME  \r\nUse this value to indicate that the application code does not change.  \r\n\r\n*ALL  \r\nSpecify the To-application code to *ALL, It is valid for all applications.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*ALL" ]
+          },
+          "toEnvironmentCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the To-environment code. The possible values are:  \r\n\r\n*SAME  \r\nUse this value to indicate that the environment code does not change.  \r\n\r\n*ALL  \r\nSpecify the To-environment code to *ALL, It is valid for all environments.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*ALL" ]
+          },
+          "toObjectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the To-object library. The possible values are:  \r\n\r\n*SAME  \r\nUse this value to indicate that the object library does not change.\r\n\r\n*ALL  \r\nSpecify the To-object library to *ALL, It is valid for all libraries.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*ALL" ]
+          },
+          "crtCmdNewSeqNum" : {
+            "maximum" : 5,
+            "type" : "number",
+            "description" : "Specify the command new sequence number. The possible values are: \r\n\r\n-1 (*SAME)  \r\nUse this value to indicate that the command sequence number does not change. \r\n\r\n-2 (*NEXT)  \r\nUse this value to modify the command sequence number to a new value. It will increase by 10 or round off to the nearest multiple of 10.",
+            "format" : "packed(5:0)",
+            "default" : -1.0,
+            "enum" : [ -1.0, -2.0 ]
+          }
+        },
+        "description" : "Various flags to control the behavior of the API."
+      },
+      "copyProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "toObjectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Specify the To-object code.  \r\n\r\n*SAME  \r\nUse this value to indicate that the object code does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "toObjectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Specify the To-object type.  \r\n\r\n*SAME  \r\nUse this value to indicate that the object type does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "toMemberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "When connecting a message or a source member the name of this member code must also be specified. The possible values are:  \r\n\r\n*SAME  \r\nUse this value to indicate that the detail does not change.  \r\n\r\n*NONE  \r\nNo member code is involved.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*NONE" ]
+          },
+          "toApplicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the To-application code. The possible values are:  \r\n\r\n*SAME  \r\nUse this value to indicate that the application code does not change.  \r\n\r\n*ALL  \r\nSpecify the To-application code to *ALL, It is valid for all applications.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*ALL" ]
+          },
+          "toEnvironmentCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the To-environment code. The possible values are:  \r\n\r\n*SAME  \r\nUse this value to indicate that the environment code does not change.  \r\n\r\n*ALL  \r\nSpecify the To-environment code to *ALL, It is valid for all environments.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*ALL" ]
+          },
+          "toObjectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the To-object library. The possible values are:  \r\n\r\n*SAME  \r\nUse this value to indicate that the object library does not change.\r\n\r\n*ALL  \r\nSpecify the To-object library to *ALL, It is valid for all libraries.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*ALL" ]
+          }
+        },
+        "description" : "Various flags to control the behavior of the API."
+      },
+      "request" : {
+        "required" : [ "objectCode", "objectType" ],
+        "type" : "object",
+        "properties" : {
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Specify the object code."
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Specify the object type."
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "When connecting a message or a source member the name of this member code must also be specified. The possible values are: \r\n                                                                                                              \r\n*NONE                                                    \r\n    No member code is involved.",
+            "default" : "*NONE",
+            "enum" : [ "*NONE" ]
+          },
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code. The possible values are:   \r\n                                                         \r\n*ALL  \r\nSpecify the application code to *ALL, It is valid for all applications.         \r\n                               ",
+            "default" : "*ALL",
+            "enum" : [ "*ALL" ]
+          },
+          "environmentCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the environment code. The possible values are:   \r\n\r\n*ALL  \r\nSpecify the environment code to *ALL, It is valid for all environments.",
+            "default" : "*ALL",
+            "enum" : [ "*ALL" ]
+          },
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the object library. The possible values are:   \r\n\r\n*ALL  \r\nSpecify the object library to *ALL, It is valid for all libraries.",
+            "default" : "*ALL",
+            "enum" : [ "*ALL" ]
+          }
+        },
+        "description" : "Common fields for all path"
+      },
+      "deleteProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Various flags to control the behavior of the API."
       },
       "compileOverrideHeader" : {
         "type" : "object",
@@ -848,233 +1126,9 @@
         "x-library" : "OMSRUN51",
         "x-host" : "plato",
         "x-fieldSchemaNameType" : "Normalized"
-      },
-      "updateDb" : {
-        "maxLength" : 1,
-        "type" : "string",
-        "description" : "Specify '1' to update the database or '0' to not update but check only.",
-        "default" : "1",
-        "enum" : [ "0", "1" ]
-      },
-      "updateBuffer" : {
-        "maxLength" : 1,
-        "type" : "string",
-        "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
-        "default" : "1",
-        "enum" : [ "0", "1" ]
-      },
-      "toApplicationCode" : {
-        "maxLength" : 5,
-        "type" : "string",
-        "description" : "Specify the To-application code. The possible values are:  \r\n\r\n*SAME  \r\nUse this value to indicate that the application code does not change.  \r\n\r\n*ALL  \r\nSpecify the To-application code to *ALL, It is valid for all applications.",
-        "default" : "*SAME",
-        "enum" : [ "*SAME", "*ALL" ]
-      },
-      "toEnvironmentCode" : {
-        "maxLength" : 5,
-        "type" : "string",
-        "description" : "Specify the To-environment code. The possible values are:  \r\n\r\n*SAME  \r\nUse this value to indicate that the environment code does not change.  \r\n\r\n*ALL  \r\nSpecify the To-environment code to *ALL, It is valid for all environments.",
-        "default" : "*SAME",
-        "enum" : [ "*SAME", "*ALL" ]
-      },
-      "toObjectLibrary" : {
-        "maxLength" : 10,
-        "type" : "string",
-        "description" : "Specify the To-object library. The possible values are:  \r\n\r\n*SAME  \r\nUse this value to indicate that the object library does not change.\r\n\r\n*ALL  \r\nSpecify the To-object library to *ALL, It is valid for all libraries.",
-        "default" : "*SAME",
-        "enum" : [ "*SAME", "*ALL" ]
-      },
-      "interfaceLevel" : {
-        "maxLength" : 8,
-        "type" : "string",
-        "description" : "The interface level must be V16R1M0.",
-        "default" : "V16R1M0",
-        "enum" : [ "V16R1M0" ]
-      },
-      "addProcessingOptions" : {
-        "type" : "object",
-        "properties" : {
-          "updateDb" : {
-            "$ref" : "#/components/schemas/updateDb"
-          },
-          "updateBuffer" : {
-            "$ref" : "#/components/schemas/updateBuffer"
-          }
-        },
-        "description" : "Various flags to control the behavior of the API."
-      },
-      "changeProcessingOptions" : {
-        "type" : "object",
-        "properties" : {
-          "updateDb" : {
-            "$ref" : "#/components/schemas/updateDb"
-          },
-          "updateBuffer" : {
-            "$ref" : "#/components/schemas/updateBuffer"
-          },
-          "toApplicationCode" : {
-            "$ref" : "#/components/schemas/toApplicationCode"
-          },
-          "toEnvironmentCode" : {
-            "$ref" : "#/components/schemas/toEnvironmentCode"
-          },
-          "toObjectLibrary" : {
-            "$ref" : "#/components/schemas/toObjectLibrary"
-          },
-          "crtCmdNewSeqNum" : {
-            "maximum" : 5,
-            "type" : "number",
-            "description" : "Specify the command new sequence number. The possible values are: \r\n\r\n-1 (*SAME)  \r\nUse this value to indicate that the command sequence number does not change. \r\n\r\n-2 (*NEXT)  \r\nUse this value to modify the command sequence number to a new value. It will increase by 10 or round off to the nearest multiple of 10.",
-            "format" : "packed(5:0)",
-            "default" : -1.0,
-            "enum" : [ -1.0, -2.0 ]
-          }
-        },
-        "description" : "Various flags to control the behavior of the API."
-      },
-      "copyProcessingOptions" : {
-        "type" : "object",
-        "properties" : {
-          "updateDb" : {
-            "$ref" : "#/components/schemas/updateDb"
-          },
-          "updateBuffer" : {
-            "$ref" : "#/components/schemas/updateBuffer"
-          },
-          "toObjectCode" : {
-            "maxLength" : 12,
-            "type" : "string",
-            "description" : "Specify the To-object code.  \r\n\r\n*SAME  \r\nUse this value to indicate that the object code does not change.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME" ]
-          },
-          "toObjectType" : {
-            "maxLength" : 9,
-            "type" : "string",
-            "description" : "Specify the To-object type.  \r\n\r\n*SAME  \r\nUse this value to indicate that the object type does not change.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME" ]
-          },
-          "toMemberCode" : {
-            "maxLength" : 10,
-            "type" : "string",
-            "description" : "When connecting a message or a source member the name of this member code must also be specified. The possible values are:  \r\n\r\n*SAME  \r\nUse this value to indicate that the detail does not change.  \r\n\r\n*NONE  \r\nNo member code is involved.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME", "*NONE" ]
-          },
-          "toApplicationCode" : {
-            "$ref" : "#/components/schemas/toApplicationCode"
-          },
-          "toEnvironmentCode" : {
-            "$ref" : "#/components/schemas/toEnvironmentCode"
-          },
-          "toObjectLibrary" : {
-            "$ref" : "#/components/schemas/toObjectLibrary"
-          }
-        },
-        "description" : "Various flags to control the behavior of the API."
-      },
-      "createCommandType" : {
-        "maxLength" : 10,
-        "type" : "string",
-        "description" : "These command type groups create the object commands. The possible values are:\r\n\r\n*PRE   \r\nThis command type must be used for the Pre commands. \r\n\r\n*COMPILE  \r\nThis command type must be used for the create command. \r\n\r\n*POST  \r\nThis command type must be used for the Post commands.  \r\n\r\n*ALL  \r\nUse this value to delete all command types only if you are in delete mode and if you are in add or change mode, this value is not allowed.  \r\n\r\n*HEADER  \r\nUse this value when you want to add, change or delete the compile override header. \r\n\r\nNote:  \r\nWhen the command type is *HEADER, it indicates that you want to execute an action on the compile override header. If the command type is other than *HEADER, it means that you want to execute an action on the compile override details.",
-        "default" : "*HEADER",
-        "enum" : [ "*PRE", "*COMPILE", "*POST", "*ALL", "*HEADER" ]
-      },
-      "createCommandSequenceNumber" : {
-        "maximum" : 5,
-        "type" : "number",
-        "description" : "Specify the command sequence number. \r\n\r\n-1 (*NEXT)  \r\nUse this value to allocate the next command sequence number. It will increment by 10    \r\nor round off to the nearest multiple of 10 if you are in add mode. However, if you are in \r\nchange or delete mode, this value is not allowed.  \r\n\r\n1 (*ONLY)  \r\nYou can use this value with the command type *COMPILE.\r\n\r\n-2 (*ALL)  \r\nUse this value to delete all command sequence numbers if you are in delete mode and if \r\nyou are in add or change mode, this value is not allowed.",
-        "format" : "packed(5:0)",
-        "default" : -1.0,
-        "enum" : [ -1.0, -2.0, 1.0 ]
-      },
-      "deleteProcessingOptions" : {
-        "type" : "object",
-        "properties" : {
-          "updateDb" : {
-            "$ref" : "#/components/schemas/updateDb"
-          },
-          "updateBuffer" : {
-            "$ref" : "#/components/schemas/updateBuffer"
-          }
-        },
-        "description" : "Various flags to control the behavior of the API."
-      },
-      "request" : {
-        "required" : [ "objectCode", "objectType" ],
-        "type" : "object",
-        "properties" : {
-          "objectCode" : {
-            "maxLength" : 12,
-            "type" : "string",
-            "description" : "Specify the object code."
-          },
-          "objectType" : {
-            "maxLength" : 9,
-            "type" : "string",
-            "description" : "Specify the object type."
-          },
-          "memberCode" : {
-            "maxLength" : 10,
-            "type" : "string",
-            "description" : "When connecting a message or a source member the name of this member code must also be specified. The possible values are: \r\n                                                                                                              \r\n*NONE                                                    \r\n    No member code is involved.",
-            "default" : "*NONE",
-            "enum" : [ "*NONE" ]
-          },
-          "applicationCode" : {
-            "maxLength" : 5,
-            "type" : "string",
-            "description" : "Specify the application code. The possible values are:   \r\n                                                         \r\n*ALL  \r\nSpecify the application code to *ALL, It is valid for all applications.         \r\n                               ",
-            "default" : "*ALL",
-            "enum" : [ "*ALL" ]
-          },
-          "environmentCode" : {
-            "maxLength" : 5,
-            "type" : "string",
-            "description" : "Specify the environment code. The possible values are:   \r\n\r\n*ALL  \r\nSpecify the environment code to *ALL, It is valid for all environments.",
-            "default" : "*ALL",
-            "enum" : [ "*ALL" ]
-          },
-          "objectLibrary" : {
-            "maxLength" : 10,
-            "type" : "string",
-            "description" : "Specify the object library. The possible values are:   \r\n\r\n*ALL  \r\nSpecify the object library to *ALL, It is valid for all libraries.",
-            "default" : "*ALL",
-            "enum" : [ "*ALL" ]
-          }
-        },
-        "description" : "Common fields for all path"
-      },
-      "authorizeProcessingOptions" : {
-        "type" : "object",
-        "properties" : {
-          "updateDb" : {
-            "$ref" : "#/components/schemas/updateDb"
-          },
-          "updateBuffer" : {
-            "$ref" : "#/components/schemas/updateBuffer"
-          }
-        },
-        "description" : "Various flags to control the behavior of the API."
-      },
-      "commandString" : {
-        "maxLength" : 1024,
-        "type" : "string",
-        "description" : "The Command String can be used to enter a command string that can be executed by TD/OMS.  The attributes of the command string can be substituted. The substitution variables used are the same as used in action definitions.  \r\n\r\n*SAME  \r\nUse this value to indicate that the command string does not change if you are in change mode. It is not allowed in add mode when you try to add compile override details.",
-        "default" : "*SAME",
-        "enum" : [ "*SAME" ]
-      },
-      "behaviourOnError" : {
-        "maxLength" : 10,
-        "type" : "string",
-        "description" : "This field indicates in what circumstances a create command detail should be executed. The possible values are:    \r\n\r\n*ALWAYS  \r\nThis value indicates that the create command detail should always be executed, whether or not there have been errors during the execution of previous create command details.   \r\n\r\n*NOTERROR  \r\nThis value indicates that the create command detail will not be executed if there have been errors during the execution of previous create command details.   \r\n\r\n*ERROR  \r\nThis value indicates that the create command detail will only be executed if there have been errors during the execution of previous create command details.   \r\n\r\n*SAME                                                     \r\nUse this value to indicate that the behavior on error does not change if you are in change mode. If you are in add mode it contains the default value, the default value for the behavior on error is *NOTERROR.",
-        "default" : "*SAME",
-        "enum" : [ "*ALWAYS", "*NOTERROR", "*ERROR", "*SAME" ]
       }
     },
     "responses" : { },
-    "parameters" : { },
     "examples" : {
       "addCompileOverride" : {
         "summary" : "How to specify the request input parameters value to add compile override with default command detail.",
@@ -1271,7 +1325,6 @@
         }
       }
     },
-    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
