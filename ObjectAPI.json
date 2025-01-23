@@ -1,0 +1,2120 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Object API",
+    "description" : "The Object REST API enables interaction with an object, allowing you to Add, Change, or Delete the object. Additional actions such as Refill, Close, Object Relation, and Job Relation are also supported.",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License ",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "object" : "OMQROB",
+      "library" : "V17T0171",
+      "srclibrary" : "V17T0171S",
+      "file" : "ObjectAPI.json"
+    }
+  },
+  "servers" : [ {
+    "url" : "{protocol}://{host}:{port}/{library}/OMQROB",
+    "description" : "A dynamic https host.",
+    "variables" : {
+      "host" : {
+        "description" : "The host serving the API.",
+        "default" : "plato.remainsoftware.com"
+      },
+      "library" : {
+        "description" : "The TD/OMS library.",
+        "default" : "OMS"
+      },
+      "port" : {
+        "description" : "The port to which the server is listening.",
+        "default" : "45011"
+      },
+      "protocol" : {
+        "description" : "Protocol",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/add" : {
+      "summary" : "Use this path to add a new object to the TD/OMS database.",
+      "description" : "Use this path to add a new object to the TD/OMS database.",
+      "post" : {
+        "summary" : "Use this operation to add a new object to the TD/OMS database.",
+        "description" : "Use this operation to add a new object to the TD/OMS database.",
+        "operationId" : "add",
+        "requestBody" : {
+          "description" : "Use this input to add the new object.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/addObjectRequest"
+              },
+              "examples" : {
+                "addTemporaryObject" : {
+                  "summary" : "How to specify the request input parameter value to add the temporary Or Virtual object.",
+                  "value" : {
+                    "interfaceLevel" : "V3R0M0",
+                    "objectCode" : "CLLEPGM",
+                    "objectLibrary" : "OMHD_DEV",
+                    "objectType" : "*PGM",
+                    "objectAttribute" : "CLLE",
+                    "applicationCode" : "XMP",
+                    "environmentCode" : "*DEV",
+                    "fixNumber" : "*SAME",
+                    "objectDescription" : "Clle program",
+                    "userWhichCreatedObject" : "ALICE",
+                    "userDefined" : "*SAME",
+                    "temporaryOrVirtual" : "*YES",
+                    "objectClass" : "*SAME",
+                    "sourceFile" : "*NONE",
+                    "sourceLibrary" : "*SAME",
+                    "sourceMember" : "*SAME",
+                    "addProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "endOfProcessing" : "1",
+                      "buildRelationsIndicator" : "*NO",
+                      "printIndicator" : "*YES",
+                      "printMutations" : "*NO",
+                      "include4GLGeneratedObjects" : "*NO"
+                    }
+                  }
+                },
+                "addObject" : {
+                  "summary" : "How to specify the request input parameter value to add the object.",
+                  "value" : {
+                    "interfaceLevel" : "V3R0M0",
+                    "objectCode" : "CLLEPGM",
+                    "objectLibrary" : "OMHD_DEV",
+                    "objectType" : "*PGM",
+                    "objectAttribute" : "*SAME",
+                    "applicationCode" : "XMP",
+                    "environmentCode" : "*DEV",
+                    "fixNumber" : "*SAME",
+                    "objectDescription" : "*SAME",
+                    "userWhichCreatedObject" : "*SAME",
+                    "userDefined" : "*SAME",
+                    "temporaryOrVirtual" : "*SAME",
+                    "objectClass" : "*SAME",
+                    "sourceFile" : "*SAME",
+                    "sourceLibrary" : "*SAME",
+                    "sourceMember" : "*SAME",
+                    "addProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "endOfProcessing" : "1",
+                      "buildRelationsIndicator" : "*NO",
+                      "printIndicator" : "*YES",
+                      "printMutations" : "*NO",
+                      "include4GLGeneratedObjects" : "*NO"
+                    }
+                  }
+                },
+                "addIFSObject" : {
+                  "summary" : "How to specify the request input parameter value to add the IFS object.",
+                  "value" : {
+                    "interfaceLevel" : "V3R0M0",
+                    "iFSFullPathName" : "/QOpenSys/tdoms/xmp/dev/R1/F0390/elements.html",
+                    "applicationCode" : "XMP",
+                    "environmentCode" : "*DEV",
+                    "fixNumber" : "*SAME",
+                    "objectDescription" : "*SAME",
+                    "userWhichCreatedObject" : "*SAME",
+                    "userDefined" : "*SAME",
+                    "temporaryOrVirtual" : "*SAME",
+                    "objectClass" : "*SAME",
+                    "sourceFile" : "*SAME",
+                    "sourceLibrary" : "*SAME",
+                    "sourceMember" : "*SAME",
+                    "addProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "endOfProcessing" : "1",
+                      "buildRelationsIndicator" : "*NO",
+                      "printIndicator" : "*YES",
+                      "printMutations" : "*NO",
+                      "include4GLGeneratedObjects" : "*NO"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : false
+        }
+      }
+    },
+    "/change" : {
+      "summary" : "Use this path to change one or more object attributes.",
+      "description" : "Use this path to change one or more object attributes.",
+      "post" : {
+        "summary" : "Use this operation to change one or more object attributes.",
+        "description" : "Use this operation to change one or more object attributes.",
+        "operationId" : "change",
+        "requestBody" : {
+          "description" : "Use this input to change the object attributes.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/changeObjectRequest"
+              },
+              "examples" : {
+                "changeObject" : {
+                  "summary" : "How to specify the request input parameter value to change the object.",
+                  "value" : {
+                    "interfaceLevel" : "V3R0M0",
+                    "objectCode" : "CLLEPGM",
+                    "objectLibrary" : "OMHD_DEV",
+                    "objectType" : "*PGM",
+                    "objectAttribute" : "*SAME",
+                    "applicationCode" : "*SAME",
+                    "environmentCode" : "*SAME",
+                    "fixNumber" : "*SAME",
+                    "objectDescription" : "*SAME",
+                    "userWhichCreatedObject" : "*SAME",
+                    "userDefined" : "*SAME",
+                    "temporaryOrVirtual" : "*SAME",
+                    "sourceFile" : "*SAME",
+                    "sourceLibrary" : "*SAME",
+                    "sourceMember" : "*SAME",
+                    "changeProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "endOfProcessing" : "1",
+                      "buildRelationsIndicator" : "*NO",
+                      "printIndicator" : "*YES",
+                      "printMutations" : "*NO",
+                      "include4GLGeneratedObjects" : "*NO"
+                    }
+                  }
+                },
+                "changeIFSObject" : {
+                  "summary" : "How to specify the request input parameter value to change the IFS object.",
+                  "value" : {
+                    "interfaceLevel" : "V3R0M0",
+                    "iFSFullPathName" : "/QOpenSys/tdoms/xmp/dev/R1/F0390/elements.html",
+                    "applicationCode" : "*SAME",
+                    "environmentCode" : "*SAME",
+                    "fixNumber" : "*SAME",
+                    "objectDescription" : "*SAME",
+                    "userWhichCreatedObject" : "*SAME",
+                    "userDefined" : "*SAME",
+                    "temporaryOrVirtual" : "*SAME",
+                    "sourceFile" : "*SAME",
+                    "sourceLibrary" : "*SAME",
+                    "sourceMember" : "*SAME",
+                    "changeProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "endOfProcessing" : "1",
+                      "buildRelationsIndicator" : "*NO",
+                      "printIndicator" : "*YES",
+                      "printMutations" : "*NO",
+                      "include4GLGeneratedObjects" : "*NO"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "02",
+          "generate" : false
+        }
+      }
+    },
+    "/delete" : {
+      "summary" : "Use this path to delete the object from the TD/OMS database.  You are also able to delete the related object and source.",
+      "description" : "Use this path to delete the object from the TD/OMS database.  You are also able to delete the related object and source.",
+      "post" : {
+        "summary" : "Use this operation to delete the object from the TD/OMS database.  You are also able to delete the related object and source.",
+        "description" : "Use this operation to delete the object from the TD/OMS database.  You are also able to delete the related object and source.",
+        "operationId" : "delete",
+        "requestBody" : {
+          "description" : "Use this input to delete the object.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/deleteObjectRequest"
+              },
+              "examples" : {
+                "deleteObject" : {
+                  "summary" : "How to specify the request input parameter value to delete the object.",
+                  "value" : {
+                    "interfaceLevel" : "V3R0M0",
+                    "objectCode" : "CLLEPGM",
+                    "objectLibrary" : "OMHD_DEV",
+                    "objectType" : "*PGM",
+                    "deleteProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "endOfProcessing" : "1",
+                      "deleteObjectIndicator" : "*NO",
+                      "include4GLGeneratedObjects" : "*NO"
+                    }
+                  }
+                },
+                "deleteIFSObject" : {
+                  "summary" : "How to specify the request input parameter value to delete the IFS object.",
+                  "value" : {
+                    "interfaceLevel" : "V3R0M0",
+                    "iFSFullPathName" : "/QOpenSys/tdoms/xmp/dev/R1/F0390/elements.html",
+                    "deleteProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "endOfProcessing" : "1",
+                      "deleteObjectIndicator" : "*NO",
+                      "include4GLGeneratedObjects" : "*NO"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "deleteResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQ1006",
+                        "messageType" : "",
+                        "messageData" : "CLLEPGM   OMHD_DEV  *PGM",
+                        "field" : "",
+                        "messageText" : "Action for object OMHD_DEV/CLLEPGM type *PGM completed normally &N Cause . . . . . :   Your request for the OMS Object API has been succesfully executed. &N Recovery. . . . :   No recovery necessary. This is an informational message"
+                      },
+                      "responseData" : {
+                        "applicationCode" : "",
+                        "environmentCode" : "",
+                        "objectCode" : "",
+                        "objectLibrary" : "",
+                        "objectType" : "",
+                        "objectAttribute" : "",
+                        "objectDescription" : "",
+                        "sourceFile" : "",
+                        "sourceLibrary" : "",
+                        "sourceMember" : "",
+                        "sourcesBelongToObject" : "",
+                        "sourceChangeDate" : "",
+                        "objectSourceChangeDate" : "",
+                        "objectModified" : "",
+                        "userWhichCreatedObject" : "",
+                        "fixNumber" : "",
+                        "userDefined" : "",
+                        "temporaryOrVirtual" : "",
+                        "objectClass" : "",
+                        "versionNumber" : 0,
+                        "modificationNumber" : 0,
+                        "objectChangeDate" : "",
+                        "routeCode" : "",
+                        "pathExtensionLibraryCode" : "",
+                        "ifsObjectCode" : "",
+                        "iFSDirectoryCode" : "",
+                        "relatedLibraryCode" : "",
+                        "routeCode2" : "",
+                        "levelWithinRoute" : 0,
+                        "libraryCode" : "",
+                        "iFSPathExtension" : "",
+                        "labelCount" : 0,
+                        "activeSolutionCount" : 0,
+                        "createOverrideCount" : 0,
+                        "commentCount" : 0,
+                        "activeSolutionCountForRelatedApplications" : 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "03",
+          "generate" : false
+        }
+      }
+    },
+    "/jobRelation" : {
+      "summary" : "Use this path to process pending relationship requests for a certain job. Requests are also queued to build the relationship database if objects are added to the TD/OMS database. These requests are processed in batches to make the relationship search faster.",
+      "description" : "Use this path to process pending relationship requests for a certain job. Requests are also queued to build the relationship database if objects are added to the TD/OMS database. These requests are processed in batches to make the relationship search faster.    \r\n\r\nExample: \r\nThree programs are added to the TD/OMS object database. These programs are called PGMA, PGMB and PGMC. PGMA calls both PGMB and PGMC. If PGMA is added to the database, a relationship request is queued for it and the next object (PGMB) is added. PGMB also places a relationship request in the queue and the same steps are performed for PGMC. The function now sees that there are no more objects to be added and starts dequeueing the relationship requests.           \r\n\r\nIf the relationships of PGMA were determined when the object was added to the database, both PGMB and PGMC would not yet exist. This would cause error reporting. This action code dequeues all requests and starts building the relationships.",
+      "post" : {
+        "summary" : "Use this operation to process pending relationship requests for a certain job. Requests are also queued to build the relationship database if objects are added to the TD/OMS database. These requests are processed in batches to make the relationship search faster.",
+        "description" : "Use this operation to process pending relationship requests for a certain job. Requests are also queued to build the relationship database if objects are added to the TD/OMS database. These requests are processed in batches to make the relationship search faster.\r\n\r\nExample: Three programs are added to the TD/OMS object database. These programs are called PGMA, PGMB and PGMC. PGMA calls both PGMB and PGMC. If PGMA is added to the database, a relationship request is queued for it and the next object (PGMB) is added. PGMB also places a relationship request in the queue and the same steps are performed for PGMC. The function now sees that there are no more objects to be added and starts dequeueing the relationship requests. If the relationships of PGMA were determined when the object was added to the database, both PGMB and PGMC would not yet exist. This would cause error reporting.  This action code dequeues all requests and starts building the relationships.",
+        "operationId" : "jobRelation",
+        "requestBody" : {
+          "description" : "Use this input to process pending relationship requests for a certain job.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/jobRelationRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/jobRelationResponse"
+                },
+                "examples" : {
+                  "jobRelationResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "jobName" : "XXXXXX",
+                      "userId" : "ALICE",
+                      "jobNumber" : 111111,
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQ1042",
+                        "messageType" : "",
+                        "messageData" : "*JOBREL",
+                        "field" : "",
+                        "messageText" : "Action *JOBREL completed normally. &N Cause . . . . . :   Your request for the OMS Object API has been succesfully executed. &N Recovery. . . . :   No recovery necessary. This is an informational message."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "04",
+          "generate" : false
+        }
+      }
+    },
+    "/objectRelation" : {
+      "summary" : "Use this path to request a relationship rebuild for the specified object.",
+      "description" : "Use this path to request a relationship rebuild for the specified object.",
+      "post" : {
+        "summary" : "Use this operation to request a relationship rebuild for the specified object.",
+        "description" : "Use this operation to request a relationship rebuild for the specified object.",
+        "operationId" : "objectRelation",
+        "requestBody" : {
+          "description" : "Use this input to request a relationship rebuild for the specified object.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/objectRelationRequest"
+              },
+              "examples" : {
+                "rebuildRelation" : {
+                  "summary" : "How to specify the request input parameter value to rebuild the relation for specified object.",
+                  "value" : {
+                    "interfaceLevel" : "V3R0M0",
+                    "objectCode" : "CLLEPGM",
+                    "objectLibrary" : "OMHD_DEV",
+                    "objectType" : "*PGM",
+                    "objectRelProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "endOfProcessing" : "1",
+                      "include4GLGeneratedObjects" : "*NO"
+                    }
+                  }
+                },
+                "rebuildRelationForIFSObject" : {
+                  "summary" : "How to specify the request input parameter value to rebuild the relation for IFS object.",
+                  "value" : {
+                    "interfaceLevel" : "V3R0M0",
+                    "iFSFullPathName" : "/QOpenSys/tdoms/xmp/dev/R1/F0390/elements.html",
+                    "objectRelProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "endOfProcessing" : "1",
+                      "include4GLGeneratedObjects" : "*NO"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "05",
+          "generate" : false
+        }
+      }
+    },
+    "/refill" : {
+      "summary" : "Use this path to request a refresh of the specified object. If the object was not found in the database it will be added, or it will be changed according to the user specifications or the new attributes of the object.",
+      "description" : "Use this path to request a refresh of the specified object. If the object was not found in the database it will be added, or it will be changed according to the user specifications or the new attributes of the object.",
+      "post" : {
+        "summary" : "Use this operation to request a refresh of the specified object. If the object was not found in the database it will be added, or it will be changed according to the user specifications or the new attributes of the object.",
+        "description" : "Use this operation to request a refresh of the specified object. If the object was not found in the database it will be added, or it will be changed according to the user specifications or the new attributes of the object.",
+        "operationId" : "refill",
+        "requestBody" : {
+          "description" : "Use this input to request a refresh of the specified object.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/refillObjectRequest"
+              },
+              "examples" : {
+                "refillObject" : {
+                  "summary" : "How to specify the request input parameter value to refill the object.",
+                  "value" : {
+                    "interfaceLevel" : "V3R0M0",
+                    "objectCode" : "CLLEPGM",
+                    "objectLibrary" : "OMHD_DEV",
+                    "objectType" : "*PGM",
+                    "objectAttribute" : "*SAME",
+                    "applicationCode" : "*SAME",
+                    "environmentCode" : "*SAME",
+                    "fixNumber" : "*SAME",
+                    "objectDescription" : "*SAME",
+                    "userWhichCreatedObject" : "*SAME",
+                    "userDefined" : "*SAME",
+                    "temporaryOrVirtual" : "*SAME",
+                    "objectClass" : "*SAME",
+                    "sourceFile" : "*SAME",
+                    "sourceLibrary" : "*SAME",
+                    "sourceMember" : "*SAME",
+                    "refillProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "endOfProcessing" : "1",
+                      "buildRelationsIndicator" : "*NO",
+                      "printIndicator" : "*YES",
+                      "printMutations" : "*NO",
+                      "include4GLGeneratedObjects" : "*NO"
+                    }
+                  }
+                },
+                "refillIFSObject" : {
+                  "summary" : "How to specify the request input parameter value to refill the IFS object.",
+                  "value" : {
+                    "interfaceLevel" : "V3R0M0",
+                    "iFSFullPathName" : "/QOpenSys/tdoms/xmp/dev/R1/F0390/elements.html",
+                    "applicationCode" : "*SAME",
+                    "environmentCode" : "*SAME",
+                    "fixNumber" : "*SAME",
+                    "objectDescription" : "*SAME",
+                    "userWhichCreatedObject" : "*SAME",
+                    "userDefined" : "*SAME",
+                    "temporaryOrVirtual" : "*SAME",
+                    "objectClass" : "*SAME",
+                    "sourceFile" : "*SAME",
+                    "sourceLibrary" : "*SAME",
+                    "sourceMember" : "*SAME",
+                    "refillProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "endOfProcessing" : "1",
+                      "buildRelationsIndicator" : "*NO",
+                      "printIndicator" : "*YES",
+                      "printMutations" : "*NO",
+                      "include4GLGeneratedObjects" : "*NO"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "06",
+          "generate" : false
+        }
+      }
+    },
+    "/close" : {
+      "summary" : "Use this path to close the object database and to perform last record processing. This option enables you to keep the interface to the object database open until you explicitly close it. This will make the interface faster.",
+      "description" : "Use this path to close the object database and to perform last record processing. This option enables you to keep the interface to the object database open until you explicitly close it. This will make the interface faster.",
+      "post" : {
+        "summary" : "Use this operation to close the object database and to perform last record processing. This option enables you to keep the interface to the object database open until you explicitly close it. This will make the interface faster.",
+        "description" : "Use this operation to close the object database and to perform last record processing. This option enables you to keep the interface to the object database open until you explicitly close it. This will make the interface faster.",
+        "operationId" : "close",
+        "requestBody" : {
+          "description" : "Use this input to close the database file.",
+          "content" : {
+            "application/json" : { }
+          },
+          "required" : false
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "closeResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "",
+                        "messageId" : "",
+                        "messageType" : "",
+                        "messageData" : "",
+                        "field" : "",
+                        "messageText" : ""
+                      },
+                      "responseData" : {
+                        "applicationCode" : "",
+                        "environmentCode" : "",
+                        "objectCode" : "",
+                        "objectLibrary" : "",
+                        "objectType" : "",
+                        "objectAttribute" : "",
+                        "objectDescription" : "",
+                        "sourceFile" : "",
+                        "sourceLibrary" : "",
+                        "sourceMember" : "",
+                        "sourcesBelongToObject" : "",
+                        "sourceChangeDate" : "",
+                        "objectSourceChangeDate" : "",
+                        "objectModified" : "",
+                        "userWhichCreatedObject" : "",
+                        "fixNumber" : "",
+                        "userDefined" : "",
+                        "temporaryOrVirtual" : "",
+                        "objectClass" : "",
+                        "versionNumber" : 0,
+                        "modificationNumber" : 0,
+                        "objectChangeDate" : "",
+                        "routeCode" : "",
+                        "pathExtensionLibraryCode" : "",
+                        "ifsObjectCode" : "",
+                        "iFSDirectoryCode" : "",
+                        "relatedLibraryCode" : "",
+                        "routeCode2" : "",
+                        "levelWithinRoute" : 0,
+                        "libraryCode" : "",
+                        "iFSPathExtension" : "",
+                        "labelCount" : 0,
+                        "activeSolutionCount" : 0,
+                        "createOverrideCount" : 0,
+                        "commentCount" : 0,
+                        "activeSolutionCountForRelatedApplications" : 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "07",
+          "generate" : false
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "jobRelationRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V3R0M0.",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "rebuildRelationJobNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the job number for which queued relationships must be processed with action code *JOBREL. Relationship request are queued in file OMO001W4 in your TD/OMS library. The possible values are:       \r\n\r\n*CURRENT       \r\nThe relationship requests placed in the current job are processed.                \r\n\r\n*ALL   \r\nThe relationship requests must be processed for all the jobs.",
+            "default" : "*CURRENT",
+            "enum" : [ "*CURRENT", "*ALL" ]
+          }
+        },
+        "description" : "Request data for job relation."
+      },
+      "extendedMessage" : {
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The message file."
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "The message Idetifier."
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The message type 'E' indicates an error message,  'W' indicates warning, 'X' indicates source change date, 'N' indicates source not found while ' ' indicates a normal message with no error."
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "The message substitution data."
+          },
+          "field" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "The field in error."
+          },
+          "messageText" : {
+            "maxLength" : 644,
+            "type" : "string",
+            "description" : "The human readable message text."
+          }
+        },
+        "description" : "The return message information."
+      },
+      "errorResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status can be *NORM, *WARN or *TERM. In the case of *WARN or *TERM look at the messages for more information."
+          },
+          "message" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          }
+        },
+        "description" : "This will return the error information."
+      },
+      "response" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status can be *NORM, *WARN or *TERM. In the case of *WARN or *TERM look at the messages for more information."
+          },
+          "message" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "responseData" : {
+            "$ref" : "#/components/schemas/responseData"
+          }
+        },
+        "description" : "This will return the response data."
+      },
+      "addObjectRequest" : {
+        "required" : [ "objectLibrary", "objectType" ],
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V3R0M0.",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "The object code is the OS/400 system name of an object.  The length is 10 characters for normal objects and 12 for document library objects.                                \r\n\r\nIf the name contains a tilde (~) or a question mark (?), it is the short name for an object in the Integrated  File System. You can also have short name's if your application contains LANSA objects. The details for the  entry show the full name of the object.    \r\n\r\n*IFSOBJ      \r\nUse this value if you want to register an object from the integrated file system (IFS) instead of the normal OS/400 library structure.      \r\n\r\nObject code         \r\nSpecify the object code.",
+            "default" : "*IFSOBJ",
+            "enum" : [ "*IFSOBJ" ]
+          },
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The Object Library is the library which contains the object. The object library can be an OS/400 system library or a logical library. A logical library is the logical representation of another place holder, e.g.  a folder or a 4GL storage location."
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "The object type specifies the type of object. Program objects are of the type *PGM, file objects are of the type *FILE, etc. Refer to the IBM OS/400 reference quide for more information."
+          },
+          "objectAttribute" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the attribute of the object. The possible values are:     \r\n\r\n*SAME     \r\nThe value of the element does not change. If *SAME is used when the object is first added, then the attribute is retrieved from the object's description. This value is not allowed for temporary objects.      \r\n\r\n*OBJD        \r\nThe attribute is retrieved from the object's object description. This value is not allowed when adding a temporary object.          \r\n\r\nobject-attribute   \r\nSpecify the object attribute. The value you specify here is only used for temporary objects.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*OBJD" ]
+          },
+          "iFSFullPathName" : {
+            "maxLength" : 5000,
+            "type" : "string",
+            "description" : "The IFS Full Path Name is a complete reference to an IFS object.  This includes the directory and the object.          \r\n\r\n*OBJC     \r\nUse this value if you want to register an object from the OS/400 library structure instead of the integrated file system (IFS).  \r\n\r\nFull path-name  \r\nSpecify a full path name to the object.",
+            "default" : "*OBJC",
+            "enum" : [ "*OBJC" ]
+          },
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code of the object. The possible\r\nvalues are:       \r\n\r\n*SAME      \r\nThe application code of the object does not change.  This value is not allowed if an object is first added to the object database.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "environmentCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the environment code where the object resides.  TD/OMS will check if the library of the object is defined in the definition of the specified environment. The possible values are:     \r\n\r\n*SAME     \r\nThe environment code of the object does not change.  This value is not allowed if an object is first added to the object database.   \r\n\r\nenvironment-code    \r\nSpecify the environment code of the object.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The fix number attribute of the object is not the fix the object is currently connected to, but the fix which caused the object to be placed in this environment. The possible values are:      \r\n\r\n*SAME   \r\nThe fix number in the object does not change.  \r\n\r\n*NONE     \r\nThe solution database is not searched for the fix by which the object could have been placed in this  environment.      \r\n\r\n*ACTIVE    \r\nThe solution database is searched and the last fix to which this object was connected is used as the fix  number for this object. However, if the fix number in the object is already filled then the fix number does not change.             \r\n\r\nfix-number  \r\nspecify the fix number to be used as the fix number in he object file. If a fix is specified, it must exist  in the TD/OMS database and the object must be connected to it.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*NONE", "*ACTIVE" ]
+          },
+          "objectDescription" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "Specify the description of the object. The possible values are:      \r\n\r\n*SAME   \r\nThe description of the object does not change. When the object is first added to the TD/OMS database the description is taken from the object's header. This value is not allowed when adding temporary objects.    \r\n\r\n*OBJD   \r\nThe object description is retrieved from the object's header. This value is not allowed for temporary objects.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*OBJD" ]
+          },
+          "userWhichCreatedObject" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the user who created the object. The possible values are:        \r\n\r\n*SAME       \r\nThe user does not change. The value is retrieved from the header of the object if objects are added to the database. This value is not allowed when adding temporary objects.        \r\n\r\n*OBJD                                                   \r\nThe user who created the object is taken from the header of the object. This value is not allowed for temporary objects.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*OBJD" ]
+          },
+          "userDefined" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify whether the object is added by the user or retrieved by automated TD/OMS functions as \"fill object file\" (STRFOF). The possible values are:    \r\n\r\n*SAME                                                     \r\nThe value of the field does not change. If *SAME is used when the object is first added, the value *YES is assumed.     \r\n\r\n*YES            \r\nThe object was added manually.\r\n\r\n*NO       \r\nThe object was not added manually.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*YES", "*NO" ]
+          },
+          "temporaryOrVirtual" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify whether the object is a virtual or temporary object or if it is a real object. The possible values are:    \r\n\r\n*SAME        \r\nThe value of the element does not change. If *SAME is used when the object is first added, the value *NO is assumed.         \r\n\r\n*NO       \r\nThe object is not temporary nor virtual. TD/OMS can expect to find the object in the indicated location. If the object cannot be found in this location an error is reported.    \r\n\r\n*YES          \r\nThe object is virtual or temporary. A temporary object can be a work file to which programs relate but only exist for the duration of a job. Virtual objects are mostly used to represent a real object like a printer or a terminal.         \r\n\r\n*STUB      \r\nThe object is not temporary nor virtual but TD/OMS will not look for the object on disk. This means that you will have to supply all the attributes just as if this was a virtual object but the virtual flag is not actually set in the database.     \r\n\r\nThis can be used for creating a stub for an object that will exist later on like when creating new objects in development.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*NO", "*YES", "*STUB" ]
+          },
+          "objectClass" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the class of the object. The class is always determined by TD/OMS unless the object is temporary. The possible values are:    \r\n\r\n*SAME                                                     \r\nThe value of the element does not change. If *SAME is used when the object is first added, then the class is determined by TD/OMS.        \r\n\r\n*OS400       \r\nThe object is an OS/400 object.      \r\n\r\n*GL4         \r\nThe object is an object from a fourth generation language.                                         \r\n\r\n*HFSOBJ                                                  \r\nThe object is an object from a hierarchical file system. This can be a PC object or a document from an AS/400 folder.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*OS400", "*GL4", "*DTL", "*HFSOBJ" ]
+          },
+          "sourceFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the name of the source file. The possible values are:           \r\n\r\n*SAME        \r\nThe value of the element does not change. If *SAME is used when the object is first added then the source file and library are determined by TD/OMS.        \r\n\r\n*NONE                                                    \r\nThe object does not have a source or the object has a source but the source is not available. TD/OMS will not try to search for the object's source if it transfers the object.\r\n\r\n*OBJD    \r\nThe object is initially taken from the object's object description. TD/OMS will try to locate a better source if one is available.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*NONE", "*OBJD" ]
+          },
+          "sourceLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the name of the source library.   \r\n\r\n*SAME      \r\nThe value of the element does not change. If *SAME is used when the object is first added then the library is determined by TD/OMS.      \r\n\r\n*BEST                                                   \r\nTD/OMS will search for the best logical source location and will issue a report with possible source conflicts.                                                                 \r\n\r\n*OBJD   \r\nThe library is initially taken from the object's object description. TD/OMS will try to locate a better source library if one is available.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*BEST", "*OBJD" ]
+          },
+          "sourceMember" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the name of the source member. The possible values are:      \r\n\r\n*SAME      \r\nThe value of the element does not change. If *SAME is used when the object is first added then the member is determined by TD/OMS.       \r\n\r\n*OBJD   \r\nThe member is initially taken from the object's object description. TD/OMS will try to locate a better source member if one is available.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*OBJD" ]
+          },
+          "addProcessingOptions" : {
+            "$ref" : "#/components/schemas/addProcessingOptions"
+          }
+        },
+        "description" : "Request data to add the object."
+      },
+      "changeObjectRequest" : {
+        "required" : [ "objectLibrary", "objectType" ],
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V3R0M0.",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "The object code is the OS/400 system name of an object.  The length is 10 characters for normal objects and 12 for document library objects.                                \r\n\r\nIf the name contains a tilde (~) or a question mark (?), it is the short name for an object in the Integrated  File System. You can also have short name's if your application contains LANSA objects. The details for the  entry show the full name of the object.    \r\n\r\n*IFSOBJ      \r\nUse this value if you want to register an object from the integrated file system (IFS) instead of the normal OS/400 library structure.      \r\n\r\nObject code         \r\nSpecify the object code.",
+            "default" : "*IFSOBJ",
+            "enum" : [ "*IFSOBJ" ]
+          },
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The Object Library is the library which contains the object. The object library can be an OS/400 system library or a logical library. A logical library is the logical representation of another place holder, e.g.  a folder or a 4GL storage location."
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "The object type specifies the type of object. Program objects are of the type *PGM, file objects are of the type *FILE, etc. Refer to the IBM OS/400 reference quide for more information."
+          },
+          "objectAttribute" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the attribute of the object. The possible values are:     \r\n\r\n*SAME     \r\nThe value of the element does not change. If *SAME is used when the object is first added, then the attribute is retrieved from the object's description. This value is not allowed for temporary objects.      \r\n\r\n*OBJD        \r\nThe attribute is retrieved from the object's object description. This value is not allowed when adding a temporary object.          \r\n\r\nobject-attribute   \r\nSpecify the object attribute. The value you specify here is only used for temporary objects.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*OBJD" ]
+          },
+          "iFSFullPathName" : {
+            "maxLength" : 5000,
+            "type" : "string",
+            "description" : "The IFS Full Path Name is a complete reference to an IFS object.  This includes the directory and the object.          \r\n\r\n*OBJC     \r\nUse this value if you want to register an object from the OS/400 library structure instead of the integrated file system (IFS).  \r\n\r\nFull path-name  \r\nSpecify a full path name to the object.",
+            "default" : "*OBJC",
+            "enum" : [ "*OBJC" ]
+          },
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code of the object. The possible\r\nvalues are:       \r\n\r\n*SAME      \r\nThe application code of the object does not change.  This value is not allowed if an object is first added to the object database.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "environmentCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the environment code where the object resides.  TD/OMS will check if the library of the object is defined in the definition of the specified environment. The possible values are:     \r\n\r\n*SAME     \r\nThe environment code of the object does not change.  This value is not allowed if an object is first added to the object database.   \r\n\r\nenvironment-code   \r\nSpecify the environment code of the object.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The fix number attribute of the object is not the fix the object is currently connected to, but the fix which caused the object to be placed in this environment. The possible values are:      \r\n\r\n*SAME   \r\nThe fix number in the object does not change.  \r\n\r\n*NONE     \r\nThe solution database is not searched for the fix by which the object could have been placed in this  environment.      \r\n\r\n*ACTIVE    \r\nThe solution database is searched and the last fix to which this object was connected is used as the fix  number for this object. However, if the fix number in the object is already filled then the fix number does not change.             \r\n\r\nfix-number  \r\nspecify the fix number to be used as the fix number in he object file. If a fix is specified, it must exist  in the TD/OMS database and the object must be connected to it.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*NONE", "*ACTIVE" ]
+          },
+          "objectDescription" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "Specify the description of the object. The possible values are:      \r\n\r\n*SAME   \r\nThe description of the object does not change. When the object is first added to the TD/OMS database the description is taken from the object's header. This value is not allowed when adding temporary objects.    \r\n\r\n*OBJD   \r\nThe object description is retrieved from the object's header. This value is not allowed for temporary objects.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*OBJD" ]
+          },
+          "userWhichCreatedObject" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the user who created the object. The possible values are:        \r\n\r\n*SAME       \r\nThe user does not change. The value is retrieved from the header of the object if objects are added to the database. This value is not allowed when adding temporary objects.        \r\n\r\n*OBJD                                                   \r\nThe user who created the object is taken from the header of the object. This value is not allowed for temporary objects.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*OBJD" ]
+          },
+          "userDefined" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify whether the object is added by the user or retrieved by automated TD/OMS functions as \"fill object file\" (STRFOF). The possible values are:    \r\n\r\n*SAME                                                     \r\nThe value of the field does not change. If *SAME is used when the object is first added, the value *YES is assumed.     \r\n\r\n*YES            \r\nThe object was added manually.\r\n\r\n*NO       \r\nThe object was not added manually.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*YES", "*NO" ]
+          },
+          "temporaryOrVirtual" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify whether the object is a virtual or temporary object or if it is a real object. The possible values are:    \r\n\r\n*SAME        \r\nThe value of the element does not change. If *SAME is used when the object is first added, the value *NO is assumed.         \r\n\r\n*NO       \r\nThe object is not temporary nor virtual. TD/OMS can expect to find the object in the indicated location. If the object cannot be found in this location an error is reported.    \r\n\r\n*YES          \r\nThe object is virtual or temporary. A temporary object can be a work file to which programs relate but only exist for the duration of a job. Virtual objects are mostly used to represent a real object like a printer or a terminal.         \r\n\r\n*STUB      \r\nThe object is not temporary nor virtual but TD/OMS will not look for the object on disk. This means that you will have to supply all the attributes just as if this was a virtual object but the virtual flag is not actually set in the database.     \r\n\r\nThis can be used for creating a stub for an object that will exist later on like when creating new objects in development.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*NO", "*YES", "*STUB" ]
+          },
+          "sourceFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the name of the source file. The possible values are:           \r\n\r\n*SAME        \r\nThe value of the element does not change. If *SAME is used when the object is first added then the source file and library are determined by TD/OMS.        \r\n\r\n*NONE                                                    \r\nThe object does not have a source or the object has a source but the source is not available. TD/OMS will not try to search for the object's source if it transfers the object.\r\n\r\n*OBJD    \r\nThe object is initially taken from the object's object description. TD/OMS will try to locate a better source if one is available.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*NONE", "*OBJD" ]
+          },
+          "sourceLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the name of the source library.   \r\n\r\n*SAME      \r\nThe value of the element does not change. If *SAME is used when the object is first added then the library is determined by TD/OMS.      \r\n\r\n*BEST                                                   \r\nTD/OMS will search for the best logical source location and will issue a report with possible source conflicts.                                                                 \r\n\r\n*OBJD   \r\nThe library is initially taken from the object's object description. TD/OMS will try to locate a better source library if one is available.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*BEST", "*OBJD" ]
+          },
+          "sourceMember" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the name of the source member. The possible values are:      \r\n\r\n*SAME      \r\nThe value of the element does not change. If *SAME is used when the object is first added then the member is determined by TD/OMS.       \r\n\r\n*OBJD   \r\nThe member is initially taken from the object's object description. TD/OMS will try to locate a better source member if one is available.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*OBJD" ]
+          },
+          "changeProcessingOptions" : {
+            "$ref" : "#/components/schemas/changeProcessingOptions"
+          }
+        },
+        "description" : "Request data to change the object definition."
+      },
+      "refillObjectRequest" : {
+        "required" : [ "objectLibrary", "objectType" ],
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V3R0M0.",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "The object code is the OS/400 system name of an object.  The length is 10 characters for normal objects and 12 for document library objects.                                \r\n\r\nIf the name contains a tilde (~) or a question mark (?), it is the short name for an object in the Integrated  File System. You can also have short name's if your application contains LANSA objects. The details for the  entry show the full name of the object.    \r\n\r\n*IFSOBJ      \r\nUse this value if you want to register an object from the integrated file system (IFS) instead of the normal OS/400 library structure.      \r\n\r\nObject code         \r\nSpecify the object code.",
+            "default" : "*IFSOBJ",
+            "enum" : [ "*IFSOBJ" ]
+          },
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The Object Library is the library which contains the object. The object library can be an OS/400 system library or a logical library. A logical library is the logical representation of another place holder, e.g.  a folder or a 4GL storage location."
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "The object type specifies the type of object. Program objects are of the type *PGM, file objects are of the type *FILE, etc. Refer to the IBM OS/400 reference quide for more information."
+          },
+          "objectAttribute" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the attribute of the object. The possible values are:     \r\n\r\n*SAME     \r\nThe value of the element does not change. If *SAME is used when the object is first added, then the attribute is retrieved from the object's description. This value is not allowed for temporary objects.      \r\n\r\n*OBJD        \r\nThe attribute is retrieved from the object's object description. This value is not allowed when adding a temporary object.          \r\n\r\nobject-attribute   \r\nSpecify the object attribute. The value you specify here is only used for temporary objects.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*OBJD" ]
+          },
+          "iFSFullPathName" : {
+            "maxLength" : 5000,
+            "type" : "string",
+            "description" : "The IFS Full Path Name is a complete reference to an IFS object.  This includes the directory and the object.          \r\n\r\n*OBJC     \r\nUse this value if you want to register an object from the OS/400 library structure instead of the integrated file system (IFS).  \r\n\r\nFull path-name  \r\nSpecify a full path name to the object.",
+            "default" : "*OBJC",
+            "enum" : [ "*OBJC" ]
+          },
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code of the object. The possible\r\nvalues are:       \r\n\r\n*SAME      \r\nThe application code of the object does not change.  This value is not allowed if an object is first added to the object database.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "environmentCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the environment code where the object resides.  TD/OMS will check if the library of the object is defined in the definition of the specified environment. The possible values are:     \r\n\r\n*SAME     \r\nThe environment code of the object does not change.  This value is not allowed if an object is first added to the object database.   \r\n\r\nenvironment-code   \r\nSpecify the environment code of the object.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The fix number attribute of the object is not the fix the object is currently connected to, but the fix which caused the object to be placed in this environment. The possible values are:      \r\n\r\n*SAME   \r\nThe fix number in the object does not change.  \r\n\r\n*NONE     \r\nThe solution database is not searched for the fix by which the object could have been placed in this  environment.      \r\n\r\n*ACTIVE    \r\nThe solution database is searched and the last fix to which this object was connected is used as the fix  number for this object. However, if the fix number in the object is already filled then the fix number does not change.             \r\n\r\nfix-number  \r\nspecify the fix number to be used as the fix number in he object file. If a fix is specified, it must exist  in the TD/OMS database and the object must be connected to it.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*NONE", "*ACTIVE" ]
+          },
+          "objectDescription" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "Specify the description of the object. The possible values are:      \r\n\r\n*SAME   \r\nThe description of the object does not change. When the object is first added to the TD/OMS database the description is taken from the object's header. This value is not allowed when adding temporary objects.    \r\n\r\n*OBJD   \r\nThe object description is retrieved from the object's header. This value is not allowed for temporary objects.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*OBJD" ]
+          },
+          "userWhichCreatedObject" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the user who created the object. The possible values are:        \r\n\r\n*SAME       \r\nThe user does not change. The value is retrieved from the header of the object if objects are added to the database. This value is not allowed when adding temporary objects.        \r\n\r\n*OBJD                                                   \r\nThe user who created the object is taken from the header of the object. This value is not allowed for temporary objects.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*OBJD" ]
+          },
+          "userDefined" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify whether the object is added by the user or retrieved by automated TD/OMS functions as \"fill object file\" (STRFOF). The possible values are:    \r\n\r\n*SAME                                                     \r\nThe value of the field does not change. If *SAME is used when the object is first added, the value *YES is assumed.     \r\n\r\n*YES            \r\nThe object was added manually.\r\n\r\n*NO       \r\nThe object was not added manually.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*YES", "*NO" ]
+          },
+          "temporaryOrVirtual" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify whether the object is a virtual or temporary object or if it is a real object. The possible values are:    \r\n\r\n*SAME        \r\nThe value of the element does not change. If *SAME is used when the object is first added, the value *NO is assumed.         \r\n\r\n*NO       \r\nThe object is not temporary nor virtual. TD/OMS can expect to find the object in the indicated location. If the object cannot be found in this location an error is reported.    \r\n\r\n*YES          \r\nThe object is virtual or temporary. A temporary object can be a work file to which programs relate but only exist for the duration of a job. Virtual objects are mostly used to represent a real object like a printer or a terminal.         \r\n\r\n*STUB      \r\nThe object is not temporary nor virtual but TD/OMS will not look for the object on disk. This means that you will have to supply all the attributes just as if this was a virtual object but the virtual flag is not actually set in the database.     \r\n\r\nThis can be used for creating a stub for an object that will exist later on like when creating new objects in development.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*NO", "*YES", "*STUB" ]
+          },
+          "objectClass" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the class of the object. The class is always determined by TD/OMS unless the object is temporary. The possible values are:    \r\n\r\n*SAME                                                     \r\nThe value of the element does not change. If *SAME is used when the object is first added, then the class is determined by TD/OMS.        \r\n\r\n*OS400       \r\nThe object is an OS/400 object.      \r\n\r\n*GL4         \r\nThe object is an object from a fourth generation language.                                         \r\n\r\n*HFSOBJ                                                  \r\nThe object is an object from a hierarchical file system. This can be a PC object or a document from an AS/400 folder.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*OS400", "*GL4", "*DTL", "*HFSOBJ" ]
+          },
+          "sourceFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the name of the source file. The possible values are:           \r\n\r\n*SAME        \r\nThe value of the element does not change. If *SAME is used when the object is first added then the source file and library are determined by TD/OMS.        \r\n\r\n*NONE                                                    \r\nThe object does not have a source or the object has a source but the source is not available. TD/OMS will not try to search for the object's source if it transfers the object.\r\n\r\n*OBJD    \r\nThe object is initially taken from the object's object description. TD/OMS will try to locate a better source if one is available.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*NONE", "*OBJD" ]
+          },
+          "sourceLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the name of the source library.   \r\n\r\n*SAME      \r\nThe value of the element does not change. If *SAME is used when the object is first added then the library is determined by TD/OMS.      \r\n\r\n*BEST                                                   \r\nTD/OMS will search for the best logical source location and will issue a report with possible source conflicts.                                                                 \r\n\r\n*OBJD   \r\nThe library is initially taken from the object's object description. TD/OMS will try to locate a better source library if one is available.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*BEST", "*OBJD" ]
+          },
+          "sourceMember" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the name of the source member. The possible values are:      \r\n\r\n*SAME      \r\nThe value of the element does not change. If *SAME is used when the object is first added then the member is determined by TD/OMS.       \r\n\r\n*OBJD   \r\nThe member is initially taken from the object's object description. TD/OMS will try to locate a better source member if one is available.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*OBJD" ]
+          },
+          "refillProcessingOptions" : {
+            "$ref" : "#/components/schemas/refillProcessingOptions"
+          }
+        },
+        "description" : "Request data to refill the object."
+      },
+      "deleteObjectRequest" : {
+        "required" : [ "objectLibrary", "objectType" ],
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V3R0M0.",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "The object code is the OS/400 system name of an object.  The length is 10 characters for normal objects and 12 for document library objects.                                \r\n\r\nIf the name contains a tilde (~) or a question mark (?), it is the short name for an object in the Integrated  File System. You can also have short name's if your application contains LANSA objects. The details for the  entry show the full name of the object.    \r\n\r\n*IFSOBJ      \r\nUse this value if you want to register an object from the integrated file system (IFS) instead of the normal OS/400 library structure.      \r\n\r\nObject code         \r\nSpecify the object code.",
+            "default" : "*IFSOBJ",
+            "enum" : [ "*IFSOBJ" ]
+          },
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The Object Library is the library which contains the object. The object library can be an OS/400 system library or a logical library. A logical library is the logical representation of another place holder, e.g.  a folder or a 4GL storage location."
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "The object type specifies the type of object. Program objects are of the type *PGM, file objects are of the type *FILE, etc. Refer to the IBM OS/400 reference quide for more information."
+          },
+          "iFSFullPathName" : {
+            "maxLength" : 5000,
+            "type" : "string",
+            "description" : "The IFS Full Path Name is a complete reference to an IFS object.  This includes the directory and the object.          \r\n\r\n*OBJC     \r\nUse this value if you want to register an object from the OS/400 library structure instead of the integrated file system (IFS).  \r\n\r\nFull path-name  \r\nSpecify a full path name to the object.",
+            "default" : "*OBJC",
+            "enum" : [ "*OBJC" ]
+          },
+          "deleteProcessingOptions" : {
+            "$ref" : "#/components/schemas/deleteProcessingOptions"
+          }
+        },
+        "description" : "Request data to delete the object."
+      },
+      "objectRelationRequest" : {
+        "required" : [ "objectLibrary", "objectType" ],
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V3R0M0.",
+            "default" : "V3R0M0",
+            "enum" : [ "V3R0M0" ]
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "The object code is the OS/400 system name of an object.  The length is 10 characters for normal objects and 12 for document library objects.                                \r\n\r\nIf the name contains a tilde (~) or a question mark (?), it is the short name for an object in the Integrated  File System. You can also have short name's if your application contains LANSA objects. The details for the  entry show the full name of the object.    \r\n\r\n*IFSOBJ      \r\nUse this value if you want to register an object from the integrated file system (IFS) instead of the normal OS/400 library structure.      \r\n\r\nObject code         \r\nSpecify the object code.",
+            "default" : "*IFSOBJ",
+            "enum" : [ "*IFSOBJ" ]
+          },
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The Object Library is the library which contains the object. The object library can be an OS/400 system library or a logical library. A logical library is the logical representation of another place holder, e.g.  a folder or a 4GL storage location."
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "The object type specifies the type of object. Program objects are of the type *PGM, file objects are of the type *FILE, etc. Refer to the IBM OS/400 reference quide for more information."
+          },
+          "iFSFullPathName" : {
+            "maxLength" : 5000,
+            "type" : "string",
+            "description" : "The IFS Full Path Name is a complete reference to an IFS object.  This includes the directory and the object.          \r\n\r\n*OBJC     \r\nUse this value if you want to register an object from the OS/400 library structure instead of the integrated file system (IFS).  \r\n\r\nFull path-name  \r\nSpecify a full path name to the object.",
+            "default" : "*OBJC",
+            "enum" : [ "*OBJC" ]
+          },
+          "objectRelProcessingOptions" : {
+            "$ref" : "#/components/schemas/objectRelProcessingOptions"
+          }
+        },
+        "description" : "Request data for object relation."
+      },
+      "responseData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "RJAPPC",
+            "x-sequence" : "10"
+          },
+          "environmentCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Environment code",
+            "x-column" : "RJPDLC",
+            "x-sequence" : "20"
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Object code",
+            "x-column" : "RJOBJC",
+            "x-sequence" : "30"
+          },
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Object library",
+            "x-column" : "RJOBJL",
+            "x-sequence" : "40"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Object type",
+            "x-column" : "RJOBJT",
+            "x-sequence" : "50"
+          },
+          "objectAttribute" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Object attribute",
+            "x-column" : "RJOBJA",
+            "x-sequence" : "60"
+          },
+          "objectDescription" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "Object description",
+            "x-column" : "RJOBJD",
+            "x-sequence" : "70"
+          },
+          "sourceFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Source file",
+            "x-column" : "RJSRCF",
+            "x-sequence" : "80"
+          },
+          "sourceLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Source library",
+            "x-column" : "RJSRCL",
+            "x-sequence" : "90"
+          },
+          "sourceMember" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Source member",
+            "x-column" : "RJSRCM",
+            "x-sequence" : "100"
+          },
+          "sourcesBelongToObject" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Sources belong to object",
+            "x-column" : "RJSRCS",
+            "x-sequence" : "110"
+          },
+          "sourceChangeDate" : {
+            "maxLength" : 13,
+            "type" : "string",
+            "description" : "Source Change date",
+            "x-column" : "RJSRCX",
+            "x-sequence" : "120"
+          },
+          "objectSourceChangeDate" : {
+            "maxLength" : 13,
+            "type" : "string",
+            "description" : "Object Source change date",
+            "x-column" : "RJOBJX",
+            "x-sequence" : "130"
+          },
+          "objectModified" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Object modified",
+            "x-column" : "RJOMOD",
+            "x-sequence" : "140"
+          },
+          "userWhichCreatedObject" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "User which created object",
+            "x-column" : "RJOCRT",
+            "x-sequence" : "150"
+          },
+          "fixNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Fix number",
+            "x-column" : "RJFIX#",
+            "x-sequence" : "160"
+          },
+          "userDefined" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "User defined",
+            "x-column" : "RJUSDF",
+            "x-sequence" : "170"
+          },
+          "temporaryOrVirtual" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "May not exist indicator",
+            "x-column" : "RJEXCI",
+            "x-sequence" : "180"
+          },
+          "objectClass" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Object class",
+            "x-column" : "RJOCLS",
+            "x-sequence" : "190"
+          },
+          "versionNumber" : {
+            "maxLength" : 5,
+            "type" : "number",
+            "description" : "Version number",
+            "format" : "packed(5:0)",
+            "x-column" : "RJVRS#",
+            "x-sequence" : "200"
+          },
+          "modificationNumber" : {
+            "maxLength" : 5,
+            "type" : "number",
+            "description" : "Modification number",
+            "format" : "packed(5:0)",
+            "x-column" : "RJMOD#",
+            "x-sequence" : "210"
+          },
+          "objectChangeDate" : {
+            "maxLength" : 13,
+            "type" : "string",
+            "description" : "Object Change date",
+            "x-column" : "RJCHGX",
+            "x-sequence" : "220"
+          },
+          "routeCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Route code",
+            "x-column" : "RJROTC",
+            "x-sequence" : "230"
+          },
+          "pathExtensionLibraryCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Path Extension Code",
+            "x-column" : "RJELBC",
+            "x-sequence" : "240"
+          },
+          "ifsObjectCode" : {
+            "maxLength" : 255,
+            "type" : "string",
+            "description" : "IFS object code",
+            "x-column" : "ONIOBC",
+            "x-sequence" : "250"
+          },
+          "iFSDirectoryCode" : {
+            "maxLength" : 640,
+            "type" : "string",
+            "description" : "IFS Directory code",
+            "x-column" : "OPIDRC",
+            "x-sequence" : "260"
+          },
+          "relatedLibraryCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Related library code",
+            "x-column" : "OPRLBC",
+            "x-sequence" : "270"
+          },
+          "routeCode2" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Route code",
+            "x-column" : "OPROTC",
+            "x-sequence" : "280"
+          },
+          "levelWithinRoute" : {
+            "maxLength" : 3,
+            "type" : "number",
+            "description" : "Level within route",
+            "format" : "packed(3:0)",
+            "x-column" : "OPLVL#",
+            "x-sequence" : "290"
+          },
+          "libraryCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Library code",
+            "x-column" : "OPLIBC",
+            "x-sequence" : "300"
+          },
+          "iFSPathExtension" : {
+            "maxLength" : 640,
+            "type" : "string",
+            "description" : "IFS Directory code",
+            "x-column" : "EPIDRC",
+            "x-sequence" : "310"
+          },
+          "labelCount" : {
+            "maxLength" : 5,
+            "type" : "number",
+            "description" : "",
+            "format" : "packed(5:0)",
+            "x-column" : "RJLAB#",
+            "x-sequence" : "320"
+          },
+          "activeSolutionCount" : {
+            "maxLength" : 5,
+            "type" : "number",
+            "description" : "",
+            "format" : "packed(5:0)",
+            "x-column" : "RJSOL#",
+            "x-sequence" : "330"
+          },
+          "createOverrideCount" : {
+            "maxLength" : 5,
+            "type" : "number",
+            "description" : "",
+            "format" : "packed(5:0)",
+            "x-column" : "RJCOB#",
+            "x-sequence" : "340"
+          },
+          "commentCount" : {
+            "maxLength" : 5,
+            "type" : "number",
+            "description" : "",
+            "format" : "packed(5:0)",
+            "x-column" : "RJCMN#",
+            "x-sequence" : "350"
+          },
+          "activeSolutionCountForRelatedApplications" : {
+            "maxLength" : 5,
+            "type" : "number",
+            "description" : "",
+            "format" : "packed(5:0)",
+            "x-column" : "RJSLO#",
+            "x-sequence" : "360"
+          }
+        },
+        "description" : "Object response data.",
+        "x-pfname" : "OMOBJV1",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "objectRelProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "endOfProcessing" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify whether the API must close all files and free storage upon completion of the requested action. The possible values are:    \r\n\r\n1 (*YES)      \r\nThe files are closed and storage is freed by the API upon completion of the requested action. Subsequent actions must open the needed files and programs again.     \r\n\r\n0 (*NO)                                                      \r\nThe state of the API was left when the requested action was completed. Files remain open and relationship updates are postponed. Subsequent calls to the API are considerably faster and storage is not freed.      \r\n\r\nNote:   \r\nKeep in mind that the last action of a series should close the API in order to close spooled files and do relationship processing.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "include4GLGeneratedObjects" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify, for 4GL objects, if the generated objects also have to be processed. The possible values are:         \r\n\r\n*NO     \r\nGenerated objects are not processed.    \r\n\r\n*YES     \r\nGenerated objects are processed.",
+            "default" : "*NO",
+            "enum" : [ "*NO", "*YES" ]
+          }
+        },
+        "description" : "Various flags to control the behavior of the API."
+      },
+      "changeProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "endOfProcessing" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify whether the API must close all files and free storage upon completion of the requested action. The possible values are:    \r\n\r\n1 (*YES)      \r\nThe files are closed and storage is freed by the API upon completion of the requested action. Subsequent actions must open the needed files and programs again.     \r\n\r\n0 (*NO)                                                      \r\nThe state of the API was left when the requested action was completed. Files remain open and relationship updates are postponed. Subsequent calls to the API are considerably faster and storage is not freed.      \r\n\r\nNote:   \r\nKeep in mind that the last action of a series should close the API in order to close spooled files and do relationship processing.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "buildRelationsIndicator" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Indicate if and how the object's relationships should be rebuild. The possible values are:    \r\n\r\n*NO                                                       \r\nThe relationships are not processed for the indicated object. This value has no meaning if the action code is one of the relation processing action codes.      \r\n\r\n*IMMED                                                   \r\nDo an immediate update of the object's relationships. This value is useful when only one object is added to the object file.           \r\n\r\n*DELAYED       \r\nThe rebuild of the relationships is not done when this value is used and if the end processing indicator (EOPI) is set to *NO. Instead the relationship rebuild requests are queued and processed when either the *CLOSE action code is used, the command is used again but now with the EOPI indicator set to *YES or when the relationship action codes *JOBREL and *OBJREL are used on the data of the queued relationship requests.\r\nUse this value when you are adding more than one object to the object database and want to postpone the load of the inter-object relationships until a later time.     \r\n\r\n*CHANGED         \r\nThis value is equal to the *DELAYED value but is even more effective in the sense that the relationship request is only performed if the object was changed after the last update of the TD/OMS database.              \r\n\r\nNote:  \r\nThe *CHANGED and *DELAYED values are by far the most efficient ways of relationship processing.",
+            "default" : "*NO",
+            "enum" : [ "*NO", "*IMMED", "*DELAYED", "*CHANGED" ]
+          },
+          "printIndicator" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the amount of data to print if a request is made to the API. The possible values are:    \r\n\r\n*YES        \r\nIndicates that conflicts are reported when they arise. Successful requests are not printed.     \r\n\r\n*NO     \r\nNothing is printed.       \r\n\r\n*ALL     \r\nEverything is printed.",
+            "default" : "*YES",
+            "enum" : [ "*YES", "*NO", "*ALL" ]
+          },
+          "printMutations" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify if a mutation report must be printed. A mutation  is a difference between the TD/OMS database and the object in the library.  If the time stamps in the TD/OMS database differs from the timestamps in the actual object description, or the object was removed from the library or the object was added to the library then a line is printed on the report.  The possible values are:                  \r\n\r\n*NO         \r\nThe mutations are not printed.    \r\n\r\n*YES     \r\nMutations are printed.",
+            "default" : "*NO",
+            "enum" : [ "*NO", "*YES" ]
+          },
+          "include4GLGeneratedObjects" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify, for 4GL objects, if the generated objects also have to be processed. The possible values are:         \r\n\r\n*NO     \r\nGenerated objects are not processed.    \r\n\r\n*YES     \r\nGenerated objects are processed.",
+            "default" : "*NO",
+            "enum" : [ "*NO", "*YES" ]
+          }
+        },
+        "description" : "Various flags to control the behavior of the API."
+      },
+      "deleteProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "endOfProcessing" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify whether the API must close all files and free storage upon completion of the requested action. The possible values are:    \r\n\r\n1 (*YES)      \r\nThe files are closed and storage is freed by the API upon completion of the requested action. Subsequent actions must open the needed files and programs again.     \r\n\r\n0 (*NO)                                                      \r\nThe state of the API was left when the requested action was completed. Files remain open and relationship updates are postponed. Subsequent calls to the API are considerably faster and storage is not freed.      \r\n\r\nNote:   \r\nKeep in mind that the last action of a series should close the API in order to close spooled files and do relationship processing.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "deleteObjectIndicator" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify if the object and the source are also deleted if deletion of the object in the TD/OMS database is requested.        \r\n\r\n*NO                            \r\nThe object and the source are not deleted.                        \r\n\r\n*YES     \r\nThe object will be deleted. The source will only be deleted if it is not referred to by any other object.",
+            "default" : "*NO",
+            "enum" : [ "*NO", "*YES" ]
+          },
+          "include4GLGeneratedObjects" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify, for 4GL objects, if the generated objects also have to be processed. The possible values are:         \r\n\r\n*NO     \r\nGenerated objects are not processed.    \r\n\r\n*YES     \r\nGenerated objects are processed.",
+            "default" : "*NO",
+            "enum" : [ "*NO", "*YES" ]
+          }
+        },
+        "description" : "Various flags to control the behavior of the API."
+      },
+      "addProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "endOfProcessing" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify whether the API must close all files and free storage upon completion of the requested action. The possible values are:    \r\n\r\n1 (*YES)      \r\nThe files are closed and storage is freed by the API upon completion of the requested action. Subsequent actions must open the needed files and programs again.     \r\n\r\n0 (*NO)                                                      \r\nThe state of the API was left when the requested action was completed. Files remain open and relationship updates are postponed. Subsequent calls to the API are considerably faster and storage is not freed.      \r\n\r\nNote:   \r\nKeep in mind that the last action of a series should close the API in order to close spooled files and do relationship processing.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "buildRelationsIndicator" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Indicate if and how the object's relationships should be rebuild. The possible values are:    \r\n\r\n*NO                                                       \r\nThe relationships are not processed for the indicated object. This value has no meaning if the action code is one of the relation processing action codes.      \r\n\r\n*IMMED                                                   \r\nDo an immediate update of the object's relationships. This value is useful when only one object is added to the object file.           \r\n\r\n*DELAYED       \r\nThe rebuild of the relationships is not done when this value is used and if the end processing indicator (EOPI) is set to *NO. Instead the relationship rebuild requests are queued and processed when either the *CLOSE action code is used, the command is used again but now with the EOPI indicator set to *YES or when the relationship action codes *JOBREL and *OBJREL are used on the data of the queued relationship requests.\r\nUse this value when you are adding more than one object to the object database and want to postpone the load of the inter-object relationships until a later time.     \r\n\r\n*CHANGED         \r\nThis value is equal to the *DELAYED value but is even more effective in the sense that the relationship request is only performed if the object was changed after the last update of the TD/OMS database.              \r\n\r\nNote:  \r\nThe *CHANGED and *DELAYED values are by far the most efficient ways of relationship processing.",
+            "default" : "*NO",
+            "enum" : [ "*NO", "*IMMED", "*DELAYED", "*CHANGED" ]
+          },
+          "printIndicator" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the amount of data to print if a request is made to the API. The possible values are:    \r\n\r\n*YES        \r\nIndicates that conflicts are reported when they arise. Successful requests are not printed.     \r\n\r\n*NO     \r\nNothing is printed.       \r\n\r\n*ALL     \r\nEverything is printed.",
+            "default" : "*YES",
+            "enum" : [ "*YES", "*NO", "*ALL" ]
+          },
+          "printMutations" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify if a mutation report must be printed. A mutation  is a difference between the TD/OMS database and the object in the library.  If the time stamps in the TD/OMS database differs from the timestamps in the actual object description, or the object was removed from the library or the object was added to the library then a line is printed on the report.  The possible values are:                  \r\n\r\n*NO         \r\nThe mutations are not printed.    \r\n\r\n*YES     \r\nMutations are printed.",
+            "default" : "*NO",
+            "enum" : [ "*NO", "*YES" ]
+          },
+          "include4GLGeneratedObjects" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify, for 4GL objects, if the generated objects also have to be processed. The possible values are:         \r\n\r\n*NO     \r\nGenerated objects are not processed.    \r\n\r\n*YES     \r\nGenerated objects are processed.",
+            "default" : "*NO",
+            "enum" : [ "*NO", "*YES" ]
+          }
+        },
+        "description" : "Various flags to control the behavior of the API."
+      },
+      "refillProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "endOfProcessing" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify whether the API must close all files and free storage upon completion of the requested action. The possible values are:    \r\n\r\n1 (*YES)      \r\nThe files are closed and storage is freed by the API upon completion of the requested action. Subsequent actions must open the needed files and programs again.     \r\n\r\n0 (*NO)                                                      \r\nThe state of the API was left when the requested action was completed. Files remain open and relationship updates are postponed. Subsequent calls to the API are considerably faster and storage is not freed.      \r\n\r\nNote:   \r\nKeep in mind that the last action of a series should close the API in order to close spooled files and do relationship processing.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "buildRelationsIndicator" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Indicate if and how the object's relationships should be rebuild. The possible values are:    \r\n\r\n*NO                                                       \r\nThe relationships are not processed for the indicated object. This value has no meaning if the action code is one of the relation processing action codes.      \r\n\r\n*IMMED                                                   \r\nDo an immediate update of the object's relationships. This value is useful when only one object is added to the object file.           \r\n\r\n*DELAYED       \r\nThe rebuild of the relationships is not done when this value is used and if the end processing indicator (EOPI) is set to *NO. Instead the relationship rebuild requests are queued and processed when either the *CLOSE action code is used, the command is used again but now with the EOPI indicator set to *YES or when the relationship action codes *JOBREL and *OBJREL are used on the data of the queued relationship requests.\r\nUse this value when you are adding more than one object to the object database and want to postpone the load of the inter-object relationships until a later time.     \r\n\r\n*CHANGED         \r\nThis value is equal to the *DELAYED value but is even more effective in the sense that the relationship request is only performed if the object was changed after the last update of the TD/OMS database.              \r\n\r\nNote:  \r\nThe *CHANGED and *DELAYED values are by far the most efficient ways of relationship processing.",
+            "default" : "*NO",
+            "enum" : [ "*NO", "*IMMED", "*DELAYED", "*CHANGED" ]
+          },
+          "printIndicator" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the amount of data to print if a request is made to the API. The possible values are:    \r\n\r\n*YES        \r\nIndicates that conflicts are reported when they arise. Successful requests are not printed.     \r\n\r\n*NO     \r\nNothing is printed.       \r\n\r\n*ALL     \r\nEverything is printed.",
+            "default" : "*YES",
+            "enum" : [ "*YES", "*NO", "*ALL" ]
+          },
+          "printMutations" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify if a mutation report must be printed. A mutation  is a difference between the TD/OMS database and the object in the library.  If the time stamps in the TD/OMS database differs from the timestamps in the actual object description, or the object was removed from the library or the object was added to the library then a line is printed on the report.  The possible values are:                  \r\n\r\n*NO         \r\nThe mutations are not printed.    \r\n\r\n*YES     \r\nMutations are printed.",
+            "default" : "*NO",
+            "enum" : [ "*NO", "*YES" ]
+          },
+          "include4GLGeneratedObjects" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify, for 4GL objects, if the generated objects also have to be processed. The possible values are:         \r\n\r\n*NO     \r\nGenerated objects are not processed.    \r\n\r\n*YES     \r\nGenerated objects are processed.",
+            "default" : "*NO",
+            "enum" : [ "*NO", "*YES" ]
+          }
+        },
+        "description" : "Various flags to control the behavior of the API."
+      },
+      "jobRelationResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
+          },
+          "jobName" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Job name."
+          },
+          "userId" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "User Id."
+          },
+          "jobNumber" : {
+            "maximum" : 6,
+            "type" : "number",
+            "description" : "Job number.",
+            "format" : "zoned(6:0)"
+          },
+          "message" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          }
+        },
+        "description" : "Response for the action job relation."
+      }
+    },
+    "responses" : { },
+    "parameters" : { },
+    "examples" : {
+      "response401" : {
+        "summary" : "Not authorized.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQF201",
+          "messageType" : "E",
+          "messageData" : "",
+          "field" : "",
+          "messageText" : "Unauthorized or expired token. Please login again."
+        }
+      },
+      "response400" : {
+        "summary" : "Something went wrong.",
+        "value" : {
+          "status" : "*TERM",
+          "message" : {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQ1009",
+            "messageType" : "E",
+            "messageData" : "XMP  *DEV XXXXX",
+            "field" : "",
+            "messageText" : "Object library XXXXX is not a part of environment *DEV in application XMP &N Cause . . . . . :   Your request has been denied because the object library XXXXX does not belong to environment *DEV in application XMP. &N Recovery. . . . :   Change the object library to a library which belongs to environment *DEV in application XMP or change the application- and environment code."
+          }
+        }
+      },
+      "response200" : {
+        "summary" : "Response to a successful API call.",
+        "value" : {
+          "status" : "*NORM",
+          "message" : {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQ1006",
+            "messageType" : "",
+            "messageData" : "CLLEPGM   OMHD_DEV  *PGM",
+            "field" : "",
+            "messageText" : "Action for object OMHD_DEV/CLLEPGM type *PGM completed normally &N Cause . . . . . :   Your request for the OMS Object API has been succesfully executed. &N Recovery. . . . :   No recovery necessary. This is an informational message"
+          },
+          "responseData" : {
+            "applicationCode" : "XMP",
+            "environmentCode" : "*DEV",
+            "objectCode" : "CLLEPGM",
+            "objectLibrary" : "OMHD_DEV",
+            "objectType" : "*PGM",
+            "objectAttribute" : "CLLE",
+            "objectDescription" : "Clle program",
+            "sourceFile" : "QCLLESRC",
+            "sourceLibrary" : "OMHD_DEV",
+            "sourceMember" : "CLLETEMOBJ",
+            "sourcesBelongToObject" : "0",
+            "sourceChangeDate" : "1250114140918",
+            "objectSourceChangeDate" : "1250114131636",
+            "objectModified" : "",
+            "userWhichCreatedObject" : "ALICE",
+            "fixNumber" : "",
+            "userDefined" : "0",
+            "temporaryOrVirtual" : "0",
+            "objectClass" : "",
+            "versionNumber" : 0,
+            "modificationNumber" : 0,
+            "objectChangeDate" : "1250114131640",
+            "routeCode" : "",
+            "pathExtensionLibraryCode" : "",
+            "ifsObjectCode" : "CLLETEMOBJ",
+            "iFSDirectoryCode" : "",
+            "relatedLibraryCode" : "",
+            "routeCode2" : "",
+            "levelWithinRoute" : 0,
+            "libraryCode" : "",
+            "iFSPathExtension" : "",
+            "labelCount" : 0,
+            "activeSolutionCount" : 0,
+            "createOverrideCount" : 0,
+            "commentCount" : 0,
+            "activeSolutionCountForRelatedApplications" : 0
+          }
+        }
+      }
+    },
+    "requestBodies" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "JWT security",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
