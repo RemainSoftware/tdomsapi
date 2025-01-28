@@ -1379,7 +1379,7 @@
           "release" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Release \r\n\r\n*SAME \r\nUse this value to indicate that the release number does not change. TD/OMS will try to find the best value for the element if a new fix is added and the value *SAME is used. \r\n\r\n*CURRUNT \r\nUse this value to indicate that the release of the fix is the current release from the application definition.  ",
+            "description" : "Release \r\n\r\n*SAME \r\nUse this value to indicate that the release number does not change. TD/OMS will try to find the best value for the element if a new fix is added and the value *SAME is used. \r\n\r\n*CURRENT \r\nUse this value to indicate that the release of the fix is the current release from the application definition.  ",
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Release_number_(RLS)"
             },
@@ -1602,7 +1602,7 @@
           "release" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Release\r\n\r\n*SAME \r\nUse this value to indicate that the release number does not change. TD/OMS will try to find the best value for the element if a new fix is added and the value *SAME is used. \r\n\r\n*CURRUNT \r\nUse this value to indicate that the release of the fix is the current release from the application definition.                              ",
+            "description" : "Release\r\n\r\n*SAME \r\nUse this value to indicate that the release number does not change. TD/OMS will try to find the best value for the element if a new fix is added and the value *SAME is used. \r\n\r\n*CURRENT \r\nUse this value to indicate that the release of the fix is the current release from the application definition.                              ",
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Release_number_(RLS)"
             },
