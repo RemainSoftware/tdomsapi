@@ -15,9 +15,9 @@
     "version" : "0.0.1",
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
-      "library" : "V17T0148",
+      "library" : "V17T0170",
       "file" : "RequestAPI.json",
-      "srclibrary" : "V17T0148S",
+      "srclibrary" : "V17T0170S",
       "object" : "OMQRTO"
     }
   },
@@ -35,8 +35,8 @@
       },
       "protocol" : {
         "description" : "Protocol",
-        "default" : "https",
-        "enum" : [ "https", "http" ]
+        "enum" : [ "https", "http" ],
+        "default" : "https"
       },
       "port" : {
         "description" : "The port to which the server is listening",
@@ -64,6 +64,22 @@
                 "select" : {
                   "value" : null,
                   "$ref" : "#/components/examples/select"
+                },
+                "selectRequestForOneorMoreObjects" : {
+                  "summary" : "How to specify select input parameter values for one or more objects in the environment of a task",
+                  "value" : {
+                    "action" : "Checkout",
+                    "taskNumber" : "XT0497",
+                    "application" : "XMP",
+                    "fromEnvironment" : "*PRD",
+                    "objectList" : [ {
+                      "memberCode" : "OMHLPDS",
+                      "routeCode" : "",
+                      "pathExtensionode" : "",
+                      "objectCode" : "QCPYLESRC",
+                      "objectType" : "*FILE"
+                    } ]
+                  }
                 }
               }
             }
@@ -143,9 +159,9 @@
                 "$ref" : "#/components/schemas/prepareRequest"
               },
               "examples" : {
-                "prepareTaskLavel" : {
+                "prepareTaskLevel" : {
                   "value" : null,
-                  "$ref" : "#/components/examples/prepareTaskLavel"
+                  "$ref" : "#/components/examples/prepareTaskLevel"
                 },
                 "prepareRequestObjectLevel" : {
                   "value" : null,
@@ -320,7 +336,7 @@
           "updateBuffer" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify '1' to update the returned data with the lastest values or '0' to not return the latest task data.",
+            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest task data.",
             "default" : "1",
             "enum" : [ "0", "1" ]
           }
@@ -386,16 +402,18 @@
             "type" : "string",
             "description" : "Route Code"
           },
-          "pathExtensionpCode" : {
+          "pathExtensionCode" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "Path Extension Code"
           },
-          "transferable" : {
-            "type" : "boolean"
-          },
           "reason" : {
             "$ref" : "#/components/schemas/errorMessage"
+          },
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "This status will return following values based on validations.    \r\n*NORM - If object can be processed without any error or warning.     \r\n*CONF- If object has encountered some warning.     \r\n*TERM - If object cannot be processed.     "
           }
         },
         "description" : "Object detail"
@@ -458,7 +476,7 @@
               "$ref" : "#/components/schemas/objectInfo"
             }
           },
-          "targetSubEnviornments" : {
+          "targetSubEnvironments" : {
             "maxItems" : 1000,
             "type" : "array",
             "description" : "Target subenvironments",
@@ -466,7 +484,7 @@
               "type" : "integer"
             }
           },
-          "confimation" : {
+          "confirmation" : {
             "type" : "boolean",
             "description" : "Pre transfer check confirmation"
           }
@@ -619,6 +637,14 @@
             "maxLength" : 5,
             "type" : "string",
             "description" : "From Environment"
+          },
+          "objectList" : {
+            "maxItems" : 256,
+            "type" : "array",
+            "description" : "List of Objects for select.\r\nIf all objects in the task need to be selected, the Object List should be left blank.\r\nIf only some of the objects in the task need to be selected, the Object Code and its Type should be listed in the Object List.",
+            "items" : {
+              "$ref" : "#/components/schemas/objectInfo"
+            }
           }
         },
         "description" : "Prepare the transfer request"
@@ -636,7 +662,7 @@
             "type" : "string",
             "description" : "Route Code"
           },
-          "pathExtensionpCode" : {
+          "pathExtensionCode" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "Path Extension Code"
@@ -729,7 +755,6 @@
       }
     },
     "responses" : { },
-    "parameters" : { },
     "examples" : {
       "response401" : {
         "summary" : "Not authorized.",
@@ -773,7 +798,7 @@
           } ]
         }
       },
-      "prepareTaskLavel" : {
+      "prepareTaskLevel" : {
         "summary" : "How to specify the prepare request input parameter value at the task level.",
         "value" : {
           "action" : "copy",
@@ -782,8 +807,8 @@
           "fromEnvironment" : "*PRD",
           "toEnvironment" : "*DEV",
           "objects" : [ ],
-          "targetSubEnviornments" : [ ],
-          "confimation" : true
+          "targetSubEnvironments" : [ ],
+          "confirmation" : true
         }
       },
       "executeResponse400" : {
@@ -807,12 +832,12 @@
           "objects" : [ {
             "memberCode" : "",
             "routeCode" : "",
-            "pathExtensionpCode" : "",
+            "pathExtensionCode" : "",
             "objectCode" : "BAS",
             "objectType" : "*PGM"
           } ],
-          "targetSubEnviornments" : [ ],
-          "confimation" : true
+          "targetSubEnvironments" : [ ],
+          "confirmation" : true
         }
       },
       "prepareRequestForCopybook" : {
@@ -826,12 +851,12 @@
           "objects" : [ {
             "memberCode" : "OMHLPDS",
             "routeCode" : "",
-            "pathExtensionpCode" : "",
+            "pathExtensionCode" : "",
             "objectCode" : "QCPYLESRC",
             "objectType" : "*FILE"
           } ],
-          "targetSubEnviornments" : [ ],
-          "confimation" : true
+          "targetSubEnvironments" : [ ],
+          "confirmation" : true
         }
       },
       "prepareRequestForIFSObject" : {
@@ -845,16 +870,15 @@
           "objects" : [ {
             "memberCode" : "",
             "routeCode" : "PHP",
-            "pathExtensionpCode" : "        88",
+            "pathExtensionCode" : "        88",
             "objectCode" : "dashboard.js",
             "objectType" : "*STMF"
           } ],
-          "targetSubEnviornments" : [ ],
-          "confimation" : true
+          "targetSubEnvironments" : [ ],
+          "confirmation" : true
         }
       }
     },
-    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
