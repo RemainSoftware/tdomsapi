@@ -2,7 +2,7 @@
   "openapi" : "3.0.1",
   "info" : {
     "title" : "EVF Event File API.",
-    "description" : "The EVF event file REST API parses information from the EVFEVENT file. It currently exhibits various record types, including Timestamp Records, Processor Records, File ID Records, File End Records, Error Information Records, and Expansion Records.\r\n\r\nCurrently, the API retrieves the first 999 Error Information Records.",
+    "description" : "The EVF event file REST API parses information from the EVFEVENT file. It currently exhibits various record types, including Timestamp Records, Processor Records, File ID Records, File End Records, Error Information Records, and Expansion Records.\r\n\r\nCurrently, the API retrieves the first 999 Error Information Records.\r\n\r\nIn addition, the API now supports retrieving Raw Records with pagination. Users can fetch 100 records per page, and the response includes the total number of records as well.",
     "termsOfService" : "",
     "contact" : {
       "name" : "Remain Software",
@@ -17,8 +17,8 @@
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
       "object" : "OMQREV",
-      "library" : "V16T0048",
-      "srclibrary" : "V16T0048S",
+      "library" : "V17T0204",
+      "srclibrary" : "V17T0204S",
       "file" : "EVFEventFileAPI.json"
     }
   },
@@ -157,7 +157,7 @@
             }
           },
           "401" : {
-            "description" : "Not authorized",
+            "description" : "Not authorized.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -169,8 +169,93 @@
         },
         "callbacks" : { },
         "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
           "suffix" : "01",
-          "generate" : "true"
+          "generate" : false
+        }
+      }
+    },
+    "/getRawRecords" : {
+      "summary" : "Use this path to get raw records from the event file.",
+      "description" : "Use this path to parse get records from the event file.",
+      "post" : {
+        "summary" : "Use this operation to get raw records from the event file.",
+        "description" : "Use this operation to get raw records from the event file.",
+        "operationId" : "getRawrecords",
+        "requestBody" : {
+          "description" : "Use this input to get raw records from the event file.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/rawRecordsRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/rawRecordsResponse"
+                },
+                "examples" : {
+                  "getRawRecordsResponse200" : {
+                    "summary" : "Response for a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "totalNumberOfRecords" : 12,
+                      "data" : [ {
+                        "record" : "TIMESTAMP  0 20241224110652"
+                      }, {
+                        "record" : "PROCESSOR  0 000 1"
+                      }, {
+                        "record" : "FILEID     0 001 000000 026 OMHD_DEV/QCLLESRC(CLPGM01) 20241224064551 0"
+                      }, {
+                        "record" : "ERROR      0 000 1 000000 000000 000 000000 000 CPD0725 W 10 116 End of source file reached without ENDPGM command."
+                      }, {
+                        "record" : "ERROR      0 000 1 000000 000000 000 000000 000 CPD0740 W 10 116 PGM command missing."
+                      }, {
+                        "record" : "ERROR      0 000 1 000000 000000 000 000000 000 CPD0729 W 10 116 No executable commands found in source file."
+                      }, {
+                        "record" : "ERROR      0 000 1 000000 000000 000 000000 000 CPD0792 W 10 116 No data areas, variables, or labels used in program."
+                      }, {
+                        "record" : "FILEEND    0 001 000000"
+                      }, {
+                        "record" : "PROCESSOR  0 000 1"
+                      }, {
+                        "record" : "FILEID     0 000 000000 000  19700101010000 0"
+                      }, {
+                        "record" : "ERROR      0 000 0 000000 000000 000 000000 000 CPC5D07 I 00 044 Program CLPGM01 created in library OMHD_DEV."
+                      }, {
+                        "record" : "FILEEND    0 000 000000"
+                      } ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "02",
+          "generate" : true
         }
       }
     }
@@ -481,9 +566,68 @@
           }
         },
         "description" : "This record contains the full name of the source file processed and associates an integer with the file name. There should be one record of this type for each source file processed (the main source file as well as any included source units (copylib members) and macros)."
+      },
+      "rawRecordsResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status which can be *NORM or *TERM. In case of *TERM look at the messages for more information."
+          },
+          "totalNumberOfRecords" : {
+            "type" : "integer",
+            "description" : "The total count of raw records."
+          },
+          "data" : {
+            "maxItems" : 100,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/rawData"
+            }
+          }
+        },
+        "description" : "The raw record response."
+      },
+      "rawRecordsRequest" : {
+        "type" : "object",
+        "properties" : {
+          "pageNumber" : {
+            "type" : "integer",
+            "description" : "Specify the page number to display the raw records, with each page containing up to 100 raw records.",
+            "default" : 1,
+            "enum" : [ 1 ]
+          },
+          "memberName" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the member's name.",
+            "example" : "CLPGM01"
+          },
+          "library" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the library name.",
+            "example" : "OMHD_DEV"
+          }
+        },
+        "description" : "Specify the request input to get the raw records from the event file."
+      },
+      "rawData" : {
+        "type" : "object",
+        "properties" : {
+          "record" : {
+            "maxLength" : 400,
+            "type" : "string",
+            "description" : "The record of raw data response ."
+          }
+        },
+        "description" : "The raw data of raw records response."
       }
     },
     "responses" : { },
+    "parameters" : { },
+    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
