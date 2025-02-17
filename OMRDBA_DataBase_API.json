@@ -15,9 +15,9 @@
     "version" : "0.0.1",
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
-      "library" : "V15T0139",
+      "library" : "IRESTLIB",
       "file" : "OMEROV1.json",
-      "srclibrary" : "V15T0139S",
+      "srclibrary" : "IRESTLIB",
       "object" : "OMRDBA"
     }
   },
@@ -29,8 +29,8 @@
         "default" : "plato.remainsoftware.com"
       },
       "protocol" : {
-        "default" : "https",
-        "enum" : [ "https", "http" ]
+        "enum" : [ "https", "http" ],
+        "default" : "https"
       },
       "library" : {
         "description" : "",
@@ -165,7 +165,7 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "SO",
-          "generate" : true
+          "generate" : false
         }
       }
     }
@@ -325,7 +325,8 @@
           },
           "sortBy" : {
             "type" : "string",
-            "description" : "Enter sorting order of the field. The possible values are : \r\n\r\nDESC - Descending order \r\n\r\nASC - Ascending order"
+            "description" : "Enter sorting order of the field. The possible values are : \r\n\r\nDESC - Descending order \r\n\r\nASC - Ascending order",
+            "default" : "ASC"
           }
         },
         "description" : "Enter Fields to be sorted"
@@ -458,14 +459,12 @@
         }
       }
     },
-    "parameters" : { },
     "examples" : {
       "IN" : {
         "summary" : "How to specify the IN operator selection",
         "value" : "  {\r\n        \"field\": \"applicationCode\",\r\n        \"value\": \"XMP\",\r\n        \"operator\": \"IN\"\r\n  }"
       }
     },
-    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
