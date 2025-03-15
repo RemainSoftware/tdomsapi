@@ -445,7 +445,7 @@ curl -X 'POST' \
 
 ### [Event File](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/EVFEventFileAPI.json)
 
-Use [this API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/EVFEventFileAPI.json) to fetch the event file records which contain the compile errors. The event file raw records can be parsed using the IBM i Event File Parser on NPM.
+Use [this API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/EVFEventFileAPI.json) to fetch the event file records with the compile errors. The event file raw records can be parsed using the IBM i Event File Parser on NPM.
 
 <details><summary>Request</summary>
 ```shell
@@ -490,7 +490,75 @@ curl -X 'POST' \
 }
 ```
 </details>
-  
+
+
+### [Transfer](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/transferObjectsAPI.json)
+
+Use [this API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/transferObjectsAPI.json) to push tasks or single objects through the cycle.
+
+<details><summary>Request. Prepare a transfer.</summary>
+```shell
+curl -X 'POST' \
+  'https://plato.remainsoftware.com:45011/OMS/OMQRTO/prepare' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJSZW1haW4gU29mdHdhcmUiLCJzdWIiOiJXSU0iLCJleHAiOjE3NDIxNTQ4NTQuMCwibmJmIjoxNzQyMDY4NDU0LjAsImlhdCI6MTc0MjA2ODQ1NC4wLCJqdGkiOjI3MjIuMH0.ti1MZAbERURtUtKpzr_btMZp7oMEyyIXtayHJd8Xtng' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "action": "move",
+  "application": "XMP",
+  "taskNumber": "XT0588",
+  "fromEnvironment": "*DEV",
+  "toEnvironment": "*TST",
+  "confirmation": true
+}'
+```
+</details>
+
+<details><summary>Response</summary>
+```json
+curl -X 'POST' \
+  'https://plato.remainsoftware.com:45311/OMSXMP/OMQRTO/prepare' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJSZW1haW4gU29mdHdhcmUiLCJzdWIiOiJXSU0iLCJleHAiOjE3NDIxNTQ4NTQuMCwibmJmIjoxNzQyMDY4NDU0LjAsImlhdCI6MTc0MjA2ODQ1NC4wLCJqdGkiOjI3MjIuMH0.ti1MZAbERURtUtKpzr_btMZp7oMEyyIXtayHJd8Xtng' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "action": "move",
+  "application": "XMP",
+  "taskNumber": "XT0588",
+  "fromEnvironment": "*DEV",
+  "toEnvironment": "*TST",
+  "confirmation": true
+}'
+```
+</details>
+
+<details><summary>Request. Execute the transfer.</summary>
+```shell
+curl -X 'POST' \
+  'https://plato.remainsoftware.com:45311/OMSXMP/OMQRTO/execute' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJSZW1haW4gU29mdHdhcmUiLCJzdWIiOiJXSU0iLCJleHAiOjE3NDIxNTQ4NTQuMCwibmJmIjoxNzQyMDY4NDU0LjAsImlhdCI6MTc0MjA2ODQ1NC4wLCJqdGkiOjI3MjIuMH0.ti1MZAbERURtUtKpzr_btMZp7oMEyyIXtayHJd8Xtng' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "transferNumber": "OT951200"
+}'
+```
+</details>
+
+<details><summary>Response</summary>
+```json
+{
+  "job": {
+    "jobName": "OM050537",
+    "userName": "WIM",
+    "jobNumber": 990243
+  },
+  "transferNumber": "OM050537"
+}
+```
+</details>
+
+
 ## The TD/OMS Rest APIs 
 * [REST Branch API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/BranchAPI.json)
 * [REST Dashboard API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/dashboardAPI.json)
