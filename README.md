@@ -11,6 +11,7 @@ The TD/OMS Rest API's follow the OAS3 specification. Links to the swagger editor
 Use the [REST Login API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/Login.json) to retrieve a JWT token for further communication.
 
 <details><summary>Request</summary>
+	
 ```
 curl -X 'POST' \
   'https://plato.remainsoftware.com:45111/OMSRUN51/OMGAUTH/login' \
@@ -25,7 +26,7 @@ curl -X 'POST' \
 
 <details><summary>Response</summary>
 	
-```json
+``` json
 {
   "token": "token"
 }
@@ -87,7 +88,7 @@ curl -X 'POST' \
 
 <details><summary>Response</summary>
 
-```json
+``` json
 {
   "returnStatus": {
     "status": "*NORM",
@@ -162,7 +163,7 @@ Use [this API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/
 
 <details><summary>Request</summary>
 
-```shell
+``` shell
 curl -X 'POST' \
   'https://plato.remainsoftware.com:45311/OMXSMP/OMQRTA/add' \
   -H 'accept: application/json' \
@@ -196,7 +197,8 @@ curl -X 'POST' \
 </details>
 
 <details><summary>Response</summary>
-```json
+	
+``` json
 {
   "messages": {
     "messageFile": "OMSAPI",
@@ -255,7 +257,8 @@ Use [this API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/
 
 <details><summary>Request</summary>
 
-```shell
+``` shell
+
 curl -X 'POST' \
   'https://plato.remainsoftware.com:45311/OMSXMP/OMQRNO/add' \
   -H 'accept: application/json' \
@@ -282,7 +285,8 @@ curl -X 'POST' \
 </details>
 
 <details><summary>Response</summary>
-```json
+	
+``` json
 {
   "status": "*NORM",
   "message": {
@@ -301,7 +305,7 @@ Use [this API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/
 
 <details><summary>Request. Add all task objects to the compile queue</summary>
 
-```shell
+``` shell
 curl -X 'POST' \
   'https://plato.remainsoftware.com:45311/OMSXMP/OMQRSQ/queue' \
   -H 'accept: application/json' \
@@ -318,7 +322,8 @@ curl -X 'POST' \
 </details>
 
 <details><summary>Response</summary>
-```json
+	
+``` json
 {
   "messages": {
     "messageFile": "OMSAPI",
@@ -335,7 +340,7 @@ curl -X 'POST' \
 
 <details><summary>Request. Release the compile queue</summary>
 
-```shell
+``` shell
 curl -X 'POST' \
   'https://plato.remainsoftware.com:45311/OMSXMP/OMQRSQ/release' \
   -H 'accept: application/json' \
@@ -352,7 +357,8 @@ curl -X 'POST' \
 </details>
 
 <details><summary>Response</summary>
-```json
+	
+``` json
 {
   "messages": {
     "messageFile": "OMSAPI",
@@ -369,7 +375,7 @@ curl -X 'POST' \
 
 <details><summary>Request. Fetch the compile results</summary>
 
-```shell
+``` shell
 curl -X 'POST' \
   'https://plato.remainsoftware.com:45311/OMSXMP/OMRDBA/get' \
   -H 'accept: application/json' \
@@ -415,7 +421,8 @@ curl -X 'POST' \
 </details>
 
 <details><summary>Response</summary>
-```json
+	
+``` json
 {
   "returnStatus": {
     "status": "*NORM",
@@ -448,7 +455,8 @@ curl -X 'POST' \
 Use [this API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/EVFEventFileAPI.json) to fetch the event file records with the compile errors. The event file raw records can be parsed using the IBM i Event File Parser on NPM.
 
 <details><summary>Request</summary>
-```shell
+	
+``` shell
 curl -X 'POST' \
   'https://plato.remainsoftware.com:45311/OMSXMP/OMQREV/getRawRecords' \
   -H 'accept: application/json' \
@@ -463,7 +471,8 @@ curl -X 'POST' \
 </details>
 
 <details><summary>Response</summary>
-```json
+	
+``` json
 {
   "status": "*NORM",
   "totalNumberOfRecords": 6,
@@ -497,7 +506,8 @@ curl -X 'POST' \
 Use [this API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/transferObjectsAPI.json) to push tasks or single objects through the cycle.
 
 <details><summary>Request. Prepare a transfer.</summary>
-```shell
+	
+``` shell
 curl -X 'POST' \
   'https://plato.remainsoftware.com:45011/OMS/OMQRTO/prepare' \
   -H 'accept: application/json' \
@@ -515,7 +525,8 @@ curl -X 'POST' \
 </details>
 
 <details><summary>Response</summary>
-```json
+	
+``` json
 curl -X 'POST' \
   'https://plato.remainsoftware.com:45311/OMSXMP/OMQRTO/prepare' \
   -H 'accept: application/json' \
@@ -533,7 +544,8 @@ curl -X 'POST' \
 </details>
 
 <details><summary>Request. Execute the transfer.</summary>
-```shell
+	
+``` shell
 curl -X 'POST' \
   'https://plato.remainsoftware.com:45311/OMSXMP/OMQRTO/execute' \
   -H 'accept: application/json' \
@@ -546,7 +558,8 @@ curl -X 'POST' \
 </details>
 
 <details><summary>Response</summary>
-```json
+	
+``` json
 {
   "job": {
     "jobName": "OM050537",
