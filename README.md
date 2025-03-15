@@ -27,7 +27,7 @@ curl -X 'POST' \
 	
 ```json
 {
-  "token": "eyJhbGcinR5cCI6IkpXVCJ9.eyJpc3MiOiJSZW1hdWIiOiJXSU0iLCJlDIx2MDc2OS4wLCJqdGkiOjM0NDEuMH0.CpvkgnYYt127HKtWUXlKjFtrLusIciPfQ"
+  "token": "token"
 }
 ```
 </details>
@@ -42,7 +42,7 @@ Use [this API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/
 curl -X 'POST' \
   'https://plato.remainsoftware.com:45111/OMSRUN51/OMRDBA/get' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer eyJhbGcinR5cCI6IkpXVCJ9.eyJpc3MiOiJSZW1hdWIiOiJXSU0iLCJlDIx2MDc2OS4wLCJqdGkiOjM0NDEuMH0.CpvkgnYYt127HKtWUXlKjFtrLusIciPfQ' \
+  -H 'Authorization: Bearer token' \
   -H 'Content-Type: application/json' \
   -d '{
   "listInput": {
@@ -166,7 +166,7 @@ Use [this API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/
 curl -X 'POST' \
   'https://plato.remainsoftware.com:45311/OMXSMP/OMQRTA/add' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer eyJhbGcinR5cCI6IkpXVCJ9.eyJpc3MiOiJSZW1hdWIiOiJXSU0iLCJlDIx2MDc2OS4wLCJqdGkiOjM0NDEuMH0.CpvkgnYYt127HKtWUXlKjFtrLusIciPfQ' \
+  -H 'Authorization: Bearer token' \
   -H 'Content-Type: application/json' \
   -d '{
   "interfaceLevel": "V3R0M0",
@@ -259,7 +259,7 @@ Use [this API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/
 curl -X 'POST' \
   'https://plato.remainsoftware.com:45311/OMSXMP/OMQRNO/add' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer eyJhbGcinR5cCI6IkpXVCJ9.eyJpc3MiOiJSZW1hdWIiOiJXSU0iLCJlDIx2MDc2OS4wLCJqdGkiOjM0NDEuMH0.CpvkgnYYt127HKtWUXlKjFtrLusIciPfQ' \
+  -H 'Authorization: Bearer token' \
   -H 'Content-Type: application/json' \
   -d '{
   "newSourceLibrary": "OMHD_DEV",
@@ -305,7 +305,7 @@ Use [this API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/
 curl -X 'POST' \
   'https://plato.remainsoftware.com:45311/OMSXMP/OMQRSQ/queue' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJSZW1haW4gU29mdHdhcmUiLCJzdWIiOiJXSU0iLCJleHAiOjE3NDIxNDcxNjkuMCwibmJmIjoxNzQyMDYwNzY5LjAsImlhdCI6MTc0MjA2MDc2OS4wLCJqdGkiOjM0NDEuMH0.CpvkgnYYt127HKtWUX1hqdCqaBZglKjFtrLusIciPfQ' \
+  -H 'Authorization: Bearer token' \
   -H 'Content-Type: application/json' \
   -d '{
   "applicationCode": "XMP",
@@ -339,7 +339,7 @@ curl -X 'POST' \
 curl -X 'POST' \
   'https://plato.remainsoftware.com:45311/OMSXMP/OMQRSQ/release' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer eyJhbGcinR5cCI6IkpXVCJ9.eyJpc3MiOiJSZW1hdWIiOiJXSU0iLCJlDIx2MDc2OS4wLCJqdGkiOjM0NDEuMH0.CpvkgnYYt127HKtWUXlKjFtrLusIciPfQ' \
+  -H 'Authorization: Bearer token' \
   -H 'Content-Type: application/json' \
   -d '{
   "applicationCode": "XMP",
@@ -373,7 +373,7 @@ curl -X 'POST' \
 curl -X 'POST' \
   'https://plato.remainsoftware.com:45311/OMSXMP/OMRDBA/get' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJSZW1haW4gU29mdHdhcmUiLCJzdWIiOiJXSU0iLCJleHAiOjE3NDIxNTQ4NTQuMCwibmJmIjoxNzQyMDY4NDU0LjAsImlhdCI6MTc0MjA2ODQ1NC4wLCJqdGkiOjI3MjIuMH0.ti1MZAbERURtUtKpzr_btMZp7oMEyyIXtayHJd8Xtng' \
+  -H 'Authorization: Bearer token' \
   -H 'Content-Type: application/json' \
   -d '{
   "listInput": {
@@ -452,7 +452,7 @@ Use [this API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/
 curl -X 'POST' \
   'https://plato.remainsoftware.com:45311/OMSXMP/OMQREV/getRawRecords' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJSZW1haW4gU29mdHdhcmUiLCJzdWIiOiJXSU0iLCJleHAiOjE3NDIxNTQ4NTQuMCwibmJmIjoxNzQyMDY4NDU0LjAsImlhdCI6MTc0MjA2ODQ1NC4wLCJqdGkiOjI3MjIuMH0.ti1MZAbERURtUtKpzr_btMZp7oMEyyIXtayHJd8Xtng' \
+  -H 'Authorization: Bearer token' \
   -H 'Content-Type: application/json' \
   -d '{
   "pageNumber": 1,
@@ -501,7 +501,7 @@ Use [this API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/
 curl -X 'POST' \
   'https://plato.remainsoftware.com:45011/OMS/OMQRTO/prepare' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJSZW1haW4gU29mdHdhcmUiLCJzdWIiOiJXSU0iLCJleHAiOjE3NDIxNTQ4NTQuMCwibmJmIjoxNzQyMDY4NDU0LjAsImlhdCI6MTc0MjA2ODQ1NC4wLCJqdGkiOjI3MjIuMH0.ti1MZAbERURtUtKpzr_btMZp7oMEyyIXtayHJd8Xtng' \
+  -H 'Authorization: Bearer token' \
   -H 'Content-Type: application/json' \
   -d '{
   "action": "move",
@@ -519,7 +519,7 @@ curl -X 'POST' \
 curl -X 'POST' \
   'https://plato.remainsoftware.com:45311/OMSXMP/OMQRTO/prepare' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJSZW1haW4gU29mdHdhcmUiLCJzdWIiOiJXSU0iLCJleHAiOjE3NDIxNTQ4NTQuMCwibmJmIjoxNzQyMDY4NDU0LjAsImlhdCI6MTc0MjA2ODQ1NC4wLCJqdGkiOjI3MjIuMH0.ti1MZAbERURtUtKpzr_btMZp7oMEyyIXtayHJd8Xtng' \
+  -H 'Authorization: Bearer token' \
   -H 'Content-Type: application/json' \
   -d '{
   "action": "move",
@@ -537,7 +537,7 @@ curl -X 'POST' \
 curl -X 'POST' \
   'https://plato.remainsoftware.com:45311/OMSXMP/OMQRTO/execute' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJSZW1haW4gU29mdHdhcmUiLCJzdWIiOiJXSU0iLCJleHAiOjE3NDIxNTQ4NTQuMCwibmJmIjoxNzQyMDY4NDU0LjAsImlhdCI6MTc0MjA2ODQ1NC4wLCJqdGkiOjI3MjIuMH0.ti1MZAbERURtUtKpzr_btMZp7oMEyyIXtayHJd8Xtng' \
+  -H 'Authorization: Bearer token' \
   -H 'Content-Type: application/json' \
   -d '{
   "transferNumber": "OT951200"
