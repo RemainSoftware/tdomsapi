@@ -1,0 +1,986 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Managed Deployment API.",
+    "description" : "The Managed Deployment REST API enables users to monitor and manage the deployment transfers staged before completion. With this API, you can hold, release, schedule , close, and purge the transfers.     ",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License ",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator/generator",
+      "object" : "OMQRMD",
+      "library" : "V17T0187",
+      "srclibrary" : "V17T0187S",
+      "file" : "ManagedDeploymentAPI.json"
+    }
+  },
+  "servers" : [ {
+    "url" : "{protocol}://{host}:{port}/{library}/OMQRMD",
+    "description" : "A dynamic https host.",
+    "variables" : {
+      "host" : {
+        "description" : "The host serving the API.",
+        "default" : "plato.remainsoftware.com"
+      },
+      "library" : {
+        "description" : "The TD/OMS library.",
+        "default" : "OMS"
+      },
+      "protocol" : {
+        "description" : "Protocol",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
+      },
+      "port" : {
+        "description" : "The port to which the server is listening.",
+        "default" : "45011"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/hold" : {
+      "summary" : "Use this path to hold the transfer.",
+      "description" : "Use this path to hold the transfer.",
+      "post" : {
+        "summary" : "Use this operation to hold the transfer.",
+        "description" : "Use this operation to hold the transfer.",
+        "operationId" : "hold",
+        "requestBody" : {
+          "description" : "Use this input to hold the transfer.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/holdDeploymentRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/managedDeploymentResponse"
+                },
+                "examples" : {
+                  "holdResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQD600",
+                        "messageType" : "N",
+                        "messageData" : "*HOLD    XMPOM050578SPINOZA",
+                        "field" : "",
+                        "messageText" : "Action *HOLD for application code XMP completed normally. &N Cause . . . . . :   Action *HOLD for application code XMP with transfer code OM050578 to address SPINOZA completed normally. &N Recovery  . . . :   None needed, this message is informational."
+                      },
+                      "managedDeploymentData" : {
+                        "applicationCode" : "XMP",
+                        "transferCode" : "OM050578",
+                        "userAddressDistribution" : "SPINOZA",
+                        "mediumIndicator" : "1",
+                        "incomeDate" : 1250407,
+                        "incomeTime" : 83049,
+                        "scheduleDate" : 0,
+                        "scheduleTime" : 0,
+                        "realizedCompletionDate" : 0,
+                        "realizedCompletionTime" : 0,
+                        "tableValueCharacter" : "",
+                        "userWhoGaveConfirmation" : "ALICE",
+                        "status" : "*HOLD"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/managedDeploymentErrorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : false
+        }
+      }
+    },
+    "/release" : {
+      "summary" : "Use this path to release the transfer.",
+      "description" : "Use this path to release the transfer.",
+      "post" : {
+        "summary" : "Use this operation to release the transfer.",
+        "description" : "Use this operation to release the transfer.",
+        "operationId" : "release",
+        "requestBody" : {
+          "description" : "Use this input to release the transfer.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/releaseDeploymentRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/managedDeploymentResponse"
+                },
+                "examples" : {
+                  "releaseResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQD600",
+                        "messageType" : "N",
+                        "messageData" : "*RELEASE XMPOM050578SPINOZA",
+                        "field" : "",
+                        "messageText" : "Action *RELEASE for application code XMP completed normally. &N Cause . . . . . :   Action *RELEASE for application code XMP with transfer code OM050578 to address SPINOZA completed normally. &N Recovery  . . . :   None needed, this message is informational."
+                      },
+                      "managedDeploymentData" : {
+                        "applicationCode" : "IUMDM",
+                        "transferCode" : "OM050578",
+                        "userAddressDistribution" : "SPINOZA",
+                        "mediumIndicator" : "1",
+                        "incomeDate" : 1250407,
+                        "incomeTime" : 83049,
+                        "scheduleDate" : 0,
+                        "scheduleTime" : 0,
+                        "realizedCompletionDate" : 0,
+                        "realizedCompletionTime" : 0,
+                        "tableValueCharacter" : "",
+                        "userWhoGaveConfirmation" : "ALICE",
+                        "status" : "*RDY"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/managedDeploymentErrorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "02",
+          "generate" : true
+        }
+      }
+    },
+    "/purge" : {
+      "summary" : "Use this path to purge the transfer.",
+      "description" : "Use this path to purge the transfers. that are completed for all addresses. Purging will remove the associated deployment files from the deployment library (default library is OMSDISTR).  Purging should\r\nbe done on a regular basis to avoid excessive disk usage.",
+      "post" : {
+        "summary" : "Use this operetion to purge the transfer.",
+        "description" : "Use this operetion to purge the transfers. that are completed for all addresses. Purging will remove the associated deployment files from the deployment library (default library is OMSDISTR).  Purging should\r\nbe done on a regular basis to avoid excessive disk usage.",
+        "operationId" : "purge",
+        "requestBody" : {
+          "description" : "Use this input to purge the transfer.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/purgeDeploymentRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/managedDeploymentResponse"
+                },
+                "examples" : {
+                  "purgeResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQD600",
+                        "messageType" : "N",
+                        "messageData" : "*PURGE   XMPOM050578*ALL",
+                        "field" : "",
+                        "messageText" : "Action *PURGE for application code XMP completed normally. &N Cause . . . . . :   Action *PURGE for application code XMP with transfer code OM050578 to address *ALL completed normally. &N Recovery  . . . :   None needed, this message is informational."
+                      },
+                      "managedDeploymentData" : {
+                        "applicationCode" : "",
+                        "transferCode" : "",
+                        "userAddressDistribution" : "",
+                        "mediumIndicator" : "",
+                        "incomeDate" : 0,
+                        "incomeTime" : 0,
+                        "scheduleDate" : 0,
+                        "scheduleTime" : 0,
+                        "realizedCompletionDate" : 0,
+                        "realizedCompletionTime" : 0,
+                        "tableValueCharacter" : "",
+                        "userWhoGaveConfirmation" : "",
+                        "status" : ""
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/managedDeploymentErrorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "03",
+          "generate" : true
+        }
+      }
+    },
+    "/schedule" : {
+      "summary" : "Use this path to schedule the transfer.",
+      "description" : "Use this path to schedule the transfer.",
+      "post" : {
+        "summary" : "Use this operetion to schedule the transfer.",
+        "description" : "Use this operetion to schedule the transfer.",
+        "operationId" : "schedule",
+        "requestBody" : {
+          "description" : "Use this input to schedule the transfer.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/scheduleDeploymentRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/managedDeploymentResponse"
+                },
+                "examples" : {
+                  "scheduleResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQD600",
+                        "messageType" : "N",
+                        "messageData" : "*SCHEDULEXMPOM050578SPINOZA",
+                        "field" : "",
+                        "messageText" : "Action *SCHEDULE for application code IUMDM completed normallu. &N Cause . . . . . :   Action *SCHEDULE for application code IUMDM with transfer code OM222498 to address SPINOZA completed normally. &N Recovery  . . . :   None needed, this message is informational."
+                      },
+                      "managedDeploymentData" : {
+                        "applicationCode" : "XMP",
+                        "transferCode" : "OM050578",
+                        "userAddressDistribution" : "SPINOZA",
+                        "mediumIndicator" : "1",
+                        "incomeDate" : 1250404,
+                        "incomeTime" : 55523,
+                        "scheduleDate" : 1250410,
+                        "scheduleTime" : 81512,
+                        "realizedCompletionDate" : 0,
+                        "realizedCompletionTime" : 0,
+                        "tableValueCharacter" : "",
+                        "userWhoGaveConfirmation" : "ALICE",
+                        "status" : "*SCHD"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/managedDeploymentErrorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "04",
+          "generate" : true
+        }
+      }
+    },
+    "/close" : {
+      "summary" : "Use this path to close the transfers.",
+      "description" : "Use this path to close the transfer. Only transfer with status **ERR or **DST can be forcefully\r\nclosed. The transfer status is updated to *TERM. Please note that the remote job in the remote job monitor must be closed first.",
+      "post" : {
+        "summary" : "Use this operation to close the transfer.",
+        "description" : "Use this operation to close the transfer. Only transfer with status **ERR or **DST can be forcefully\r\nclosed. The transfer status is updated to *TERM. Please note that the remote job in the remote job monitor must be closed first.",
+        "operationId" : "close",
+        "requestBody" : {
+          "description" : "Use this input to close the transfer.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/closeDeploymentRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/managedDeploymentResponse"
+                },
+                "examples" : {
+                  "closeResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQD600",
+                        "messageType" : "N",
+                        "messageData" : "*CLOSE   XMPOM050578SPINOZA",
+                        "field" : "",
+                        "messageText" : "Action *CLOSE for application code XMP completed normally. &N Cause . . . . . :   Action *CLOSE for application code XMP with transfer code OM050578 to address SPINOZA completed normally. &N Recovery  . . . :   None needed, this message is informational."
+                      },
+                      "managedDeploymentData" : {
+                        "applicationCode" : "XMP",
+                        "transferCode" : "OM050578",
+                        "userAddressDistribution" : "SPINOZA",
+                        "mediumIndicator" : "1",
+                        "incomeDate" : 1250407,
+                        "incomeTime" : 83049,
+                        "scheduleDate" : 0,
+                        "scheduleTime" : 0,
+                        "realizedCompletionDate" : 1250407,
+                        "realizedCompletionTime" : 83353,
+                        "tableValueCharacter" : "FAIL",
+                        "userWhoGaveConfirmation" : "ALICE",
+                        "status" : "*TERM"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/managedDeploymentErrorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "05",
+          "generate" : true
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "holdDeploymentRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V17R1M0.",
+            "default" : "V17R1M0",
+            "enum" : [ "V17R1M0" ]
+          },
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code.",
+            "default" : "XMP"
+          },
+          "transferCode" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Specify the transfer code.   ",
+            "default" : "OM050578"
+          },
+          "userAddressDistribution" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Specify the address.   ",
+            "default" : "SPINOZA"
+          },
+          "deploymentProcessingOptions" : {
+            "$ref" : "#/components/schemas/deploymentProcessingOptions"
+          }
+        },
+        "description" : "The request input to hold the transfer."
+      },
+      "releaseDeploymentRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V17R1M0.",
+            "default" : "V17R1M0",
+            "enum" : [ "V17R1M0" ]
+          },
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code.",
+            "default" : "XMP"
+          },
+          "transferCode" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Specify the transfer code.   ",
+            "default" : "OM050578"
+          },
+          "userAddressDistribution" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Specify the address.   ",
+            "default" : "SPINOZA"
+          },
+          "deploymentProcessingOptions" : {
+            "$ref" : "#/components/schemas/deploymentProcessingOptions"
+          }
+        },
+        "description" : "The request input to release the transfer."
+      },
+      "purgeDeploymentRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V17R1M0.",
+            "default" : "V17R1M0",
+            "enum" : [ "V17R1M0" ]
+          },
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code.",
+            "default" : "XMP"
+          },
+          "transferCode" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Specify the transfer code.   \r\n\r\n*ALL      \r\nUse this value to purge all transfers for the given  application. It is invalid for any other actions.   ",
+            "default" : "*ALL",
+            "enum" : [ "*ALL" ]
+          },
+          "deploymentProcessingOptions" : {
+            "$ref" : "#/components/schemas/deploymentProcessingOptions"
+          }
+        },
+        "description" : "The request input to purge the transfer."
+      },
+      "managedDeploymentData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "DHAPPC",
+            "x-sequence" : "10"
+          },
+          "transferCode" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Transfer code",
+            "x-column" : "DHTFRC",
+            "x-sequence" : "20"
+          },
+          "userAddressDistribution" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "User address, distribution",
+            "x-column" : "DHADDR",
+            "x-sequence" : "30"
+          },
+          "mediumIndicator" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Medium Indicator",
+            "x-column" : "DHMEDI",
+            "x-sequence" : "40"
+          },
+          "incomeDate" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Income date",
+            "format" : "zoned(7:0)",
+            "x-column" : "DHINDT",
+            "x-sequence" : "50"
+          },
+          "incomeTime" : {
+            "maxLength" : 6,
+            "type" : "number",
+            "description" : "Income time",
+            "format" : "zoned(6:0)",
+            "x-column" : "DHINTM",
+            "x-sequence" : "60"
+          },
+          "scheduleDate" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Schedule Date",
+            "format" : "zoned(7:0)",
+            "x-column" : "DHSCDT",
+            "x-sequence" : "70"
+          },
+          "scheduleTime" : {
+            "maxLength" : 6,
+            "type" : "number",
+            "description" : "Schedule Time",
+            "format" : "zoned(6:0)",
+            "x-column" : "DHSCTM",
+            "x-sequence" : "80"
+          },
+          "realizedCompletionDate" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Realized completion date",
+            "format" : "zoned(7:0)",
+            "x-column" : "DHRCDT",
+            "x-sequence" : "90"
+          },
+          "realizedCompletionTime" : {
+            "maxLength" : 6,
+            "type" : "number",
+            "description" : "Realized completion time",
+            "format" : "zoned(6:0)",
+            "x-column" : "DHRCTM",
+            "x-sequence" : "100"
+          },
+          "tableValueCharacter" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Table value character",
+            "x-column" : "DHVALC",
+            "x-sequence" : "110"
+          },
+          "userWhoGaveConfirmation" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "User who gave Confirmation",
+            "x-column" : "DHCMUS",
+            "x-sequence" : "120"
+          },
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Status",
+            "x-column" : "DHSTAT",
+            "x-sequence" : "130"
+          }
+        },
+        "description" : "The response data for managed deployment .",
+        "x-pfname" : "OMMDH",
+        "x-library" : "V17T0187",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "managedDeploymentResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
+          },
+          "message" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "managedDeploymentData" : {
+            "$ref" : "#/components/schemas/managedDeploymentData"
+          }
+        },
+        "description" : "The response data for managed deployment ."
+      },
+      "scheduleDeploymentRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V17R1M0.",
+            "default" : "V17R1M0",
+            "enum" : [ "V17R1M0" ]
+          },
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code.",
+            "default" : "XMP"
+          },
+          "transferCode" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Specify the transfer code.   ",
+            "default" : "OM050578"
+          },
+          "userAddressDistribution" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Specify the address.   ",
+            "default" : "SPINOZA"
+          },
+          "scheduleDate" : {
+            "type" : "number",
+            "description" : "Specify the Schedule date. The date format should be *CYMD.",
+            "format" : "zoned(7:0)",
+            "default" : 1250425.0
+          },
+          "scheduleTime" : {
+            "type" : "number",
+            "description" : "Specify the schedule time. The time format should be in HHMMSS.",
+            "format" : "zoned(6:0)",
+            "default" : 104537.0
+          },
+          "deploymentProcessingOptions" : {
+            "$ref" : "#/components/schemas/deploymentProcessingOptions"
+          }
+        },
+        "description" : "The request input to schedule the transfer."
+      },
+      "extendedMessage" : {
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The message file."
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "The message Idetifier."
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The message type 'E' indicates an error message,  while 'N' indicates a normal message with no error."
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "The message substitution data."
+          },
+          "field" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "The field in error."
+          },
+          "messageText" : {
+            "maxLength" : 644,
+            "type" : "string",
+            "description" : "The human readable message text."
+          }
+        },
+        "description" : "The return messages information."
+      },
+      "managedDeploymentErrorResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
+          },
+          "messages" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/extendedMessage"
+            }
+          }
+        },
+        "description" : "This will return the error information."
+      },
+      "deploymentProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Various flags to control the behavior of the API."
+      },
+      "closeDeploymentRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V17R1M0.",
+            "default" : "V17R1M0",
+            "enum" : [ "V17R1M0" ]
+          },
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code.",
+            "default" : "XMP"
+          },
+          "transferCode" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Specify the transfer code.  ",
+            "default" : "OM050578"
+          },
+          "userAddressDistribution" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Specify the address.  ",
+            "default" : "SPINOZA"
+          },
+          "tableValueCharacter" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the reason code. It indicates the reason why the transfer was closed.   \r\n\r\nNote:  The reason code is maintained using the table\r\nmaintenance (STRTM) function.",
+            "default" : "FAIL"
+          },
+          "deploymentProcessingOptions" : {
+            "$ref" : "#/components/schemas/deploymentProcessingOptions"
+          }
+        },
+        "description" : "Use this input to close the transfers. Only transfers with status **ERR or **DST can be forcefully closed."
+      }
+    },
+    "responses" : { },
+    "examples" : {
+      "response400" : {
+        "summary" : "Something went wrong.",
+        "value" : {
+          "status" : "*TERM",
+          "messages" : [ {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQD601",
+            "messageType" : "E",
+            "messageData" : "XMP  INVALID\"INVALID",
+            "field" : "transferCode",
+            "messageText" : "Deployment does not exists. &N Cause . . . . . :   The deployment you want to process does not exist for application code XMP with transfer code INVALID\" and address INVALID. &N Recovery. . . . :   Change the values and try your request again."
+          } ]
+        }
+      },
+      "response401" : {
+        "summary" : "Not authorized.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQF201",
+          "messageType" : "E",
+          "messageData" : "",
+          "field" : "",
+          "messageText" : "Unauthorized or expired token. Please login again."
+        }
+      }
+    },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "The HTTP API Token",
+        "name" : "JWT",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
