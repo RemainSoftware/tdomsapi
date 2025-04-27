@@ -6,9 +6,9 @@ In order to use the TD/OMS REST API, the rest server must be configured and star
 
 The TD/OMS Rest API's follow the OAS3 specification. Links to the swagger editor can be found below for each API.
 
-### [Login](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/Login.json)[REST Login API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/Login.json)
+### [Login](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/Login.json)[REST Login API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/Login.json)
 
-Use the [REST Login API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/Login.json) to retrieve a JWT token for further communication.
+Use the [REST Login API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/Login.json) to retrieve a JWT token for further communication.
 
 <details><summary>Request</summary>
 	
@@ -33,9 +33,9 @@ curl -X 'POST' \
 ```
 </details>
 
-### [Database](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/OMRDBA_DataBase_API.json)
+### [Database](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/OMRDBA_DataBase_API.json)
 
-Use [this API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/OMRDBA_DataBase_API.json) to access the database. The database tables and fields are described in our data dictionary file OMDDI.
+Use [this API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/OMRDBA_DataBase_API.json) to access the database. The database tables and fields are described in our data dictionary file OMDDI.
 
 <details><summary>Request</summary>
 
@@ -155,9 +155,9 @@ curl -X 'POST' \
 ```
 </details>
 
-### [Task](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/TaskAPI.json)
+### [Task](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/TaskAPI.json)
 
-Use [this API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/TaskAPI.json) for task actions.
+Use [this API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/TaskAPI.json) for task actions.
 
 </details>
 
@@ -249,9 +249,9 @@ curl -X 'POST' \
 ```
 </details>
 
-### [New Object](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/NewObjectAPI.json)
+### [New Object](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/NewObjectAPI.json)
 
-Use [this API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/NewObjectAPI.json) to create a new object and attach it to a task.
+Use [this API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/NewObjectAPI.json) to create a new object and attach it to a task.
 
 </details>
 
@@ -299,9 +299,9 @@ curl -X 'POST' \
 ```
 </details>
 
-### [Compile Queue](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/compileQueue.json)
+### [Compile Queue](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/compileQueue.json)
 
-Use [this API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/compileQueue.json) to add an object to the compile queue.
+Use [this API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/compileQueue.json) to add an object to the compile queue.
 
 <details><summary>Request. Add all task objects to the compile queue</summary>
 
@@ -450,9 +450,9 @@ curl -X 'POST' \
 ```
 </details>
 
-### [Event File](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/EVFEventFileAPI.json)
+### [Event File](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/EVFEventFileAPI.json)
 
-Use [this API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/EVFEventFileAPI.json) to fetch the event file records with the compile errors. The event file raw records can be parsed using the IBM i Event File Parser on NPM.
+Use [this API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/EVFEventFileAPI.json) to fetch the event file records with the compile errors. The event file raw records can be parsed using the IBM i Event File Parser on NPM.
 
 <details><summary>Request</summary>
 	
@@ -501,9 +501,9 @@ curl -X 'POST' \
 </details>
 
 
-### [Transfer](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/transferObjectsAPI.json)
+### [Transfer](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/transferObjectsAPI.json)
 
-Use [this API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/transferObjectsAPI.json) to push tasks or single objects through the cycle.
+Use [this API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/transferObjectsAPI.json) to push tasks or single objects through the cycle.
 
 <details><summary>Request. Prepare a transfer.</summary>
 	
@@ -573,33 +573,33 @@ curl -X 'POST' \
 
 
 ## The TD/OMS Rest APIs 
-* [REST Branch API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/BranchAPI.json)
-* [REST Dashboard API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/dashboardAPI.json)
-* [REST Database API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/OMRDBA_DataBase_API.json)
-* [REST Fill Object File API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/FillObjectFileAPI.json)
-* [REST EVF Event File API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/EVFEventFileAPI.json)
-* [REST Compile Override API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/CompileOverrideAPI.json)
-* [REST Compile Queue API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/compileQueue.json)
-* [REST Comment API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/CommentAPI.json)
-* [REST Conversion Definition API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/ConversionDefinitionAPI.json)
-* [REST Connection List API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/ConnectionListAPI.json)
-* [REST Login API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/Login.json)
-* [REST New Object API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/NewObjectAPI.json)
-* [REST Octo KanBan Provider API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/octo_kanban_provider.json)
-* [REST OMS Log Message API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/OMSLogMessageAPI.json)
-* [REST Information Service API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/infoService.json)
-* [REST Impact Analysis API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/ImpactAnalysis.json)
-* [REST Label API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/LabelAPI.json)
-* [REST Task API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/TaskAPI.json)
-* [REST Remain API Generator API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/apigenerator.json)
-* [REST Request API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/RequestAPI.json)
-* [REST Retrieve Command Definition API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/RetrieveCommandDefinitionAPI.json)
-* [REST Solution API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/SolutionAPI.json)
-* [REST Source API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/sourcefileAPI.json)
-* [REST Spool File API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/SpoolFileAPI.json)
-* [REST Transfer Objects API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/transferObjectsAPI.json)
-* [REST User Defined Variable API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/UserDefinedVariableAPI.json)
-* [REST User Options API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/UserOptionsAPI.json)
-* [REST Version Conflict API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/VersionConflictAPI.json)
-* [REST Object API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/ObjectAPI.json)
-* [REST Managed Deployment API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/ManagedDeploymentAPI.json)
+* [REST Branch API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/BranchAPI.json)
+* [REST Dashboard API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/dashboardAPI.json)
+* [REST Database API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/OMRDBA_DataBase_API.json)
+* [REST Fill Object File API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/FillObjectFileAPI.json)
+* [REST EVF Event File API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/EVFEventFileAPI.json)
+* [REST Compile Override API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/CompileOverrideAPI.json)
+* [REST Compile Queue API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/compileQueue.json)
+* [REST Comment API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/CommentAPI.json)
+* [REST Conversion Definition API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/ConversionDefinitionAPI.json)
+* [REST Connection List API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/ConnectionListAPI.json)
+* [REST Login API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/Login.json)
+* [REST New Object API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/NewObjectAPI.json)
+* [REST Octo KanBan Provider API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/octo_kanban_provider.json)
+* [REST OMS Log Message API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/OMSLogMessageAPI.json)
+* [REST Information Service API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/infoService.json)
+* [REST Impact Analysis API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/ImpactAnalysis.json)
+* [REST Label API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/LabelAPI.json)
+* [REST Task API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/TaskAPI.json)
+* [REST Remain API Generator API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/apigenerator.json)
+* [REST Request API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/RequestAPI.json)
+* [REST Retrieve Command Definition API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/RetrieveCommandDefinitionAPI.json)
+* [REST Solution API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/SolutionAPI.json)
+* [REST Source API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/sourcefileAPI.json)
+* [REST Spool File API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/SpoolFileAPI.json)
+* [REST Transfer Objects API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/transferObjectsAPI.json)
+* [REST User Defined Variable API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/UserDefinedVariableAPI.json)
+* [REST User Options API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/UserOptionsAPI.json)
+* [REST Version Conflict API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/VersionConflictAPI.json)
+* [REST Object API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/ObjectAPI.json)
+* [REST Managed Deployment API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/ManagedDeploymentAPI.json)
