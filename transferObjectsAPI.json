@@ -15,9 +15,9 @@
     "version" : "0.0.1",
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
-      "library" : "V17T0170",
+      "library" : "V17T0258",
       "file" : "RequestAPI.json",
-      "srclibrary" : "V17T0170S",
+      "srclibrary" : "V17T0258S",
       "object" : "OMQRTO"
     }
   },
@@ -80,6 +80,18 @@
                       "objectType" : "*FILE"
                     } ]
                   }
+                },
+                "selectRequestObjectLevel" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/selectRequestObjectLevel"
+                },
+                "selectRequestCopyBookLevel" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/selectRequestCopyBookLevel"
+                },
+                "selectRequestIFSLevel" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/selectRequestIFSLevel"
                 }
               }
             }
@@ -187,6 +199,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/prepareResponse"
+                },
+                "examples" : {
+                  "prepareResponse200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/prepareResponse200"
+                  }
                 }
               }
             }
@@ -199,9 +217,9 @@
                   "$ref" : "#/components/schemas/errorMessages"
                 },
                 "examples" : {
-                  "selectResponse400" : {
+                  "prepareResponse400" : {
                     "value" : null,
-                    "$ref" : "#/components/examples/selectResponse400"
+                    "$ref" : "#/components/examples/prepareResponse400"
                   }
                 }
               }
@@ -255,6 +273,16 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/executeRequest"
+              },
+              "examples" : {
+                "execute" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/execute"
+                },
+                "executeRequestwithJobSchedule" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/executeRequestwithJobSchedule"
+                }
               }
             }
           },
@@ -267,6 +295,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/executeResponse"
+                },
+                "examples" : {
+                  "executeResponse200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/executeResponse200"
+                  }
                 }
               }
             }
@@ -312,6 +346,72 @@
           "generate" : false
         }
       }
+    },
+    "/cancel" : {
+      "summary" : "Delete the Object Transfer Definitions",
+      "description" : "Delete the Object Transfer Definitions",
+      "post" : {
+        "summary" : "Delete the Object Transfer Definitions",
+        "description" : "Delete the Object Transfer Definitions",
+        "operationId" : "cancel",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/cancelRequest"
+              },
+              "examples" : {
+                "cancel" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/cancel"
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/status"
+                },
+                "examples" : {
+                  "cancelResponse200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/cancelResponse200"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Authorization information is missing or invalid.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "04",
+          "generate" : false
+        }
+      }
     }
   },
   "components" : {
@@ -322,7 +422,7 @@
           "endOfProcessing" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Closes the underlying API after calling. Keep open with '0'if you have to call the API in quick succession. Make sure to close on the last call with '1'",
+            "description" : "Closes the underlying API after calling. Keep open with '0' if you have to call the API in quick succession. Make sure to close on the last call with '1'",
             "default" : "1",
             "enum" : [ "0", "1" ]
           },
@@ -470,18 +570,18 @@
             "description" : "To environments"
           },
           "objects" : {
-            "maxItems" : 100,
+            "maxItems" : 256,
             "type" : "array",
             "items" : {
               "$ref" : "#/components/schemas/objectInfo"
             }
           },
           "targetSubEnvironments" : {
-            "maxItems" : 1000,
+            "maxItems" : 1500,
             "type" : "array",
             "description" : "Target subenvironments",
             "items" : {
-              "type" : "integer"
+              "type" : "number"
             }
           },
           "confirmation" : {
@@ -510,11 +610,11 @@
             "maxLength" : 50,
             "type" : "string"
           },
-          "default" : {
+          "isDefault" : {
             "type" : "boolean"
           },
           "subEnvironments" : {
-            "maxItems" : 1000,
+            "maxItems" : 1500,
             "type" : "array",
             "items" : {
               "$ref" : "#/components/schemas/subEnvironment"
@@ -524,7 +624,7 @@
             "$ref" : "#/components/schemas/errorMessage"
           },
           "objects" : {
-            "maxItems" : 100,
+            "maxItems" : 256,
             "type" : "array",
             "items" : {
               "$ref" : "#/components/schemas/objectDetail"
@@ -549,9 +649,6 @@
             "type" : "string",
             "description" : "Description of subenvironment."
           },
-          "fallbackActive" : {
-            "type" : "boolean"
-          },
           "remote" : {
             "maxLength" : 1,
             "type" : "string",
@@ -564,40 +661,36 @@
           }
         }
       },
-      "address" : {
-        "type" : "object",
-        "properties" : {
-          "name" : {
-            "maxLength" : 10,
-            "type" : "string"
-          },
-          "description" : {
-            "maxLength" : 50,
-            "type" : "string"
-          },
-          "jobDescriptions" : {
-            "maxItems" : 100,
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/jobDescription"
-            }
-          }
-        },
-        "description" : "Address"
-      },
       "jobDescription" : {
         "type" : "object",
         "properties" : {
-          "name" : {
+          "jobDescriptionCode" : {
             "maxLength" : 10,
-            "type" : "string"
+            "type" : "string",
+            "description" : "It contains the job description code."
           },
           "description" : {
             "maxLength" : 50,
-            "type" : "string"
+            "type" : "string",
+            "description" : "Description contains an explanation of the job description."
           },
-          "default" : {
-            "type" : "boolean"
+          "jobDescription" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "It contains the job description."
+          },
+          "jobDescriptionLibrary" : {
+            "type" : "string",
+            "description" : "It contains the job description library."
+          },
+          "queuePriority" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The Queue priority indicator indicates the priority of the job to be submitted using \r\nthis job description.    \r\n                 \r\n0 = *NORMAL - The job priority will be normal.     \r\n1 = *HIGH - The job priority will be high."
+          },
+          "defaultJobDesc" : {
+            "type" : "boolean",
+            "description" : "The Default indicator is used to make the default job description.\r\n\r\n0 = No   - The job description is not the default.\r\n1 = Yes -  The job description will be the default."
           }
         }
       },
@@ -688,6 +781,14 @@
             "type" : "string",
             "description" : "Transfer number",
             "example" : "OT369492"
+          },
+          "schedules" : {
+            "maxItems" : 100,
+            "type" : "array",
+            "description" : "It contains the transfer schedule information.",
+            "items" : {
+              "$ref" : "#/components/schemas/schedule"
+            }
           }
         },
         "description" : "Execute the request input"
@@ -725,7 +826,7 @@
             "type" : "number",
             "description" : "Job number",
             "format" : "zoned(6:0)",
-            "example" : 392383.0
+            "example" : 392383
           }
         }
       },
@@ -737,6 +838,14 @@
             "type" : "string",
             "description" : "Transfer Number",
             "example" : "OT369492"
+          },
+          "addressDetails" : {
+            "maxItems" : 100,
+            "type" : "array",
+            "description" : "It contains the address and job description details.",
+            "items" : {
+              "$ref" : "#/components/schemas/addressDetail"
+            }
           }
         },
         "description" : "Prepare response"
@@ -745,16 +854,97 @@
         "type" : "object",
         "properties" : {
           "errorMessages" : {
-            "maxItems" : 100,
+            "maxItems" : 256,
             "type" : "array",
             "items" : {
               "$ref" : "#/components/schemas/errorMessage"
             }
           }
         }
+      },
+      "addressDetail" : {
+        "type" : "object",
+        "properties" : {
+          "address" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "It contains the address information."
+          },
+          "description" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "It contains the address description."
+          },
+          "jobDescriptions" : {
+            "maxItems" : 20,
+            "type" : "array",
+            "description" : "It contains the job description informations.",
+            "items" : {
+              "$ref" : "#/components/schemas/jobDescription"
+            }
+          }
+        },
+        "description" : "It contains the address details."
+      },
+      "schedule" : {
+        "type" : "object",
+        "properties" : {
+          "address" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "It contains the address information."
+          },
+          "scheduleDate" : {
+            "maxLength" : 6,
+            "type" : "string",
+            "description" : "The schedule date is used in an Object Transfer function to enter the date the Object Transfer job has to be scheduled for. The date must be entered in user format.        \r\n                        "
+          },
+          "scheduleTime" : {
+            "maxLength" : 6,
+            "type" : "string",
+            "description" : "The schedule time is used in an Object Transfer function to enter the time the Object Transfer job has to be scheduled for. \r\n\r\n                         "
+          },
+          "jobDescriptionCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "It will include the job description code."
+          },
+          "jobDescription" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "It will include the job description."
+          },
+          "jobDescriptionLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "It will include the job description library."
+          },
+          "holdJob" : {
+            "type" : "boolean",
+            "description" : "Indicate whether the job must be held for managed deployments."
+          }
+        },
+        "description" : "It will contain the transfer schedule information."
+      },
+      "cancelRequest" : {
+        "type" : "object",
+        "properties" : {
+          "transferNumber" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Transfer number"
+          }
+        },
+        "description" : "Delete the Object Transfer Definitions"
+      },
+      "status" : {
+        "maxLength" : 5,
+        "type" : "string",
+        "description" : "Return the status."
       }
     },
     "responses" : { },
+    "parameters" : { },
     "examples" : {
       "response401" : {
         "summary" : "Not authorized.",
@@ -765,12 +955,61 @@
         }
       },
       "select" : {
-        "summary" : "How to specify the select request input parameters value.",
+        "summary" : "How to specify the select request input parameters value at task level.",
         "value" : {
           "action" : "Checkout",
           "taskNumber" : "XT0497",
           "application" : "XMP",
-          "fromEnvironment" : "*PRD"
+          "fromEnvironment" : " ",
+          "objectList" : [ ]
+        }
+      },
+      "selectRequestObjectLevel" : {
+        "summary" : "How to specify the select request input parameters value for object.",
+        "value" : {
+          "action" : "Checkout",
+          "taskNumber" : "XT0497",
+          "application" : "XMP",
+          "fromEnvironment" : "*PRD",
+          "objectList" : [ {
+            "memberCode" : "",
+            "routeCode" : "",
+            "pathExtensionCode" : "",
+            "objectCode" : "BAS",
+            "objectType" : "*PGM"
+          } ]
+        }
+      },
+      "selectRequestIFSLevel" : {
+        "summary" : "How to specify the select request input parameters value for ifs object.",
+        "value" : {
+          "action" : "Checkout",
+          "taskNumber" : "XT0497",
+          "application" : "XMP",
+          "fromEnvironment" : "*PRD",
+          "objectList" : [ {
+            "memberCode" : "",
+            "routeCode" : "PHP",
+            "pathExtensionCode" : "        88",
+            "objectCode" : "dashboard.js",
+            "objectType" : "*STMF"
+          } ]
+        }
+      },
+      "selectRequestCopyBookLevel" : {
+        "summary" : "How to specify the select request input parameters value for copybook member.",
+        "value" : {
+          "action" : "Checkout",
+          "taskNumber" : "XT0497",
+          "application" : "XMP",
+          "fromEnvironment" : "*PRD",
+          "objectList" : [ {
+            "memberCode" : "OMHLPDS",
+            "routeCode" : "",
+            "pathExtensionCode" : "",
+            "objectCode" : "QCPYLESRC",
+            "objectType" : "*FILE"
+          } ]
         }
       },
       "selectResponse200" : {
@@ -781,7 +1020,16 @@
             "fromEnvironmentDescription" : "Production",
             "toEnvironment" : "*DEV",
             "toEnvironmentDescription" : "Development",
-            "default" : true,
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*PRD",
+            "fromEnvironmentDescription" : "Production",
+            "toEnvironment" : "*HOT",
+            "toEnvironmentDescription" : "Hotfix",
+            "isDefault" : true,
             "subEnvironments" : [ ],
             "objects" : [ ],
             "fixedNumberofSubEnvironments" : 0
@@ -811,11 +1059,35 @@
           "confirmation" : true
         }
       },
-      "executeResponse400" : {
+      "prepareResponse200" : {
+        "summary" : "Response to a successful API call.",
+        "value" : {
+          "targets" : [ {
+            "fromEnvironment" : "*PRD",
+            "fromEnvironmentDescription" : "Production",
+            "toEnvironment" : "*DEV",
+            "toEnvironmentDescription" : "Development",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*PRD",
+            "fromEnvironmentDescription" : "Production",
+            "toEnvironment" : "*HOT",
+            "toEnvironmentDescription" : "Hotfix",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          } ]
+        }
+      },
+      "prepareResponse400" : {
         "summary" : "Something went wrong.",
         "value" : {
           "errorMessages" : [ {
-            "messageText" : "Fix Processing ended ABNORMALLY. One ore more objects are not moved or copied.",
+            "messageText" : "Fix Processing ended ABNORMALLY. One or more objects are not moved or copied.",
             "messageID" : "OMQF216",
             "messageTextExtended" : "&N Cause . . . . . :   Fix Processing did not end normally. One or more objects are not processed successfully. &N Recovery. . . . :   See the OMS-log and the joblog for more detailed messages, correct the problem and restart Fix Processing."
           } ]
@@ -877,8 +1149,62 @@
           "targetSubEnvironments" : [ ],
           "confirmation" : true
         }
+      },
+      "execute" : {
+        "summary" : "How to specify the execute request input parameter",
+        "value" : {
+          "transferNumber" : "OT000068",
+          "schedules" : [ ]
+        }
+      },
+      "executeRequestwithJobSchedule" : {
+        "summary" : "How to specify the execute request input parameter with schedule job and hold job",
+        "value" : {
+          "transferNumber" : "OT000075",
+          "schedules" : [ {
+            "address" : "SPINOZA",
+            "scheduleDate" : "250502",
+            "scheduleTime" : "023000",
+            "jobDescriptionCode" : "*NORMAL",
+            "jobDescription" : "OMSJOBD",
+            "jobDescriptionLibrary" : "*LIBL",
+            "holdJob" : true
+          } ]
+        }
+      },
+      "executeResponse200" : {
+        "summary" : "Response to a successful API call.",
+        "value" : {
+          "job" : {
+            "jobName" : "OM050712",
+            "userName" : "MISHD",
+            "jobNumber" : 371992
+          },
+          "transferNumber" : "OM050712"
+        }
+      },
+      "executeResponse400" : {
+        "summary" : "Something went wrong.",
+        "value" : {
+          "errorMessages" : [ {
+            "messageText" : "Fix Processing ended ABNORMALLY. One or more objects are not moved or copied.",
+            "messageID" : "OMQF216",
+            "messageTextExtended" : "&N Cause . . . . . :   Fix Processing did not end normally. One or more objects are not processed successfully. &N Recovery. . . . :   See the OMS-log and the joblog for more detailed messages, correct the problem and restart Fix Processing."
+          } ]
+        }
+      },
+      "cancel" : {
+        "summary" : "How to specify the cancel request input parameter",
+        "value" : {
+          "transferNumber" : "OT000068"
+        }
+      },
+      "cancelResponse200" : {
+        "summary" : "Response to a successful API call.",
+        "value" : "*NORM"
       }
     },
+    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
