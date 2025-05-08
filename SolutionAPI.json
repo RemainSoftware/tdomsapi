@@ -2,7 +2,7 @@
   "openapi" : "3.0.1",
   "info" : {
     "title" : "TD/OMS - Solution API",
-    "description" : "The TD/OMS Solution API allows you to interact with objects. You can Connect, Change or Disconnect an object. Also other actions like Lock, Unlock and Move are availabe.\r\n\r\nYou can also perform operation on multiple solutions under a single request.",
+    "description" : "The TD/OMS Solution API allows you to interact with objects. You can Connect, Change or Disconnect an object. Also other actions like Lock, Unlock and Move are available.\r\n\r\nYou can also perform operation on multiple solutions under a single request.",
     "termsOfService" : "",
     "contact" : {
       "name" : "Remain Software",
@@ -36,8 +36,8 @@
       },
       "protocol" : {
         "description" : "Protocol",
-        "default" : "https",
-        "enum" : [ "https", "http" ]
+        "enum" : [ "https", "http" ],
+        "default" : "https"
       },
       "port" : {
         "description" : "The port to which the server is listening",
@@ -51,7 +51,7 @@
   "paths" : {
     "/change" : {
       "summary" : "Change solution attributes",
-      "description" : "Solution attributes can be Changed with this path",
+      "description" : "Solution attributes can be changed with this path",
       "post" : {
         "summary" : "Change operation",
         "description" : "The change operation",
@@ -65,7 +65,7 @@
               },
               "examples" : {
                 "changeSolutiopn" : {
-                  "summary" : "How to specify the change solutuion request input parameters value.",
+                  "summary" : "How to specify the change solution request input parameters value.",
                   "value" : {
                     "interfaceLevel" : "V3R0M0",
                     "changeProcessingOptions" : {
@@ -342,7 +342,7 @@
     },
     "/disconnect" : {
       "summary" : "disconnect object from the fix",
-      "description" : "Objects can be disconnected form the fix",
+      "description" : "Objects can be disconnected from the fix",
       "post" : {
         "summary" : "Disconnect operation",
         "description" : "The disconnect operation",
@@ -540,7 +540,7 @@
               },
               "examples" : {
                 "unlockSolutiopn" : {
-                  "summary" : "How to specify the unlock solutuion request input parameters value.",
+                  "summary" : "How to specify the unlock solution request input parameters value.",
                   "value" : {
                     "interfaceLevel" : "V3R0M0",
                     "unlockProcessingOptions" : {
@@ -650,7 +650,7 @@
               },
               "examples" : {
                 "changeSolutiopn" : {
-                  "summary" : "How to specify the move solutuion request input parameters value.",
+                  "summary" : "How to specify the move solution request input parameters value.",
                   "value" : {
                     "interfaceLevel" : "V3R0M0",
                     "moveProcessingOptions" : {
@@ -756,8 +756,8 @@
               },
               "examples" : {
                 "multiChangeExampleRequest200" : {
-                  "summary" : "This example should change the object details",
-                  "description" : "This example should change the object details",
+                  "summary" : "This example should change the solution details",
+                  "description" : "This example should change the solution details",
                   "value" : {
                     "interfaceLevel" : "V3R0M0",
                     "multiChangeProcessingOptions" : {
@@ -794,6 +794,34 @@
                       "longDescription" : "Desc change worked"
                     } ]
                   }
+                },
+                "multiChangeExampleIfsRequest200" : {
+                  "summary" : "This example should change the Ifs solution details",
+                  "description" : "This example should change the Ifs solution details",
+                  "value" : {
+                    "interfaceLevel" : "V3R0M0",
+                    "multiChangeProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1"
+                    },
+                    "multiChangeData" : [ {
+                      "applicationCode" : "XMP",
+                      "fixNumber" : "XT0607",
+                      "sourceProcessing" : "1",
+                      "overrideCode" : "",
+                      "solutionType" : "3",
+                      "iFSObjectCode" : "plugin.xml",
+                      "iFSDirectoryCode" : "/QOpenSys/tdoms/xmp/java/prd/com.demo.core/"
+                    }, {
+                      "applicationCode" : "XMP",
+                      "fixNumber" : "XT0607",
+                      "sourceProcessing" : "1",
+                      "overrideCode" : "",
+                      "solutionType" : "3",
+                      "iFSObjectCode" : "collaps.txt",
+                      "iFSDirectoryCode" : "/QOpenSys/tdoms/xmp/java/prd/com.demo.core/"
+                    } ]
+                  }
                 }
               }
             }
@@ -808,191 +836,9 @@
                   "$ref" : "#/components/schemas/multiChangeResponse_200"
                 },
                 "examples" : {
-                  "multiChangeResponse200" : {
-                    "summary" : "This example displays the response for successfull multi change operation.",
-                    "description" : "This example displays the response for successfull multi change operation.",
-                    "value" : {
-                      "messages" : {
-                        "messageFile" : "OMSAPI",
-                        "messageId" : "OMQ4012",
-                        "messageType" : "",
-                        "messageData" : "XMPXT0607     XAB1        *PGM               CLLE",
-                        "field" : "",
-                        "messageText" : "Action for solution XAB1 type *PGM detail CLLE completed normally &N Cause . . . . . :   Your request for the OMS solution API has been succesfully executed. The action was performed for application XMP fix XT0607 and detail CLLE. The object attribute is . &N Recovery. . . . :    No recovery necessary. This is an informational message.\n",
-                        "status" : "*NORM",
-                        "solutionResponseData" : {
-                          "applicationCode" : "XMP",
-                          "fixNumber" : "XT0607",
-                          "objectCode" : "XAB1",
-                          "objectType" : "*PGM",
-                          "memberCode" : "",
-                          "objectAttribute" : "CLLE",
-                          "objectLibrary" : "OMHD_DEV",
-                          "objectClass" : "0",
-                          "environmentCode" : "*DEV",
-                          "sourceProcessing" : "1",
-                          "versionNumberBasedOn" : 0,
-                          "modificNumberBasedOn" : 0,
-                          "versionNumber" : 0,
-                          "modificationNumber" : 0,
-                          "overrideCode" : "",
-                          "solutionType" : "1",
-                          "statusField" : "*ACT",
-                          "routeCode" : "",
-                          "pathExtensionLibraryCode" : "",
-                          "iFSObjectCode" : "XAB1",
-                          "iFSDirectoryCode" : "",
-                          "relatedLibraryCode" : "",
-                          "routeCode2" : "",
-                          "levelWithinRoute" : 0,
-                          "libraryCode" : "",
-                          "fixType" : "",
-                          "release" : "",
-                          "developmentExitCount" : 0,
-                          "reasonCode" : "",
-                          "fixStatus" : "*DEV",
-                          "priorityNumeric" : "F",
-                          "programmer" : "SHUKV",
-                          "expectedStartDate" : 1241203,
-                          "realizedStartDate" : 1241203,
-                          "expectedCompletionDate" : 1241203,
-                          "realizedCompletionDate" : 0,
-                          "expectedDevEndDate" : 1241203,
-                          "realizedDevEndDate" : 0,
-                          "expectedNumberOfHours2" : 0,
-                          "realizedNumberOfHours2" : 0,
-                          "shortFixDescription" : "test soulution rest api",
-                          "numberOfRatificationGrps" : 0,
-                          "ratificationCount" : 0,
-                          "rejectedIndicator" : "0",
-                          "freeUserSpace" : "",
-                          "pathCode" : "",
-                          "pathExtensionLibraryCode2" : "",
-                          "iFSPathExtension" : "",
-                          "objectAttribute3" : "CLLE",
-                          "objectDescription" : "test",
-                          "sourceFile" : "QCLLESRC",
-                          "sourceLibrary" : "OMHD_DEV",
-                          "sourceMember" : "XAB1",
-                          "sourcesBelongToObject" : "1",
-                          "sourceChangeDate" : "1241203052847",
-                          "objectSourceChangeDate" : "1241203052847",
-                          "objectModified" : "",
-                          "userWhichCreatedObject" : "SHUKV",
-                          "userDefined" : "1",
-                          "temporaryOrVirtual" : "0",
-                          "objectChangeDate" : "1241203052915",
-                          "memberAttributeMBSEU" : "",
-                          "memberText" : "",
-                          "objectAttribute2" : "",
-                          "sRMId" : "",
-                          "projectCode" : "",
-                          "repositoryURL" : "",
-                          "revision" : "",
-                          "programmer2" : "",
-                          "dateSent" : 0,
-                          "timeSent" : 0,
-                          "locked" : 0,
-                          "markedForDeletion" : "",
-                          "lastTag" : "",
-                          "labelCount" : 0,
-                          "activeSolutionCount" : 0,
-                          "createOverrideCount" : 0,
-                          "commentCount" : 0
-                        },
-                        "longDescription" : "Desc change worked",
-                        "messages" : {
-                          "messageFile" : "OMSAPI",
-                          "messageId" : "OMQ4012",
-                          "messageType" : "",
-                          "messageData" : "XMPXT0607     XAB2        *PGM               CLLE",
-                          "field" : "",
-                          "messageText" : "Action for solution XAB2 type *PGM detail CLLE completed normally &N Cause . . . . . :   Your request for the OMS solution API has been succesfully executed. The action was performed for application XMP fix XT0607 and detail CLLE. The object attribute is . &N Recovery. . . . :    No recovery necessary. This is an informational message.\n",
-                          "status" : "*NORM",
-                          "solutionResponseData" : {
-                            "applicationCode" : "XMP",
-                            "fixNumber" : "XT0607",
-                            "objectCode" : "XAB2",
-                            "objectType" : "*PGM",
-                            "memberCode" : "",
-                            "objectAttribute" : "CLLE",
-                            "objectLibrary" : "OMHD_DEV",
-                            "objectClass" : "0",
-                            "environmentCode" : "*DEV",
-                            "sourceProcessing" : "1",
-                            "versionNumberBasedOn" : 0,
-                            "modificNumberBasedOn" : 0,
-                            "versionNumber" : 0,
-                            "modificationNumber" : 0,
-                            "overrideCode" : "",
-                            "solutionType" : "1",
-                            "statusField" : "*ACT",
-                            "routeCode" : "",
-                            "pathExtensionLibraryCode" : "",
-                            "iFSObjectCode" : "XAB2",
-                            "iFSDirectoryCode" : "",
-                            "relatedLibraryCode" : "",
-                            "routeCode2" : "",
-                            "levelWithinRoute" : 0,
-                            "libraryCode" : "",
-                            "fixType" : "",
-                            "release" : "",
-                            "developmentExitCount" : 0,
-                            "reasonCode" : "",
-                            "fixStatus" : "*DEV",
-                            "priorityNumeric" : "F",
-                            "programmer" : "SHUKV",
-                            "expectedStartDate" : 1241203,
-                            "realizedStartDate" : 1241203,
-                            "expectedCompletionDate" : 1241203,
-                            "realizedCompletionDate" : 0,
-                            "expectedDevEndDate" : 1241203,
-                            "realizedDevEndDate" : 0,
-                            "expectedNumberOfHours2" : 0,
-                            "realizedNumberOfHours2" : 0,
-                            "shortFixDescription" : "test soulution rest api",
-                            "numberOfRatificationGrps" : 0,
-                            "ratificationCount" : 0,
-                            "rejectedIndicator" : "0",
-                            "freeUserSpace" : "",
-                            "pathCode" : "",
-                            "pathExtensionLibraryCode2" : "",
-                            "iFSPathExtension" : "",
-                            "objectAttribute3" : "CLLE",
-                            "objectDescription" : "test",
-                            "sourceFile" : "QCLLESRC",
-                            "sourceLibrary" : "OMHD_DEV",
-                            "sourceMember" : "XAB2",
-                            "sourcesBelongToObject" : "1",
-                            "sourceChangeDate" : "1241203052905",
-                            "objectSourceChangeDate" : "1241203052905",
-                            "objectModified" : "",
-                            "userWhichCreatedObject" : "SHUKV",
-                            "userDefined" : "1",
-                            "temporaryOrVirtual" : "0",
-                            "objectChangeDate" : "1241203052922",
-                            "memberAttributeMBSEU" : "",
-                            "memberText" : "",
-                            "objectAttribute2" : "",
-                            "sRMId" : "",
-                            "projectCode" : "",
-                            "repositoryURL" : "",
-                            "revision" : "",
-                            "programmer2" : "",
-                            "dateSent" : 0,
-                            "timeSent" : 0,
-                            "locked" : 0,
-                            "markedForDeletion" : "",
-                            "lastTag" : "",
-                            "labelCount" : 0,
-                            "activeSolutionCount" : 0,
-                            "createOverrideCount" : 0,
-                            "commentCount" : 0
-                          },
-                          "longDescription" : "Desc change worked"
-                        }
-                      }
-                    }
+                  "multiResponse200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/multiResponse200"
                   }
                 }
               }
@@ -1004,6 +850,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/multiChangeResponse_207"
+                },
+                "examples" : {
+                  "multiResponse207" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/multiResponse207"
+                  }
                 }
               }
             }
@@ -1014,6 +866,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/multiChangeResponse_400"
+                },
+                "examples" : {
+                  "multiResponse400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/multiResponse400"
+                  }
                 }
               }
             }
@@ -1024,6 +882,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -1039,8 +903,8 @@
       }
     },
     "/multiDisconnect" : {
-      "summary" : "use this path to disconnect the multiple solutions",
-      "description" : "use this path to disconnect the multiple solutions",
+      "summary" : "use this path to disconnect the multiple solutions.",
+      "description" : "use this path to disconnect the multiple solutions.",
       "post" : {
         "summary" : "use this operation to disconnect the multiple solutions",
         "description" : "use this operation to disconnect the multiple solutions",
@@ -1051,6 +915,62 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/multiDisconnectRequest"
+              },
+              "examples" : {
+                "multiDisconnectExampleRequest200" : {
+                  "summary" : "This example should disconnect the solution's details",
+                  "description" : "This example should disconnect the solution's details",
+                  "value" : {
+                    "interfaceLevel" : "V3R0M0",
+                    "multiChangeProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1"
+                    },
+                    "multiDisconnectData" : [ {
+                      "applicationCode" : "XMP",
+                      "fixNumber" : "XT0607",
+                      "objectCode" : "AB1",
+                      "objectType" : "*PGM",
+                      "memberCode" : "*NONE",
+                      "routeCode" : "*ONLY",
+                      "pathExtensionLibraryCode" : "*ONLY",
+                      "iFSObjectCode" : "*OBJC",
+                      "iFSDirectoryCode" : " "
+                    }, {
+                      "applicationCode" : "XMP",
+                      "fixNumber" : "XT0607",
+                      "objectCode" : "AB2",
+                      "objectType" : "*PGM",
+                      "memberCode" : "*NONE",
+                      "routeCode" : "*ONLY",
+                      "pathExtensionLibraryCode" : "*ONLY",
+                      "iFSObjectCode" : "*OBJC",
+                      "iFSDirectoryCode" : " "
+                    } ]
+                  }
+                },
+                "multiDisconnectIfsExampleRequest200" : {
+                  "summary" : "This example should disconnect the Ifs solution details.",
+                  "description" : "This example should disconnect the Ifs details,",
+                  "value" : {
+                    "interfaceLevel" : "V3R0M0",
+                    "multiChangeProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1"
+                    },
+                    "multiDisconnectData" : [ {
+                      "applicationCode" : "XMP",
+                      "fixNumber" : "XT0607",
+                      "iFSObjectCode" : "plugin.xml",
+                      "iFSDirectoryCode" : "/QOpenSys/tdoms/xmp/java/prd/com.demo.core/"
+                    }, {
+                      "applicationCode" : "XMP",
+                      "fixNumber" : "XT0607",
+                      "iFSObjectCode" : "collaps.txt",
+                      "iFSDirectoryCode" : "/QOpenSys/tdoms/xmp/java/prd/com.demo.core/"
+                    } ]
+                  }
+                }
               }
             }
           }
@@ -1062,6 +982,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/multiDisconnectResponse_200"
+                },
+                "examples" : {
+                  "multiResponse200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/multiResponse200"
+                  }
                 }
               }
             }
@@ -1072,6 +998,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/multiDisconnectResponse_207"
+                },
+                "examples" : {
+                  "multiResponse207" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/multiResponse207"
+                  }
                 }
               }
             }
@@ -1082,6 +1014,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/multiDisconnectResponse_400"
+                },
+                "examples" : {
+                  "multiResponse400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/multiResponse400"
+                  }
                 }
               }
             }
@@ -1092,6 +1030,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -1119,6 +1063,66 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/multiLockRequest"
+              },
+              "examples" : {
+                "multiLockExampleRequest200" : {
+                  "summary" : "This example should lock the solutions.",
+                  "description" : "This example should lock the solutions.",
+                  "value" : {
+                    "interfaceLevel" : "V3R0M0",
+                    "multiLockProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "deleteObjectAndSource" : "0"
+                    },
+                    "multiLockData" : [ {
+                      "applicationCode" : "XMP",
+                      "fixNumber" : "XT0607",
+                      "objectCode" : "AB1",
+                      "objectType" : "*PGM",
+                      "memberCode" : "",
+                      "routeCode" : "",
+                      "pathExtensionLibraryCode" : "",
+                      "iFSObjectCode" : "*OBJC"
+                    }, {
+                      "applicationCode" : "XMP",
+                      "fixNumber" : "XT0607",
+                      "objectCode" : "AB2",
+                      "objectType" : "*PGM",
+                      "memberCode" : "",
+                      "routeCode" : "",
+                      "pathExtensionLibraryCode" : "",
+                      "iFSObjectCode" : "*OBJC"
+                    } ]
+                  }
+                },
+                "multiLockIfsExampleRequest200" : {
+                  "summary" : "This example should lock the Ifs solutions.",
+                  "description" : "This example should lock the Ifs solutions.",
+                  "value" : {
+                    "interfaceLevel" : "V3R0M0",
+                    "multiLockProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "deleteObjectAndSource" : "0"
+                    },
+                    "multiLockData" : [ {
+                      "applicationCode" : "XMP",
+                      "fixNumber" : "XT0607",
+                      "routeCode" : "JAVA",
+                      "pathExtensionLibraryCode" : "       101",
+                      "iFSObjectCode" : "collaps.txt",
+                      "iFSDirectoryCode" : "/QOpenSys/tdoms/xmp/java/prd/com.demo.core/"
+                    }, {
+                      "applicationCode" : "XMP",
+                      "fixNumber" : "XT0607",
+                      "routeCode" : "JAVA",
+                      "pathExtensionLibraryCode" : "       101",
+                      "iFSObjectCode" : "plugin.xml",
+                      "iFSDirectoryCode" : "/QOpenSys/tdoms/xmp/java/prd/com.demo.core/"
+                    } ]
+                  }
+                }
               }
             }
           }
@@ -1130,6 +1134,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/multiLockResponse_200"
+                },
+                "examples" : {
+                  "multiResponse200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/multiResponse200"
+                  }
                 }
               }
             }
@@ -1140,6 +1150,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/multiLockResponse_207"
+                },
+                "examples" : {
+                  "multiResponse207" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/multiResponse207"
+                  }
                 }
               }
             }
@@ -1150,6 +1166,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/multiLockResponse_400"
+                },
+                "examples" : {
+                  "multiResponse400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/multiResponse400"
+                  }
                 }
               }
             }
@@ -1160,6 +1182,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -1187,6 +1215,60 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/multiMoveRequest"
+              },
+              "examples" : {
+                "multiMoveExampleRequest200" : {
+                  "summary" : "This example should move the solutions.",
+                  "description" : "This example should move the solutions.",
+                  "value" : {
+                    "interfaceLevel" : "V3R0M0",
+                    "multiLockProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "toFix" : "XT0570"
+                    },
+                    "multiMoveData" : [ {
+                      "applicationCode" : "XMP",
+                      "fixNumber" : "XT0607",
+                      "objectCode" : "AB1",
+                      "objectType" : "*PGM",
+                      "memberCode" : "",
+                      "iFSObjectCode" : "*OBJC",
+                      "iFSDirectoryCode" : ""
+                    }, {
+                      "applicationCode" : "XMP",
+                      "fixNumber" : "XT0607",
+                      "objectCode" : "AB2",
+                      "objectType" : "*PGM",
+                      "memberCode" : "",
+                      "iFSObjectCode" : "*OBJC",
+                      "iFSDirectoryCode" : ""
+                    } ]
+                  }
+                },
+                "multiMoveIfsExampleRequest200" : {
+                  "summary" : "This example should move the Ifs solutions.",
+                  "description" : "This example should move the Ifs solutions.",
+                  "value" : {
+                    "interfaceLevel" : "V3R0M0",
+                    "multiLockProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "toFix" : "XT0570"
+                    },
+                    "multiMoveData" : [ {
+                      "applicationCode" : "XMP",
+                      "fixNumber" : "XT0607",
+                      "iFSObjectCode" : "collaps.txt",
+                      "iFSDirectoryCode" : "/QOpenSys/tdoms/xmp/java/prd/com.demo.core/"
+                    }, {
+                      "applicationCode" : "XMP",
+                      "fixNumber" : "XT0607",
+                      "iFSObjectCode" : "plugin.xml",
+                      "iFSDirectoryCode" : "/QOpenSys/tdoms/xmp/java/prd/com.demo.core/"
+                    } ]
+                  }
+                }
               }
             }
           }
@@ -1198,6 +1280,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/multiMoveResponse_200"
+                },
+                "examples" : {
+                  "multiResponse200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/multiResponse200"
+                  }
                 }
               }
             }
@@ -1208,6 +1296,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/multiMoveResponse_207"
+                },
+                "examples" : {
+                  "multiResponse207" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/multiResponse207"
+                  }
                 }
               }
             }
@@ -1218,6 +1312,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/multiMoveResponse_400"
+                },
+                "examples" : {
+                  "multiResponse400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/multiResponse400"
+                  }
                 }
               }
             }
@@ -1228,6 +1328,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -1255,6 +1361,68 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/multiUnlockRequest"
+              },
+              "examples" : {
+                "multiUnlockExampleRequest200" : {
+                  "summary" : "This example should unlock the solutions.",
+                  "description" : "This example should unlock the solutions.",
+                  "value" : {
+                    "interfaceLevel" : "V3R0M0",
+                    "multiUnlockProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "forceActiveSolution" : "0"
+                    },
+                    "multiUnlockData" : [ {
+                      "applicationCode" : "XMP",
+                      "fixNumber" : "XT0607",
+                      "objectCode" : "AB1",
+                      "objectType" : "*PGM",
+                      "memberCode" : "*NONE",
+                      "routeCode" : "*ONLY",
+                      "pathExtensionLibraryCode" : "*ONLY",
+                      "iFSObjectCode" : "*OBJC",
+                      "iFSDirectoryCode" : " "
+                    }, {
+                      "applicationCode" : "XMP",
+                      "fixNumber" : "XT0607",
+                      "objectCode" : "AB2",
+                      "objectType" : "*PGM",
+                      "memberCode" : "*NONE",
+                      "routeCode" : "*ONLY",
+                      "pathExtensionLibraryCode" : "*ONLY",
+                      "iFSObjectCode" : "*OBJC",
+                      "iFSDirectoryCode" : " "
+                    } ]
+                  }
+                },
+                "multiUnlockIfsExampleRequest200" : {
+                  "summary" : "This example should unlock the Ifs solutions.",
+                  "description" : "This example should unlock the Ifs solutions.",
+                  "value" : {
+                    "interfaceLevel" : "V3R0M0",
+                    "multiUnlockProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "forceActiveSolution" : "0"
+                    },
+                    "multiUnlockData" : [ {
+                      "applicationCode" : "XMP",
+                      "fixNumber" : "XT0607",
+                      "routeCode" : "JAVA",
+                      "pathExtensionLibraryCode" : "       101",
+                      "iFSObjectCode" : "collaps.txt",
+                      "iFSDirectoryCode" : "/QOpenSys/tdoms/xmp/java/prd/com.demo.core/"
+                    }, {
+                      "applicationCode" : "XMP",
+                      "fixNumber" : "XT0607",
+                      "routeCode" : "JAVA",
+                      "pathExtensionLibraryCode" : "       101",
+                      "iFSObjectCode" : "plugin.xml",
+                      "iFSDirectoryCode" : "/QOpenSys/tdoms/xmp/java/prd/com.demo.core/"
+                    } ]
+                  }
+                }
               }
             }
           }
@@ -1266,6 +1434,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/multiUnlockResponse_200"
+                },
+                "examples" : {
+                  "multiResponse200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/multiResponse200"
+                  }
                 }
               }
             }
@@ -1276,6 +1450,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/multiUnlockResponse_207"
+                },
+                "examples" : {
+                  "multiResponse207" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/multiResponse207"
+                  }
                 }
               }
             }
@@ -1286,6 +1466,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/multiUnlockResponse_400"
+                },
+                "examples" : {
+                  "multiResponse400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/multiResponse400"
+                  }
                 }
               }
             }
@@ -1296,6 +1482,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -1363,7 +1555,7 @@
           "status" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "The return status which will inform us about how the API ended."
+            "description" : "The return status, which will inform us about how the API ended."
           },
           "solutionResponseData" : {
             "$ref" : "#/components/schemas/solutionResponseData"
@@ -1588,7 +1780,7 @@
           },
           "numberOfRatificationGrps" : {
             "type" : "number",
-            "description" : "Number of ratification grps",
+            "description" : "Number of ratification groups",
             "format" : "Packed(3:0)"
           },
           "ratificationCount" : {
@@ -1850,7 +2042,7 @@
           "routeCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the route in which this solution resides. The route code only needs to be specified if you are doing something other then connect.  \r\n                                                                      \r\n*ONLY                                                                 \r\n    There is only one object with this name and type in the solution. \r\n                                                                      \r\nroute code                                                            \r\n    Specify the name of the route code where this solution resides.   ",
+            "description" : "Specify the route in which this solution resides. The route code only needs to be specified if you are doing something other than connect.  \r\n                                                                      \r\n*ONLY                                                                 \r\n    There is only one object with this name and type in the solution. \r\n                                                                      \r\nroute code                                                            \r\n    Specify the name of the route code where this solution resides.   ",
             "default" : "*ONLY",
             "enum" : [ "*ONLY" ],
             "x-column" : "ROROTC",
@@ -1859,7 +2051,7 @@
           "pathExtensionLibraryCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the path extension code of this solution. This code only needs to be specified if you are doing something other then connect.         \r\n                                                                       \r\n*ONLY                                                                  \r\n    There is only one object with this name and type in the solution.  \r\n                                                                       \r\npath extension code                                                    \r\n    Specify the path extension code where this solution resides.       \r\n\r\nSee the description of the path extension code for more information.   ",
+            "description" : "Specify the path extension code of this solution. This code only needs to be specified if you are doing something other than connect.         \r\n                                                                       \r\n*ONLY                                                                  \r\n    There is only one object with this name and type in the solution.  \r\n                                                                       \r\npath extension code                                                    \r\n    Specify the path extension code where this solution resides.       \r\n\r\nSee the description of the path extension code for more information.   ",
             "default" : "*ONLY",
             "enum" : [ "*ONLY" ],
             "x-column" : "ROELBC",
@@ -1972,7 +2164,7 @@
           "sourceProcessing" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Indicate if the source also has to be transferred through the maintenance cycle. The possible values are:           \r\n\r\n*SAME                                                    \r\n    The source processing does not change. If the object is connected to the fix the source processing will become *YES if the object has a related source (found or not found) and *NONE if the object does not have a source (like a data area). Future solution types may cause the source processing to depend on it. \r\n\r\n*YES                                                                    \r\n    If the object is transferred through the maintenance cycle, so will the related source.                                                 \r\n\r\n*NO\r\n    The object is related to a source, but the source is not transferred through the maintenance cycle.                                      \r\n                                                                        \r\n*NONE                                                                   \r\n    The object is not related to a source.                              ",
+            "description" : "Indicate if the source also has to be transferred through the maintenance cycle. The possible values are:           \r\n\r\n*SAME                                                    \r\n    The source processing does not change. If the object is connected to the fix, the source processing will become *YES if the object has a related source (found or not found) and *NONE if the object does not have a source (like a data area). Future solution types may cause the source processing to depend on it. \r\n\r\n*YES                                                                    \r\n    If the object is transferred through the maintenance cycle, so will the related source.                                                 \r\n\r\n*NO\r\n    The object is related to a source, but the source is not transferred through the maintenance cycle.                                      \r\n                                                                        \r\n*NONE                                                                   \r\n    The object is not related to a source.                              ",
             "default" : "*SAME",
             "enum" : [ "*SAME", "*YES", "*NO", "*NONE" ],
             "x-column" : "ROSRCP",
@@ -2065,7 +2257,7 @@
           "suggestAlternativeObject" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify whether you want the suggestions for a object in case of conflict",
+            "description" : "Specify whether you want the suggestions for an object in case of conflict",
             "default" : "0",
             "enum" : [ "0", "1" ]
           }
@@ -2117,7 +2309,7 @@
           "routeCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the route in which this solution resides. The route code only needs to be specified if you are doing something other then connect.  \r\n                                                                      \r\n*ONLY                                                                 \r\n    There is only one object with this name and type in the solution. \r\n                                                                      \r\nroute code                                                            \r\n    Specify the name of the route code where this solution resides.   ",
+            "description" : "Specify the route in which this solution resides. The route code only needs to be specified if you are doing something other than connect.  \r\n                                                                      \r\n*ONLY                                                                 \r\n    There is only one object with this name and type in the solution. \r\n                                                                      \r\nroute code                                                            \r\n    Specify the name of the route code where this solution resides.   ",
             "default" : "*ONLY",
             "enum" : [ "*ONLY" ],
             "x-column" : "ROROTC",
@@ -2126,7 +2318,7 @@
           "pathExtensionLibraryCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the path extension code of this solution. This code only needs to be specified if you are doing something other then connect.         \r\n                                                                       \r\n*ONLY                                                                  \r\n    There is only one object with this name and type in the solution.  \r\n                                                                       \r\npath extension code                                                    \r\n    Specify the path extension code where this solution resides.       \r\n\r\nSee the description of the path extension code for more information.   ",
+            "description" : "Specify the path extension code of this solution. This code only needs to be specified if you are doing something other than connect.         \r\n                                                                       \r\n*ONLY                                                                  \r\n    There is only one object with this name and type in the solution.  \r\n                                                                       \r\npath extension code                                                    \r\n    Specify the path extension code where this solution resides.       \r\n\r\nSee the description of the path extension code for more information.   ",
             "default" : "*ONLY",
             "enum" : [ "*ONLY" ],
             "x-column" : "ROELBC",
@@ -2431,7 +2623,7 @@
           "routeCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the route in which this solution resides. The route code only needs to be specified if you are doing something other then connect.  \r\n                                                                      \r\n*ONLY                                                                 \r\n    There is only one object with this name and type in the solution. \r\n                                                                      \r\nroute code                                                            \r\n    Specify the name of the route code where this solution resides.   ",
+            "description" : "Specify the route in which this solution resides. The route code only needs to be specified if you are doing something other than connect.  \r\n                                                                      \r\n*ONLY                                                                 \r\n    There is only one object with this name and type in the solution. \r\n                                                                      \r\nroute code                                                            \r\n    Specify the name of the route code where this solution resides.   ",
             "default" : "*ONLY",
             "enum" : [ "*ONLY" ],
             "x-column" : "ROROTC",
@@ -2440,7 +2632,7 @@
           "pathExtensionLibraryCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the path extension code of this solution. This code only needs to be specified if you are doing something other then connect.         \r\n                                                                       \r\n*ONLY                                                                  \r\n    There is only one object with this name and type in the solution.  \r\n                                                                       \r\npath extension code                                                    \r\n    Specify the path extension code where this solution resides.       \r\n\r\nSee the description of the path extension code for more information.   ",
+            "description" : "Specify the path extension code of this solution. This code only needs to be specified if you are doing something other than connect.         \r\n                                                                       \r\n*ONLY                                                                  \r\n    There is only one object with this name and type in the solution.  \r\n                                                                       \r\npath extension code                                                    \r\n    Specify the path extension code where this solution resides.       \r\n\r\nSee the description of the path extension code for more information.   ",
             "default" : "*ONLY",
             "enum" : [ "*ONLY" ],
             "x-column" : "ROELBC",
@@ -2492,7 +2684,7 @@
         "properties" : {
           "solutionAlternativeNumber" : {
             "type" : "integer",
-            "description" : "This field is desinged to get the alternative number for a particular solution."
+            "description" : "This field is designed to get the alternative number for a particular solution."
           },
           "solutionAlternativeText" : {
             "maxItems" : 20,
@@ -2613,7 +2805,7 @@
             }
           }
         },
-        "description" : "use this schema to move the multiple soulutions."
+        "description" : "use this schema to move the multiple solutions."
       },
       "multiUnlockRequest" : {
         "type" : "object",
@@ -2664,34 +2856,6 @@
           }
         },
         "description" : "It contains the response for multiple solution change."
-      },
-      "multiChangeResponse_400" : {
-        "type" : "object",
-        "properties" : {
-          "multiChangeResponse_400" : {
-            "maxItems" : 50,
-            "type" : "array",
-            "description" : "It contains the response for multiple solution change.",
-            "items" : {
-              "$ref" : "#/components/schemas/solutionResponse"
-            }
-          }
-        },
-        "description" : "It contains the response for multiple solution change."
-      },
-      "multiDisconnectResponse_200" : {
-        "type" : "object",
-        "properties" : {
-          "multiDisconnectResponse_200" : {
-            "maxItems" : 50,
-            "type" : "array",
-            "description" : "it contains the response for multiple disconnect.",
-            "items" : {
-              "$ref" : "#/components/schemas/solutionResponse"
-            }
-          }
-        },
-        "description" : "it contains the response for multiple disconnect."
       },
       "multiDisconnectResponse_207" : {
         "type" : "object",
@@ -2846,9 +3010,38 @@
           }
         },
         "description" : "it contains the response for multiple unlock."
+      },
+      "multiChangeResponse_400" : {
+        "type" : "object",
+        "properties" : {
+          "multiChangeResponse400" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "It contains the response for multiple solution change.",
+            "items" : {
+              "$ref" : "#/components/schemas/solutionResponse"
+            }
+          }
+        },
+        "description" : "It contains the response for multiple solution change."
+      },
+      "multiDisconnectResponse_200" : {
+        "type" : "object",
+        "properties" : {
+          "multiDisconnectResponse200" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "it contains the response for multiple disconnect.",
+            "items" : {
+              "$ref" : "#/components/schemas/solutionResponse"
+            }
+          }
+        },
+        "description" : "it contains the response for multiple disconnect."
       }
     },
     "responses" : { },
+    "parameters" : { },
     "examples" : {
       "response401" : {
         "summary" : "Not authorized.",
@@ -3028,8 +3221,567 @@
             "pathExtensionLibraryCode" : ""
           }
         }
+      },
+      "multiResponse400" : {
+        "summary" : "This example displays the response for a failed multi-operation request.",
+        "description" : "This example displays the response for a failed multi-operation request.",
+        "value" : {
+          "messages" : {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQ400E",
+            "messageType" : "E",
+            "messageData" : "XMP  XT0607    AB2         *PGM",
+            "field" : "",
+            "messageText" : "Solution AB2, type *PGM not found in fix XT0607, application XMP &N Cause . . . . . :   Your request for solution AB2, type *PGM and detail  in fix XT0607 of application XMP has not been processed because it was not found. &N Recovery  . . . :   Change the parameters and try your request again.",
+            "status" : "*TERM",
+            "solutionResponseData" : {
+              "applicationCode" : "",
+              "fixNumber" : "",
+              "objectCode" : "",
+              "objectType" : "",
+              "memberCode" : "",
+              "objectAttribute" : "",
+              "objectLibrary" : "",
+              "objectClass" : "",
+              "environmentCode" : "",
+              "sourceProcessing" : "",
+              "versionNumberBasedOn" : 0,
+              "modificNumberBasedOn" : 0,
+              "versionNumber" : 0,
+              "modificationNumber" : 0,
+              "overrideCode" : "",
+              "solutionType" : "",
+              "statusField" : "",
+              "routeCode" : "",
+              "pathExtensionLibraryCode" : "",
+              "iFSObjectCode" : "",
+              "iFSDirectoryCode" : "",
+              "relatedLibraryCode" : "",
+              "routeCode2" : "",
+              "levelWithinRoute" : 0,
+              "libraryCode" : "",
+              "fixType" : "",
+              "release" : "",
+              "developmentExitCount" : 0,
+              "reasonCode" : "",
+              "fixStatus" : "",
+              "priorityNumeric" : "",
+              "programmer" : "",
+              "expectedStartDate" : 0,
+              "realizedStartDate" : 0,
+              "expectedCompletionDate" : 0,
+              "realizedCompletionDate" : 0,
+              "expectedDevEndDate" : 0,
+              "realizedDevEndDate" : 0,
+              "expectedNumberOfHours2" : 0,
+              "realizedNumberOfHours2" : 0,
+              "shortFixDescription" : "",
+              "numberOfRatificationGrps" : 0,
+              "ratificationCount" : 0,
+              "rejectedIndicator" : "",
+              "freeUserSpace" : "",
+              "pathCode" : "",
+              "pathExtensionLibraryCode2" : "",
+              "iFSPathExtension" : "",
+              "objectAttribute3" : "",
+              "objectDescription" : "",
+              "sourceFile" : "",
+              "sourceLibrary" : "",
+              "sourceMember" : "",
+              "sourcesBelongToObject" : "",
+              "sourceChangeDate" : "",
+              "objectSourceChangeDate" : "",
+              "objectModified" : "",
+              "userWhichCreatedObject" : "",
+              "userDefined" : "",
+              "temporaryOrVirtual" : "",
+              "objectChangeDate" : "",
+              "memberAttributeMBSEU" : "",
+              "memberText" : "",
+              "objectAttribute2" : "",
+              "sRMId" : "",
+              "projectCode" : "",
+              "repositoryURL" : "",
+              "revision" : "",
+              "programmer2" : "",
+              "dateSent" : 0,
+              "timeSent" : 0,
+              "locked" : 0,
+              "markedForDeletion" : "",
+              "lastTag" : "",
+              "labelCount" : 0,
+              "activeSolutionCount" : 0,
+              "createOverrideCount" : 0,
+              "commentCount" : 0
+            },
+            "longDescription" : "",
+            "messages" : {
+              "messageFile" : "OMSAPI",
+              "messageId" : "OMQ400E",
+              "messageType" : "E",
+              "messageData" : "XMP  XT0607    AB1         *PGM",
+              "field" : "",
+              "messageText" : "Solution AB1, type *PGM not found in fix XT0607, application XMP &N Cause . . . . . :   Your request for solution AB1, type *PGM and detail  in fix XT0607 of application XMP has not been processed because it was not found. &N Recovery  . . . :   Change the parameters and try your request again.",
+              "status" : "*TERM",
+              "solutionResponseData" : {
+                "applicationCode" : "",
+                "fixNumber" : "",
+                "objectCode" : "",
+                "objectType" : "",
+                "memberCode" : "",
+                "objectAttribute" : "",
+                "objectLibrary" : "",
+                "objectClass" : "",
+                "environmentCode" : "",
+                "sourceProcessing" : "",
+                "versionNumberBasedOn" : 0,
+                "modificNumberBasedOn" : 0,
+                "versionNumber" : 0,
+                "modificationNumber" : 0,
+                "overrideCode" : "",
+                "solutionType" : "",
+                "statusField" : "",
+                "routeCode" : "",
+                "pathExtensionLibraryCode" : "",
+                "iFSObjectCode" : "",
+                "iFSDirectoryCode" : "",
+                "relatedLibraryCode" : "",
+                "routeCode2" : "",
+                "levelWithinRoute" : 0,
+                "libraryCode" : "",
+                "fixType" : "",
+                "release" : "",
+                "developmentExitCount" : 0,
+                "reasonCode" : "",
+                "fixStatus" : "",
+                "priorityNumeric" : "",
+                "programmer" : "",
+                "expectedStartDate" : 0,
+                "realizedStartDate" : 0,
+                "expectedCompletionDate" : 0,
+                "realizedCompletionDate" : 0,
+                "expectedDevEndDate" : 0,
+                "realizedDevEndDate" : 0,
+                "expectedNumberOfHours2" : 0,
+                "realizedNumberOfHours2" : 0,
+                "shortFixDescription" : "",
+                "numberOfRatificationGrps" : 0,
+                "ratificationCount" : 0,
+                "rejectedIndicator" : "",
+                "freeUserSpace" : "",
+                "pathCode" : "",
+                "pathExtensionLibraryCode2" : "",
+                "iFSPathExtension" : "",
+                "objectAttribute3" : "",
+                "objectDescription" : "",
+                "sourceFile" : "",
+                "sourceLibrary" : "",
+                "sourceMember" : "",
+                "sourcesBelongToObject" : "",
+                "sourceChangeDate" : "",
+                "objectSourceChangeDate" : "",
+                "objectModified" : "",
+                "userWhichCreatedObject" : "",
+                "userDefined" : "",
+                "temporaryOrVirtual" : "",
+                "objectChangeDate" : "",
+                "memberAttributeMBSEU" : "",
+                "memberText" : "",
+                "objectAttribute2" : "",
+                "sRMId" : "",
+                "projectCode" : "",
+                "repositoryURL" : "",
+                "revision" : "",
+                "programmer2" : "",
+                "dateSent" : 0,
+                "timeSent" : 0,
+                "locked" : 0,
+                "markedForDeletion" : "",
+                "lastTag" : "",
+                "labelCount" : 0,
+                "activeSolutionCount" : 0,
+                "createOverrideCount" : 0,
+                "commentCount" : 0
+              },
+              "longDescription" : ""
+            }
+          }
+        }
+      },
+      "multiResponse200" : {
+        "summary" : "This example displays the response for successful multi-operation request.",
+        "description" : "This example displays the response for successful multi-operation request.",
+        "value" : {
+          "messages" : {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQ4012",
+            "messageType" : "",
+            "messageData" : "XMPXT0607     XAB1        *PGM               CLLE",
+            "field" : "",
+            "messageText" : "Action for solution XAB1 type *PGM detail CLLE completed normally &N Cause . . . . . :   Your request for the OMS solution API has been succesfully executed. The action was performed for application XMP fix XT0607 and detail CLLE. The object attribute is . &N Recovery. . . . :    No recovery necessary. This is an informational message.\n",
+            "status" : "*NORM",
+            "solutionResponseData" : {
+              "applicationCode" : "XMP",
+              "fixNumber" : "XT0607",
+              "objectCode" : "XAB1",
+              "objectType" : "*PGM",
+              "memberCode" : "",
+              "objectAttribute" : "CLLE",
+              "objectLibrary" : "OMHD_DEV",
+              "objectClass" : "0",
+              "environmentCode" : "*DEV",
+              "sourceProcessing" : "1",
+              "versionNumberBasedOn" : 0,
+              "modificNumberBasedOn" : 0,
+              "versionNumber" : 0,
+              "modificationNumber" : 0,
+              "overrideCode" : "",
+              "solutionType" : "1",
+              "statusField" : "*ACT",
+              "routeCode" : "",
+              "pathExtensionLibraryCode" : "",
+              "iFSObjectCode" : "XAB1",
+              "iFSDirectoryCode" : "",
+              "relatedLibraryCode" : "",
+              "routeCode2" : "",
+              "levelWithinRoute" : 0,
+              "libraryCode" : "",
+              "fixType" : "",
+              "release" : "",
+              "developmentExitCount" : 0,
+              "reasonCode" : "",
+              "fixStatus" : "*DEV",
+              "priorityNumeric" : "F",
+              "programmer" : "SHUKV",
+              "expectedStartDate" : 1241203,
+              "realizedStartDate" : 1241203,
+              "expectedCompletionDate" : 1241203,
+              "realizedCompletionDate" : 0,
+              "expectedDevEndDate" : 1241203,
+              "realizedDevEndDate" : 0,
+              "expectedNumberOfHours2" : 0,
+              "realizedNumberOfHours2" : 0,
+              "shortFixDescription" : "test soulution rest api",
+              "numberOfRatificationGrps" : 0,
+              "ratificationCount" : 0,
+              "rejectedIndicator" : "0",
+              "freeUserSpace" : "",
+              "pathCode" : "",
+              "pathExtensionLibraryCode2" : "",
+              "iFSPathExtension" : "",
+              "objectAttribute3" : "CLLE",
+              "objectDescription" : "test",
+              "sourceFile" : "QCLLESRC",
+              "sourceLibrary" : "OMHD_DEV",
+              "sourceMember" : "XAB1",
+              "sourcesBelongToObject" : "1",
+              "sourceChangeDate" : "1241203052847",
+              "objectSourceChangeDate" : "1241203052847",
+              "objectModified" : "",
+              "userWhichCreatedObject" : "SHUKV",
+              "userDefined" : "1",
+              "temporaryOrVirtual" : "0",
+              "objectChangeDate" : "1241203052915",
+              "memberAttributeMBSEU" : "",
+              "memberText" : "",
+              "objectAttribute2" : "",
+              "sRMId" : "",
+              "projectCode" : "",
+              "repositoryURL" : "",
+              "revision" : "",
+              "programmer2" : "",
+              "dateSent" : 0,
+              "timeSent" : 0,
+              "locked" : 0,
+              "markedForDeletion" : "",
+              "lastTag" : "",
+              "labelCount" : 0,
+              "activeSolutionCount" : 0,
+              "createOverrideCount" : 0,
+              "commentCount" : 0
+            },
+            "longDescription" : "Desc change worked",
+            "messages" : {
+              "messageFile" : "OMSAPI",
+              "messageId" : "OMQ4012",
+              "messageType" : "",
+              "messageData" : "XMPXT0607     XAB2        *PGM               CLLE",
+              "field" : "",
+              "messageText" : "Action for solution XAB2 type *PGM detail CLLE completed normally &N Cause . . . . . :   Your request for the OMS solution API has been succesfully executed. The action was performed for application XMP fix XT0607 and detail CLLE. The object attribute is . &N Recovery. . . . :    No recovery necessary. This is an informational message.\n",
+              "status" : "*NORM",
+              "solutionResponseData" : {
+                "applicationCode" : "XMP",
+                "fixNumber" : "XT0607",
+                "objectCode" : "XAB2",
+                "objectType" : "*PGM",
+                "memberCode" : "",
+                "objectAttribute" : "CLLE",
+                "objectLibrary" : "OMHD_DEV",
+                "objectClass" : "0",
+                "environmentCode" : "*DEV",
+                "sourceProcessing" : "1",
+                "versionNumberBasedOn" : 0,
+                "modificNumberBasedOn" : 0,
+                "versionNumber" : 0,
+                "modificationNumber" : 0,
+                "overrideCode" : "",
+                "solutionType" : "1",
+                "statusField" : "*ACT",
+                "routeCode" : "",
+                "pathExtensionLibraryCode" : "",
+                "iFSObjectCode" : "XAB2",
+                "iFSDirectoryCode" : "",
+                "relatedLibraryCode" : "",
+                "routeCode2" : "",
+                "levelWithinRoute" : 0,
+                "libraryCode" : "",
+                "fixType" : "",
+                "release" : "",
+                "developmentExitCount" : 0,
+                "reasonCode" : "",
+                "fixStatus" : "*DEV",
+                "priorityNumeric" : "F",
+                "programmer" : "SHUKV",
+                "expectedStartDate" : 1241203,
+                "realizedStartDate" : 1241203,
+                "expectedCompletionDate" : 1241203,
+                "realizedCompletionDate" : 0,
+                "expectedDevEndDate" : 1241203,
+                "realizedDevEndDate" : 0,
+                "expectedNumberOfHours2" : 0,
+                "realizedNumberOfHours2" : 0,
+                "shortFixDescription" : "test soulution rest api",
+                "numberOfRatificationGrps" : 0,
+                "ratificationCount" : 0,
+                "rejectedIndicator" : "0",
+                "freeUserSpace" : "",
+                "pathCode" : "",
+                "pathExtensionLibraryCode2" : "",
+                "iFSPathExtension" : "",
+                "objectAttribute3" : "CLLE",
+                "objectDescription" : "test",
+                "sourceFile" : "QCLLESRC",
+                "sourceLibrary" : "OMHD_DEV",
+                "sourceMember" : "XAB2",
+                "sourcesBelongToObject" : "1",
+                "sourceChangeDate" : "1241203052905",
+                "objectSourceChangeDate" : "1241203052905",
+                "objectModified" : "",
+                "userWhichCreatedObject" : "SHUKV",
+                "userDefined" : "1",
+                "temporaryOrVirtual" : "0",
+                "objectChangeDate" : "1241203052922",
+                "memberAttributeMBSEU" : "",
+                "memberText" : "",
+                "objectAttribute2" : "",
+                "sRMId" : "",
+                "projectCode" : "",
+                "repositoryURL" : "",
+                "revision" : "",
+                "programmer2" : "",
+                "dateSent" : 0,
+                "timeSent" : 0,
+                "locked" : 0,
+                "markedForDeletion" : "",
+                "lastTag" : "",
+                "labelCount" : 0,
+                "activeSolutionCount" : 0,
+                "createOverrideCount" : 0,
+                "commentCount" : 0
+              },
+              "longDescription" : "Desc change worked"
+            }
+          }
+        }
+      },
+      "multiResponse207" : {
+        "summary" : "This example displays the response for a partially successful multi-operation request.",
+        "description" : "This example displays the response for a partially successful multi-operation request.",
+        "value" : {
+          "messages" : {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQ400E",
+            "messageType" : "E",
+            "messageData" : "XMP  XT0607    AB2         *PGM",
+            "field" : "",
+            "messageText" : "Solution AB2, type *PGM not found in fix XT0607, application XMP &N Cause . . . . . :   Your request for solution AB2, type *PGM and detail  in fix XT0607 of application XMP has not been processed because it was not found. &N Recovery  . . . :   Change the parameters and try your request again.",
+            "status" : "*TERM",
+            "solutionResponseData" : {
+              "applicationCode" : "",
+              "fixNumber" : "",
+              "objectCode" : "",
+              "objectType" : "",
+              "memberCode" : "",
+              "objectAttribute" : "",
+              "objectLibrary" : "",
+              "objectClass" : "",
+              "environmentCode" : "",
+              "sourceProcessing" : "",
+              "versionNumberBasedOn" : 0,
+              "modificNumberBasedOn" : 0,
+              "versionNumber" : 0,
+              "modificationNumber" : 0,
+              "overrideCode" : "",
+              "solutionType" : "",
+              "statusField" : "",
+              "routeCode" : "",
+              "pathExtensionLibraryCode" : "",
+              "iFSObjectCode" : "",
+              "iFSDirectoryCode" : "",
+              "relatedLibraryCode" : "",
+              "routeCode2" : "",
+              "levelWithinRoute" : 0,
+              "libraryCode" : "",
+              "fixType" : "",
+              "release" : "",
+              "developmentExitCount" : 0,
+              "reasonCode" : "",
+              "fixStatus" : "",
+              "priorityNumeric" : "",
+              "programmer" : "",
+              "expectedStartDate" : 0,
+              "realizedStartDate" : 0,
+              "expectedCompletionDate" : 0,
+              "realizedCompletionDate" : 0,
+              "expectedDevEndDate" : 0,
+              "realizedDevEndDate" : 0,
+              "expectedNumberOfHours2" : 0,
+              "realizedNumberOfHours2" : 0,
+              "shortFixDescription" : "",
+              "numberOfRatificationGrps" : 0,
+              "ratificationCount" : 0,
+              "rejectedIndicator" : "",
+              "freeUserSpace" : "",
+              "pathCode" : "",
+              "pathExtensionLibraryCode2" : "",
+              "iFSPathExtension" : "",
+              "objectAttribute3" : "",
+              "objectDescription" : "",
+              "sourceFile" : "",
+              "sourceLibrary" : "",
+              "sourceMember" : "",
+              "sourcesBelongToObject" : "",
+              "sourceChangeDate" : "",
+              "objectSourceChangeDate" : "",
+              "objectModified" : "",
+              "userWhichCreatedObject" : "",
+              "userDefined" : "",
+              "temporaryOrVirtual" : "",
+              "objectChangeDate" : "",
+              "memberAttributeMBSEU" : "",
+              "memberText" : "",
+              "objectAttribute2" : "",
+              "sRMId" : "",
+              "projectCode" : "",
+              "repositoryURL" : "",
+              "revision" : "",
+              "programmer2" : "",
+              "dateSent" : 0,
+              "timeSent" : 0,
+              "locked" : 0,
+              "markedForDeletion" : "",
+              "lastTag" : "",
+              "labelCount" : 0,
+              "activeSolutionCount" : 0,
+              "createOverrideCount" : 0,
+              "commentCount" : 0
+            },
+            "longDescription" : "test",
+            "messages" : {
+              "messageFile" : "OMSAPI",
+              "messageId" : "OMQ4012",
+              "messageType" : "",
+              "messageData" : "XMP  XT0607    AB1         *PGM               CLLE",
+              "field" : "",
+              "messageText" : "Action for solution AB1 type *PGM detail CLLE completed normally &N Cause . . . . . :   Your request for the OMS solution API has been succesfully executed. The action was performed for application XMP fix XT0607 and detail CLLE. The object attribute is . &N Recovery. . . . :   No recovery necessary. This is an informational message.",
+              "status" : "*NORM",
+              "solutionResponseData" : {
+                "applicationCode" : "XMP",
+                "fixNumber" : "XT0607",
+                "objectCode" : "AB1",
+                "objectType" : "*PGM",
+                "memberCode" : "",
+                "objectAttribute" : "CLLE",
+                "objectLibrary" : "OMHD_DEV",
+                "objectClass" : "0",
+                "environmentCode" : "*DEV",
+                "sourceProcessing" : "1",
+                "versionNumberBasedOn" : 0,
+                "modificNumberBasedOn" : 0,
+                "versionNumber" : 0,
+                "modificationNumber" : 0,
+                "overrideCode" : "",
+                "solutionType" : "1",
+                "statusField" : "*ACT",
+                "routeCode" : "",
+                "pathExtensionLibraryCode" : "",
+                "iFSObjectCode" : "AB1",
+                "iFSDirectoryCode" : "",
+                "relatedLibraryCode" : "",
+                "routeCode2" : "",
+                "levelWithinRoute" : 0,
+                "libraryCode" : "",
+                "fixType" : "C",
+                "release" : "MS03",
+                "developmentExitCount" : 0,
+                "reasonCode" : "",
+                "fixStatus" : "*DEV",
+                "priorityNumeric" : "5",
+                "programmer" : "SHUKV",
+                "expectedStartDate" : 1241203,
+                "realizedStartDate" : 1241203,
+                "expectedCompletionDate" : 1241203,
+                "realizedCompletionDate" : 0,
+                "expectedDevEndDate" : 1241203,
+                "realizedDevEndDate" : 0,
+                "expectedNumberOfHours2" : 0,
+                "realizedNumberOfHours2" : 0,
+                "shortFixDescription" : "Task to add example for solution rest api",
+                "numberOfRatificationGrps" : 0,
+                "ratificationCount" : 0,
+                "rejectedIndicator" : "0",
+                "freeUserSpace" : "",
+                "pathCode" : "MAIN",
+                "pathExtensionLibraryCode2" : "",
+                "iFSPathExtension" : "",
+                "objectAttribute3" : "CLLE",
+                "objectDescription" : "test",
+                "sourceFile" : "QCLLESRC",
+                "sourceLibrary" : "OMHD_DEV",
+                "sourceMember" : "AB1",
+                "sourcesBelongToObject" : "1",
+                "sourceChangeDate" : "1241203051531",
+                "objectSourceChangeDate" : "1241203051531",
+                "objectModified" : "",
+                "userWhichCreatedObject" : "SHUKV",
+                "userDefined" : "1",
+                "temporaryOrVirtual" : "0",
+                "objectChangeDate" : "1241203051532",
+                "memberAttributeMBSEU" : "",
+                "memberText" : "",
+                "objectAttribute2" : "",
+                "sRMId" : "",
+                "projectCode" : "",
+                "repositoryURL" : "",
+                "revision" : "",
+                "programmer2" : "",
+                "dateSent" : 0,
+                "timeSent" : 0,
+                "locked" : 0,
+                "markedForDeletion" : "",
+                "lastTag" : "",
+                "labelCount" : 0,
+                "activeSolutionCount" : 0,
+                "createOverrideCount" : 0,
+                "commentCount" : 0
+              },
+              "longDescription" : "test"
+            }
+          }
+        }
       }
     },
+    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
