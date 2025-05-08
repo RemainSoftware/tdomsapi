@@ -15,9 +15,9 @@
     "version" : "0.0.1",
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
-      "library" : "V17T0258",
+      "library" : "V17T0272",
       "file" : "RequestAPI.json",
-      "srclibrary" : "V17T0258S",
+      "srclibrary" : "V17T0272S",
       "object" : "OMQRTO"
     }
   },
@@ -322,7 +322,7 @@
             }
           },
           "401" : {
-            "description" : "Unauthorized",
+            "description" : "Authorization information is missing or invalid.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -409,6 +409,88 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "04",
+          "generate" : false
+        }
+      }
+    },
+    "/progress" : {
+      "summary" : "Return the transfer information",
+      "description" : "Return the transfer information",
+      "post" : {
+        "summary" : "Return Transfer Information.",
+        "description" : "Return Transfer Information.",
+        "operationId" : "progress",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/progressRequest"
+              },
+              "examples" : {
+                "progress" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/progress"
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/progressResponse"
+                },
+                "examples" : {
+                  "progressReponse200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/progressReponse200"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorMessages"
+                },
+                "examples" : {
+                  "progressReponse400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/progressReponse400"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Authorization information is missing or invalid.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "05",
           "generate" : false
         }
       }
@@ -941,10 +1023,75 @@
         "maxLength" : 5,
         "type" : "string",
         "description" : "Return the status."
+      },
+      "progressRequest" : {
+        "type" : "object",
+        "properties" : {
+          "job" : {
+            "$ref" : "#/components/schemas/job"
+          },
+          "transferNumber" : {
+            "maxLength" : 8,
+            "type" : "string"
+          }
+        },
+        "description" : "Execute response"
+      },
+      "progressResponse" : {
+        "type" : "object",
+        "properties" : {
+          "isJobRunning" : {
+            "type" : "boolean",
+            "description" : "Return true if the job is currently active; otherwise, return false."
+          },
+          "jobStatus" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Return the job status - jobq/hold/end/scheduled/running."
+          },
+          "transferStatus" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Return the transfer status - running/failed/success"
+          },
+          "objects" : {
+            "type" : "integer",
+            "description" : "How many objects are in the transfer."
+          },
+          "objectsProcessed" : {
+            "type" : "integer",
+            "description" : "Return How many objects are processed."
+          },
+          "deployment" : {
+            "$ref" : "#/components/schemas/deployment"
+          }
+        },
+        "description" : "Execute response"
+      },
+      "deployment" : {
+        "type" : "object",
+        "properties" : {
+          "deployed" : {
+            "type" : "integer",
+            "description" : "Return the number of machines distributed."
+          },
+          "inProgress" : {
+            "type" : "integer",
+            "description" : "Return the number of  deployments are inprogress."
+          },
+          "failed" : {
+            "type" : "integer",
+            "description" : "Return the number of deployements are failed.."
+          },
+          "success" : {
+            "type" : "integer",
+            "description" : "Return the number deployements are success."
+          }
+        },
+        "description" : "Return the distribution details like how many machines are distributed, how many machines are success/in progress/fail"
       }
     },
     "responses" : { },
-    "parameters" : { },
     "examples" : {
       "response401" : {
         "summary" : "Not authorized.",
@@ -1202,9 +1349,45 @@
       "cancelResponse200" : {
         "summary" : "Response to a successful API call.",
         "value" : "*NORM"
+      },
+      "progress" : {
+        "summary" : "How to specify the progress request input parameter",
+        "value" : {
+          "job" : {
+            "jobName" : "OM004312",
+            "userName" : "MISHD",
+            "jobNumber" : 388523
+          },
+          "transferNumber" : "OM004313"
+        }
+      },
+      "progressReponse200" : {
+        "summary" : "Response to a successful API call.",
+        "value" : {
+          "isJobRunning" : false,
+          "jobStatus" : "OUTQ",
+          "transferStatus" : "*NORM",
+          "objects" : 20,
+          "objectsProcessed" : 20,
+          "deployment" : {
+            "deployed" : 2,
+            "inProgress" : 0,
+            "failed" : 0,
+            "success" : 2
+          }
+        }
+      },
+      "progressReponse400" : {
+        "summary" : "Something went wrong.",
+        "value" : {
+          "errorMessages" : [ {
+            "messageText" : "Fix Processing ended ABNORMALLY. One or more objects are not moved or copied.",
+            "messageID" : "OMQF216",
+            "messageTextExtended" : "&N Cause . . . . . :   Fix Processing did not end normally. One or more objects are not processed successfully. &N Recovery. . . . :   See the OMS-log and the joblog for more detailed messages, correct the problem and restart Fix Processing."
+          } ]
+        }
       }
     },
-    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
