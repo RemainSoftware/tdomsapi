@@ -1,0 +1,247 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "OMS - Program CALL Api",
+    "description" : "This REST server is used to call different programs used as unofficial API's in the TD/OMS database. \r\n\r\nPlease look at the paths and schemas to discover the program to be called.",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "wim.jongman@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "object" : "OMRPGM",
+      "library" : "V17T0165",
+      "srclibrary" : "V17T0165S",
+      "file" : "programcall.json"
+    }
+  },
+  "servers" : [ {
+    "url" : "{protocol}://{host}:{port}/{library}/OMRPGM",
+    "description" : "A dynamic https host",
+    "variables" : {
+      "host" : {
+        "description" : "The host serving the API",
+        "default" : "plato.remainsoftware.com"
+      },
+      "library" : {
+        "description" : "TD/OMS Library",
+        "default" : "OMS"
+      },
+      "port" : {
+        "description" : "The port to which server is listening",
+        "default" : "45011"
+      },
+      "protocol" : {
+        "description" : "Protocol",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/callRequest" : {
+      "summary" : "call request",
+      "description" : "It have Details of program to be called and values of it parameters",
+      "post" : {
+        "summary" : "Call Request",
+        "description" : "Details of Program and its parameters.",
+        "operationId" : "callRequest",
+        "requestBody" : {
+          "description" : "Call Request",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/callRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/callResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "something went wrong",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedmessage"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : false
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "callRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Interface level",
+            "enum" : [ "V16R1M0" ]
+          },
+          "libraryList" : {
+            "maxItems" : 25,
+            "type" : "array",
+            "description" : "Library List",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "programLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Library of the program.",
+            "default" : "'*LIBL'"
+          },
+          "program" : {
+            "type" : "string",
+            "description" : "IBMi program name",
+            "example" : "12"
+          },
+          "parameters" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "List of parameter names and values",
+            "items" : {
+              "$ref" : "#/components/schemas/parameter"
+            }
+          }
+        },
+        "description" : "The call request"
+      },
+      "callResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string",
+            "description" : "Return Status"
+          },
+          "extendedMessage" : {
+            "$ref" : "#/components/schemas/extendedmessage"
+          },
+          "parameters" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "return values of parameters",
+            "items" : {
+              "$ref" : "#/components/schemas/parameter"
+            }
+          }
+        },
+        "description" : "The call request"
+      },
+      "extendedmessage" : {
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Message File"
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "Message Id"
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Message type"
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "Message Data"
+          },
+          "messageText" : {
+            "maxLength" : 644,
+            "type" : "string",
+            "description" : "Message Text"
+          },
+          "field" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "Field"
+          }
+        },
+        "description" : "Error message Details"
+      },
+      "errorResponse" : {
+        "maxItems" : 50,
+        "type" : "array",
+        "description" : "Error Response Details",
+        "items" : {
+          "$ref" : "#/components/schemas/extendedmessage"
+        }
+      },
+      "parameter" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "parameter name"
+          },
+          "value" : {
+            "maxLength" : 9999,
+            "type" : "string",
+            "description" : "parameter value."
+          }
+        },
+        "description" : "parameter Values."
+      }
+    },
+    "responses" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "JWT security",
+        "name" : "JWT",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
