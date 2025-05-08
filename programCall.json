@@ -237,7 +237,6 @@
       "JWT" : {
         "type" : "http",
         "description" : "JWT security",
-        "name" : "JWT",
         "scheme" : "bearer",
         "bearerFormat" : "JWT"
       }
