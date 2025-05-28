@@ -17,8 +17,8 @@
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator/generator",
       "object" : "OMQRUO",
-      "library" : "V17T0077",
-      "srclibrary" : "V17T0077S",
+      "library" : "V17T0288",
+      "srclibrary" : "V17T0288S",
       "file" : "UserOptionsAPI.json"
     }
   },
@@ -573,7 +573,7 @@
               "examples" : {
                 "executeTaskLevel" : {
                   "value" : null,
-                  "$ref" : "#/components/examples/executeTaskLavel"
+                  "$ref" : "#/components/examples/executeTaskLevel"
                 },
                 "executeRequestLevel" : {
                   "value" : null,
@@ -700,16 +700,13 @@
         },
         "description" : "The return messages information."
       },
-      "status" : {
-        "maxLength" : 5,
-        "type" : "string",
-        "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
-      },
       "errorResponse" : {
         "type" : "object",
         "properties" : {
           "status" : {
-            "$ref" : "#/components/schemas/status"
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
           },
           "messages" : {
             "maxItems" : 50,
@@ -721,103 +718,105 @@
         },
         "description" : "This will return the error information."
       },
-      "addRequest" : {
-        "required" : [ "commandString", "programLibrary", "programName", "userOption3", "userOptionDescription" ],
-        "type" : "object",
-        "properties" : {
-          "interfaceLevel" : {
-            "$ref" : "#/components/schemas/interfaceLevel"
-          },
-          "userOption3" : {
-            "$ref" : "#/components/schemas/userOption3"
-          },
-          "userIDOrUserClass" : {
-            "$ref" : "#/components/schemas/userIDOrUserClass"
-          },
-          "userOptionDescription" : {
-            "$ref" : "#/components/schemas/userOptionDescription"
-          },
-          "actionGroupCode" : {
-            "$ref" : "#/components/schemas/actionGroupCode"
-          },
-          "authorisationCode2" : {
-            "$ref" : "#/components/schemas/authorisationCode2"
-          },
-          "checkEntry" : {
-            "$ref" : "#/components/schemas/checkEntry"
-          },
-          "entityCode" : {
-            "$ref" : "#/components/schemas/entityCode"
-          },
-          "whereToActivateIndicator" : {
-            "$ref" : "#/components/schemas/whereToActivateIndicator"
-          },
-          "whereVisibleIndicator" : {
-            "$ref" : "#/components/schemas/whereVisibleIndicator"
-          },
-          "passParametersIndicator" : {
-            "$ref" : "#/components/schemas/passParametersIndicator"
-          },
-          "programName" : {
-            "$ref" : "#/components/schemas/programName"
-          },
-          "programLibrary" : {
-            "$ref" : "#/components/schemas/programLibrary"
-          },
-          "commandString" : {
-            "$ref" : "#/components/schemas/commandString"
-          },
-          "addProcessingOptions" : {
-            "$ref" : "#/components/schemas/addProcessingOptions"
-          }
-        },
-        "description" : "Request data to add the user option."
-      },
       "changeRequest" : {
         "required" : [ "userOption3" ],
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
-            "$ref" : "#/components/schemas/interfaceLevel"
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V17R1M0.",
+            "default" : "V17R1M0",
+            "enum" : [ "V17R1M0" ]
           },
           "userOption3" : {
-            "$ref" : "#/components/schemas/userOption3"
+            "maxLength" : 2,
+            "type" : "string",
+            "description" : "Specify the user option."
           },
           "userIDOrUserClass" : {
-            "$ref" : "#/components/schemas/userIDOrUserClass"
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the user id or user class for the global or private user option.\r\nThe possible values are:      \r\n                                                                        \r\n*ALL       \r\nUse this value to define the global user option.                    \r\n                                                                        \r\nNote:   \r\nOnly the TD/OMS manager is allowed to define a global user option.                                                    \r\n                                                                        \r\n*CURRENT                                                                \r\n Use this value to define a private user option it will use your current user profile.",
+            "default" : "*ALL",
+            "enum" : [ "*ALL", "*CURRENT" ]
           },
           "userOptionDescription" : {
-            "$ref" : "#/components/schemas/userOptionDescription"
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "Specify the user option description.     \r\n                                                        \r\n*SAME     \r\nUse this value to indicate that the description does not change if you are in change or copy mode. It is not allowed in add mode.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
           },
           "actionGroupCode" : {
-            "$ref" : "#/components/schemas/actionGroupCode"
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The Action Group code can be used to group user options in logical groups. These groups will manifest themselves as submenu's in the GUI.   \r\n                                                                       \r\n*SAME            \r\nUse this value to indicate that the action group does not change if you are in change or copy mode, in add mode, it contains a blank value.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
           },
           "authorisationCode2" : {
-            "$ref" : "#/components/schemas/authorisationCode2"
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "This is the authorization level required to execute the user option. Authorization code '*DISABLED' indicates that the user option is disabled. The possible values are:                            \r\n                                                                       \r\n*SAME                      \r\nUse this value to indicate that the authorization code does not change if you are in change or copy mode, in add mode, it contains the default value. The default value for the authorization code is *ADMIN.                                                          \r\n                                                                       \r\n*USER                                                                  \r\nUse this value to indicate that the user option is enabled for the user.                                                              \r\n                                                                       \r\n*PGMR     \r\nUse this value to indicate that the user option is enabled for the programmer.    \r\n\r\n*ADMIN     \r\nUse this value to indicate that the user option is enabled for the admin.     \r\n                                                                      \r\n*DISABLED    \r\nUse this value to indicate that the user option is disabled.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*DISABLED", "*USER", "*PGMR", "*ADMIN" ]
           },
           "checkEntry" : {
-            "$ref" : "#/components/schemas/checkEntry"
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "This field indicates if TD/OMS should check if the user is authorized for the selected entry. This field should be set to *NO if the user option is not related to a particular entry. The user option CW (Command line in a window) is an example of such an option. The possible values are:      \r\n                                                                        \r\n*SAME       \r\nUse this value to indicate that the check entry does not change if you are in change or copy mode, in add mode, it contains the default value. The default for the check entry is *YES.     \r\n                                                                        \r\n*NO     \r\nUse this value to indicate that the user option is not related to the particular entry.    \r\n\r\n*YES     \r\nUse this value to indicate that the user option is related to the particular entry.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*NO", "*YES" ]
           },
           "entityCode" : {
-            "$ref" : "#/components/schemas/entityCode"
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The entity code is used to identify the entity for which a user option can be used. Combinations can be made by adding the numbers.           \r\n                                                                       \r\n  *REQUEST    - Request                                                                          \r\n  *TASK           - Task                                                  \r\n  *SOLUTION  - Solution                                              \r\n  *OBJECT       - Object                                                \r\n                                                                       \r\n    Note:    \r\n    If the entity code is '03' then the user option is available for both Request and Task.                                         \r\n                                                                       \r\n*SAME                \r\nUse this value to indicate that the entity code does not change if you are in change or copy mode, in add mode it contains the default value. the default value for the entity code is *TASK.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*REQUEST", "*TASK", "*SOLUTION", "*OBJECT" ]
           },
           "whereToActivateIndicator" : {
-            "$ref" : "#/components/schemas/whereToActivateIndicator"
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specifies where this user has to be activated.     \r\n                                                                      \r\n*SAME                                                                 \r\nUse this value to indicate that the where to activate does not change if you are in change or copy mode, in add mode it contains the default value. the default value for the where to activate is *SERVER.      \r\n                                                                      \r\n*CLIENT      \r\n Runs the option in the TD/OMS GUI.                                \r\n                                                                      \r\n*SERVER     \r\nRuns the option on the Server which currently is the IBM i.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*CLIENT", "*SERVER" ]
           },
           "whereVisibleIndicator" : {
-            "$ref" : "#/components/schemas/whereVisibleIndicator"
-          },
-          "programName" : {
-            "$ref" : "#/components/schemas/programName"
-          },
-          "programLibrary" : {
-            "$ref" : "#/components/schemas/programLibrary"
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The Where Visible indicator is used to specify where the entry is visible.                                                 \r\n                                                                        \r\n*SAME                                                                   \r\nUse this value to indicate that the where visible does not change if you are in change or copy mode, in add mode it contains the default value. the default value for the where visible is *BOTH.          \r\n                                                                        \r\n*CLIENT                                                                 \r\nThe option is only visible on the client.                           \r\n                                                                        \r\n*SERVER                                                                 \r\nThe option is only visible on the server.                           \r\n                                                                        \r\n*BOTH       \r\nThe option is visible on both the client and the server.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*CLIENT", "*SERVER", "*BOTH" ]
           },
           "passParametersIndicator" : {
-            "$ref" : "#/components/schemas/passParametersIndicator"
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "This element specifies whether or not parameters are passed to the calling program. The possible values are:                               \r\n                                                                        \r\n*NO                                                             \r\nNo parameters are passed to the calling program.                    \r\n                                                                        \r\n*YES                                                            \r\nParameters are passed to the calling program.                       \r\n                                                                        \r\n*SAME                                                                   \r\nUse this value to indicate that the Pass parameters does not change if you are in change or copy mode, in add mode it contains the default value. the default value for the Pass parameters is *YES.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*NO", "*YES" ]
+          },
+          "programName" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Contains the name of the program that is called when the indicated user option is used. Please keep in mind that the program you are using may not adopt authority from the calling program. Otherwise, the program would adopt TD/OMS authority because all TD/OMS functions are owned by the user OMS (including the database).                                  \r\n                                                                        \r\nA correct user option program may not adopt authority. This can be achieved by using the CHGPGM command and use the USEADPAUT(*NO) keyword and value. It is possible to run under the profile of the owner of the program.                                                                \r\n                                                                        \r\nIf user option programs are called with parameters they will receive information about the entity used.  Information about the parameters can be retrieved by looking at source member OMUSROPTGE in your QUSRSRC source file.    \r\n\r\n*SAME             \r\nUse this value to indicate that the program name does not change if you are in change or copy mode, in add mode it contains the blank value.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "programLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Contains the name of the library where the user option program can be found.                                    \r\n                                                         \r\n*SAME                                                    \r\nUse this value to indicate that the program library does not change if you are in change or copy mode, in add mode it contains the blank value.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*LIBL" ]
           },
           "commandString" : {
-            "$ref" : "#/components/schemas/commandString"
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "Specify the command string.   \r\n\r\n*SAME                                                    \r\nUse this value to indicate that the command string does not change if you are in change or copy mode, in add mode it contains the blank value.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
           },
           "changeProcessingOptions" : {
             "$ref" : "#/components/schemas/changeProcessingOptions"
@@ -830,46 +829,100 @@
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
-            "$ref" : "#/components/schemas/interfaceLevel"
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V17R1M0.",
+            "default" : "V17R1M0",
+            "enum" : [ "V17R1M0" ]
           },
           "userOption3" : {
-            "$ref" : "#/components/schemas/userOption3"
+            "maxLength" : 2,
+            "type" : "string",
+            "description" : "Specify the user option."
           },
           "userIDOrUserClass" : {
-            "$ref" : "#/components/schemas/userIDOrUserClass"
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the user id or user class for the global or private user option.\r\nThe possible values are:      \r\n                                                                        \r\n*ALL       \r\nUse this value to define the global user option.                    \r\n                                                                        \r\nNote:   \r\nOnly the TD/OMS manager is allowed to define a global user option.                                                    \r\n                                                                        \r\n*CURRENT                                                                \r\n Use this value to define a private user option it will use your current user profile.",
+            "default" : "*ALL",
+            "enum" : [ "*ALL", "*CURRENT" ]
           },
           "userOptionDescription" : {
-            "$ref" : "#/components/schemas/userOptionDescription"
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "Specify the user option description.     \r\n                                                        \r\n*SAME     \r\nUse this value to indicate that the description does not change if you are in change or copy mode. It is not allowed in add mode.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
           },
           "actionGroupCode" : {
-            "$ref" : "#/components/schemas/actionGroupCode"
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The Action Group code can be used to group user options in logical groups. These groups will manifest themselves as submenu's in the GUI.   \r\n                                                                       \r\n*SAME            \r\nUse this value to indicate that the action group does not change if you are in change or copy mode, in add mode, it contains a blank value.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
           },
           "authorisationCode2" : {
-            "$ref" : "#/components/schemas/authorisationCode2"
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "This is the authorization level required to execute the user option. Authorization code '*DISABLED' indicates that the user option is disabled. The possible values are:                            \r\n                                                                       \r\n*SAME                      \r\nUse this value to indicate that the authorization code does not change if you are in change or copy mode, in add mode, it contains the default value. The default value for the authorization code is *ADMIN.                                                          \r\n                                                                       \r\n*USER                                                                  \r\nUse this value to indicate that the user option is enabled for the user.                                                              \r\n                                                                       \r\n*PGMR     \r\nUse this value to indicate that the user option is enabled for the programmer.    \r\n\r\n*ADMIN     \r\nUse this value to indicate that the user option is enabled for the admin.     \r\n                                                                      \r\n*DISABLED    \r\nUse this value to indicate that the user option is disabled.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*DISABLED", "*USER", "*PGMR", "*ADMIN" ]
           },
           "checkEntry" : {
-            "$ref" : "#/components/schemas/checkEntry"
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "This field indicates if TD/OMS should check if the user is authorized for the selected entry. This field should be set to *NO if the user option is not related to a particular entry. The user option CW (Command line in a window) is an example of such an option. The possible values are:      \r\n                                                                        \r\n*SAME       \r\nUse this value to indicate that the check entry does not change if you are in change or copy mode, in add mode, it contains the default value. The default for the check entry is *YES.     \r\n                                                                        \r\n*NO     \r\nUse this value to indicate that the user option is not related to the particular entry.    \r\n\r\n*YES     \r\nUse this value to indicate that the user option is related to the particular entry.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*NO", "*YES" ]
           },
           "entityCode" : {
-            "$ref" : "#/components/schemas/entityCode"
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The entity code is used to identify the entity for which a user option can be used. Combinations can be made by adding the numbers.           \r\n                                                                       \r\n  *REQUEST    - Request                                                                          \r\n  *TASK           - Task                                                  \r\n  *SOLUTION  - Solution                                              \r\n  *OBJECT       - Object                                                \r\n                                                                       \r\n    Note:    \r\n    If the entity code is '03' then the user option is available for both Request and Task.                                         \r\n                                                                       \r\n*SAME                \r\nUse this value to indicate that the entity code does not change if you are in change or copy mode, in add mode it contains the default value. the default value for the entity code is *TASK.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*REQUEST", "*TASK", "*SOLUTION", "*OBJECT" ]
           },
           "whereToActivateIndicator" : {
-            "$ref" : "#/components/schemas/whereToActivateIndicator"
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specifies where this user has to be activated.     \r\n                                                                      \r\n*SAME                                                                 \r\nUse this value to indicate that the where to activate does not change if you are in change or copy mode, in add mode it contains the default value. the default value for the where to activate is *SERVER.      \r\n                                                                      \r\n*CLIENT      \r\n Runs the option in the TD/OMS GUI.                                \r\n                                                                      \r\n*SERVER     \r\nRuns the option on the Server which currently is the IBM i.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*CLIENT", "*SERVER" ]
           },
           "whereVisibleIndicator" : {
-            "$ref" : "#/components/schemas/whereVisibleIndicator"
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The Where Visible indicator is used to specify where the entry is visible.                                                 \r\n                                                                        \r\n*SAME                                                                   \r\nUse this value to indicate that the where visible does not change if you are in change or copy mode, in add mode it contains the default value. the default value for the where visible is *BOTH.          \r\n                                                                        \r\n*CLIENT                                                                 \r\nThe option is only visible on the client.                           \r\n                                                                        \r\n*SERVER                                                                 \r\nThe option is only visible on the server.                           \r\n                                                                        \r\n*BOTH       \r\nThe option is visible on both the client and the server.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*CLIENT", "*SERVER", "*BOTH" ]
           },
           "passParametersIndicator" : {
-            "$ref" : "#/components/schemas/passParametersIndicator"
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "This element specifies whether or not parameters are passed to the calling program. The possible values are:                               \r\n                                                                        \r\n*NO                                                             \r\nNo parameters are passed to the calling program.                    \r\n                                                                        \r\n*YES                                                            \r\nParameters are passed to the calling program.                       \r\n                                                                        \r\n*SAME                                                                   \r\nUse this value to indicate that the Pass parameters does not change if you are in change or copy mode, in add mode it contains the default value. the default value for the Pass parameters is *YES.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*NO", "*YES" ]
           },
           "programName" : {
-            "$ref" : "#/components/schemas/programName"
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Contains the name of the program that is called when the indicated user option is used. Please keep in mind that the program you are using may not adopt authority from the calling program. Otherwise, the program would adopt TD/OMS authority because all TD/OMS functions are owned by the user OMS (including the database).                                  \r\n                                                                        \r\nA correct user option program may not adopt authority. This can be achieved by using the CHGPGM command and use the USEADPAUT(*NO) keyword and value. It is possible to run under the profile of the owner of the program.                                                                \r\n                                                                        \r\nIf user option programs are called with parameters they will receive information about the entity used.  Information about the parameters can be retrieved by looking at source member OMUSROPTGE in your QUSRSRC source file.    \r\n\r\n*SAME             \r\nUse this value to indicate that the program name does not change if you are in change or copy mode, in add mode it contains the blank value.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
           },
           "programLibrary" : {
-            "$ref" : "#/components/schemas/programLibrary"
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Contains the name of the library where the user option program can be found.                                    \r\n                                                         \r\n*SAME                                                    \r\nUse this value to indicate that the program library does not change if you are in change or copy mode, in add mode it contains the blank value.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*LIBL" ]
           },
           "commandString" : {
-            "$ref" : "#/components/schemas/commandString"
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "Specify the command string.   \r\n\r\n*SAME                                                    \r\nUse this value to indicate that the command string does not change if you are in change or copy mode, in add mode it contains the blank value.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
           },
           "copyProcessingOptions" : {
             "$ref" : "#/components/schemas/copyProcessingOptions"
@@ -881,13 +934,23 @@
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
-            "$ref" : "#/components/schemas/interfaceLevel"
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V17R1M0.",
+            "default" : "V17R1M0",
+            "enum" : [ "V17R1M0" ]
           },
           "userOption3" : {
-            "$ref" : "#/components/schemas/userOption3"
+            "maxLength" : 2,
+            "type" : "string",
+            "description" : "Specify the user option."
           },
           "userIDOrUserClass" : {
-            "$ref" : "#/components/schemas/userIDOrUserClass"
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the user id or user class for the global or private user option.\r\nThe possible values are:      \r\n                                                                        \r\n*ALL       \r\nUse this value to define the global user option.                    \r\n                                                                        \r\nNote:   \r\nOnly the TD/OMS manager is allowed to define a global user option.                                                    \r\n                                                                        \r\n*CURRENT                                                                \r\n Use this value to define a private user option it will use your current user profile.",
+            "default" : "*ALL",
+            "enum" : [ null, "*ALL", "*CURRENT" ]
           },
           "deleteProcessingOptions" : {
             "$ref" : "#/components/schemas/deleteProcessingOptions"
@@ -895,14 +958,233 @@
         },
         "description" : "Request data to delete the user option definition."
       },
-      "deleteProcessingOptions" : {
+      "response" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
+          },
+          "message" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "responseData" : {
+            "$ref" : "#/components/schemas/responseData"
+          }
+        },
+        "description" : "This will return the response data."
+      },
+      "executeRequest" : {
+        "type" : "object",
+        "properties" : {
+          "userOption3" : {
+            "maxLength" : 2,
+            "type" : "string",
+            "description" : "Specify the user option."
+          },
+          "entityCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The entity code is used to identify the entity for which a user option can be used. Combinations can be made by adding the numbers.           \r\n                                                                       \r\n  *REQUEST    - Request                                                                          \r\n  *TASK           - Task                                                  \r\n  *SOLUTION  - Solution                                              \r\n  *OBJECT       - Object                                                \r\n                                                                       \r\n    Note:    \r\n    If the entity code is '03' then the user option is available for both Request and Task.",
+            "default" : "*TASK",
+            "enum" : [ "*REQUEST", "*TASK", "*SOLUTION", "*OBJECT" ]
+          },
+          "taskKey" : {
+            "$ref" : "#/components/schemas/taskKey"
+          },
+          "requestKey" : {
+            "$ref" : "#/components/schemas/requestKey"
+          },
+          "solutionKey" : {
+            "$ref" : "#/components/schemas/solutionKey"
+          },
+          "objectKey" : {
+            "$ref" : "#/components/schemas/objectKey"
+          },
+          "executeProcessingOption" : {
+            "$ref" : "#/components/schemas/executeProcessingOption"
+          }
+        },
+        "description" : "Request data to execute the user option."
+      },
+      "executeResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
+          },
+          "message" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          }
+        },
+        "description" : "Returns the response when user option is executed."
+      },
+      "addRequest" : {
+        "required" : [ "commandString", "programLibrary", "programName", "userOption3", "userOptionDescription" ],
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V17R1M0.",
+            "default" : "V17R1M0",
+            "enum" : [ "V17R1M0" ]
+          },
+          "userOption3" : {
+            "maxLength" : 2,
+            "type" : "string",
+            "description" : "Specify the user option."
+          },
+          "userIDOrUserClass" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the user id or user class for the global or private user option.\r\nThe possible values are:      \r\n                                                                        \r\n*ALL       \r\nUse this value to define the global user option.                    \r\n                                                                        \r\nNote:   \r\nOnly the TD/OMS manager is allowed to define a global user option.                                                    \r\n                                                                        \r\n*CURRENT                                                                \r\n Use this value to define a private user option it will use your current user profile.",
+            "default" : "*ALL",
+            "enum" : [ "*ALL", "*CURRENT" ]
+          },
+          "userOptionDescription" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "Specify the user option description.     \r\n                                                        \r\n*SAME     \r\nUse this value to indicate that the description does not change if you are in change or copy mode. It is not allowed in add mode.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "actionGroupCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The Action Group code can be used to group user options in logical groups. These groups will manifest themselves as submenu's in the GUI.   \r\n                                                                       \r\n*SAME            \r\nUse this value to indicate that the action group does not change if you are in change or copy mode, in add mode, it contains a blank value.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "authorisationCode2" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "This is the authorization level required to execute the user option. Authorization code '*DISABLED' indicates that the user option is disabled. The possible values are:                            \r\n                                                                       \r\n*SAME                      \r\nUse this value to indicate that the authorization code does not change if you are in change or copy mode, in add mode, it contains the default value. The default value for the authorization code is *ADMIN.                                                          \r\n                                                                       \r\n*USER                                                                  \r\nUse this value to indicate that the user option is enabled for the user.                                                              \r\n                                                                       \r\n*PGMR     \r\nUse this value to indicate that the user option is enabled for the programmer.    \r\n\r\n*ADMIN     \r\nUse this value to indicate that the user option is enabled for the admin.     \r\n                                                                      \r\n*DISABLED    \r\nUse this value to indicate that the user option is disabled.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*DISABLED", "*USER", "*PGMR", "*ADMIN" ]
+          },
+          "checkEntry" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "This field indicates if TD/OMS should check if the user is authorized for the selected entry. This field should be set to *NO if the user option is not related to a particular entry. The user option CW (Command line in a window) is an example of such an option. The possible values are:      \r\n                                                                        \r\n*SAME       \r\nUse this value to indicate that the check entry does not change if you are in change or copy mode, in add mode, it contains the default value. The default for the check entry is *YES.     \r\n                                                                        \r\n*NO     \r\nUse this value to indicate that the user option is not related to the particular entry.    \r\n\r\n*YES     \r\nUse this value to indicate that the user option is related to the particular entry.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*NO", "*YES" ]
+          },
+          "entityCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The entity code is used to identify the entity for which a user option can be used. Combinations can be made by adding the numbers.           \r\n                                                                       \r\n  *REQUEST    - Request                                                                          \r\n  *TASK           - Task                                                  \r\n  *SOLUTION  - Solution                                              \r\n  *OBJECT       - Object                                                \r\n                                                                       \r\n    Note:    \r\n    If the entity code is '03' then the user option is available for both Request and Task.                                         \r\n                                                                       \r\n*SAME                \r\nUse this value to indicate that the entity code does not change if you are in change or copy mode, in add mode it contains the default value. the default value for the entity code is *TASK.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*REQUEST", "*TASK", "*SOLUTION", "*OBJECT" ]
+          },
+          "whereToActivateIndicator" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specifies where this user has to be activated.     \r\n                                                                      \r\n*SAME                                                                 \r\nUse this value to indicate that the where to activate does not change if you are in change or copy mode, in add mode it contains the default value. the default value for the where to activate is *SERVER.      \r\n                                                                      \r\n*CLIENT      \r\n Runs the option in the TD/OMS GUI.                                \r\n                                                                      \r\n*SERVER     \r\nRuns the option on the Server which currently is the IBM i.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*CLIENT", "*SERVER" ]
+          },
+          "whereVisibleIndicator" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The Where Visible indicator is used to specify where the entry is visible.                                                 \r\n                                                                        \r\n*SAME                                                                   \r\nUse this value to indicate that the where visible does not change if you are in change or copy mode, in add mode it contains the default value. the default value for the where visible is *BOTH.          \r\n                                                                        \r\n*CLIENT                                                                 \r\nThe option is only visible on the client.                           \r\n                                                                        \r\n*SERVER                                                                 \r\nThe option is only visible on the server.                           \r\n                                                                        \r\n*BOTH       \r\nThe option is visible on both the client and the server.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*CLIENT", "*SERVER", "*BOTH" ]
+          },
+          "passParametersIndicator" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "This element specifies whether or not parameters are passed to the calling program. The possible values are:                               \r\n                                                                        \r\n*NO                                                             \r\nNo parameters are passed to the calling program.                    \r\n                                                                        \r\n*YES                                                            \r\nParameters are passed to the calling program.                       \r\n                                                                        \r\n*SAME                                                                   \r\nUse this value to indicate that the Pass parameters does not change if you are in change or copy mode, in add mode it contains the default value. the default value for the Pass parameters is *YES.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*NO", "*YES" ]
+          },
+          "programName" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Contains the name of the program that is called when the indicated user option is used. Please keep in mind that the program you are using may not adopt authority from the calling program. Otherwise, the program would adopt TD/OMS authority because all TD/OMS functions are owned by the user OMS (including the database).                                  \r\n                                                                        \r\nA correct user option program may not adopt authority. This can be achieved by using the CHGPGM command and use the USEADPAUT(*NO) keyword and value. It is possible to run under the profile of the owner of the program.                                                                \r\n                                                                        \r\nIf user option programs are called with parameters they will receive information about the entity used.  Information about the parameters can be retrieved by looking at source member OMUSROPTGE in your QUSRSRC source file.    \r\n\r\n*SAME             \r\nUse this value to indicate that the program name does not change if you are in change or copy mode, in add mode it contains the blank value.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "programLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Contains the name of the library where the user option program can be found.                                    \r\n                                                         \r\n*SAME                                                    \r\nUse this value to indicate that the program library does not change if you are in change or copy mode, in add mode it contains the blank value.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*LIBL" ]
+          },
+          "commandString" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "Specify the command string.   \r\n\r\n*SAME                                                    \r\nUse this value to indicate that the command string does not change if you are in change or copy mode, in add mode it contains the blank value.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "addProcessingOptions" : {
+            "$ref" : "#/components/schemas/addProcessingOptions"
+          }
+        },
+        "description" : "Request data to add the user option."
+      },
+      "changeProcessingOptions" : {
         "type" : "object",
         "properties" : {
           "updateDb" : {
-            "$ref" : "#/components/schemas/updateDb"
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
           },
           "updateBuffer" : {
-            "$ref" : "#/components/schemas/updateBuffer"
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "toUserIDOrUserClass" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the user id or user class for the global or private user option.\r\nThe possible values are:      \r\n                                                                        \r\n*SAME     \r\nUse this value to indicate that the user does not change if you are in change mode. In copy mode, the current user profile will be used.\r\n                                                                        \r\n*ALL      \r\nUse this value to define the global user option.                    \r\n                                                                        \r\n   Note:   \r\n   Only the TD/OMS manager is allowed to define a global user option.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*ALL" ]
+          },
+          "ignoreWarnings" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the ignore warnings indicator. The possible values are:    \r\n                                                                 \r\n*NO                                                              \r\nUse this value if you want to show warning messages.         \r\n                                                                 \r\n*YES                                                             \r\nUse this value if you do not want to show warning messages.",
+            "default" : "*NO",
+            "enum" : [ "*NO", "*YES" ]
+          }
+        },
+        "description" : "Various flags to control the behavior of the API."
+      },
+      "addProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "ignoreWarnings" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the ignore warnings indicator. The possible values are:  \r\n                                                                 \r\n*NO      \r\nUse this value if you want to show warning messages.         \r\n                                                                 \r\n*YES                                   \r\nUse this value if you do not want to show warning messages.",
+            "default" : "*NO",
+            "enum" : [ null, "*NO", "*YES" ]
           }
         },
         "description" : "Various flags to control the behavior of the API."
@@ -1015,168 +1297,42 @@
         "x-host" : "plato",
         "x-fieldSchemaNameType" : "Normalized"
       },
-      "response" : {
-        "type" : "object",
-        "properties" : {
-          "status" : {
-            "$ref" : "#/components/schemas/status"
-          },
-          "message" : {
-            "$ref" : "#/components/schemas/extendedMessage"
-          },
-          "responseData" : {
-            "$ref" : "#/components/schemas/responseData"
-          }
-        },
-        "description" : "This will return the response data."
-      },
-      "ignoreWarnings" : {
-        "maxLength" : 5,
-        "type" : "string",
-        "description" : "Specify the ignore warnings indicator. The possible values are:    \r\n                                                                 \r\n*NO                                                              \r\nUse this value if you want to show warning messages.         \r\n                                                                 \r\n*YES                                                             \r\nUse this value if you do not want to show warning messages.",
-        "default" : "*NO",
-        "enum" : [ "*NO", "*YES" ]
-      },
-      "updateDb" : {
-        "maxLength" : 1,
-        "type" : "string",
-        "description" : "Specify '1' to update the database or '0' to not update but check only.",
-        "default" : "1",
-        "enum" : [ "0", "1" ]
-      },
-      "updateBuffer" : {
-        "maxLength" : 1,
-        "type" : "string",
-        "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
-        "default" : "1",
-        "enum" : [ "0", "1" ]
-      },
-      "toUserIDOrUserClass" : {
-        "maxLength" : 10,
-        "type" : "string",
-        "description" : "Specify the user id or user class for the global or private user option.\r\nThe possible values are:      \r\n                                                                        \r\n*SAME     \r\nUse this value to indicate that the user does not change if you are in change mode. In copy mode, the current user profile will be used.\r\n                                                                        \r\n*ALL      \r\nUse this value to define the global user option.                    \r\n                                                                        \r\n   Note:   \r\n   Only the TD/OMS manager is allowed to define a global user option.",
-        "default" : "*SAME",
-        "enum" : [ "*SAME", "*ALL" ]
-      },
-      "interfaceLevel" : {
-        "maxLength" : 8,
-        "type" : "string",
-        "description" : "The interface level must be V17R1M0.",
-        "default" : "V17R1M0",
-        "enum" : [ "V17R1M0" ]
-      },
-      "addProcessingOptions" : {
+      "deleteProcessingOptions" : {
         "type" : "object",
         "properties" : {
           "updateDb" : {
-            "$ref" : "#/components/schemas/updateDb"
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
           },
           "updateBuffer" : {
-            "$ref" : "#/components/schemas/updateBuffer"
-          },
-          "ignoreWarnings" : {
-            "$ref" : "#/components/schemas/ignoreWarnings"
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
           }
         },
         "description" : "Various flags to control the behavior of the API."
-      },
-      "changeProcessingOptions" : {
-        "type" : "object",
-        "properties" : {
-          "updateDb" : {
-            "$ref" : "#/components/schemas/updateDb"
-          },
-          "updateBuffer" : {
-            "$ref" : "#/components/schemas/updateBuffer"
-          },
-          "toUserIdOrUserClass" : {
-            "$ref" : "#/components/schemas/toUserIDOrUserClass"
-          },
-          "ignoreWarnings" : {
-            "$ref" : "#/components/schemas/ignoreWarnings"
-          }
-        },
-        "description" : "Various flags to control the behavior of the API."
-      },
-      "userOptionDescription" : {
-        "maxLength" : 30,
-        "type" : "string",
-        "description" : "Specify the user option description.     \r\n                                                        \r\n*SAME     \r\nUse this value to indicate that the description does not change if you are in change or copy mode. It is not allowed in add mode.",
-        "default" : "*SAME",
-        "enum" : [ "*SAME" ]
-      },
-      "actionGroupCode" : {
-        "maxLength" : 10,
-        "type" : "string",
-        "description" : "The Action Group code can be used to group user options in logical groups. These groups will manifest themselves as submenu's in the GUI.   \r\n                                                                       \r\n*SAME            \r\nUse this value to indicate that the action group does not change if you are in change or copy mode, in add mode, it contains a blank value.",
-        "default" : "*SAME",
-        "enum" : [ "*SAME" ]
-      },
-      "authorisationCode2" : {
-        "maxLength" : 10,
-        "type" : "string",
-        "description" : "This is the authorization level required to execute the user option. Authorization code '*DISABLED' indicates that the user option is disabled. The possible values are:                            \r\n                                                                       \r\n*SAME                      \r\nUse this value to indicate that the authorization code does not change if you are in change or copy mode, in add mode, it contains the default value. The default value for the authorization code is *ADMIN.                                                          \r\n                                                                       \r\n*USER                                                                  \r\nUse this value to indicate that the user option is enabled for the user.                                                              \r\n                                                                       \r\n*PGMR     \r\nUse this value to indicate that the user option is enabled for the programmer.    \r\n\r\n*ADMIN     \r\nUse this value to indicate that the user option is enabled for the admin.     \r\n                                                                      \r\n*DISABLED    \r\nUse this value to indicate that the user option is disabled.",
-        "default" : "*SAME",
-        "enum" : [ "*SAME", "*DISABLED", "*USER", "*PGMR", "*ADMIN" ]
-      },
-      "checkEntry" : {
-        "maxLength" : 5,
-        "type" : "string",
-        "description" : "This field indicates if TD/OMS should check if the user is authorized for the selected entry. This field should be set to *NO if the user option is not related to a particular entry. The user option CW (Command line in a window) is an example of such an option. The possible values are:      \r\n                                                                        \r\n*SAME       \r\nUse this value to indicate that the check entry does not change if you are in change or copy mode, in add mode, it contains the default value. The default for the check entry is *YES.     \r\n                                                                        \r\n*NO     \r\nUse this value to indicate that the user option is not related to the particular entry.    \r\n\r\n*YES     \r\nUse this value to indicate that the user option is related to the particular entry.",
-        "format" : "",
-        "default" : "*SAME",
-        "enum" : [ "*SAME", "*NO", "*YES" ]
-      },
-      "entityCode" : {
-        "maxLength" : 10,
-        "type" : "string",
-        "description" : "The entity code is used to identify the entity for which a user option can be used. Combinations can be made by adding the numbers.           \r\n                                                                       \r\n  *REQUEST    - Request                                                                          \r\n  *TASK           - Task                                                  \r\n  *SOLUTION  - Solution                                              \r\n  *OBJECT       - Object                                                \r\n                                                                       \r\n    Note:    \r\n    If the entity code is '03' then the user option is available for both Request and Task.                                         \r\n                                                                       \r\n*SAME                \r\nUse this value to indicate that the entity code does not change if you are in change or copy mode, in add mode it contains the default value. the default value for the entity code is *TASK.",
-        "default" : "*SAME",
-        "enum" : [ "*SAME", "*REQUEST", "*TASK", "*SOLUTION", "*OBJECT" ]
-      },
-      "whereToActivateIndicator" : {
-        "maxLength" : 10,
-        "type" : "string",
-        "description" : "Specifies where this user has to be activated.     \r\n                                                                      \r\n*SAME                                                                 \r\nUse this value to indicate that the where to activate does not change if you are in change or copy mode, in add mode it contains the default value. the default value for the where to activate is *SERVER.      \r\n                                                                      \r\n*CLIENT      \r\n Runs the option in the TD/OMS GUI.                                \r\n                                                                      \r\n*SERVER     \r\nRuns the option on the Server which currently is the IBM i.",
-        "default" : "*SAME",
-        "enum" : [ "*SAME", "*CLIENT", "*SERVER" ]
-      },
-      "passParametersIndicator" : {
-        "maxLength" : 5,
-        "type" : "string",
-        "description" : "This element specifies whether or not parameters are passed to the calling program. The possible values are:                               \r\n                                                                        \r\n*NO                                                             \r\nNo parameters are passed to the calling program.                    \r\n                                                                        \r\n*YES                                                            \r\nParameters are passed to the calling program.                       \r\n                                                                        \r\n*SAME                                                                   \r\nUse this value to indicate that the Pass parameters does not change if you are in change or copy mode, in add mode it contains the default value. the default value for the Pass parameters is *YES.",
-        "default" : "*SAME",
-        "enum" : [ "*SAME", "*NO", "*YES" ]
-      },
-      "programName" : {
-        "maxLength" : 10,
-        "type" : "string",
-        "description" : "Contains the name of the program that is called when the indicated user option is used. Please keep in mind that the program you are using may not adopt authority from the calling program. Otherwise, the program would adopt TD/OMS authority because all TD/OMS functions are owned by the user OMS (including the database).                                  \r\n                                                                        \r\nA correct user option program may not adopt authority. This can be achieved by using the CHGPGM command and use the USEADPAUT(*NO) keyword and value. It is possible to run under the profile of the owner of the program.                                                                \r\n                                                                        \r\nIf user option programs are called with parameters they will receive information about the entity used.  Information about the parameters can be retrieved by looking at source member OMUSROPTGE in your QUSRSRC source file.    \r\n\r\n*SAME             \r\nUse this value to indicate that the program name does not change if you are in change or copy mode, in add mode it contains the blank value.",
-        "default" : "*SAME",
-        "enum" : [ "*SAME" ]
-      },
-      "programLibrary" : {
-        "maxLength" : 10,
-        "type" : "string",
-        "description" : "Contains the name of the library where the user option program can be found.                                    \r\n                                                         \r\n*SAME                                                    \r\nUse this value to indicate that the program library does not change if you are in change or copy mode, in add mode it contains the blank value.",
-        "default" : "*SAME",
-        "enum" : [ "*SAME", "*LIBL" ]
-      },
-      "commandString" : {
-        "maxLength" : 1024,
-        "type" : "string",
-        "description" : "Specify the command string.   \r\n\r\n*SAME                                                    \r\nUse this value to indicate that the command string does not change if you are in change or copy mode, in add mode it contains the blank value.",
-        "default" : "*SAME",
-        "enum" : [ "*SAME" ]
       },
       "copyProcessingOptions" : {
         "type" : "object",
         "properties" : {
           "updateDb" : {
-            "$ref" : "#/components/schemas/updateDb"
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
           },
           "updateBuffer" : {
-            "$ref" : "#/components/schemas/updateBuffer"
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
           },
           "toUserOption" : {
             "maxLength" : 2,
@@ -1184,109 +1340,34 @@
             "description" : "Specify the to user option."
           },
           "toUserIDOrUserClass" : {
-            "$ref" : "#/components/schemas/toUserIDOrUserClass"
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the user id or user class for the global or private user option.\r\nThe possible values are:      \r\n                                                                        \r\n*SAME     \r\nUse this value to indicate that the user does not change if you are in change mode. In copy mode, the current user profile will be used.\r\n                                                                        \r\n*ALL      \r\nUse this value to define the global user option.                    \r\n                                                                        \r\n   Note:   \r\n   Only the TD/OMS manager is allowed to define a global user option.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME", "*ALL" ]
           },
           "ignoreWarnings" : {
-            "$ref" : "#/components/schemas/ignoreWarnings"
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the ignore warnings indicator. The possible values are:    \r\n                                                                 \r\n*NO                                                              \r\nUse this value if you want to show warning messages.         \r\n                                                                 \r\n*YES                                                             \r\nUse this value if you do not want to show warning messages.",
+            "default" : "*NO",
+            "enum" : [ "*NO", "*YES" ]
           }
         },
         "description" : "Various flags to control the behavior of the API."
-      },
-      "userOption3" : {
-        "maxLength" : 2,
-        "type" : "string",
-        "description" : "Specify the user option."
-      },
-      "userIDOrUserClass" : {
-        "maxLength" : 10,
-        "type" : "string",
-        "description" : "Specify the user id or user class for the global or private user option.\r\nThe possible values are:      \r\n                                                                        \r\n*ALL       \r\nUse this value to define the global user option.                    \r\n                                                                        \r\nNote:   \r\nOnly the TD/OMS manager is allowed to define a global user option.                                                    \r\n                                                                        \r\n*CURRENT                                                                \r\n Use this value to define a private user option it will use your current user profile.",
-        "default" : "*ALL",
-        "enum" : [ "*ALL", "*CURRENT" ]
-      },
-      "whereVisibleIndicator" : {
-        "maxLength" : 10,
-        "type" : "string",
-        "description" : "The Where Visible indicator is used to specify where the entry is visible.                                                 \r\n                                                                        \r\n*SAME                                                                   \r\nUse this value to indicate that the where visible does not change if you are in change or copy mode, in add mode it contains the default value. the default value for the where visible is *BOTH.          \r\n                                                                        \r\n*CLIENT                                                                 \r\nThe option is only visible on the client.                           \r\n                                                                        \r\n*SERVER                                                                 \r\nThe option is only visible on the server.                           \r\n                                                                        \r\n*BOTH       \r\nThe option is visible on both the client and the server.",
-        "default" : "*SAME",
-        "enum" : [ "*SAME", "*CLIENT", "*SERVER", "*BOTH" ]
-      },
-      "executeRequest" : {
-        "type" : "object",
-        "properties" : {
-          "userOption3" : {
-            "$ref" : "#/components/schemas/userOption3"
-          },
-          "entityCode" : {
-            "maxLength" : 10,
-            "type" : "string",
-            "description" : "The entity code is used to identify the entity for which a user option can be used. Combinations can be made by adding the numbers.           \r\n                                                                       \r\n  *REQUEST    - Request                                                                          \r\n  *TASK           - Task                                                  \r\n  *SOLUTION  - Solution                                              \r\n  *OBJECT       - Object                                                \r\n                                                                       \r\n    Note:    \r\n    If the entity code is '03' then the user option is available for both Request and Task.",
-            "default" : "*TASK",
-            "enum" : [ "*REQUEST", "*TASK", "*SOLUTION", "*OBJECT" ]
-          },
-          "taskKey" : {
-            "$ref" : "#/components/schemas/taskKey"
-          },
-          "requestKey" : {
-            "$ref" : "#/components/schemas/requestKey"
-          },
-          "solutionKey" : {
-            "$ref" : "#/components/schemas/solutionKey"
-          },
-          "objectKey" : {
-            "$ref" : "#/components/schemas/objectKey"
-          },
-          "executeProcessingOption" : {
-            "$ref" : "#/components/schemas/executeProcessingOption"
-          }
-        },
-        "description" : "Request data to execute the user option."
-      },
-      "executeResponse" : {
-        "type" : "object",
-        "properties" : {
-          "status" : {
-            "$ref" : "#/components/schemas/status"
-          },
-          "message" : {
-            "$ref" : "#/components/schemas/extendedMessage"
-          }
-        },
-        "description" : "Returns the response when user option is executed."
-      },
-      "applicationCode" : {
-        "maxLength" : 5,
-        "type" : "string",
-        "description" : "Specify the application code."
-      },
-      "taskNumber" : {
-        "maxLength" : 10,
-        "type" : "string",
-        "description" : "Specify the task number."
-      },
-      "objectCode" : {
-        "maxLength" : 12,
-        "type" : "string",
-        "description" : "Specify the object code."
-      },
-      "memberCode" : {
-        "maxLength" : 10,
-        "type" : "string",
-        "description" : "Specify the member code."
-      },
-      "objectType" : {
-        "maxLength" : 9,
-        "type" : "string",
-        "description" : "Specify the object type."
       },
       "taskKey" : {
         "type" : "object",
         "properties" : {
           "applicationCode" : {
-            "$ref" : "#/components/schemas/applicationCode"
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code."
           },
           "taskNumber" : {
-            "$ref" : "#/components/schemas/taskNumber"
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the task number."
           },
           "relatedReqApplication" : {
             "maxLength" : 5,
@@ -1299,13 +1380,15 @@
             "description" : "Specify the related request number."
           }
         },
-        "description" : "The task information to execute the user option at the task lavel.   \r\n\r\nNote:     \r\nIf you specify the task key information, the request key, solution key, and object key information will be ignored because the user option will be executed at the task level.\r\n \r\n\r\n"
+        "description" : "The task information to execute the user option at the task level.   \r\n\r\nNote:     \r\nIf you specify the task key information, the request key, solution key, and object key information will be ignored because the user option will be executed at the task level.\r\n \r\n\r\n"
       },
       "requestKey" : {
         "type" : "object",
         "properties" : {
           "applicationCode" : {
-            "$ref" : "#/components/schemas/applicationCode"
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code."
           },
           "requestNumber" : {
             "maxLength" : 10,
@@ -1313,25 +1396,35 @@
             "description" : "Specify the request number."
           }
         },
-        "description" : "The request information to execute the user option at the request lavel.  \r\n\r\nNote:     \r\nIf you specify the request key information, the task key, solution key, and object key information will be ignored because the user option will be executed at the request level."
+        "description" : "The request information to execute the user option at the request level.  \r\n\r\nNote:     \r\nIf you specify the request key information, the task key, solution key, and object key information will be ignored because the user option will be executed at the request level."
       },
       "solutionKey" : {
         "type" : "object",
         "properties" : {
           "applicationCode" : {
-            "$ref" : "#/components/schemas/applicationCode"
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code."
           },
           "taskNumber" : {
-            "$ref" : "#/components/schemas/taskNumber"
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the task number."
           },
           "objectCode" : {
-            "$ref" : "#/components/schemas/objectCode"
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Specify the object code."
           },
           "objectType" : {
-            "$ref" : "#/components/schemas/objectType"
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Specify the object type."
           },
           "memberCode" : {
-            "$ref" : "#/components/schemas/memberCode"
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the member code."
           },
           "routeCode" : {
             "maxLength" : 10,
@@ -1344,13 +1437,15 @@
             "description" : "Specify the path extension code."
           }
         },
-        "description" : "The solution information to execute the user option at the solution lavel.   \r\n\r\nNote:     \r\nIf you specify the solution key information, the request key, task key, and object key information will be ignored because the user option will be executed at the solution level."
+        "description" : "The solution information to execute the user option at the solution level.   \r\n\r\nNote:     \r\nIf you specify the solution key information, the request key, task key, and object key information will be ignored because the user option will be executed at the solution level."
       },
       "objectKey" : {
         "type" : "object",
         "properties" : {
           "objectCode" : {
-            "$ref" : "#/components/schemas/objectCode"
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Specify the object code."
           },
           "objectLibrary" : {
             "maxLength" : 10,
@@ -1358,13 +1453,17 @@
             "description" : "Specify the object library."
           },
           "objectType" : {
-            "$ref" : "#/components/schemas/objectType"
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Specify the object type."
           },
           "memberCode" : {
-            "$ref" : "#/components/schemas/memberCode"
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the member code."
           }
         },
-        "description" : "The object information to execute the user option at the object lavel.  \r\n\r\nNote:     \r\nIf you specify the object key information, the task key, request key, and solution key information will be ignored because the user option will be executed at the object level."
+        "description" : "The object information to execute the user option at the object level.  \r\n\r\nNote:     \r\nIf you specify the object key information, the task key, request key, and solution key information will be ignored because the user option will be executed at the object level."
       },
       "executeProcessingOption" : {
         "type" : "object",
@@ -1381,7 +1480,6 @@
       }
     },
     "responses" : { },
-    "parameters" : { },
     "examples" : {
       "response400" : {
         "summary" : "Something went wrong.",
@@ -1422,7 +1520,7 @@
           }
         }
       },
-      "executeTaskLavel" : {
+      "executeTaskLevel" : {
         "summary" : "How to specify the execute request input parameters value at the task level.",
         "value" : {
           "userOption3" : "xx",
@@ -1472,7 +1570,6 @@
         }
       }
     },
-    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
