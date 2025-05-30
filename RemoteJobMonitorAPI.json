@@ -1,0 +1,795 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Remote Job Monitor API",
+    "description" : "The Remote Job Monitor REST API enables you to  perform all allowed actions on the remote job monitor. You can use this command to close  and reopen the transfer.                                                     ",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License ",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator/generator",
+      "object" : "OMQRRJ",
+      "library" : "V17T0283",
+      "srclibrary" : "V17T0283S",
+      "file" : "RemoteJobMonitorAPI.json"
+    }
+  },
+  "servers" : [ {
+    "url" : "{protocol}://{host}:{port}/{library}/OMQRRJ",
+    "description" : "A dynamic https/http host.",
+    "variables" : {
+      "host" : {
+        "description" : "The host serving the API.",
+        "default" : "plato.remainsoftware.com"
+      },
+      "library" : {
+        "description" : "The TD/OMS library.",
+        "default" : "OMS"
+      },
+      "protocol" : {
+        "description" : "Protocol",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
+      },
+      "port" : {
+        "description" : "The port to which the server is listening.",
+        "default" : "45011"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/close" : {
+      "summary" : "Use this path to close the transfer. When closed, the associated managed deployment will also be closed automatically.",
+      "description" : "Use this path to close the transfer. When closed, the associated managed deployment will also be closed automatically.",
+      "post" : {
+        "summary" : "Use this operation to close the transfer. When closed, the associated managed deployment will also be closed automatically.",
+        "description" : "Use this operation to close the transfer. When closed, the associated managed deployment will also be closed automatically.",
+        "operationId" : "close",
+        "requestBody" : {
+          "description" : "Use this input to close the transfer.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/closeRemoteJobRequest"
+              },
+              "examples" : {
+                "closeTransfer" : {
+                  "summary" : "How to specify the request input parameter value to close the transfer.",
+                  "value" : {
+                    "interfaceLevel" : "V17R1M0",
+                    "applicationCode" : "XMP",
+                    "transferCode" : "OR050639",
+                    "userAddressDistribution" : "SPINOZA",
+                    "reasonCode2" : "*DFT",
+                    "remoteJobProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1"
+                    }
+                  }
+                },
+                "closeTransferForAllAddresses" : {
+                  "summary" : "How to specify the request input parameter value to close the transfer for all addresses.",
+                  "value" : {
+                    "interfaceLevel" : "V17R1M0",
+                    "applicationCode" : "XMP",
+                    "transferCode" : "OR050639",
+                    "userAddressDistribution" : "*ALL",
+                    "reasonCode2" : "*DFT",
+                    "remoteJobProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/remoteJobResponse"
+                },
+                "examples" : {
+                  "closeResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQD632",
+                        "messageType" : "N",
+                        "messageData" : "*CLOSE    KRISHOR004366SPINOZA",
+                        "field" : "",
+                        "messageText" : "Action *CLOSE for remote job monitor completed normally. &N Cause . . . . . :   Your request for action *CLOSE for remote job monitor with application code XMP, transfer code OR050639 and address SPINOZA completed normally. &N Recovery  . . . :   None needed, this message is informational."
+                      },
+                      "remoteJobMonitorData" : [ {
+                        "applicationCode" : "XMP",
+                        "transferCode" : "OR050639",
+                        "userAddressDistribution" : "SPINOZA",
+                        "dateSent" : 1250526,
+                        "timeSent" : 51856,
+                        "dateJobReceived" : 0,
+                        "timeJobReceived" : 0,
+                        "dateProcessingStarted" : 0,
+                        "timeProcessingStarted" : 0,
+                        "dateProcessingEnded" : 1250530,
+                        "timeProcessingEnded" : 103746,
+                        "statusField" : "*TERM",
+                        "reasonCode2" : "CPM",
+                        "userIdOrUserClass" : "ALICE"
+                      } ],
+                      "managedDeploymentData" : [ {
+                        "applicationCode" : "XMP",
+                        "transferCode" : "OM050639",
+                        "userAddressDistribution" : "SPINOZA",
+                        "mediumIndicator" : "1",
+                        "incomeDate" : 1250526,
+                        "incomeTime" : 51856,
+                        "scheduleDate" : 0,
+                        "scheduleTime" : 0,
+                        "realizedCompletionDate" : 1250530,
+                        "realizedCompletionTime" : 103746,
+                        "tableValueCharacter" : "CPM",
+                        "userWhoGaveConfirmation" : "ALICE",
+                        "status" : "*TERM"
+                      } ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/remoteJobErrorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "suffix" : "01",
+          "generate" : "true"
+        }
+      }
+    },
+    "/reopen" : {
+      "summary" : "Use this path to reopen the transfer. When reopened, the associated managed deployment will also be reopened automatically.",
+      "description" : "Use this path to reopen the transfer. When reopened, the associated managed deployment will also be reopened automatically. This action is only valid for Managed Deployment.\r\n\r\nNote:    \r\nThe managed deployment is maintained using the Managed Deployment Maintenance (STRMDM) function.",
+      "post" : {
+        "summary" : "Use this operation to reopen the transfer. When reopened, the associated managed deployment will also be reopened automatically.",
+        "description" : "Use this operation to reopen the transfer. When reopened, the associated managed deployment will also be reopened automatically. This action is only valid for Managed Deployment.\r\n\r\nNote:    \r\nThe managed deployment is maintained using the Managed Deployment Maintenance (STRMDM) function.",
+        "operationId" : "reopen",
+        "requestBody" : {
+          "description" : "Use this input to reopen the transfer.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/reopenRemoteJobRequest"
+              },
+              "examples" : {
+                "reopenTransfer" : {
+                  "summary" : "How to specify the request input parameter value to reopen the transfer.",
+                  "value" : {
+                    "interfaceLevel" : "V17R1M0",
+                    "applicationCode" : "XMP",
+                    "transferCode" : "OR050639",
+                    "userAddressDistribution" : "SPINOZA",
+                    "status" : "*HOLD",
+                    "remoteJobProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1"
+                    }
+                  }
+                },
+                "reopenTransferForAllAddresses" : {
+                  "summary" : "How to specify the request input parameter value to reopen the transfer for all addresses.",
+                  "value" : {
+                    "interfaceLevel" : "V17R1M0",
+                    "applicationCode" : "XMP",
+                    "transferCode" : "OR050639",
+                    "userAddressDistribution" : "*ALL",
+                    "status" : "*HOLD",
+                    "remoteJobProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/remoteJobResponse"
+                },
+                "examples" : {
+                  "reopenResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQD632",
+                        "messageType" : "N",
+                        "messageData" : "*REOPEN   KRISHOR004366SPINOZA",
+                        "field" : "",
+                        "messageText" : "Action *REOPEN for remote job monitor completed normally. &N Cause . . . . . :   Your request for action *REOPEN for remote job monitor with application code XMP, transfer code OR050639 and address SPINOZA completed normally. &N Recovery  . . . :   None needed, this message is informational."
+                      },
+                      "remoteJobMonitorData" : [ {
+                        "applicationCode" : "XMP",
+                        "transferCode" : "OR050639",
+                        "userAddressDistribution" : "SPINOZA",
+                        "dateSent" : 1250526,
+                        "timeSent" : 51856,
+                        "dateJobReceived" : 0,
+                        "timeJobReceived" : 0,
+                        "dateProcessingStarted" : 0,
+                        "timeProcessingStarted" : 0,
+                        "dateProcessingEnded" : 0,
+                        "timeProcessingEnded" : 0,
+                        "statusField" : "",
+                        "reasonCode2" : "",
+                        "userIdOrUserClass" : ""
+                      } ],
+                      "managedDeploymentData" : [ {
+                        "applicationCode" : "XMP",
+                        "transferCode" : "OM050639",
+                        "userAddressDistribution" : "SPINOZA",
+                        "mediumIndicator" : "1",
+                        "incomeDate" : 1250526,
+                        "incomeTime" : 51856,
+                        "scheduleDate" : 0,
+                        "scheduleTime" : 0,
+                        "realizedCompletionDate" : 0,
+                        "realizedCompletionTime" : 0,
+                        "tableValueCharacter" : "",
+                        "userWhoGaveConfirmation" : "",
+                        "status" : "*HOLD"
+                      } ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/remoteJobErrorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "02",
+          "generate" : true
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "closeRemoteJobRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V17R1M0.",
+            "default" : "V17R1M0",
+            "enum" : [ "V17R1M0" ]
+          },
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code."
+          },
+          "transferCode" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Specify the transfer code."
+          },
+          "userAddressDistribution" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Specify the address. The possible values are:   \r\n\r\n*ALL     \r\nUse this value to select all the addresses for the specified transfer.       \r\n\r\naddress      \r\nSpecify the address.                           ",
+            "default" : "*ALL",
+            "enum" : [ "*ALL" ]
+          },
+          "reasonCode2" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify a reason code from the reason code table. It indicates the reason why the transfer was closed.     \r\n\r\n*DFT     \r\nUse this value to indicate that the default reason code is to be used to close the transfer. The default reason code is user defined.      \r\n\r\nreason-code    \r\nSpecify the reason code.    \r\n\r\n  Note:  \r\n  The reason code is maintained using the table maintenance (STRTM) function.           ",
+            "default" : "*DFT",
+            "enum" : [ "*DFT" ]
+          },
+          "remoteJobProcessingOptions" : {
+            "$ref" : "#/components/schemas/remoteJobProcessingOptions"
+          }
+        },
+        "description" : "Use this input to close the transfer. When closed, the associated managed deployment will also be closed automatically."
+      },
+      "remoteJobResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
+          },
+          "message" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "remoteJobMonitorData" : {
+            "maxItems" : 100,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/remoteJobMonitorData"
+            }
+          },
+          "managedDeploymentData" : {
+            "maxItems" : 100,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/managedDeploymentData"
+            }
+          }
+        },
+        "description" : "The response data for remote job monitor REST API."
+      },
+      "reopenRemoteJobRequest" : {
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V17R1M0.",
+            "default" : "V17R1M0",
+            "enum" : [ "V17R1M0" ]
+          },
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code."
+          },
+          "transferCode" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Specify the transfer code."
+          },
+          "userAddressDistribution" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Specify the address. The possible values are:   \r\n\r\n*ALL     \r\nUse this value to select all the addresses for the specified transfer.       \r\n\r\naddress      \r\nSpecify the address.                           ",
+            "default" : "*ALL",
+            "enum" : [ "*ALL" ]
+          },
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the status. The possible values are:   \r\n\r\n*HOLD     \r\nUse this value to hold the transfer. You can view its current stage in the Managed Deployment Maintenance screen (STRMDM).  \r\n\r\n*RDY      \r\nUse this value to release the transfer. You can view its current stage in the Managed Deployment Maintenance screen (STRMDM).",
+            "default" : "*HOLD",
+            "enum" : [ "*HOLD", "*RDY" ]
+          },
+          "remoteJobProcessingOptions" : {
+            "$ref" : "#/components/schemas/remoteJobProcessingOptions"
+          }
+        },
+        "description" : "Use this input to reopen the transfer. When reopened, the associated managed deployment will also be reopened automatically."
+      },
+      "remoteJobMonitorData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "JMAPPC",
+            "x-sequence" : "10"
+          },
+          "transferCode" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Transfer code",
+            "x-column" : "JMTFRC",
+            "x-sequence" : "20"
+          },
+          "userAddressDistribution" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "User address, distribution",
+            "x-column" : "JMADDR",
+            "x-sequence" : "30"
+          },
+          "dateSent" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Date sent",
+            "format" : "zoned(7:0)",
+            "x-column" : "JMSNDT",
+            "x-sequence" : "40"
+          },
+          "timeSent" : {
+            "maxLength" : 6,
+            "type" : "number",
+            "description" : "Time sent",
+            "format" : "zoned(6:0)",
+            "x-column" : "JMSNTM",
+            "x-sequence" : "50"
+          },
+          "dateJobReceived" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Date job received",
+            "format" : "zoned(7:0)",
+            "x-column" : "JMJRDT",
+            "x-sequence" : "60"
+          },
+          "timeJobReceived" : {
+            "maxLength" : 6,
+            "type" : "number",
+            "description" : "Time job received",
+            "format" : "zoned(6:0)",
+            "x-column" : "JMJRTM",
+            "x-sequence" : "70"
+          },
+          "dateProcessingStarted" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Date processing started",
+            "format" : "zoned(7:0)",
+            "x-column" : "JMSPDT",
+            "x-sequence" : "80"
+          },
+          "timeProcessingStarted" : {
+            "maxLength" : 6,
+            "type" : "number",
+            "description" : "Time processing started",
+            "format" : "zoned(6:0)",
+            "x-column" : "JMSPTM",
+            "x-sequence" : "90"
+          },
+          "dateProcessingEnded" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Date processing ended",
+            "format" : "zoned(7:0)",
+            "x-column" : "JMEPDT",
+            "x-sequence" : "100"
+          },
+          "timeProcessingEnded" : {
+            "maxLength" : 6,
+            "type" : "number",
+            "description" : "Time processing ended",
+            "format" : "zoned(6:0)",
+            "x-column" : "JMEPTM",
+            "x-sequence" : "110"
+          },
+          "statusField" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Status",
+            "x-column" : "JMSTAT",
+            "x-sequence" : "120"
+          },
+          "reasonCode2" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Reason code",
+            "x-column" : "JMVALC",
+            "x-sequence" : "130"
+          },
+          "userIdOrUserClass" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "User i.d., or user class",
+            "x-column" : "JMUSID",
+            "x-sequence" : "140"
+          }
+        },
+        "description" : "Remote job monitor response data.",
+        "x-pfname" : "OMRJM",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "managedDeploymentData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "DHAPPC",
+            "x-sequence" : "10"
+          },
+          "transferCode" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Transfer code",
+            "x-column" : "DHTFRC",
+            "x-sequence" : "20"
+          },
+          "userAddressDistribution" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "User address, distribution",
+            "x-column" : "DHADDR",
+            "x-sequence" : "30"
+          },
+          "mediumIndicator" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Medium Indicator",
+            "x-column" : "DHMEDI",
+            "x-sequence" : "40"
+          },
+          "incomeDate" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Income date",
+            "format" : "zoned(7:0)",
+            "x-column" : "DHINDT",
+            "x-sequence" : "50"
+          },
+          "incomeTime" : {
+            "maxLength" : 6,
+            "type" : "number",
+            "description" : "Income time",
+            "format" : "zoned(6:0)",
+            "x-column" : "DHINTM",
+            "x-sequence" : "60"
+          },
+          "scheduleDate" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Schedule Date",
+            "format" : "zoned(7:0)",
+            "x-column" : "DHSCDT",
+            "x-sequence" : "70"
+          },
+          "scheduleTime" : {
+            "maxLength" : 6,
+            "type" : "number",
+            "description" : "Schedule Time",
+            "format" : "zoned(6:0)",
+            "x-column" : "DHSCTM",
+            "x-sequence" : "80"
+          },
+          "realizedCompletionDate" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Realized completion date",
+            "format" : "zoned(7:0)",
+            "x-column" : "DHRCDT",
+            "x-sequence" : "90"
+          },
+          "realizedCompletionTime" : {
+            "maxLength" : 6,
+            "type" : "number",
+            "description" : "Realized completion time",
+            "format" : "zoned(6:0)",
+            "x-column" : "DHRCTM",
+            "x-sequence" : "100"
+          },
+          "tableValueCharacter" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Table value character",
+            "x-column" : "DHVALC",
+            "x-sequence" : "110"
+          },
+          "userWhoGaveConfirmation" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "User who gave Confirmation",
+            "x-column" : "DHCMUS",
+            "x-sequence" : "120"
+          },
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Status",
+            "x-column" : "DHSTAT",
+            "x-sequence" : "130"
+          }
+        },
+        "description" : "Managed deployment response data.",
+        "x-pfname" : "OMMDH",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "extendedMessage" : {
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The message file."
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "The message Idetifier."
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The message type 'E' indicates an error message,  while 'N' indicates a normal message with no error."
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "The message substitution data."
+          },
+          "field" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "The field in error."
+          },
+          "messageText" : {
+            "maxLength" : 644,
+            "type" : "string",
+            "description" : "The human readable message text."
+          }
+        },
+        "description" : "The return messages information."
+      },
+      "remoteJobErrorResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
+          },
+          "messages" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/extendedMessage"
+            }
+          }
+        },
+        "description" : "This will return the error information."
+      },
+      "remoteJobProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Various flags to control the behavior of the API."
+      }
+    },
+    "responses" : { },
+    "parameters" : { },
+    "examples" : {
+      "response401" : {
+        "summary" : "Not authorized.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQF201",
+          "messageType" : "E",
+          "messageData" : "",
+          "field" : "",
+          "messageText" : "Unauthorized or expired token. Please login again."
+        }
+      },
+      "response400" : {
+        "summary" : "Something went wrong.",
+        "value" : {
+          "status" : "*TERM",
+          "messages" : [ {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQ5112",
+            "messageType" : "E",
+            "messageData" : "application code                INVLD",
+            "field" : "applicationCode",
+            "messageText" : "The application code INVLD does not exist. &N Cause . . . . . :   You have specified the application code INVLD that does not exist. &N Recovery  . . . :   Specify the existing application code and try your request again."
+          } ]
+        }
+      }
+    },
+    "requestBodies" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "The HTTP API Token.",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
