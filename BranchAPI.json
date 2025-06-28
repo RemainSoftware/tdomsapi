@@ -16,7 +16,7 @@
     "version" : "0.0.1",
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
-      "object" : "@OMQRBR",
+      "object" : "OMQRBR",
       "library" : "V16T0011",
       "srclibrary" : "V16T0011S",
       "file" : "BranchAPI.json"
@@ -70,7 +70,8 @@
                     "applicationCode" : "XMP",
                     "pathCode" : "XT0275",
                     "connectToFix" : "*BRANCH",
-                    "transferPathDescription" : "Branch for task XT0275."
+                    "transferPathDescription" : "Branch for task XT0275.",
+                    "forceInd" : "0"
                   }
                 }
               }
@@ -489,6 +490,13 @@
             "maxLength" : 50,
             "type" : "string",
             "description" : "The description contains a short description of the branch. A blank value is not allowed.                \r\n\r\n*SAME                                                     \r\n    Use this value to indicate that the description does not change. \r\n\r\ndescription                    \r\n    Enter a branch description."
+          },
+          "forceInd" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "If the task is already connected to another branch then you cannot continue unless the force parameter is set to *YES.       \r\n\r\n*NO \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n    The branch can only be assigned to the task when the  task is not already assigned to another branch.                  \r\n                                                                     \r\n*YES                                                                 \r\n    The branch will forcefully be assigned to the task, even if the task is already  ",
+            "default" : "0",
+            "enum" : [ "0", "1" ]
           }
         },
         "description" : "A branch is created using this input schema."
