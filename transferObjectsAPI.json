@@ -1205,7 +1205,7 @@
       "selectRequestForActionMove" : {
         "summary" : "How to specify the select request input parameters for action Move.",
         "value" : {
-          "action" : "COPY",
+          "action" : "MOVE",
           "taskNumber" : "XT0497",
           "application" : "XMP",
           "fromEnvironment" : ""
