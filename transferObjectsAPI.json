@@ -35,8 +35,8 @@
       },
       "protocol" : {
         "description" : "Protocol",
-        "enum" : [ "https", "http" ],
-        "default" : "https"
+        "default" : "https",
+        "enum" : [ "https", "http" ]
       },
       "port" : {
         "description" : "The port to which the server is listening",
@@ -1187,7 +1187,7 @@
       "selectRequestForActionTransfer" : {
         "summary" : "How to specify the select request input parameters for action Transfer.",
         "value" : {
-          "action" : "COPY",
+          "action" : "TRANSFER",
           "taskNumber" : "XT0497",
           "application" : "XMP",
           "fromEnvironment" : ""
