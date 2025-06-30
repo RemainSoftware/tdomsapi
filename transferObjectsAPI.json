@@ -92,6 +92,18 @@
                 "selectRequestIFSLevel" : {
                   "value" : null,
                   "$ref" : "#/components/examples/selectRequestIFSLevel"
+                },
+                "selectRequestForActionCopy" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/selectRequestForActionCopy"
+                },
+                "selectRequestForActionMove" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/selectRequestForActionMove"
+                },
+                "selectRequestForActionTransfer" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/selectRequestForActionTransfer"
                 }
               }
             }
@@ -110,6 +122,18 @@
                   "selectResponse200" : {
                     "value" : null,
                     "$ref" : "#/components/examples/selectResponse200"
+                  },
+                  "selectResponseCopy200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/selectResponseCopy200"
+                  },
+                  "selectResponseMove200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/selectResponseMove200"
+                  },
+                  "selectResponseTransfer200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/selectResponseTransfer200"
                   }
                 }
               }
@@ -794,7 +818,7 @@
           "action" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Checkout, Promote, Transfer",
+            "description" : "Checkout, Promote, Copy, Move, Transfer",
             "default" : "Checkout",
             "enum" : [ "Checkout, Promote, Transfer" ]
           },
@@ -1092,6 +1116,7 @@
       }
     },
     "responses" : { },
+    "parameters" : { },
     "examples" : {
       "response401" : {
         "summary" : "Not authorized.",
@@ -1159,6 +1184,33 @@
           } ]
         }
       },
+      "selectRequestForActionTransfer" : {
+        "summary" : "How to specify the select request input parameters for action Transfer.",
+        "value" : {
+          "action" : "COPY",
+          "taskNumber" : "XT0497",
+          "application" : "XMP",
+          "fromEnvironment" : ""
+        }
+      },
+      "selectRequestForActionCopy" : {
+        "summary" : "How to specify the select request input parameters for action Copy.",
+        "value" : {
+          "action" : "COPY",
+          "taskNumber" : "XT0497",
+          "application" : "XMP",
+          "fromEnvironment" : ""
+        }
+      },
+      "selectRequestForActionMove" : {
+        "summary" : "How to specify the select request input parameters for action Move.",
+        "value" : {
+          "action" : "COPY",
+          "taskNumber" : "XT0497",
+          "application" : "XMP",
+          "fromEnvironment" : ""
+        }
+      },
       "selectResponse200" : {
         "summary" : "Response to a successful API call.",
         "value" : {
@@ -1176,6 +1228,531 @@
             "fromEnvironmentDescription" : "Production",
             "toEnvironment" : "*HOT",
             "toEnvironmentDescription" : "Hotfix",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          } ]
+        }
+      },
+      "selectResponseTransfer200" : {
+        "summary" : "Response for action Transfer to a successful API call",
+        "value" : {
+          "targets" : [ {
+            "fromEnvironment" : "*PRD",
+            "fromEnvironmentDescription" : "Production environment",
+            "toEnvironment" : "*DEV",
+            "toEnvironmentDescription" : "Development environment",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*PRD",
+            "fromEnvironmentDescription" : "Production environment",
+            "toEnvironment" : "*EMG",
+            "toEnvironmentDescription" : "Emergency",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*PRD",
+            "fromEnvironmentDescription" : "Production environment",
+            "toEnvironment" : "*PRD",
+            "toEnvironmentDescription" : "Production environment",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*ACC",
+            "fromEnvironmentDescription" : "Acceptance environment",
+            "toEnvironment" : "*DEV",
+            "toEnvironmentDescription" : "Development environment",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*ACC",
+            "fromEnvironmentDescription" : "Acceptance environment",
+            "toEnvironment" : "*TST",
+            "toEnvironmentDescription" : "Test environment",
+            "isDefault" : true,
+            "subEnvironments" : [ {
+              "sequenceNumber" : 10,
+              "description" : "Test sub-environment",
+              "remote" : "0",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 12,
+              "description" : "Test sub-environment 2",
+              "remote" : "0",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 20,
+              "description" : "SPINOZA Remote",
+              "remote" : "2",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 30,
+              "description" : "CUSTMR1 Remote",
+              "remote" : "2",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 40,
+              "description" : "CUSTMR2 Remote",
+              "remote" : "2",
+              "status" : "0"
+            } ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*ACC",
+            "fromEnvironmentDescription" : "Acceptance environment",
+            "toEnvironment" : "*PRD",
+            "toEnvironmentDescription" : "Production environment",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "reason" : {
+              "messageText" : "Objects from Fix XT0497 not allowed to be transferred to the next environment.",
+              "messageID" : "RATE004",
+              "messageTextExtended" : "&N Cause . . . . . :   Some objects of Fix XT0497 of Application XMP have currently a status lower as the ratification level. The objects from environment *ACC can not leave for environment *PRD until all objects have passed the ratification level of environment *ACC after the fix has been ratified by authorized staff. &N Recovery  . . . :   Do as indicated and try your request again."
+            },
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*TST",
+            "fromEnvironmentDescription" : "Test environment",
+            "toEnvironment" : "*DEV",
+            "toEnvironmentDescription" : "Development environment",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*TST",
+            "fromEnvironmentDescription" : "Test environment",
+            "toEnvironment" : "*ACC",
+            "toEnvironmentDescription" : "Acceptance environment",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*TST",
+            "fromEnvironmentDescription" : "Test environment",
+            "toEnvironment" : "*TST",
+            "toEnvironmentDescription" : "Test environment",
+            "isDefault" : true,
+            "subEnvironments" : [ {
+              "sequenceNumber" : 10,
+              "description" : "Test sub-environment",
+              "remote" : "0",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 12,
+              "description" : "Test sub-environment 2",
+              "remote" : "0",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 20,
+              "description" : "SPINOZA Remote",
+              "remote" : "2",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 30,
+              "description" : "CUSTMR1 Remote",
+              "remote" : "2",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 40,
+              "description" : "CUSTMR2 Remote",
+              "remote" : "2",
+              "status" : "0"
+            } ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*DEV",
+            "fromEnvironmentDescription" : "Development environment",
+            "toEnvironment" : "*DEV",
+            "toEnvironmentDescription" : "Development environment",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*DEV",
+            "fromEnvironmentDescription" : "Development environment",
+            "toEnvironment" : "*TST",
+            "toEnvironmentDescription" : "Test environment",
+            "isDefault" : true,
+            "subEnvironments" : [ {
+              "sequenceNumber" : 10,
+              "description" : "Test sub-environment",
+              "remote" : "0",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 12,
+              "description" : "Test sub-environment 2",
+              "remote" : "0",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 20,
+              "description" : "SPINOZA Remote",
+              "remote" : "2",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 30,
+              "description" : "CUSTMR1 Remote",
+              "remote" : "2",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 40,
+              "description" : "CUSTMR2 Remote",
+              "remote" : "2",
+              "status" : "0"
+            } ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*EMG",
+            "fromEnvironmentDescription" : "Emergency",
+            "toEnvironment" : "*DEV",
+            "toEnvironmentDescription" : "Development environment",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*EMG",
+            "fromEnvironmentDescription" : "Emergency",
+            "toEnvironment" : "*PRD",
+            "toEnvironmentDescription" : "Production environment",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          } ]
+        }
+      },
+      "selectResponseCopy200" : {
+        "summary" : "Response for action Copy to a successful API call.",
+        "value" : {
+          "targets" : [ {
+            "fromEnvironment" : "*PRD",
+            "fromEnvironmentDescription" : "Production environment",
+            "toEnvironment" : "*DEV",
+            "toEnvironmentDescription" : "Development environment",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*PRD",
+            "fromEnvironmentDescription" : "Production environment",
+            "toEnvironment" : "*EMG",
+            "toEnvironmentDescription" : "Emergency",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*PRD",
+            "fromEnvironmentDescription" : "Production environment",
+            "toEnvironment" : "*PRD",
+            "toEnvironmentDescription" : "Production environment",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*ACC",
+            "fromEnvironmentDescription" : "Acceptance environment",
+            "toEnvironment" : "*DEV",
+            "toEnvironmentDescription" : "Development environment",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*ACC",
+            "fromEnvironmentDescription" : "Acceptance environment",
+            "toEnvironment" : "*TST",
+            "toEnvironmentDescription" : "Test environment",
+            "isDefault" : true,
+            "subEnvironments" : [ {
+              "sequenceNumber" : 10,
+              "description" : "Test sub-environment",
+              "remote" : "0",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 12,
+              "description" : "Test sub-environment 2",
+              "remote" : "0",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 20,
+              "description" : "SPINOZA Remote",
+              "remote" : "2",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 30,
+              "description" : "CUSTMR1 Remote",
+              "remote" : "2",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 40,
+              "description" : "CUSTMR2 Remote",
+              "remote" : "2",
+              "status" : "0"
+            } ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*TST",
+            "fromEnvironmentDescription" : "Test environment",
+            "toEnvironment" : "*DEV",
+            "toEnvironmentDescription" : "Development environment",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*TST",
+            "fromEnvironmentDescription" : "Test environment",
+            "toEnvironment" : "*TST",
+            "toEnvironmentDescription" : "Test environment",
+            "isDefault" : true,
+            "subEnvironments" : [ {
+              "sequenceNumber" : 10,
+              "description" : "Test sub-environment",
+              "remote" : "0",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 12,
+              "description" : "Test sub-environment 2",
+              "remote" : "0",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 20,
+              "description" : "SPINOZA Remote",
+              "remote" : "2",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 30,
+              "description" : "CUSTMR1 Remote",
+              "remote" : "2",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 40,
+              "description" : "CUSTMR2 Remote",
+              "remote" : "2",
+              "status" : "0"
+            } ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          } ]
+        }
+      },
+      "selectResponseMove200" : {
+        "summary" : "Response for action Move to a successful API call.",
+        "value" : {
+          "targets" : [ {
+            "fromEnvironment" : "*PRD",
+            "fromEnvironmentDescription" : "Production environment",
+            "toEnvironment" : "*DEV",
+            "toEnvironmentDescription" : "Development environment",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*PRD",
+            "fromEnvironmentDescription" : "Production environment",
+            "toEnvironment" : "*EMG",
+            "toEnvironmentDescription" : "Emergency",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*PRD",
+            "fromEnvironmentDescription" : "Production environment",
+            "toEnvironment" : "*PRD",
+            "toEnvironmentDescription" : "Production environment",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*ACC",
+            "fromEnvironmentDescription" : "Acceptance environment",
+            "toEnvironment" : "*DEV",
+            "toEnvironmentDescription" : "Development environment",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*ACC",
+            "fromEnvironmentDescription" : "Acceptance environment",
+            "toEnvironment" : "*TST",
+            "toEnvironmentDescription" : "Test environment",
+            "isDefault" : true,
+            "subEnvironments" : [ {
+              "sequenceNumber" : 10,
+              "description" : "Test sub-environment",
+              "remote" : "0",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 12,
+              "description" : "Test sub-environment 2",
+              "remote" : "0",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 20,
+              "description" : "SPINOZA Remote",
+              "remote" : "2",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 30,
+              "description" : "CUSTMR1 Remote",
+              "remote" : "2",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 40,
+              "description" : "CUSTMR2 Remote",
+              "remote" : "2",
+              "status" : "0"
+            } ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*ACC",
+            "fromEnvironmentDescription" : "Acceptance environment",
+            "toEnvironment" : "*PRD",
+            "toEnvironmentDescription" : "Production environment",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "reason" : {
+              "messageText" : "Objects from Fix XT0497 not allowed to be transferred to the next environment.",
+              "messageID" : "RATE004",
+              "messageTextExtended" : "&N Cause . . . . . :   Some objects of Fix XT0497 of Application XMP have currently a status lower as the ratification level. The objects from environment *ACC can not leave for environment *PRD until all objects have passed the ratification level of environment *ACC after the fix has been ratified by authorized staff. &N Recovery  . . . :   Do as indicated and try your request again."
+            },
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*TST",
+            "fromEnvironmentDescription" : "Test environment",
+            "toEnvironment" : "*DEV",
+            "toEnvironmentDescription" : "Development environment",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*TST",
+            "fromEnvironmentDescription" : "Test environment",
+            "toEnvironment" : "*ACC",
+            "toEnvironmentDescription" : "Acceptance environment",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*TST",
+            "fromEnvironmentDescription" : "Test environment",
+            "toEnvironment" : "*TST",
+            "toEnvironmentDescription" : "Test environment",
+            "isDefault" : true,
+            "subEnvironments" : [ {
+              "sequenceNumber" : 10,
+              "description" : "Test sub-environment",
+              "remote" : "0",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 12,
+              "description" : "Test sub-environment 2",
+              "remote" : "0",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 20,
+              "description" : "SPINOZA Remote",
+              "remote" : "2",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 30,
+              "description" : "CUSTMR1 Remote",
+              "remote" : "2",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 40,
+              "description" : "CUSTMR2 Remote",
+              "remote" : "2",
+              "status" : "0"
+            } ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*DEV",
+            "fromEnvironmentDescription" : "Development environment",
+            "toEnvironment" : "*DEV",
+            "toEnvironmentDescription" : "Development environment",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*DEV",
+            "fromEnvironmentDescription" : "Development environment",
+            "toEnvironment" : "*TST",
+            "toEnvironmentDescription" : "Test environment",
+            "isDefault" : true,
+            "subEnvironments" : [ {
+              "sequenceNumber" : 10,
+              "description" : "Test sub-environment",
+              "remote" : "0",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 12,
+              "description" : "Test sub-environment 2",
+              "remote" : "0",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 20,
+              "description" : "SPINOZA Remote",
+              "remote" : "2",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 30,
+              "description" : "CUSTMR1 Remote",
+              "remote" : "2",
+              "status" : "0"
+            }, {
+              "sequenceNumber" : 40,
+              "description" : "CUSTMR2 Remote",
+              "remote" : "2",
+              "status" : "0"
+            } ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*EMG",
+            "fromEnvironmentDescription" : "Emergency",
+            "toEnvironment" : "*DEV",
+            "toEnvironmentDescription" : "Development environment",
+            "isDefault" : true,
+            "subEnvironments" : [ ],
+            "objects" : [ ],
+            "fixedNumberofSubEnvironments" : 0
+          }, {
+            "fromEnvironment" : "*EMG",
+            "fromEnvironmentDescription" : "Emergency",
+            "toEnvironment" : "*PRD",
+            "toEnvironmentDescription" : "Production environment",
             "isDefault" : true,
             "subEnvironments" : [ ],
             "objects" : [ ],
@@ -1388,6 +1965,7 @@
         }
       }
     },
+    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
