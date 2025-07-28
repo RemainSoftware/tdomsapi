@@ -16,8 +16,8 @@
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
       "object" : "OMRDASH",
-      "library" : "V150DEV",
-      "srclibrary" : "V150DEV"
+      "library" : "V18T0039",
+      "srclibrary" : "V18T0039S"
     }
   },
   "servers" : [ {
@@ -25,8 +25,8 @@
     "description" : "TD/OMS Dashboard server",
     "variables" : {
       "protocol" : {
-        "default" : "https",
-        "enum" : [ "http", "https" ]
+        "enum" : [ "http", "https" ],
+        "default" : "https"
       },
       "host" : {
         "default" : "plato.remainsoftware.com"
@@ -164,6 +164,12 @@
           "bearerExample" : {
             "bearer" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJSZW1haW4gU29mdHdhcmUiLCJzdWIiOiJUQUFPUyIsImV4cCI6MTY4Mzg5NTExNS4wLCJuYmYiOjE2ODM4MDg3MTUuMCwiaWF0IjoxNjgzODA4NzE1LjAsImp0aSI6NzIwLjB9.tmlwNWPGTi0V49LlA6vsWTRsPsDAqtUtMQ_pQZZ8MfQ"
           }
+        },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : false
         }
       }
     }
@@ -278,8 +284,6 @@
         }
       }
     },
-    "parameters" : { },
-    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
