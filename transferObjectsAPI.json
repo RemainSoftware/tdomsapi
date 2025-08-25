@@ -35,8 +35,8 @@
       },
       "protocol" : {
         "description" : "Protocol",
-        "default" : "https",
-        "enum" : [ "https", "http" ]
+        "enum" : [ "https", "http" ],
+        "default" : "https"
       },
       "port" : {
         "description" : "The port to which the server is listening",
@@ -100,10 +100,6 @@
                 "selectRequestForActionMove" : {
                   "value" : null,
                   "$ref" : "#/components/examples/selectRequestForActionMove"
-                },
-                "selectRequestForActionTransfer" : {
-                  "value" : null,
-                  "$ref" : "#/components/examples/selectRequestForActionTransfer"
                 }
               }
             }
@@ -130,10 +126,6 @@
                   "selectResponseMove200" : {
                     "value" : null,
                     "$ref" : "#/components/examples/selectResponseMove200"
-                  },
-                  "selectResponseTransfer200" : {
-                    "value" : null,
-                    "$ref" : "#/components/examples/selectResponseTransfer200"
                   }
                 }
               }
@@ -818,9 +810,9 @@
           "action" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Checkout, Promote, Copy, Move, Transfer",
+            "description" : "Checkout, Promote, Copy, Move",
             "default" : "Checkout",
-            "enum" : [ "Checkout, Promote, Transfer" ]
+            "enum" : [ "Checkout", "Promote", "Copy", "Move" ]
           },
           "taskNumber" : {
             "maxLength" : 10,
@@ -1116,7 +1108,6 @@
       }
     },
     "responses" : { },
-    "parameters" : { },
     "examples" : {
       "response401" : {
         "summary" : "Not authorized.",
@@ -1965,7 +1956,6 @@
         }
       }
     },
-    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
