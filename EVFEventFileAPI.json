@@ -17,8 +17,8 @@
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
       "object" : "OMQREV",
-      "library" : "V17T0204",
-      "srclibrary" : "V17T0204S",
+      "library" : "V18T0142",
+      "srclibrary" : "V18T0142S",
       "file" : "EVFEventFileAPI.json"
     }
   },
@@ -165,6 +165,22 @@
                 }
               }
             }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/eventErrorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
+                }
+              }
+            }
           }
         },
         "callbacks" : { },
@@ -248,6 +264,22 @@
                 }
               }
             }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/eventErrorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
+                }
+              }
+            }
           }
         },
         "callbacks" : { },
@@ -255,7 +287,7 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "02",
-          "generate" : true
+          "generate" : false
         }
       }
     }
@@ -344,6 +376,18 @@
             "type" : "string",
             "description" : "Message Id",
             "example" : "OMQF201"
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The message type 'E' indicates an error message.",
+            "example" : "E"
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "The message substitution data.",
+            "example" : ""
           },
           "messageText" : {
             "maxLength" : 644,
@@ -623,11 +667,39 @@
           }
         },
         "description" : "The raw data of raw records response."
+      },
+      "eventErrorResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status which can be *NORM, *WARN or *TERM. In case of *TERM look at the messages for more information.",
+            "example" : "*TERM"
+          },
+          "message" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          }
+        },
+        "description" : "The error response of the EVF event API."
       }
     },
     "responses" : { },
-    "parameters" : { },
-    "requestBodies" : { },
+    "examples" : {
+      "response400" : {
+        "summary" : "Something went wrong.",
+        "value" : {
+          "status" : "*WARN",
+          "message" : {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQF236",
+            "messageType" : "E",
+            "messageData" : "INVALID",
+            "messageText" : "No errors or warnings are found for INVALID. \nCause . . . . . :   No event file was found for INVALID or it contains no data.\nRecovery  . . . :   Make sure to compile with *EVENTF. Refer to the spool file to see the compilation listing."
+          }
+        }
+      }
+    },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
