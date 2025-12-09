@@ -1,0 +1,289 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Stashed Branch API.",
+    "description" : "The Stashed Branch REST API provides functionality to delete stashed branch information.  ",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License ",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator/generator",
+      "object" : "OMQRSB",
+      "library" : "V18T0188",
+      "srclibrary" : "V18T0188S",
+      "file" : "StashedBranchAPI.json"
+    }
+  },
+  "servers" : [ {
+    "url" : "{protocol}://{host}:{port}/{library}/OMQRSB",
+    "description" : "A dynamic https/http host.",
+    "variables" : {
+      "host" : {
+        "description" : "The host serving the API.",
+        "default" : "plato.remainsoftware.com"
+      },
+      "library" : {
+        "description" : "The TD/OMS library.",
+        "default" : "OMS"
+      },
+      "protocol" : {
+        "description" : "Protocol",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
+      },
+      "port" : {
+        "description" : "The port to which the server is listening.",
+        "default" : "45011"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/delete" : {
+      "summary" : "Use this path to delete the stashed branch.",
+      "description" : "Use this path to delete the stashed branch.",
+      "post" : {
+        "summary" : "Use this operation to delete the stashed branch.",
+        "description" : "Use this operation to delete the stashed branch.",
+        "operationId" : "delete",
+        "requestBody" : {
+          "description" : "Use this input to delete the stashed branch information.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/deleteStashedBranchRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/stashedBranchResponse"
+                },
+                "examples" : {
+                  "response200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQB033",
+                        "messageType" : "N",
+                        "messageData" : "*DELETE   XT0275",
+                        "field" : "",
+                        "messageText" : "Action *DELETE for stashed branch XT0275 completed normally. \nCause . . . . . :   Your request for action *DELETE for stashed branch T0013 completed normally.  recovery  . . . :   None needed, this message is informational."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/stashedBranchErrorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "summary" : "Something went wrong.",
+                    "value" : {
+                      "status" : "*TERM",
+                      "messages" : [ {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQ5112",
+                        "messageType" : "E",
+                        "messageData" : "application code                INVLD",
+                        "field" : "applicationCode",
+                        "messageText" : "The application code INVLD does not exist. \nCause . . . . . :   You have specified the application code INVLD that does not exist.\nRecovery  . . . :   Specify the existing application code and try your request again."
+                      } ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "summary" : "Not authorized.",
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQF201",
+                      "messageType" : "E",
+                      "messageData" : "",
+                      "field" : "",
+                      "messageText" : "Unauthorized or expired token. Please login again."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : true
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "extendedMessage" : {
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The message file."
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "The message Idetifier."
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The message type 'E' indicates an error message,  while 'N' indicates a normal message with no error."
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "The message substitution data."
+          },
+          "field" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "The field in error."
+          },
+          "messageText" : {
+            "maxLength" : 644,
+            "type" : "string",
+            "description" : "The human readable message text."
+          }
+        },
+        "description" : "Message information."
+      },
+      "deleteStashedBranchRequest" : {
+        "required" : [ "applicationCode", "pathCode" ],
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "type" : "string",
+            "description" : "The interface level must be V18R1M0.",
+            "default" : "V18R1M0",
+            "enum" : [ "V18R1M0" ]
+          },
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code.",
+            "example" : "XMP"
+          },
+          "pathCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the branch code.",
+            "example" : "XT0275"
+          },
+          "stashedBranchProcessingOptions" : {
+            "$ref" : "#/components/schemas/stashedBranchProcessingOptions"
+          }
+        },
+        "description" : "Use this input to delete the stashed branch information."
+      },
+      "stashedBranchResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
+          },
+          "message" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          }
+        },
+        "description" : "The response data for stashed branch REST API."
+      },
+      "stashedBranchErrorResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
+          },
+          "messages" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/extendedMessage"
+            }
+          }
+        },
+        "description" : "It will return the error information."
+      },
+      "stashedBranchProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Various flags to control the behavior of the API."
+      }
+    },
+    "responses" : { },
+    "parameters" : { },
+    "requestBodies" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "The HTTP API Token.",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
