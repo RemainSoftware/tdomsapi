@@ -2,7 +2,7 @@
   "openapi" : "3.0.1",
   "info" : {
     "title" : "Branch API.",
-    "description" : "The BRANCH API enables you to create, change and delete branches. It also enables you to calculate the status of a branch.                                       ",
+    "description" : "The BRANCH REST API enables you to create, change and delete branches. It also enables you to calculate the status of a branch. In addition, it supports Branch Stash and Branch Restore functionalities. \r\n\r\nBranch Stash:   \r\nBranch stashing is like putting your unfinished work in a safe place so you can come back later without losing anything.Follow these rules for Branch stashing:  \r\nA branch cannot be stashed if it has more than one sub-environment defined.\r\n\r\nAll solutions must be present in the Development environment.\r\n\r\nAfter stashing the branch, do not delete the stashed environment, otherwise, the branch cannot be restored.\r\n\r\nBranch Restore:    \r\nBranch restore is like taking your saved work back so you can continue right where you left off.\r\n\r\nNote: When a branch is restored, the task is reloaded with all the solutions exactly as they were when stashed.                      ",
     "termsOfService" : "",
     "contact" : {
       "name" : "Remain Software",
@@ -17,8 +17,8 @@
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
       "object" : "OMQRBR",
-      "library" : "V16T0011",
-      "srclibrary" : "V16T0011S",
+      "library" : "V18T0061",
+      "srclibrary" : "V18T0061S",
       "file" : "BranchAPI.json"
     }
   },
@@ -134,7 +134,7 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "01",
-          "generate" : true
+          "generate" : false
         }
       }
     },
@@ -221,7 +221,7 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "02",
-          "generate" : true
+          "generate" : false
         }
       }
     },
@@ -308,7 +308,7 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "03",
-          "generate" : true
+          "generate" : false
         }
       }
     },
@@ -394,7 +394,193 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "04",
-          "generate" : true
+          "generate" : false
+        }
+      }
+    },
+    "/stash" : {
+      "summary" : "Use this path to stash the branch.",
+      "description" : "Use this path to stash the branch.",
+      "post" : {
+        "summary" : "Use this operation to stash the branch.",
+        "description" : "Use this operation to stash the branch.",
+        "operationId" : "stash",
+        "requestBody" : {
+          "description" : "Use this request input to stash the branch.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/stashBranchRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/stashOrRestoreBranchResponse"
+                },
+                "examples" : {
+                  "stashResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQ2016",
+                        "messageData" : "XT0275    XMP",
+                        "messageText" : "Action for branch XT0275 in application XMP completed normally"
+                      },
+                      "stashOrRestoreBranchData" : {
+                        "applicationCode" : "XMP",
+                        "environmentCode" : "*DEV",
+                        "pathCode" : "XT0275",
+                        "saveFile" : "SBXXXXXXXX",
+                        "fallBackLibrary" : "OMHD_FLB",
+                        "userIdOrUserClass" : "ALICE"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "stashRestoreresponse400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/stashRestoreresponse400"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "05",
+          "generate" : false
+        }
+      }
+    },
+    "/restore" : {
+      "summary" : "Use this path to restore the branch.",
+      "description" : "Use this path to restore the branch.",
+      "post" : {
+        "summary" : "Use this operation to restore the branch.",
+        "description" : "Use this operation to restore the branch.",
+        "operationId" : "restore",
+        "requestBody" : {
+          "description" : "Use this request input to restore the branch.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/restoreBranchRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/stashOrRestoreBranchResponse"
+                },
+                "examples" : {
+                  "restoreResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQ2016",
+                        "messageData" : "XT0275    XMP",
+                        "messageText" : "Action for branch XT0275 in application XMP completed normally"
+                      },
+                      "stashOrRestoreBranchData" : {
+                        "applicationCode" : "",
+                        "environmentCode" : "",
+                        "pathCode" : "",
+                        "saveFile" : "",
+                        "fallBackLibrary" : "",
+                        "userIdOrUserClass" : ""
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "stashRestoreresponse400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/stashRestoreresponse400"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "06",
+          "generate" : false
         }
       }
     }
@@ -539,10 +725,119 @@
           }
         },
         "description" : "A branch is deleted using this input schema."
+      },
+      "stashBranchRequest" : {
+        "required" : [ "applicationCode", "pathCode" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code of the branch.",
+            "example" : "XMP"
+          },
+          "pathCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the branch code to stash.",
+            "example" : "XT0275"
+          },
+          "reasonCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the reason code. The reason code indicates the reason why the branch was stashed. The possible values are:   \r\n\r\n*DFT   \r\nUse this value to indicate that the default reason code is to be used to stash the branch. The default reason code is user defined.    \r\n\r\nNote:  The reason code is maintained using the table maintenance (STRTM) function.",
+            "default" : "*DFT",
+            "enum" : [ "*DFT" ]
+          }
+        },
+        "description" : "Input request to stash the branch."
+      },
+      "stashOrRestoreBranchData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "BIAPPC",
+            "x-sequence" : "10"
+          },
+          "environmentCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Environment code"
+          },
+          "pathCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Path code",
+            "x-column" : "BIPATH",
+            "x-sequence" : "20"
+          },
+          "saveFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Save file",
+            "x-column" : "BISAVF",
+            "x-sequence" : "30"
+          },
+          "fallBackLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Fall back library"
+          },
+          "userIdOrUserClass" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "User i.d., or user class",
+            "x-column" : "BIUSID",
+            "x-sequence" : "40"
+          }
+        },
+        "description" : "Response data for stash or restore branch.",
+        "x-pfname" : "OMSBI",
+        "x-library" : "V180KEP",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "stashOrRestoreBranchResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status which can be *NORM or *TERM. In case of *TERM look at the message for more information."
+          },
+          "message" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "stashOrRestoreBranchData" : {
+            "$ref" : "#/components/schemas/stashOrRestoreBranchData"
+          }
+        },
+        "description" : "Response for stash or restore branch."
+      },
+      "restoreBranchRequest" : {
+        "required" : [ "applicationCode", "pathCode" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code of the branch.",
+            "example" : "XMP"
+          },
+          "pathCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the branch code to restore.",
+            "example" : "XT0275"
+          }
+        },
+        "description" : "Input request to restore the branch."
       }
     },
     "responses" : { },
-    "parameters" : { },
     "examples" : {
       "response401" : {
         "summary" : "Not authorized.",
@@ -562,6 +857,15 @@
           "messageText" : "Application code XXX does not exist. &N Cause . . . . . :   You have entered an application code which does not exist. &N Recovery  . . . :   Enter a valid application code and try your request again."
         }
       },
+      "stashRestoreresponse400" : {
+        "summary" : "Something went wrong.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQ5112",
+          "messageData" : "application code                invld",
+          "messageText" : "The application code invld does not exist. \nCause . . . . . :   You have specified the application code invld that does not exist.\nRecovery  . . . :   Specify the existing application code and try your request again."
+        }
+      },
       "response200" : {
         "summary" : "Response to a successful API call.",
         "value" : {
@@ -575,7 +879,6 @@
         }
       }
     },
-    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
