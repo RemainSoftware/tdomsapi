@@ -600,6 +600,7 @@ curl -X 'POST' \
 * [Solution](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/SolutionAPI.json)
 * [Source](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/sourcefileAPI.json)
 * [Spool File](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/SpoolFileAPI.json)
+* [Stashed Branch](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/StashedBranchAPI.json)
 * [Task](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/TaskAPI.json)
 * [Transfer Objects](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/transferObjectsAPI.json)
 * [User Defined Variable](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/UserDefinedVariableAPI.json)
