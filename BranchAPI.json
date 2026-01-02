@@ -2,7 +2,7 @@
   "openapi" : "3.0.1",
   "info" : {
     "title" : "Branch API.",
-    "description" : "The BRANCH REST API enables you to create, change and delete branches. It also enables you to calculate the status of a branch. In addition, it supports Branch Stash and Branch Restore functionalities. \r\n\r\nBranch Stash:   \r\nBranch stashing is like putting your unfinished work in a safe place so you can come back later without losing anything.Follow these rules for Branch stashing:  \r\nA branch cannot be stashed if it has more than one sub-environment defined.\r\n\r\nAll solutions must be present in the Development environment.\r\n\r\nAfter stashing the branch, do not delete the stashed environment, otherwise, the branch cannot be restored.\r\n\r\nBranch Restore:    \r\nBranch restore is like taking your saved work back so you can continue right where you left off.\r\n\r\nNote: When a branch is restored, the task is reloaded with all the solutions exactly as they were when stashed.                      ",
+    "description" : "The BRANCH REST API enables you to create, change and delete branches. It also enables you to calculate the status of a branch. In addition, it supports Branch Stash and Branch Restore functionalities, along with the ability to purge stashed\r\nbranch information. \r\n\r\nBranch Stash:   \r\nBranch stashing is like putting your unfinished work in a safe place so you can come back later without losing anything.Follow these rules for Branch stashing:  \r\nA branch cannot be stashed if it has more than one sub-environment defined.\r\n\r\nAll solutions must be present in the Development environment.\r\n\r\nAfter stashing the branch, do not delete the stashed environment, otherwise, the branch cannot be restored.\r\n\r\nBranch Restore:    \r\nBranch restore is like taking your saved work back so you can continue right where you left off.\r\n\r\nNote: When a branch is restored, the task is reloaded with all the solutions exactly as they were when stashed.                      ",
     "termsOfService" : "",
     "contact" : {
       "name" : "Remain Software",
@@ -17,8 +17,8 @@
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
       "object" : "OMQRBR",
-      "library" : "V18T0061",
-      "srclibrary" : "V18T0061S",
+      "library" : "V18T0188",
+      "srclibrary" : "V18T0188S",
       "file" : "BranchAPI.json"
     }
   },
@@ -583,6 +583,83 @@
           "generate" : false
         }
       }
+    },
+    "/purge" : {
+      "summary" : "Use this path to purge stashed branch information.",
+      "description" : "Use this path to purge stashed branch information.",
+      "post" : {
+        "summary" : "Use this operation to purge stashed branch information.",
+        "description" : "Use this operation to purge stashed branch information.",
+        "operationId" : "purge",
+        "requestBody" : {
+          "description" : "Use this request input to purge stashed branch information.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/purgeBranchRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response200"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "07",
+          "generate" : true
+        }
+      }
     }
   },
   "components" : {
@@ -835,6 +912,25 @@
           }
         },
         "description" : "Input request to restore the branch."
+      },
+      "purgeBranchRequest" : {
+        "required" : [ "applicationCode", "pathCode" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code of the branch.",
+            "example" : "XMP"
+          },
+          "pathCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the stashed branch code to purge.",
+            "example" : "XT0275"
+          }
+        },
+        "description" : "Input request to purge stashed branch information."
       }
     },
     "responses" : { },
