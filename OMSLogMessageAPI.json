@@ -910,18 +910,19 @@
           "messageId" : {
             "maxLength" : 7,
             "type" : "string",
-            "description" : "It contains the message id.",
+            "description" : "Contains the message id.",
             "example" : "SUB0001"
           },
           "messageFile" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "It contains the message file.",
+            "description" : "Contains the message file.",
             "example" : "OMSMSG"
           },
           "messageData" : {
+            "maxLength" : 256,
             "type" : "string",
-            "description" : "It contains the message data.",
+            "description" : "Contains the message data.",
             "example" : ""
           }
         },
