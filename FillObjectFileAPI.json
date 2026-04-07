@@ -1,7 +1,7 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "Fill Object File API",
+    "title" : "OMS Fill Object File Service",
     "description" : "The Fill Object File API allows you to fill the object file. ",
     "termsOfService" : "",
     "contact" : {
@@ -17,8 +17,8 @@
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
       "object" : "OMQRFO",
-      "library" : "V16T0010",
-      "srclibrary" : "V16T0010S",
+      "library" : "V18T0293",
+      "srclibrary" : "V18T0293S",
       "file" : "FillObjectFileAPI.json"
     }
   },
@@ -168,12 +168,81 @@
           "generate" : false
         }
       }
+    },
+    "/jobStatus" : {
+      "summary" : "Use this path to retrieves Fill Object File job status information.",
+      "description" : "Use this path to retrieves Fill Object File job status information, including active jobs, jobs waiting on job queues, and completed jobs with output on output queues.",
+      "get" : {
+        "summary" : "Use this operation to retrieves Fill Object File job status information.",
+        "description" : "Use this operation to retrieves Fill Object File job status information, including active jobs, jobs waiting on job queues, and completed jobs with output on output queues.",
+        "operationId" : "jobStatus",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/jobStatusResponse"
+                },
+                "examples" : {
+                  "jobStatusResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "totalNumberOfJobs" : 26,
+                      "activeJobs" : 0,
+                      "jobsOnJobQueue" : 0,
+                      "jobsOnOutputQueue" : 26,
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQF416",
+                        "messageType" : "N",
+                        "messageData" : "0    26   0    26",
+                        "field" : "",
+                        "messageText" : "0 out of 26 Fill Object File jobs are active. \nCause . . . . . :   Out of 26 Fill Object File jobs, 0 jobs are active, 0 are on job queue, and 26 are on output queue.\nRecovery  . . . :   No action is required. This is an informational message."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "jobStatusResponse401" : {
+                    "summary" : "Not authorized.",
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQF201",
+                      "messageType" : "E",
+                      "messageData" : "",
+                      "field" : "",
+                      "messageText" : "Unauthorized or expired token. Please login again."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "02",
+          "generate" : true
+        }
+      }
     }
   },
   "components" : {
     "schemas" : {
       "extendedMessage" : {
-        "required" : [ "field", "messageData", "messageFile", "messageId", "messageType" ],
         "type" : "object",
         "properties" : {
           "messageFile" : {
@@ -210,7 +279,7 @@
         "description" : "The return message."
       },
       "request" : {
-        "required" : [ "applicationCode" ],
+        "required" : [ "applicationCode", "objectCode" ],
         "type" : "object",
         "properties" : {
           "applicationCode" : {
@@ -221,55 +290,40 @@
           "environmentCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the environment code in the selected application to fill objects from.                                    ",
+            "description" : "Specify the environment code in the selected application to fill objects from. \r\n\r\n*ALL   \r\nAll environment of the selected application are selected.                                  ",
             "default" : "*ALL",
             "enum" : [ "*ALL" ]
           },
           "routeCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Route code  \r\n\r\nIf you specify the blank value for this field, it will assume the value *NONE.    ",
-            "externalDocs" : {
-              "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Route_-_(ROTC)"
-            },
+            "description" : "Specify the route code in the selected application to fill IFS objects from. The possible values are:  \r\n\r\n*ALL   \r\nAll routes of the selected environment are selected.\r\n\r\n*NONE  \r\nNo routes are used for the filling process.\r\n\r\nNote: If you specify the blank value for this field, it will assume the value *NONE.    ",
             "default" : "*NONE",
             "enum" : [ "*ALL", "*NONE" ]
           },
           "objectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Object library \r\n\r\nIf you specify the blank value for this field, it will assume the value *NONE.",
-            "externalDocs" : {
-              "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Object_Library_-_(OBJL)"
-            },
+            "description" : "Specify the object library to fill objects from. The possible values are:   \r\n\r\n*ALL   \r\nAll libraries of the selected environment are selected.  \r\n\r\n*NONE  \r\nNo libraries  are used for the filling process.   \r\n\r\nNote: If you specify the blank value for this field, it will assume the value *NONE.",
             "default" : "*NONE",
             "enum" : [ "*ALL", "*NONE" ]
           },
           "objectCode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Object Code",
-            "externalDocs" : {
-              "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Object_Code_-_(OBJC)"
-            }
+            "description" : "Specify which objects must be selected. The possible values are: \r\n\r\n*ALL   \r\nAll objects in the selected libraries are processed.\r\n\r\n\\*generic\\*   \r\nEnter a generic object code name to be filled.\r\n\r\n?wild?   \r\nEnter a wild card for the objects to be filled."
           },
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Object type \r\n\r\nIf you specify the blank value for this field, it will assume the value *NONE.",
-            "externalDocs" : {
-              "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Object_Type_-_(OBJT)"
-            },
+            "description" : "Specify the object type of the selected objects. The possible values are:  \r\n\r\n*ALL  \r\nAll object types are processed.\r\n\r\nNote: If you specify the blank value for this field, it will assume the value *NONE.",
             "default" : "*ALL",
             "enum" : [ "*ALL" ]
           },
           "objectAttribute" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Object attribute \r\n\r\nIf you specify the blank value for this field, it will assume the value *NONE.",
-            "externalDocs" : {
-              "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Object_Attribute_-_(OBJA)"
-            },
+            "description" : "Specify the object attribute of the selected objects. The possible values are: \r\n\r\n*ALL    \r\nAll objects attributes are processed.\r\n\r\nNote: If you specify the blank value for this field, it will assume the value *NONE.",
             "default" : "*ALL",
             "enum" : [ "*ALL" ]
           },
@@ -319,76 +373,84 @@
           "processingMode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Processing mode \r\n\r\n'0' = *BATCH\r\n\r\n'1' = *INTERACTIVE\r\n",
-            "externalDocs" : {
-              "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Processing_Mode_-_(PRCI)"
-            },
-            "default" : "*BATCH",
-            "enum" : [ "*BATCH", "*INTERACTIVE" ]
+            "description" : "Specify the OS/400 environment to process this command. The possible values are: \r\n\r\n'1' = *INTERACTIVE   \r\nThe command is executed in your current job.\r\n\r\n'2' = *FORCEBATCH   \r\nThe job is submitted to the batch environment using job description OMSJOBD.\r\n",
+            "default" : "*FORCEBATCH",
+            "enum" : [ "*FORCEBATCH", "*INTERACTIVE" ]
           },
           "processingMethod" : {
             "maxLength" : 7,
             "type" : "string",
-            "description" : "Processing method \r\n\r\n'0' = *FILL\r\n\r\n'1' = *EMPTY\r\n\r\n'2' = *REPORT",
-            "externalDocs" : {
-              "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Processing_Method_-_(PRCM)"
-            },
+            "description" : "Specify the kind of action to perform on the selected objects. The possible values are: \r\n\r\n'0' = *FILL  \r\nThe selected objects are loaded in the TD/OMS database.  \r\n\r\n'1' = *EMPTY   \r\nThe selected objects are emptied from the TD/OMS database.  \r\n\r\n'2' = *REPORT   \r\nA report is produced with the differences between the TD/OMS database and life situation. No information is stored in the TD/OMS database.",
             "default" : "*FILL",
             "enum" : [ "*FILL", "*EMPTY", "*REPORT" ]
           },
           "processOnlyRelations" : {
             "maxLength" : 4,
             "type" : "string",
-            "description" : "Process only Relations \r\n\r\n'0' = *NO\r\n\r\n'1' = *YES",
-            "externalDocs" : {
-              "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Relations_Only_-_(RELI)"
-            },
+            "description" : "Specify if only the relationships of the selected objects have to be rebuild. The possible values are: \r\n\r\n'0' = *NO  \r\nThe selected objects are completely loaded in the TD/OMS database.  \r\n\r\n'1' = *YES   \r\nOnly relationships of the selected objects are being rebuilt.",
             "default" : "*NO",
             "enum" : [ "*NO", "*YES" ]
           },
           "objectAndOr4GLGroup" : {
             "maxLength" : 7,
             "type" : "string",
-            "description" : "Object and/or 4GL group \r\n\r\n'0' = *BOTH\r\n\r\n'1' = *OBJECT\r\n\r\n'2' = *GROUP",
-            "externalDocs" : {
-              "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Object_/_Group_-_(OOGI)"
-            },
+            "description" : "Specify if normal objects, 4GL objects or both have to be loaded. The possible values are: \r\n\r\n'0' = *BOTH   \r\nBoth 4GL and normal objects are being processed.\r\n\r\n'1' = *OBJECT  \r\nOnly normal OS/400 objects are being processed.\r\n\r\n'2' = *GROUP  \r\nOnly 4GL objects are being processed.",
             "default" : "*OBJECT",
             "enum" : [ "*BOTH", "*OBJECT", "*GROUP" ]
           },
           "typeCA2ESelection" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "Type of CA 2E selection \r\n\r\n'1' = *ANY\r\n\r\n'2' = *AREA\r\n\r\n'3' = *ANYSYS\r\n\r\n'4' = *AREASYS\r\n",
-            "externalDocs" : {
-              "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Synon_selection_code_-_(SELC)"
-            },
+            "description" : "Specify, for Synon objects only, if a specific area has to be selected for processing. The possible values are: \r\n\r\n'1' = *ANY  \r\nAll areas of the selected 4GL libraries are being processed.\r\n\r\n'2' = *AREA   \r\nValue *AREA indicates that keyword cA2EObjectCode contains the name of the application area to be processed.\r\n\r\n'3' = *ANYSYS   \r\nName selection like keyword *ANY, but also system (template) objects defined internally in the model, will be part of the selection process.                                                            \r\n\r\n'4' = *AREASYS   \r\nModel Area selection like keyword *AREA, but also system (template) objects defined internally in the model, will be part of the selection process.                                          ",
             "default" : "*ANY",
             "enum" : [ "*ANY", "*AREA", "*ANYSYS", "*AREASYS" ]
           },
           "cA2EObjectCode" : {
             "maxLength" : 25,
             "type" : "string",
-            "description" : "CA 2E Object code",
+            "description" : "Specify, for Synon objects only, the Synon object to be processed. The possible values are: \r\n\r\n*ALL\r\nAll Synon objects of the selected owning object are being processed.\r\n\r\nName   \r\nEnter the name of an area if typeCA2ESelection contains *AREA or enter the name of a Synon object.",
             "format" : "",
-            "externalDocs" : {
-              "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Synon_object_code_-_(SAOC)"
-            },
             "default" : "*ALL",
             "enum" : [ "*ALL" ]
           },
           "cA2EOwningObject" : {
             "maxLength" : 25,
             "type" : "string",
-            "description" : "CA 2E owning Object code",
-            "externalDocs" : {
-              "url" : "https://remainsoftware.com/wiki/index.php/DFG:Fill_Object_File/en#Synon_owning_object_code_-_(SOOC)"
-            },
+            "description" : "Specify, for Synon objects only, the Synon object to be processed. The possible values are: \r\n\r\n*ALLOBJ   \r\nUse this value when cA2EObjectCode contains *ALL\r\n\r\n*ANY   \r\nNo selection is performed on the owning object code. \r\n\r\nName   \r\nEnter the owning object code name.\r\n",
             "default" : "*ALLOBJ",
             "enum" : [ "*ALLOBJ" ]
           }
         },
         "description" : "Various flags to control the behaviour of the API."
+      },
+      "jobStatusResponse" : {
+        "type" : "object",
+        "properties" : {
+          "totalNumberOfJobs" : {
+            "type" : "number",
+            "description" : "Jobs of any status including jobs on job queues, active jobs, and jobs on an output queue.",
+            "format" : "zoned(5:0)"
+          },
+          "activeJobs" : {
+            "type" : "number",
+            "description" : "Jobs that are active.",
+            "format" : "zoned(5:0)"
+          },
+          "jobsOnJobQueue" : {
+            "type" : "number",
+            "description" : "Jobs that are not active because they are waiting on a job queue.",
+            "format" : "zoned(5:0)"
+          },
+          "jobsOnOutputQueue" : {
+            "type" : "number",
+            "description" : "Jobs that have completed execution and have output on an output queue.",
+            "format" : "zoned(5:0)"
+          },
+          "message" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          }
+        },
+        "description" : "The response of the fill object file jobs that are submitted in batch."
       }
     },
     "responses" : { },
