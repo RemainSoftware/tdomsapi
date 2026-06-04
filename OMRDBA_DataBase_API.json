@@ -231,7 +231,7 @@
           },
           "distinct" : {
             "type" : "boolean",
-            "description" : "Use distinct records in the output by removing duplicates in the output. The return fields must be specified for this to work.",
+            "description" : "Use distinct records in the output by removing duplicates. The return fields are optional and distinct will work in both cases, with or without specifying them.",
             "default" : false
           }
         },
