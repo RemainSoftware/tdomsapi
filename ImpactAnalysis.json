@@ -37,8 +37,8 @@
       },
       "protocol" : {
         "description" : "Protocol",
-        "enum" : [ "https", "http" ],
-        "default" : "https"
+        "default" : "https",
+        "enum" : [ "https", "http" ]
       },
       "port" : {
         "description" : "",
@@ -305,84 +305,327 @@
       }
     },
     "responses" : { },
+    "parameters" : { },
     "examples" : {
       "result2" : {
         "summary" : "Running an Impact Analysis Report",
         "value" : {
           "reportResult" : {
-            "objectLibrary" : "OMHD_PRD",
-            "memberCode" : "",
+            "name" : "OMCUS OMS - Customers",
             "objectCode" : "OMCUS",
-            "sourceMember" : "OMCUS",
-            "sourceLibrary" : "OMHD_PRDS",
-            "refLink" : "/ref/OMCUS/*FILE/OMHD_PRD/*NONE",
-            "sourceFile" : "QSQLSRC",
-            "impactReportCode" : "PFCHANGES",
-            "objectAttribute" : "PF",
+            "objectLibrary" : "OMHD_PRD",
             "objectType" : "*FILE",
+            "objectAttribute" : "PF",
+            "memberCode" : "",
+            "memberAttributeMBSEU" : "",
+            "sourceFile" : "QSQLSRC",
+            "sourceLibrary" : "OMHD_PRDS",
+            "sourceMember" : "OMCUS",
+            "impactReportCode" : "PFCHANGES",
             "impactReportDetail" : "*SINGLE",
+            "objectDescription" : "OMS - Customers",
+            "refLink" : "/ref/OMCUS/*FILE/OMHD_PRD/*NONE",
             "children" : [ {
-              "children" : [ {
-                "objectLibrary" : "OMHD_PRD",
-                "memberCode" : "",
-                "sourceMember" : "OMCUSL1",
-                "name" : "OMCUSL1 OMS - Customers logical",
-                "sourceLibrary" : "OMHD_PRDS",
-                "memberAttributeMBSEU" : "",
-                "refLink" : "/ref/OMCUSL1/*FILE/OMHD_PRD/*NONE",
-                "sourceFile" : "QDDSSRC",
-                "objectAttribute" : "LF",
-                "objectType" : "*FILE",
-                "objectDescription" : "OMS - Customers logical"
-              }, {
-                "objectLibrary" : "OMHD_PRD",
-                "memberCode" : "",
-                "sourceMember" : "OMQCHGCU",
-                "name" : "OMQCHGCU OMS - API Change Customer",
-                "sourceLibrary" : "OMHD_PRDS",
-                "memberAttributeMBSEU" : "",
-                "refLink" : "/ref/OMQCHGCU/*PGM/OMHD_PRD/*NONE",
-                "sourceFile" : "QRPGLESRC",
-                "objectAttribute" : "RPGLE",
-                "objectType" : "*PGM",
-                "objectDescription" : "OMS - API Change Customer"
-              } ],
               "name" : "Level 1",
               "impactReportCode" : "PFCHANGES",
-              "objectDescription" : "Report level 1"
-            }, {
+              "objectDescription" : "Report level 1",
               "children" : [ {
-                "objectLibrary" : "O_X2T004T",
-                "memberCode" : "",
-                "sourceMember" : "OMH011",
-                "name" : "OMH011 OMS - Customer maintenance",
-                "sourceLibrary" : "O_X2T004T",
-                "memberAttributeMBSEU" : "",
-                "refLink" : "/ref/OMH011/*PGM/O_X2T004T/*NONE",
-                "sourceFile" : "QRPGLESRC",
-                "objectAttribute" : "RPGLE",
-                "objectType" : "*PGM",
-                "objectDescription" : "OMS - Customer maintenance"
+                "name" : "*FILE.LF",
+                "children" : [ {
+                  "name" : "OMCUSL1 OMS - Customers logical",
+                  "objectCode" : "OMCUSL1",
+                  "objectLibrary" : "OMHD_PRD",
+                  "objectType" : "*FILE",
+                  "objectAttribute" : "LF",
+                  "memberCode" : "",
+                  "memberAttributeMBSEU" : "",
+                  "sourceFile" : "QDDSSRC",
+                  "sourceLibrary" : "OMHD_PRDS",
+                  "sourceMember" : "OMCUSL1",
+                  "objectDescription" : "OMS - Customers logical",
+                  "refLink" : "/ref/OMCUSL1/*FILE/OMHD_PRD/*NONE"
+                } ]
               }, {
-                "objectLibrary" : "OMHD_PRD",
-                "memberCode" : "",
-                "sourceMember" : "OMH011",
-                "name" : "OMH011 OMS - Customer maintenance",
-                "sourceLibrary" : "OMHD_PRDS",
-                "memberAttributeMBSEU" : "",
-                "refLink" : "/ref/OMH011/*PGM/OMHD_PRD/*NONE",
-                "sourceFile" : "QRPGLESRC",
-                "objectAttribute" : "RPGLE",
-                "objectType" : "*PGM",
-                "objectDescription" : "OMS - Customer maintenance"
-              } ],
+                "name" : "*PGM.RPGLE",
+                "children" : [ {
+                  "name" : "OMQCHGCU OMS - API Change Customer",
+                  "objectCode" : "OMQCHGCU",
+                  "objectLibrary" : "OMHD_PRD",
+                  "objectType" : "*PGM",
+                  "objectAttribute" : "RPGLE",
+                  "memberCode" : "",
+                  "memberAttributeMBSEU" : "",
+                  "sourceFile" : "QRPGLESRC",
+                  "sourceLibrary" : "OMHD_PRDS",
+                  "sourceMember" : "OMQCHGCU",
+                  "objectDescription" : "OMS - API Change Customer",
+                  "refLink" : "/ref/OMQCHGCU/*PGM/OMHD_PRD/*NONE"
+                } ]
+              } ]
+            }, {
               "name" : "Level 2",
               "impactReportCode" : "PFCHANGES",
-              "objectDescription" : "Report level 2"
-            } ],
-            "name" : "OMCUS OMS - Customers",
-            "memberAttributeMBSEU" : "",
-            "objectDescription" : "OMS - Customers"
+              "objectDescription" : "Report level 2",
+              "children" : [ {
+                "name" : "*PGM.RPGLE",
+                "children" : [ {
+                  "name" : "OMH011 OMS - Customer maintenance",
+                  "objectCode" : "OMH011",
+                  "objectLibrary" : "O_XT0805T",
+                  "objectType" : "*PGM",
+                  "objectAttribute" : "RPGLE",
+                  "memberCode" : "",
+                  "memberAttributeMBSEU" : "",
+                  "sourceFile" : "QRPGLESRC",
+                  "sourceLibrary" : "O_XT0805T",
+                  "sourceMember" : "OMH011",
+                  "objectDescription" : "OMS - Customer maintenance",
+                  "refLink" : "/ref/OMH011/*PGM/O_XT0805T/*NONE"
+                }, {
+                  "name" : "OMH012 OMS - Contacts maintenance",
+                  "objectCode" : "OMH012",
+                  "objectLibrary" : "OMHD_ACC",
+                  "objectType" : "*PGM",
+                  "objectAttribute" : "RPGLE",
+                  "memberCode" : "",
+                  "memberAttributeMBSEU" : "",
+                  "sourceFile" : "QRPGLESRC",
+                  "sourceLibrary" : "OMHD_ACC",
+                  "sourceMember" : "OMH012",
+                  "objectDescription" : "OMS - Contacts maintenance",
+                  "refLink" : "/ref/OMH012/*PGM/OMHD_ACC/*NONE"
+                }, {
+                  "name" : "OMH015 OMS - Add customer call",
+                  "objectCode" : "OMH015",
+                  "objectLibrary" : "OMHD_PRD",
+                  "objectType" : "*PGM",
+                  "objectAttribute" : "RPGLE",
+                  "memberCode" : "",
+                  "memberAttributeMBSEU" : "",
+                  "sourceFile" : "QRPGLESRC",
+                  "sourceLibrary" : "OMHD_PRDS",
+                  "sourceMember" : "OMH015",
+                  "objectDescription" : "OMS - Add customer call",
+                  "refLink" : "/ref/OMH015/*PGM/OMHD_PRD/*NONE"
+                }, {
+                  "name" : "OMH024 OMS - Show customer information",
+                  "objectCode" : "OMH024",
+                  "objectLibrary" : "OMHD_PRD",
+                  "objectType" : "*PGM",
+                  "objectAttribute" : "RPGLE",
+                  "memberCode" : "",
+                  "memberAttributeMBSEU" : "",
+                  "sourceFile" : "QRPGLESRC",
+                  "sourceLibrary" : "OMHD_PRDS",
+                  "sourceMember" : "OMH024",
+                  "objectDescription" : "OMS - Show customer information",
+                  "refLink" : "/ref/OMH024/*PGM/OMHD_PRD/*NONE"
+                }, {
+                  "name" : "OMH033 OMS - Create HTML Form",
+                  "objectCode" : "OMH033",
+                  "objectLibrary" : "OMHD_PRD",
+                  "objectType" : "*PGM",
+                  "objectAttribute" : "RPGLE",
+                  "memberCode" : "",
+                  "memberAttributeMBSEU" : "",
+                  "sourceFile" : "QRPGLESRC",
+                  "sourceLibrary" : "OMHD_PRDS",
+                  "sourceMember" : "OMH033",
+                  "objectDescription" : "OMS - Create HTML Form",
+                  "refLink" : "/ref/OMH033/*PGM/OMHD_PRD/*NONE"
+                }, {
+                  "name" : "OMH036 OMS - Create mail message from template",
+                  "objectCode" : "OMH036",
+                  "objectLibrary" : "OMHD_PRD",
+                  "objectType" : "*PGM",
+                  "objectAttribute" : "RPGLE",
+                  "memberCode" : "",
+                  "memberAttributeMBSEU" : "",
+                  "sourceFile" : "QRPGLESRC",
+                  "sourceLibrary" : "OMHD_PRDS",
+                  "sourceMember" : "OMH036",
+                  "objectDescription" : "OMS - Create mail message from template",
+                  "refLink" : "/ref/OMH036/*PGM/OMHD_PRD/*NONE"
+                }, {
+                  "name" : "OMH037_2 OMS - Check distribution",
+                  "objectCode" : "OMH037_2",
+                  "objectLibrary" : "OMHD_PRD",
+                  "objectType" : "*PGM",
+                  "objectAttribute" : "RPGLE",
+                  "memberCode" : "",
+                  "memberAttributeMBSEU" : "",
+                  "sourceFile" : "QRPGLESRC",
+                  "sourceLibrary" : "OMHD_PRDS",
+                  "sourceMember" : "OMH037_2",
+                  "objectDescription" : "OMS - Check distribution",
+                  "refLink" : "/ref/OMH037_2/*PGM/OMHD_PRD/*NONE"
+                }, {
+                  "name" : "OMH039 OMS - Distribute definitions",
+                  "objectCode" : "OMH039",
+                  "objectLibrary" : "OMHD_PRD",
+                  "objectType" : "*PGM",
+                  "objectAttribute" : "RPGLE",
+                  "memberCode" : "",
+                  "memberAttributeMBSEU" : "",
+                  "sourceFile" : "QRPGLESRC",
+                  "sourceLibrary" : "OMHD_PRDS",
+                  "sourceMember" : "OMH039",
+                  "objectDescription" : "OMS - Distribute definitions",
+                  "refLink" : "/ref/OMH039/*PGM/OMHD_PRD/*NONE"
+                }, {
+                  "name" : "OMH041 OMS - Customer mail extensions maintenance",
+                  "objectCode" : "OMH041",
+                  "objectLibrary" : "OMHD_PRD",
+                  "objectType" : "*PGM",
+                  "objectAttribute" : "RPGLE",
+                  "memberCode" : "",
+                  "memberAttributeMBSEU" : "",
+                  "sourceFile" : "QRPGLESRC",
+                  "sourceLibrary" : "OMHD_PRDS",
+                  "sourceMember" : "OMH041",
+                  "objectDescription" : "OMS - Customer mail extensions maintenance",
+                  "refLink" : "/ref/OMH041/*PGM/OMHD_PRD/*NONE"
+                }, {
+                  "name" : "OMQCHGCC OMS - API Change Customer Call",
+                  "objectCode" : "OMQCHGCC",
+                  "objectLibrary" : "OMHD_PRD",
+                  "objectType" : "*PGM",
+                  "objectAttribute" : "RPGLE",
+                  "memberCode" : "",
+                  "memberAttributeMBSEU" : "",
+                  "sourceFile" : "QRPGLESRC",
+                  "sourceLibrary" : "OMHD_PRDS",
+                  "sourceMember" : "OMQCHGCC",
+                  "objectDescription" : "OMS - API Change Customer Call",
+                  "refLink" : "/ref/OMQCHGCC/*PGM/OMHD_PRD/*NONE"
+                }, {
+                  "name" : "OMQCHGCO OMS - API Change Customer Contact",
+                  "objectCode" : "OMQCHGCO",
+                  "objectLibrary" : "OMHD_PRD",
+                  "objectType" : "*PGM",
+                  "objectAttribute" : "RPGLE",
+                  "memberCode" : "",
+                  "memberAttributeMBSEU" : "",
+                  "sourceFile" : "QRPGLESRC",
+                  "sourceLibrary" : "OMHD_PRDS",
+                  "sourceMember" : "OMQCHGCO",
+                  "objectDescription" : "OMS - API Change Customer Contact",
+                  "refLink" : "/ref/OMQCHGCO/*PGM/OMHD_PRD/*NONE"
+                }, {
+                  "name" : "OMQRTVCU OMS - API retrieve customer",
+                  "objectCode" : "OMQRTVCU",
+                  "objectLibrary" : "OMHD_PRD",
+                  "objectType" : "*PGM",
+                  "objectAttribute" : "RPGLE",
+                  "memberCode" : "",
+                  "memberAttributeMBSEU" : "",
+                  "sourceFile" : "QRPGLESRC",
+                  "sourceLibrary" : "OMHD_PRDS",
+                  "sourceMember" : "OMQRTVCU",
+                  "objectDescription" : "OMS - API retrieve customer",
+                  "refLink" : "/ref/OMQRTVCU/*PGM/OMHD_PRD/*NONE"
+                }, {
+                  "name" : "OMX128 OMS - Select Customer",
+                  "objectCode" : "OMX128",
+                  "objectLibrary" : "O_XT0078T",
+                  "objectType" : "*PGM",
+                  "objectAttribute" : "RPGLE",
+                  "memberCode" : "",
+                  "memberAttributeMBSEU" : "",
+                  "sourceFile" : "QRPGLESRC",
+                  "sourceLibrary" : "OMHD_PRDS",
+                  "sourceMember" : "OMX128",
+                  "objectDescription" : "OMS - Select Customer",
+                  "refLink" : "/ref/OMX128/*PGM/O_XT0078T/*NONE"
+                } ]
+              } ]
+            }, {
+              "name" : "Level 3",
+              "impactReportCode" : "PFCHANGES",
+              "objectDescription" : "Report level 3",
+              "children" : [ {
+                "name" : "*FILE.DSPF",
+                "children" : [ {
+                  "name" : "OMH011D OMS - Customer maintenance",
+                  "objectCode" : "OMH011D",
+                  "objectLibrary" : "O_XT0805T",
+                  "objectType" : "*FILE",
+                  "objectAttribute" : "DSPF",
+                  "memberCode" : "",
+                  "memberAttributeMBSEU" : "",
+                  "sourceFile" : "QDDSSRC",
+                  "sourceLibrary" : "O_XT0805T",
+                  "sourceMember" : "OMH011D",
+                  "objectDescription" : "OMS - Customer maintenance",
+                  "refLink" : "/ref/OMH011D/*FILE/O_XT0805T/*NONE"
+                }, {
+                  "name" : "OMH012D OMS - Customer contact maintenance",
+                  "objectCode" : "OMH012D",
+                  "objectLibrary" : "OMHD_PRD",
+                  "objectType" : "*FILE",
+                  "objectAttribute" : "DSPF",
+                  "memberCode" : "",
+                  "memberAttributeMBSEU" : "",
+                  "sourceFile" : "QDDSSRC",
+                  "sourceLibrary" : "OMHD_PRDS",
+                  "sourceMember" : "OMH012D",
+                  "objectDescription" : "OMS - Customer contact maintenance",
+                  "refLink" : "/ref/OMH012D/*FILE/OMHD_PRD/*NONE"
+                }, {
+                  "name" : "OMH015D OMS - Add customer call",
+                  "objectCode" : "OMH015D",
+                  "objectLibrary" : "OMHD_PRD",
+                  "objectType" : "*FILE",
+                  "objectAttribute" : "DSPF",
+                  "memberCode" : "",
+                  "memberAttributeMBSEU" : "",
+                  "sourceFile" : "QDDSSRC",
+                  "sourceLibrary" : "OMHD_PRDS",
+                  "sourceMember" : "OMH015D",
+                  "objectDescription" : "OMS - Add customer call",
+                  "refLink" : "/ref/OMH015D/*FILE/OMHD_PRD/*NONE"
+                }, {
+                  "name" : "OMH024D OMS - Display customer information",
+                  "objectCode" : "OMH024D",
+                  "objectLibrary" : "OMHD_PRD",
+                  "objectType" : "*FILE",
+                  "objectAttribute" : "DSPF",
+                  "memberCode" : "",
+                  "memberAttributeMBSEU" : "",
+                  "sourceFile" : "QDDSSRC",
+                  "sourceLibrary" : "OMHD_PRDS",
+                  "sourceMember" : "OMH024D",
+                  "objectDescription" : "OMS - Display customer information",
+                  "refLink" : "/ref/OMH024D/*FILE/OMHD_PRD/*NONE"
+                }, {
+                  "name" : "OMH037D OMS - Receive distributions",
+                  "objectCode" : "OMH037D",
+                  "objectLibrary" : "OMHD_PRD",
+                  "objectType" : "*FILE",
+                  "objectAttribute" : "DSPF",
+                  "memberCode" : "",
+                  "memberAttributeMBSEU" : "",
+                  "sourceFile" : "QDDSSRC",
+                  "sourceLibrary" : "OMHD_PRDS",
+                  "sourceMember" : "OMH037D",
+                  "objectDescription" : "OMS - Receive distributions",
+                  "refLink" : "/ref/OMH037D/*FILE/OMHD_PRD/*NONE"
+                }, {
+                  "name" : "OMH041D OMS - Mail extension maintenance",
+                  "objectCode" : "OMH041D",
+                  "objectLibrary" : "OMHD_PRD",
+                  "objectType" : "*FILE",
+                  "objectAttribute" : "DSPF",
+                  "memberCode" : "",
+                  "memberAttributeMBSEU" : "",
+                  "sourceFile" : "QDDSSRC",
+                  "sourceLibrary" : "OMHD_PRDS",
+                  "sourceMember" : "OMH041D",
+                  "objectDescription" : "OMS - Mail extension maintenance",
+                  "refLink" : "/ref/OMH041D/*FILE/OMHD_PRD/*NONE"
+                } ]
+              } ]
+            } ]
           }
         }
       },
@@ -442,6 +685,7 @@
         }
       }
     },
+    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
