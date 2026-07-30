@@ -17,8 +17,8 @@
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
       "object" : "OMQRNO",
-      "library" : "V16T0271",
-      "srclibrary" : "V16T0271S",
+      "library" : "V19T0020",
+      "srclibrary" : "V19T0020S",
       "file" : "newObjectAPI.json"
     }
   },
@@ -36,8 +36,8 @@
       },
       "protocol" : {
         "description" : "Protocol",
-        "default" : "https",
-        "enum" : [ "https", "http" ]
+        "enum" : [ "https", "http" ],
+        "default" : "https"
       },
       "port" : {
         "description" : "The port to which the server is listening",
@@ -197,6 +197,64 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "02",
+          "generate" : false
+        }
+      }
+    },
+    "/addIFSObject" : {
+      "summary" : "Use this path to create the new IFS object.",
+      "description" : "Use this path to create the new IFS object.",
+      "post" : {
+        "summary" : "Use this operation to create the new IFS object.",
+        "description" : "Use this operation to create the new IFS object.",
+        "operationId" : "addIFSObject",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/addIFSObjectRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request from Client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "03",
           "generate" : true
         }
       }
@@ -451,6 +509,58 @@
           }
         },
         "description" : "Use this output schema to retrieve the object and source library."
+      },
+      "addIFSObjectRequest" : {
+        "type" : "object",
+        "properties" : {
+          "application" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Enter the name of the application."
+          },
+          "taskNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Enter the name of task number."
+          },
+          "environment" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Enter the name of environment."
+          },
+          "routeCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Enter the name of route code."
+          },
+          "ifsFileName" : {
+            "maxLength" : 255,
+            "type" : "string",
+            "description" : "Enter the name of ifs file name.",
+            "example" : ""
+          },
+          "subDirectory" : {
+            "maxLength" : 640,
+            "type" : "string",
+            "description" : "Enter the sub directory path."
+          },
+          "subEnvironmentSequence" : {
+            "type" : "number",
+            "description" : "Enter the sub environment sequence number.",
+            "format" : "packed(5:0)"
+          },
+          "templateDirectory" : {
+            "maxLength" : 640,
+            "type" : "string",
+            "description" : "Specifies the directory containing the template file to copy from. If left empty, the system will search for the template file first within the same route, and if not found there, anywhere else."
+          },
+          "templateFile" : {
+            "maxLength" : 255,
+            "type" : "string",
+            "description" : "Specifies the template file to copy when creating the new IFS object. If left empty, no template is used and a new, empty file is created instead."
+          }
+        },
+        "description" : "Use this input schema to create the new IFS object."
       }
     },
     "responses" : { },
