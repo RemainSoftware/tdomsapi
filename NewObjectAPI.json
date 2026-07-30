@@ -36,8 +36,8 @@
       },
       "protocol" : {
         "description" : "Protocol",
-        "enum" : [ "https", "http" ],
-        "default" : "https"
+        "default" : "https",
+        "enum" : [ "https", "http" ]
       },
       "port" : {
         "description" : "The port to which the server is listening",
@@ -213,6 +213,50 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/addIFSObjectRequest"
+              },
+              "examples" : {
+                "addIFSObject" : {
+                  "summary" : "How to specify the request input parameter value to add the IFS object.",
+                  "value" : {
+                    "application" : "XMP",
+                    "taskNumber" : "XT0022",
+                    "environment" : "*DEV",
+                    "routeCode" : "NONIBM",
+                    "ifsFileName" : "EmployeeInformation.Json",
+                    "subDirectory" : "",
+                    "subEnvironmentSequence" : 0,
+                    "templateDirectory" : "",
+                    "templateFile" : ""
+                  }
+                },
+                "addIFSObjectUsingSubDir" : {
+                  "summary" : "How to specify the request input parameter value to add the IFS object sub directory.",
+                  "value" : {
+                    "application" : "XMP",
+                    "taskNumber" : "XT0022",
+                    "environment" : "*DEV",
+                    "routeCode" : "NONIBM",
+                    "ifsFileName" : "EmployeeInformation.Json",
+                    "subDirectory" : "SubDirectory/",
+                    "subEnvironmentSequence" : 0,
+                    "templateDirectory" : "",
+                    "templateFile" : ""
+                  }
+                },
+                "addIFSObjectUsingTemplate" : {
+                  "summary" : "How to specify the request input parameter value to add the IFS object using template.",
+                  "value" : {
+                    "application" : "XMP",
+                    "taskNumber" : "XT0022",
+                    "environment" : "*DEV",
+                    "routeCode" : "NONIBM",
+                    "ifsFileName" : "CustomerOrderInformation.json",
+                    "subDirectory" : "",
+                    "subEnvironmentSequence" : 0,
+                    "templateDirectory" : "/QOpenSys/OMSIFS/XMP/DEV/XT0015/",
+                    "templateFile" : "CustomerInformation.json"
+                  }
+                }
               }
             }
           },
@@ -225,6 +269,20 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "addIFSObject200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQF246",
+                        "messageData" : "",
+                        "messageText" : "IFS object successfully created. \nCause . . . . . :   IFS object EmployeeInformation.Json, type *STMF, was added to task XT0022.\nRecovery  . . . :   No recovery necessary. This is an informational message."
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -245,6 +303,12 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
                 }
               }
             }
@@ -564,6 +628,7 @@
       }
     },
     "responses" : { },
+    "parameters" : { },
     "examples" : {
       "addObject" : {
         "summary" : "How to add a new object with a template",
@@ -630,6 +695,7 @@
         }
       }
     },
+    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
