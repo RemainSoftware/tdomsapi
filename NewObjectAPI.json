@@ -16,9 +16,9 @@
     "version" : "0.0.1",
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
-      "object" : "OMQRNO",
-      "library" : "V19T0020",
-      "srclibrary" : "V19T0020S",
+      "object" : "@OMQRNO",
+      "library" : "V19T0061",
+      "srclibrary" : "V19T0061S",
       "file" : "newObjectAPI.json"
     }
   },
@@ -36,8 +36,8 @@
       },
       "protocol" : {
         "description" : "Protocol",
-        "default" : "https",
-        "enum" : [ "https", "http" ]
+        "enum" : [ "https", "http" ],
+        "default" : "https"
       },
       "port" : {
         "description" : "The port to which the server is listening",
@@ -197,7 +197,7 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "02",
-          "generate" : false
+          "generate" : true
         }
       }
     },
@@ -319,7 +319,7 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "03",
-          "generate" : true
+          "generate" : false
         }
       }
     }
@@ -543,6 +543,11 @@
             "type" : "string",
             "description" : "Enter the object attribute.",
             "example" : "RPGLE"
+          },
+          "routeCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Routes are defined to manage the transfer for files in the Integrated File System (IFS)."
           }
         },
         "description" : "Use this input schema to retrieve the object library and source library."
@@ -567,6 +572,11 @@
             "type" : "string",
             "description" : "contains the name of the source library,",
             "example" : "OMHD_DEV"
+          },
+          "directory" : {
+            "maxLength" : 640,
+            "type" : "string",
+            "description" : "The IFS directory code is the directory in which the object is located. This is a path from the root of the integrated file system (IFS)."
           },
           "message" : {
             "$ref" : "#/components/schemas/extendedMessage"
@@ -628,7 +638,6 @@
       }
     },
     "responses" : { },
-    "parameters" : { },
     "examples" : {
       "addObject" : {
         "summary" : "How to add a new object with a template",
@@ -695,7 +704,6 @@
         }
       }
     },
-    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
