@@ -1,8 +1,8 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "Comment API",
-    "description" : "The REST Comment API allows you to manage and interact with comments effectively. It supports a full range of actions on comments, providing robust functionality for various maintenance activities. You can use this API for managing comments related to object maintenance, solution maintenance, fix maintenance, and request maintenance screens, ensuring comprehensive control and organization of comments across different maintenance tasks.                               ",
+    "title" : "OMS Comment Service",
+    "description" : "Use the Comment Service to add, change, delete, and reply to comments in TD/OMS. Comments can be linked to entities such as tasks, objects, requests, solutions, applications, environments, libraries, topics, and subscribers. All operations require a bearer JWT token.",
     "termsOfService" : "",
     "contact" : {
       "name" : "Remain Software",
@@ -19,29 +19,29 @@
       "object" : "@OMRCM",
       "library" : "V17T0140",
       "srclibrary" : "V17T0140S",
-      "file" : "CommentAPI.json"
+      "file" : "CommentService.json"
     }
   },
   "servers" : [ {
     "url" : "{protocol}://{host}:{port}/{library}/OMQRCM",
-    "description" : "A dynamic https host",
+    "description" : "TD/OMS Comment Service endpoint.",
     "variables" : {
       "host" : {
-        "description" : "The host serves the API.",
+        "description" : "Host name of the TD/OMS server.",
         "default" : "plato.remainsoftware.com"
       },
       "library" : {
-        "description" : "The TD/OMS library.",
+        "description" : "TD/OMS library that serves the API.",
         "default" : "OMS"
       },
       "port" : {
-        "description" : "The port to which the server is listening.",
+        "description" : "Port on which the server listens.",
         "default" : "45011"
       },
       "protocol" : {
-        "description" : "Protocol",
-        "enum" : [ "https", "http" ],
-        "default" : "https"
+        "description" : "HTTP protocol used to call the API.",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
       }
     }
   } ],
@@ -50,14 +50,15 @@
   } ],
   "paths" : {
     "/add" : {
-      "summary" : "Use this path to add a new comment.",
-      "description" : "Comments can be added with this path.",
+      "summary" : "Add a comment",
+      "description" : "Create a new comment for the selected TD/OMS entity.",
       "post" : {
-        "summary" : "add operation",
-        "description" : "The add operation",
+        "tags" : [ "Comments" ],
+        "summary" : "Add a comment",
+        "description" : "Creates a comment and links it to the entity identified in the request object.",
         "operationId" : "addComment",
         "requestBody" : {
-          "description" : "Post Method",
+          "description" : "Comment details and processing options for creating a new comment.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -65,33 +66,8 @@
               },
               "examples" : {
                 "addRequest" : {
-                  "summary" : "How to specify the input request to add comment.",
-                  "value" : {
-                    "interfaceLevel" : "V12R1M0",
-                    "request" : {
-                      "entityCode" : "*TASK",
-                      "applicationCode" : "XMP",
-                      "fixNumber" : "XT0497",
-                      "objectCode" : "*NONE",
-                      "objectType" : "*NONE",
-                      "requestNumber" : "*NONE",
-                      "memberCode" : "*NONE",
-                      "environmentCode" : "*NONE",
-                      "sequenceNumber" : 0,
-                      "librarySequenceNumber" : 0,
-                      "topic" : "",
-                      "description" : ""
-                    },
-                    "commentTypeAndDescription" : {
-                      "commentMarkupType" : "*TEXT",
-                      "shortCommentDescription" : "This is short Description",
-                      "commentText" : "This is long description"
-                    },
-                    "commentProcessingOptions" : {
-                      "updateDb" : "1",
-                      "updateBuffer" : "1"
-                    }
-                  }
+                  "value" : null,
+                  "$ref" : "#/components/examples/addRequest"
                 }
               }
             }
@@ -100,7 +76,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK",
+            "description" : "The comment was created successfully.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -108,46 +84,15 @@
                 },
                 "examples" : {
                   "addResponse200" : {
-                    "summary" : "Response to a successful API call.",
-                    "value" : {
-                      "status" : "*NORM",
-                      "messages" : {
-                        "messageFile" : "OMSAPI",
-                        "messageId" : "OMQB310",
-                        "messageType" : "",
-                        "messageData" : "60301      This is short Description",
-                        "field" : "",
-                        "messageText" : "Action 60 for comment summary 'This is short Description' completed normally. &N Cause . . . . . :   Action 60 for comment summary 'This is short Description' completed normally. The following actions are used for the comment API: &N 20 - Change, 40 - Delete, 60 - Add, 80 - Reply. &N Recovery  . . . :   None needed, this message is informational. The comment ID was 301."
-                      },
-                      "commentResponseData" : {
-                        "applicationCode" : "XMP",
-                        "environmentCode" : "",
-                        "sequenceNumber" : 0,
-                        "librarySequenceNumber" : 0,
-                        "fixNumber" : "XT0497",
-                        "requestNumber" : "",
-                        "objectCode" : "",
-                        "objectType" : "",
-                        "memberCode" : "",
-                        "genericID" : 0,
-                        "entityCode" : "TA",
-                        "commentID" : 301,
-                        "replyID" : 0,
-                        "incomeDate" : 1241015,
-                        "incomeTime" : 124601,
-                        "userIDOrUserClass" : "ALICE",
-                        "shortCommentDescription" : "This is short Description",
-                        "commentMarkupType" : "0",
-                        "commentText" : "This is long Description"
-                      }
-                    }
+                    "value" : null,
+                    "$ref" : "#/components/examples/addResponse200Operation"
                   }
                 }
               }
             }
           },
           "400" : {
-            "description" : "Something went wrong.",
+            "description" : "The request could not be processed. See the returned message for details.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -163,7 +108,7 @@
             }
           },
           "401" : {
-            "description" : "Not authorised",
+            "description" : "The request is not authorized. Log in again or provide a valid bearer token.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -189,14 +134,15 @@
       }
     },
     "/change" : {
-      "summary" : "Use this path to change the comment.",
-      "description" : "Comments can be changed with this path.",
+      "summary" : "Change a comment",
+      "description" : "Update the text, summary, or markup type of an existing comment.",
       "post" : {
-        "summary" : "change operation",
-        "description" : "The change operation",
+        "tags" : [ "Comments" ],
+        "summary" : "Change a comment",
+        "description" : "Updates an existing comment identified by commentID.",
         "operationId" : "changeComment",
         "requestBody" : {
-          "description" : "Post Method",
+          "description" : "Comment identifier, updated comment details, and processing options.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -204,34 +150,8 @@
               },
               "examples" : {
                 "changeRequest" : {
-                  "summary" : "How to specify the input request to change the comment.",
-                  "value" : {
-                    "interfaceLevel" : "V12R1M0",
-                    "request" : {
-                      "entityCode" : "*TASK",
-                      "applicationCode" : "XMP",
-                      "fixNumber" : "XT0497",
-                      "objectCode" : "*NONE",
-                      "objectType" : "*NONE",
-                      "requestNumber" : "*NONE",
-                      "memberCode" : "*NONE",
-                      "environmentCode" : "*NONE",
-                      "sequenceNumber" : 0,
-                      "librarySequenceNumber" : 0,
-                      "topic" : "",
-                      "description" : ""
-                    },
-                    "commentID" : 301,
-                    "commentTypeAndDescription" : {
-                      "commentMarkupType" : "*TEXT",
-                      "shortCommentDescription" : "The short description is changed",
-                      "commentText" : "This is long description"
-                    },
-                    "commentProcessingOptions" : {
-                      "updateDb" : "1",
-                      "updateBuffer" : "1"
-                    }
-                  }
+                  "value" : null,
+                  "$ref" : "#/components/examples/changeRequest"
                 }
               }
             }
@@ -240,7 +160,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK",
+            "description" : "The comment was changed successfully.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -248,46 +168,15 @@
                 },
                 "examples" : {
                   "changeResponse200" : {
-                    "summary" : "Response to a successful API call.",
-                    "value" : {
-                      "status" : "*NORM",
-                      "messages" : {
-                        "messageFile" : "OMSAPI",
-                        "messageId" : "OMQB310",
-                        "messageType" : "",
-                        "messageData" : "20301      The short description is changed",
-                        "field" : "",
-                        "messageText" : "Action 20 for comment summary 'The short description is changed' completed normally. &N Cause . . . . . :   Action 20 for comment summary 'The short description is changed' completed normally. The following actions are used for the comment API: &N 20 - Change, 40 - Delete, 60 - Add, 80 - Reply. &N Recovery  . . . :   None needed, this message is informational. The comment ID was 301."
-                      },
-                      "commentResponseData" : {
-                        "applicationCode" : "XMP",
-                        "environmentCode" : "",
-                        "sequenceNumber" : 0,
-                        "librarySequenceNumber" : 0,
-                        "fixNumber" : "XT0497",
-                        "requestNumber" : "",
-                        "objectCode" : "",
-                        "objectType" : "",
-                        "memberCode" : "",
-                        "genericID" : 0,
-                        "entityCode" : "TA",
-                        "commentID" : 301,
-                        "replyID" : 0,
-                        "incomeDate" : 1241015,
-                        "incomeTime" : 124601,
-                        "userIDOrUserClass" : "ALICE",
-                        "shortCommentDescription" : "The short description is changed",
-                        "commentMarkupType" : "0",
-                        "commentText" : "This is long Description"
-                      }
-                    }
+                    "value" : null,
+                    "$ref" : "#/components/examples/changeResponse200"
                   }
                 }
               }
             }
           },
           "400" : {
-            "description" : "Something went wrong.",
+            "description" : "The request could not be processed. See the returned message for details.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -303,7 +192,7 @@
             }
           },
           "401" : {
-            "description" : "Not authorised",
+            "description" : "The request is not authorized. Log in again or provide a valid bearer token.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -329,14 +218,15 @@
       }
     },
     "/delete" : {
-      "summary" : "Use this path to delete the comment.",
-      "description" : "Comments can be deleted with this path.",
+      "summary" : "Delete a comment",
+      "description" : "Delete an existing comment.",
       "post" : {
-        "summary" : "delete operation",
-        "description" : "The delete operation",
+        "tags" : [ "Comments" ],
+        "summary" : "Delete a comment",
+        "description" : "Deletes an existing comment identified by commentID.",
         "operationId" : "deleteComment",
         "requestBody" : {
-          "description" : "Post Method",
+          "description" : "Comment identifier and processing options for deleting a comment.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -344,29 +234,8 @@
               },
               "examples" : {
                 "deleteRequest" : {
-                  "summary" : "How to specify the input request to delete the comment.",
-                  "value" : {
-                    "interfaceLevel" : "V12R1M0",
-                    "request" : {
-                      "entityCode" : "*TASK",
-                      "applicationCode" : "XMP",
-                      "fixNumber" : "XT0497",
-                      "objectCode" : "*NONE",
-                      "objectType" : "*NONE",
-                      "requestNumber" : "*NONE",
-                      "memberCode" : "*NONE",
-                      "environmentCode" : "*NONE",
-                      "sequenceNumber" : 0,
-                      "librarySequenceNumber" : 0,
-                      "topic" : "",
-                      "description" : ""
-                    },
-                    "commentID" : 301,
-                    "commentProcessingOptions" : {
-                      "updateDb" : "1",
-                      "updateBuffer" : "1"
-                    }
-                  }
+                  "value" : null,
+                  "$ref" : "#/components/examples/deleteRequest"
                 }
               }
             }
@@ -375,7 +244,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK",
+            "description" : "The comment was deleted successfully.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -383,46 +252,15 @@
                 },
                 "examples" : {
                   "deleteResponse200" : {
-                    "summary" : "Response to a successful API call.",
-                    "value" : {
-                      "status" : "*NORM",
-                      "messages" : {
-                        "messageFile" : "OMSAPI",
-                        "messageId" : "OMQB310",
-                        "messageType" : "",
-                        "messageData" : "40301",
-                        "field" : "",
-                        "messageText" : "Action 40 for comment summary completed normally. &N Cause . . . . . :   Action 40 for comment summary completed normally. The following actions are used for the comment API: &N 20 - Change, 40 - Delete, 60 - Add, 80 - Reply. &N Recovery  . . . :   None needed, this message is informational. The comment ID was 301."
-                      },
-                      "commentResponseData" : {
-                        "applicationCode" : "",
-                        "environmentCode" : "",
-                        "sequenceNumber" : 0,
-                        "librarySequenceNumber" : 0,
-                        "fixNumber" : "",
-                        "requestNumber" : "",
-                        "objectCode" : "",
-                        "objectType" : "",
-                        "memberCode" : "",
-                        "genericID" : 0,
-                        "entityCode" : "",
-                        "commentID" : 0,
-                        "replyID" : 0,
-                        "incomeDate" : 0,
-                        "incomeTime" : 0,
-                        "userIDOrUserClass" : "",
-                        "shortCommentDescription" : "",
-                        "commentMarkupType" : "",
-                        "commentText" : ""
-                      }
-                    }
+                    "value" : null,
+                    "$ref" : "#/components/examples/deleteResponse200"
                   }
                 }
               }
             }
           },
           "400" : {
-            "description" : "Something went wrong.",
+            "description" : "The request could not be processed. See the returned message for details.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -438,7 +276,7 @@
             }
           },
           "401" : {
-            "description" : "Not authorised",
+            "description" : "The request is not authorized. Log in again or provide a valid bearer token.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -464,14 +302,15 @@
       }
     },
     "/reply" : {
-      "summary" : "Use this path to reply the comment.",
-      "description" : "Comments can be replied with this path.",
+      "summary" : "Reply to a comment",
+      "description" : "Create a reply to an existing comment or reply.",
       "post" : {
-        "summary" : "reply operation",
-        "description" : "The reply operation",
+        "tags" : [ "Comments" ],
+        "summary" : "Reply to a comment",
+        "description" : "Creates a reply and links it to the existing comment or reply identified by replyID.",
         "operationId" : "replyComment",
         "requestBody" : {
-          "description" : "Post Method",
+          "description" : "Reply details, parent comment or reply identifier, and processing options.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -479,34 +318,8 @@
               },
               "examples" : {
                 "replyRequest" : {
-                  "summary" : "How to specify the input request to reply the comment.",
-                  "value" : {
-                    "interfaceLevel" : "V12R1M0",
-                    "request" : {
-                      "entityCode" : "*TASK",
-                      "applicationCode" : "XMP",
-                      "fixNumber" : "XT0497",
-                      "objectCode" : "*NONE",
-                      "objectType" : "*STMF",
-                      "requestNumber" : "*NONE",
-                      "memberCode" : "*NONE",
-                      "environmentCode" : "*NONE",
-                      "sequenceNumber" : 0,
-                      "librarySequenceNumber" : 0,
-                      "topic" : "",
-                      "description" : ""
-                    },
-                    "replyID" : 303,
-                    "commentTypeAndDescription" : {
-                      "commentMarkupType" : "*TEXT",
-                      "shortCommentDescription" : "This is reply comment",
-                      "commentText" : "Comment"
-                    },
-                    "commentProcessingOptions" : {
-                      "updateDb" : "1",
-                      "updateBuffer" : "1"
-                    }
-                  }
+                  "value" : null,
+                  "$ref" : "#/components/examples/replyRequest"
                 }
               }
             }
@@ -515,7 +328,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK",
+            "description" : "The reply was created successfully.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -523,46 +336,15 @@
                 },
                 "examples" : {
                   "replyResponse200" : {
-                    "summary" : "Response to a successful API call.",
-                    "value" : {
-                      "status" : "*NORM",
-                      "messages" : {
-                        "messageFile" : "OMSAPI",
-                        "messageId" : "OMQB310",
-                        "messageType" : "",
-                        "messageData" : "80304      This is reply comment",
-                        "field" : "",
-                        "messageText" : "Action 80 for comment summary 'This is reply comment' completed normally. &N Cause . . . . . :   Action 80 for comment summary 'This is reply comment' completed normally. The following actions are used for the comment API: &N 20 - Change, 40 - Delete, 60 - Add, 80 - Reply. &N Recovery  . . . :   None needed, this message is informational. The comment ID was 304."
-                      },
-                      "commentResponseData" : {
-                        "applicationCode" : "XMP",
-                        "environmentCode" : "",
-                        "sequenceNumber" : 0,
-                        "librarySequenceNumber" : 0,
-                        "fixNumber" : "XT0497",
-                        "requestNumber" : "",
-                        "objectCode" : "",
-                        "objectType" : "",
-                        "memberCode" : "",
-                        "genericID" : 0,
-                        "entityCode" : "TA",
-                        "commentID" : 304,
-                        "replyID" : 301,
-                        "incomeDate" : 1241015,
-                        "incomeTime" : 131838,
-                        "userIDOrUserClass" : "ALICE",
-                        "shortCommentDescription" : "This is reply comment",
-                        "commentMarkupType" : "0",
-                        "commentText" : "Comment"
-                      }
-                    }
+                    "value" : null,
+                    "$ref" : "#/components/examples/replyResponse200"
                   }
                 }
               }
             }
           },
           "400" : {
-            "description" : "Something went wrong.",
+            "description" : "The request could not be processed. See the returned message for details.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -578,7 +360,7 @@
             }
           },
           "401" : {
-            "description" : "Not authorised",
+            "description" : "The request is not authorized. Log in again or provide a valid bearer token.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -612,21 +394,21 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Application code",
+            "description" : "Application code linked to the comment.",
             "x-column" : "MNAPPC",
             "x-sequence" : "10"
           },
           "environmentCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Environment code",
+            "description" : "Environment code linked to the comment.",
             "x-column" : "MNPDLC",
             "x-sequence" : "20"
           },
           "sequenceNumber" : {
             "maxLength" : 5,
             "type" : "number",
-            "description" : "Sequence number",
+            "description" : "Sequence number linked to the comment.",
             "format" : "packed(5:0)",
             "x-column" : "MNSEQ#",
             "x-sequence" : "30"
@@ -634,7 +416,7 @@
           "librarySequenceNumber" : {
             "maxLength" : 3,
             "type" : "number",
-            "description" : "Library sequence number",
+            "description" : "Library sequence number linked to the comment.",
             "format" : "packed(3:0)",
             "x-column" : "MNLSQ#",
             "x-sequence" : "40"
@@ -642,42 +424,42 @@
           "fixNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Fix number",
+            "description" : "Task or fix number linked to the comment.",
             "x-column" : "MNFIX#",
             "x-sequence" : "50"
           },
           "requestNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Request number",
+            "description" : "Request number linked to the comment.",
             "x-column" : "MNERR#",
             "x-sequence" : "60"
           },
           "objectCode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Object code",
+            "description" : "Object code linked to the comment.",
             "x-column" : "MNOBJC",
             "x-sequence" : "70"
           },
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Object type",
+            "description" : "Object type linked to the comment.",
             "x-column" : "MNOBJT",
             "x-sequence" : "80"
           },
           "memberCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Member code",
+            "description" : "Member code linked to the comment.",
             "x-column" : "MNMBRC",
             "x-sequence" : "90"
           },
           "genericID" : {
             "maxLength" : 9,
             "type" : "number",
-            "description" : "Generic ID",
+            "description" : "Generic identifier linked to the comment.",
             "format" : "zoned(9:0)",
             "x-column" : "MNGNID",
             "x-sequence" : "100"
@@ -685,14 +467,14 @@
           "entityCode" : {
             "maxLength" : 2,
             "type" : "string",
-            "description" : "Entity Code",
+            "description" : "Entity type code returned by TD/OMS.",
             "x-column" : "MNENTC",
             "x-sequence" : "110"
           },
           "commentID" : {
             "maxLength" : 9,
             "type" : "number",
-            "description" : "Comment ID",
+            "description" : "Identifier of the comment.",
             "format" : "zoned(9:0)",
             "x-column" : "MNCMID",
             "x-sequence" : "120"
@@ -700,7 +482,7 @@
           "replyID" : {
             "maxLength" : 9,
             "type" : "number",
-            "description" : "Reply ID",
+            "description" : "Identifier of the parent comment or reply, when applicable.",
             "format" : "zoned(9:0)",
             "x-column" : "MNRPID",
             "x-sequence" : "130"
@@ -708,7 +490,7 @@
           "incomeDate" : {
             "maxLength" : 7,
             "type" : "number",
-            "description" : "Income date",
+            "description" : "Date on which the comment was created, in TD/OMS CYYMMDD date format (C=0 for 1900 and 1 for 2000).",
             "format" : "zoned(7:0)",
             "x-column" : "MNINDT",
             "x-sequence" : "140"
@@ -716,7 +498,7 @@
           "incomeTime" : {
             "maxLength" : 6,
             "type" : "number",
-            "description" : "Income time",
+            "description" : "Time at which the comment was created, in TD/OMS numeric HHMMSS format.",
             "format" : "zoned(6:0)",
             "x-column" : "MNINTM",
             "x-sequence" : "150"
@@ -724,31 +506,31 @@
           "userIDOrUserClass" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "User i.d., or user class",
+            "description" : "User ID or user class that created the comment.",
             "x-column" : "MNUSID",
             "x-sequence" : "160"
           },
           "shortCommentDescription" : {
             "maxLength" : 100,
             "type" : "string",
-            "description" : "Short comment description",
+            "description" : "Short summary of the comment.",
             "x-column" : "MNCMSD",
             "x-sequence" : "170"
           },
           "commentMarkupType" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Comment markup type",
+            "description" : "Markup type stored for the comment.",
             "x-column" : "MNCMMT",
             "x-sequence" : "180"
           },
           "commentText" : {
             "maxLength" : 4970,
             "type" : "string",
-            "description" : "Comment Description"
+            "description" : "Full comment text."
           }
         },
-        "description" : "Comment response data",
+        "description" : "Data returned for the comment affected by the operation.",
         "x-library" : "V160KEP",
         "x-pfname" : "OMCMN",
         "x-fieldSchemaNameType" : "Normalized"
@@ -759,7 +541,7 @@
           "interfaceLevel" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "Enter the interface level code.",
+            "description" : "Interface level expected by this version of the API.",
             "default" : "V12R1M0",
             "enum" : [ "V12R1M0" ]
           },
@@ -773,7 +555,7 @@
             "$ref" : "#/components/schemas/commentProcessingOptions"
           }
         },
-        "description" : "Request data to add the command"
+        "description" : "Request body for adding a comment."
       },
       "extendedMessage" : {
         "type" : "object",
@@ -781,35 +563,35 @@
           "messageFile" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Message File"
+            "description" : "Message file that contains the message definition."
           },
           "messageId" : {
             "maxLength" : 7,
             "type" : "string",
-            "description" : "The message Id"
+            "description" : "Message identifier."
           },
           "messageType" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "The message type 'E' indicates an error message, while a blank indicates a normal message with no error."
+            "description" : "Message type. 'E' indicates an error; a blank value indicates a normal message."
           },
           "messageData" : {
             "maxLength" : 80,
             "type" : "string",
-            "description" : "The message substitution data"
+            "description" : "Message substitution data."
           },
           "field" : {
             "minLength" : 50,
             "type" : "string",
-            "description" : "The field in error"
+            "description" : "Field related to the message, when available."
           },
           "messageText" : {
             "maxLength" : 644,
             "type" : "string",
-            "description" : "The human readable text"
+            "description" : "Human-readable message text."
           }
         },
-        "description" : "Extended message data "
+        "description" : "TD/OMS message returned by the API."
       },
       "changeCommentRequest" : {
         "type" : "object",
@@ -817,7 +599,7 @@
           "interfaceLevel" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "Enter the interface level code.",
+            "description" : "Interface level expected by this version of the API.",
             "default" : "V12R1M0",
             "enum" : [ "V12R1M0" ]
           },
@@ -826,7 +608,7 @@
           },
           "commentID" : {
             "type" : "number",
-            "description" : "Use this value to specify the comment id if you want to change or delete and existing comment.",
+            "description" : "Identifier of the existing comment to change.",
             "format" : "zoned(9:0)"
           },
           "commentTypeAndDescription" : {
@@ -836,7 +618,7 @@
             "$ref" : "#/components/schemas/commentProcessingOptions"
           }
         },
-        "description" : "Request data to change the command"
+        "description" : "Request body for changing a comment."
       },
       "replyCommentRequest" : {
         "type" : "object",
@@ -844,7 +626,7 @@
           "interfaceLevel" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "Enter the interface level code.",
+            "description" : "Interface level expected by this version of the API.",
             "default" : "V12R1M0",
             "enum" : [ "V12R1M0" ]
           },
@@ -853,7 +635,7 @@
           },
           "replyID" : {
             "type" : "number",
-            "description" : "Use this value if you want to reply on an existing comment or reply.The comment id of an existing comment or reply is used as reply id. ",
+            "description" : "Identifier of the existing comment or reply to which the new reply is linked.",
             "format" : "zoned(9:0)"
           },
           "commentTypeAndDescription" : {
@@ -863,7 +645,7 @@
             "$ref" : "#/components/schemas/commentProcessingOptions"
           }
         },
-        "description" : "Request data to delete the command"
+        "description" : "Request body for replying to a comment."
       },
       "deleteCommentRequest" : {
         "type" : "object",
@@ -871,7 +653,7 @@
           "interfaceLevel" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "Enter the interface level code.",
+            "description" : "Interface level expected by this version of the API.",
             "default" : "V12R1M0",
             "enum" : [ "V12R1M0" ]
           },
@@ -880,14 +662,14 @@
           },
           "commentID" : {
             "type" : "number",
-            "description" : "Use this value to specify the comment id if you want to change or delete and existing comment.",
+            "description" : "Identifier of the existing comment to delete.",
             "format" : "zoned(9:0)"
           },
           "commentProcessingOptions" : {
             "$ref" : "#/components/schemas/commentProcessingOptions"
           }
         },
-        "description" : "Request data to delete the command"
+        "description" : "Request body for deleting a comment."
       },
       "commentResponse" : {
         "type" : "object",
@@ -895,7 +677,7 @@
           "status" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
+            "description" : "Return status. *NORM indicates normal completion; *TERM indicates termination. Check messages for details."
           },
           "messages" : {
             "$ref" : "#/components/schemas/extendedMessage"
@@ -904,7 +686,7 @@
             "$ref" : "#/components/schemas/commentResponseData"
           }
         },
-        "description" : "Comment Response"
+        "description" : "Response returned after a comment operation."
       },
       "errorMessage" : {
         "type" : "object",
@@ -912,13 +694,13 @@
           "status" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
+            "description" : "Return status. *NORM indicates normal completion; *TERM indicates termination. Check messages for details."
           },
           "messages" : {
             "$ref" : "#/components/schemas/extendedMessage"
           }
         },
-        "description" : "The return messages."
+        "description" : "Error response returned when the request cannot be completed."
       },
       "commentProcessingOptions" : {
         "type" : "object",
@@ -926,19 +708,19 @@
           "updateDb" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "description" : "Specify '1' to update the database or '0' to validate without updating the database.",
             "default" : "1",
             "enum" : [ "0", "1" ]
           },
           "updateBuffer" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "description" : "Specify '1' to update the buffer or '0' to validate without updating the buffer.",
             "default" : "1",
             "enum" : [ "0", "1" ]
           }
         },
-        "description" : "Various flags to control the behavior of the API."
+        "description" : "Processing flags that control whether the API updates data or only validates the request."
       },
       "request" : {
         "type" : "object",
@@ -946,83 +728,83 @@
           "entityCode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Specify the type of the Comment.",
+            "description" : "Type of TD/OMS entity to which the comment is linked.",
             "default" : "*TASK",
             "enum" : [ "*TASK", "*OBJECT", "*REQUEST", "*SOLUTION", "*DETAIL", "*APPLICATION", "*ENVIRONMENT", "*SUBENV", "*LIBRARY", "*TOPIC", "*SUBSCRIBER", "*SUBSTOPIC" ]
           },
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the application code of the comment.",
+            "description" : "Application code to which the comment is linked, or *NONE.",
             "default" : "*NONE",
             "enum" : [ "*NONE" ]
           },
           "fixNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the task to which the comment must be connected.",
+            "description" : "Task or fix number to which the comment is linked, or *NONE.",
             "default" : "*NONE",
             "enum" : [ "*NONE" ]
           },
           "objectCode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Specify the object code to which the comment must be connected.",
+            "description" : "Object code to which the comment is linked, or *NONE.",
             "default" : "*NONE",
             "enum" : [ "*NONE" ]
           },
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Specify the object type of the object to which the comment must be connected.",
+            "description" : "Object type to which the comment is linked, or *NONE.",
             "default" : "*NONE",
             "enum" : [ "*NONE" ]
           },
           "requestNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the request number to which the comment must be connected.",
+            "description" : "Request number to which the comment is linked, or *NONE.",
             "default" : "*NONE",
             "enum" : [ "*NONE" ]
           },
           "memberCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Use this value if you want to add comment to a message or a member.",
+            "description" : "Member or message code to which the comment is linked, or *NONE.",
             "default" : "*NONE",
             "enum" : [ "*NONE" ]
           },
           "environmentCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the environment code.",
+            "description" : "Environment code to which the comment is linked, or *NONE.",
             "default" : "*NONE",
             "enum" : [ "*NONE" ]
           },
           "sequenceNumber" : {
             "maxLength" : 5,
             "type" : "number",
-            "description" : " Specify the library list sequence number.",
+            "description" : "Library list sequence number.",
             "format" : "packed(5:0)"
           },
           "librarySequenceNumber" : {
             "maxLength" : 3,
             "type" : "number",
-            "description" : "Specify the library sequence number.",
+            "description" : "Library sequence number.",
             "format" : "packed(3:0)"
           },
           "topic" : {
             "maxLength" : 100,
             "type" : "string",
-            "description" : "Specify the event topic when target type is *TOPIC and specify subscriber topic when target type is *SUBSTOPIC."
+            "description" : "Event topic for *TOPIC targets, or subscriber topic for *SUBSTOPIC targets."
           },
           "description" : {
             "maxLength" : 50,
             "type" : "string",
-            "description" : "Specify the subscriber description."
+            "description" : "Subscriber description."
           }
         },
-        "description" : "Common fields for all path"
+        "description" : "Common TD/OMS entity fields used to identify the target of a comment operation."
       },
       "commentTypeAndDescription" : {
         "type" : "object",
@@ -1030,7 +812,7 @@
           "commentMarkupType" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The markup type determines the markup language type.",
+            "description" : "Markup format used for the comment text.",
             "default" : "*TEXT",
             "enum" : [ "*TEXT", "*MARKDOWN", "*MEDIAWIKI" ],
             "x-column" : "MNCMMT",
@@ -1039,27 +821,26 @@
           "shortCommentDescription" : {
             "maxLength" : 100,
             "type" : "string",
-            "description" : "Enter the short description of the comment. The short description is a mandatory attribute.",
+            "description" : "Required short summary of the comment.",
             "x-column" : "MNCMSD",
             "x-sequence" : "170"
           },
           "commentText" : {
             "maxLength" : 4970,
             "type" : "string",
-            "description" : "The comment text is used to describe the comment."
+            "description" : "Full comment text."
           }
         },
-        "description" : "Contains fileds related to comment type and description.",
+        "description" : "Comment content, summary, and markup type.",
         "x-pfname" : "OMCMN",
         "x-fieldSchemaNameType" : "Normalized",
         "x-library" : "V160KEP"
       }
     },
     "responses" : { },
-    "parameters" : { },
     "examples" : {
       "response401" : {
-        "summary" : "Not authorized.",
+        "summary" : "Unauthorized request.",
         "value" : {
           "messageFile" : "OMSAPI",
           "messageId" : "OMQF201",
@@ -1070,7 +851,7 @@
         }
       },
       "response400" : {
-        "summary" : "Something went wrong.",
+        "summary" : "Request failed because an application code is invalid.",
         "value" : {
           "messageFile" : "OMSAPI",
           "messageId" : "OMQ6001",
@@ -1081,7 +862,7 @@
         }
       },
       "addResponse200" : {
-        "summary" : "Response to a successful API call.",
+        "summary" : "Successful add response.",
         "value" : {
           "status" : "*NORM",
           "messages" : {
@@ -1114,13 +895,266 @@
             "commentText" : "This is long Description"
           }
         }
+      },
+      "addRequest" : {
+        "summary" : "Create a task comment.",
+        "value" : {
+          "interfaceLevel" : "V12R1M0",
+          "request" : {
+            "entityCode" : "*TASK",
+            "applicationCode" : "XMP",
+            "fixNumber" : "XT0497",
+            "objectCode" : "*NONE",
+            "objectType" : "*NONE",
+            "requestNumber" : "*NONE",
+            "memberCode" : "*NONE",
+            "environmentCode" : "*NONE",
+            "sequenceNumber" : 0,
+            "librarySequenceNumber" : 0,
+            "topic" : "",
+            "description" : ""
+          },
+          "commentTypeAndDescription" : {
+            "commentMarkupType" : "*TEXT",
+            "shortCommentDescription" : "This is short Description",
+            "commentText" : "This is long description"
+          },
+          "commentProcessingOptions" : {
+            "updateDb" : "1",
+            "updateBuffer" : "1"
+          }
+        }
+      },
+      "addResponse200Operation" : {
+        "summary" : "Successful add response.",
+        "value" : {
+          "status" : "*NORM",
+          "messages" : {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQB310",
+            "messageType" : "",
+            "messageData" : "60301      This is short Description",
+            "field" : "",
+            "messageText" : "Action 60 for comment summary 'This is short Description' completed normally. &N Cause . . . . . :   Action 60 for comment summary 'This is short Description' completed normally. The following actions are used for the comment API: &N 20 - Change, 40 - Delete, 60 - Add, 80 - Reply. &N Recovery  . . . :   None needed, this message is informational. The comment ID was 301."
+          },
+          "commentResponseData" : {
+            "applicationCode" : "XMP",
+            "environmentCode" : "",
+            "sequenceNumber" : 0,
+            "librarySequenceNumber" : 0,
+            "fixNumber" : "XT0497",
+            "requestNumber" : "",
+            "objectCode" : "",
+            "objectType" : "",
+            "memberCode" : "",
+            "genericID" : 0,
+            "entityCode" : "TA",
+            "commentID" : 301,
+            "replyID" : 0,
+            "incomeDate" : 1241015,
+            "incomeTime" : 124601,
+            "userIDOrUserClass" : "ALICE",
+            "shortCommentDescription" : "This is short Description",
+            "commentMarkupType" : "0",
+            "commentText" : "This is long Description"
+          }
+        }
+      },
+      "changeRequest" : {
+        "summary" : "Change an existing task comment.",
+        "value" : {
+          "interfaceLevel" : "V12R1M0",
+          "request" : {
+            "entityCode" : "*TASK",
+            "applicationCode" : "XMP",
+            "fixNumber" : "XT0497",
+            "objectCode" : "*NONE",
+            "objectType" : "*NONE",
+            "requestNumber" : "*NONE",
+            "memberCode" : "*NONE",
+            "environmentCode" : "*NONE",
+            "sequenceNumber" : 0,
+            "librarySequenceNumber" : 0,
+            "topic" : "",
+            "description" : ""
+          },
+          "commentID" : 301,
+          "commentTypeAndDescription" : {
+            "commentMarkupType" : "*TEXT",
+            "shortCommentDescription" : "The short description is changed",
+            "commentText" : "This is long description"
+          },
+          "commentProcessingOptions" : {
+            "updateDb" : "1",
+            "updateBuffer" : "1"
+          }
+        }
+      },
+      "changeResponse200" : {
+        "summary" : "Successful change response.",
+        "value" : {
+          "status" : "*NORM",
+          "messages" : {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQB310",
+            "messageType" : "",
+            "messageData" : "20301      The short description is changed",
+            "field" : "",
+            "messageText" : "Action 20 for comment summary 'The short description is changed' completed normally. &N Cause . . . . . :   Action 20 for comment summary 'The short description is changed' completed normally. The following actions are used for the comment API: &N 20 - Change, 40 - Delete, 60 - Add, 80 - Reply. &N Recovery  . . . :   None needed, this message is informational. The comment ID was 301."
+          },
+          "commentResponseData" : {
+            "applicationCode" : "XMP",
+            "environmentCode" : "",
+            "sequenceNumber" : 0,
+            "librarySequenceNumber" : 0,
+            "fixNumber" : "XT0497",
+            "requestNumber" : "",
+            "objectCode" : "",
+            "objectType" : "",
+            "memberCode" : "",
+            "genericID" : 0,
+            "entityCode" : "TA",
+            "commentID" : 301,
+            "replyID" : 0,
+            "incomeDate" : 1241015,
+            "incomeTime" : 124601,
+            "userIDOrUserClass" : "ALICE",
+            "shortCommentDescription" : "The short description is changed",
+            "commentMarkupType" : "0",
+            "commentText" : "This is long Description"
+          }
+        }
+      },
+      "deleteRequest" : {
+        "summary" : "Delete an existing task comment.",
+        "value" : {
+          "interfaceLevel" : "V12R1M0",
+          "request" : {
+            "entityCode" : "*TASK",
+            "applicationCode" : "XMP",
+            "fixNumber" : "XT0497",
+            "objectCode" : "*NONE",
+            "objectType" : "*NONE",
+            "requestNumber" : "*NONE",
+            "memberCode" : "*NONE",
+            "environmentCode" : "*NONE",
+            "sequenceNumber" : 0,
+            "librarySequenceNumber" : 0,
+            "topic" : "",
+            "description" : ""
+          },
+          "commentID" : 301,
+          "commentProcessingOptions" : {
+            "updateDb" : "1",
+            "updateBuffer" : "1"
+          }
+        }
+      },
+      "deleteResponse200" : {
+        "summary" : "Successful delete response.",
+        "value" : {
+          "status" : "*NORM",
+          "messages" : {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQB310",
+            "messageType" : "",
+            "messageData" : "40301",
+            "field" : "",
+            "messageText" : "Action 40 for comment summary completed normally. &N Cause . . . . . :   Action 40 for comment summary completed normally. The following actions are used for the comment API: &N 20 - Change, 40 - Delete, 60 - Add, 80 - Reply. &N Recovery  . . . :   None needed, this message is informational. The comment ID was 301."
+          },
+          "commentResponseData" : {
+            "applicationCode" : "",
+            "environmentCode" : "",
+            "sequenceNumber" : 0,
+            "librarySequenceNumber" : 0,
+            "fixNumber" : "",
+            "requestNumber" : "",
+            "objectCode" : "",
+            "objectType" : "",
+            "memberCode" : "",
+            "genericID" : 0,
+            "entityCode" : "",
+            "commentID" : 0,
+            "replyID" : 0,
+            "incomeDate" : 0,
+            "incomeTime" : 0,
+            "userIDOrUserClass" : "",
+            "shortCommentDescription" : "",
+            "commentMarkupType" : "",
+            "commentText" : ""
+          }
+        }
+      },
+      "replyRequest" : {
+        "summary" : "Reply to an existing task comment.",
+        "value" : {
+          "interfaceLevel" : "V12R1M0",
+          "request" : {
+            "entityCode" : "*TASK",
+            "applicationCode" : "XMP",
+            "fixNumber" : "XT0497",
+            "objectCode" : "*NONE",
+            "objectType" : "*STMF",
+            "requestNumber" : "*NONE",
+            "memberCode" : "*NONE",
+            "environmentCode" : "*NONE",
+            "sequenceNumber" : 0,
+            "librarySequenceNumber" : 0,
+            "topic" : "",
+            "description" : ""
+          },
+          "replyID" : 303,
+          "commentTypeAndDescription" : {
+            "commentMarkupType" : "*TEXT",
+            "shortCommentDescription" : "This is reply comment",
+            "commentText" : "Comment"
+          },
+          "commentProcessingOptions" : {
+            "updateDb" : "1",
+            "updateBuffer" : "1"
+          }
+        }
+      },
+      "replyResponse200" : {
+        "summary" : "Successful reply response.",
+        "value" : {
+          "status" : "*NORM",
+          "messages" : {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQB310",
+            "messageType" : "",
+            "messageData" : "80304      This is reply comment",
+            "field" : "",
+            "messageText" : "Action 80 for comment summary 'This is reply comment' completed normally. &N Cause . . . . . :   Action 80 for comment summary 'This is reply comment' completed normally. The following actions are used for the comment API: &N 20 - Change, 40 - Delete, 60 - Add, 80 - Reply. &N Recovery  . . . :   None needed, this message is informational. The comment ID was 304."
+          },
+          "commentResponseData" : {
+            "applicationCode" : "XMP",
+            "environmentCode" : "",
+            "sequenceNumber" : 0,
+            "librarySequenceNumber" : 0,
+            "fixNumber" : "XT0497",
+            "requestNumber" : "",
+            "objectCode" : "",
+            "objectType" : "",
+            "memberCode" : "",
+            "genericID" : 0,
+            "entityCode" : "TA",
+            "commentID" : 304,
+            "replyID" : 301,
+            "incomeDate" : 1241015,
+            "incomeTime" : 131838,
+            "userIDOrUserClass" : "ALICE",
+            "shortCommentDescription" : "This is reply comment",
+            "commentMarkupType" : "0",
+            "commentText" : "Comment"
+          }
+        }
       }
     },
-    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
-        "description" : "Jwt security",
+        "description" : "Bearer token used to authorize API requests.",
         "scheme" : "bearer",
         "bearerFormat" : "JWT"
       }
