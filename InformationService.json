@@ -1,0 +1,798 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OMS Information Service",
+    "description": "The TD/OMS Information Service REST API provides read-only access to system information, licensing, application configurations, and user permissions. This API serves as a health check endpoint and discovery service for TD/OMS installations. Use it to verify connectivity, check license status (version, modules, user counts, expiration dates), discover available applications, examine environment flows, and validate user authorization levels before performing other TD/OMS operations. The license endpoint can be called without authentication for connectivity testing.",
+    "termsOfService": "https://remainsoftware.com/octo-terms-and-conditions",
+    "contact": {
+      "name": "Remain BV",
+      "url": "https://remainsoftware.com",
+      "email": "helpdesk@remainsoftware.com"
+    },
+    "license": {
+      "name": "Remain Software License",
+      "url": "https://remainsoftware.com/octo-terms-and-conditions"
+    },
+    "version": "1.0.0",
+    "x-restgeninfo": {
+      "server": "https://plato.remainsoftware.com:45111/generator",
+      "object": "OMSINFO",
+      "library": "YOURLIB",
+      "srclibrary": "YOURLIBS",
+      "file": "InformationService.json",
+      "additionalBindingDirs": "OMRESTUTIL,OMREGUTIL,OMSAUTH"
+    }
+  },
+  "servers": [
+    {
+      "url": "{protocol}://{host}:{port}/{library}/OMSINFO",
+      "description": "The server",
+      "variables": {
+        "server": {
+          "default": "plato.remainsoftware.com"
+        },
+        "protocol": {
+          "enum": [
+            "https",
+            "http"
+          ],
+          "default": "https"
+        },
+        "library": {
+          "description": "",
+          "default": "OMS"
+        },
+        "port": {
+          "description": "",
+          "default": "45011"
+        }
+      }
+    }
+  ],
+  "security": [
+    {
+      "JWT": []
+    }
+  ],
+  "paths": {
+    "/license": {
+      "summary": "License Information",
+      "description": "Retrieve TD/OMS license details including version, modules, user counts, and expiration dates. This endpoint can also be used as a health check to verify backend connectivity.",
+      "get": {
+        "summary": "Get License Information",
+        "description": "Returns comprehensive licensing information for the TD/OMS installation including product version, license type (*COMBINED, *NAMED, *FLOATING), serial number, LPAR, named and floating user counts, and detailed module information with individual versions, build dates, and expiration dates. Active modules include: KE (Kernel), FP (Object Transfer), RM (Request Management), IA (Impact Analysis), OS (Object Distribution), OR (Object Receiving), SC (Source Change Control). Use this endpoint to verify TD/OMS is properly licensed and to check which modules are active.",
+        "operationId": "license",
+        "responses": {
+          "200": {
+            "description": "License information retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/licenseInfo"
+                },
+                "examples": {
+                  "licenseInfo": {
+                    "value": null,
+                    "$ref": "#/components/examples/licenseInfo"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks": {},
+        "security": [],
+        "x-generate": {
+          "session": false,
+          "jwtlogin": false,
+          "suffix": "01",
+          "generate": false
+        }
+      }
+    },
+    "/system": {
+      "summary": "System Information",
+      "description": "Retrieve comprehensive TD/OMS system information including user manager roles, authorized applications with their configurations, environment deployment flows, and user-specific permissions per application.",
+      "get": {
+        "summary": "Get System Information",
+        "description": "Returns detailed system information for the authenticated user including: (1) Global roles - isOMSManager (administrative privileges), isExitManager (exit program management), isSecurityManager (user authorization management); (2) Server context - fetchTime (Unix epoch), timeZone, timeZoneOffset; (3) Authorized applications with full configuration including requestManager, release, pathCode, task/request number prefixes, and user permission flags (isUser, isProgrammer, isManager, canCreateTasks, canCreateRequests); (4) Environment flow for each application showing the deployment sequence from development to production with ratification requirements, selection codes, and ownership flags. Filter by specific applications using the applications query parameter.",
+        "operationId": "getSystemInfo",
+        "parameters": [
+          {
+            "name": "applications",
+            "in": "query",
+            "description": "Comma-separated list of application codes to filter the response (e.g., 'XMP,GIT,TOOLS'). When omitted, returns all applications the user is authorized to access. Use this to reduce response size when you only need specific application information.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/applicationList"
+            },
+            "examples": {
+              "systemInfo": {
+                "value": null,
+                "$ref": "#/components/examples/systemInfo"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/systemInfo"
+                },
+                "examples": {
+                  "systemInfo": {
+                    "value": null,
+                    "$ref": "#/components/examples/systemInfo"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "General error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/message"
+                }
+              }
+            }
+          }
+        },
+        "callbacks": {},
+        "x-generate": {
+          "session": false,
+          "jwtlogin": false,
+          "suffix": "02",
+          "generate": false
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "licenseInfo": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string",
+            "description": "TD/OMS product version in format major.minor with optional modifier (e.g., 18.0M03 where M03 indicates maintenance release 3)",
+            "example": "18.0M03"
+          },
+          "productLibrary": {
+            "type": "string",
+            "description": "IBM i library name containing the TD/OMS product installation",
+            "example": "OMSXMP"
+          },
+          "message": {
+            "maxLength": 256,
+            "type": "string",
+            "description": "Status message indicating the result of the license fetch operation",
+            "example": "License Information Fetched"
+          },
+          "licenseType": {
+            "type": "string",
+            "description": "License type: *COMBINED (named + floating users), *NAMED (dedicated named users only), *FLOATING (concurrent floating users only), *UNLIMITED (no user limit)",
+            "example": "*COMBINED",
+            "enum": [
+              "*FLOATING",
+              "*COMBINED",
+              "*NAMED",
+              "*UNLIMITED"
+            ]
+          },
+          "lpar": {
+            "type": "integer",
+            "description": "Logical Partition (LPAR) identifier for the IBM i system",
+            "example": 7
+          },
+          "namedUsers": {
+            "type": "integer",
+            "description": "Number of named user licenses. Named users are specific individuals who have dedicated access to TD/OMS.",
+            "example": 15
+          },
+          "floatingUsers": {
+            "type": "integer",
+            "description": "Number of floating (concurrent) user licenses. These licenses can be shared among users on a first-come, first-served basis.",
+            "example": 4
+          },
+          "serialNumber": {
+            "type": "string",
+            "description": "IBM i system serial number used for license validation",
+            "example": "XXXXXXX"
+          },
+          "processorFeatureCode": {
+            "type": "string",
+            "description": "IBM i processor feature code identifying the hardware configuration",
+            "example": "EPGR"
+          },
+          "licenseEndDate": {
+            "type": "string",
+            "description": "License expiration date in CYYMMDD format where C is century (0=19xx, 1=20xx), YY=year, MM=month, DD=day. Example: 1391231 = December 31, 2039",
+            "example": "1391231"
+          },
+          "modules": {
+            "maxItems": 50,
+            "type": "array",
+            "description": "Array of licensed TD/OMS modules with individual version and expiration information. Common modules: KE (Kernel), FP (Object Transfer), RM (Request Management), IA (Impact Analysis), OS (Object Distribution), OR (Object Receiving), SC (Source Change Control), SY (CA 2E Interface), AS (AS/SET Interface)",
+            "items": {
+              "$ref": "#/components/schemas/moduleLicenseInfo"
+            }
+          }
+        },
+        "description": "TD/OMS license information response containing product details, user counts, module licenses, and expiration dates"
+      },
+      "systemInfo": {
+        "type": "object",
+        "properties": {
+          "isOMSManager": {
+            "type": "boolean",
+            "description": "True if the authenticated user has TD/OMS Manager role, granting administrative privileges across all applications including configuration changes and user management",
+            "example": true
+          },
+          "isExitManager": {
+            "type": "boolean",
+            "description": "True if the authenticated user can configure and manage TD/OMS exit programs that are called during various operations like transfers and compilations",
+            "example": true
+          },
+          "isSecurityManager": {
+            "type": "boolean",
+            "description": "True if the authenticated user has TD/OMS Security Manager role, granting ability to manage user authorizations and access rights",
+            "example": true
+          },
+          "fetchTime": {
+            "type": "integer",
+            "description": "Server timestamp when the information was fetched (Unix epoch time in seconds since January 1, 1970 UTC)",
+            "example": 1774343860
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "Server time zone identifier in IBM i POSIX format (e.g., QP0100CET4 for Central European Time)",
+            "example": "QP0100CET4"
+          },
+          "timeZoneOffset": {
+            "type": "number",
+            "description": "Server time zone offset from UTC in minutes. Positive values are ahead of UTC (e.g., 60 = UTC+1, 120 = UTC+2)",
+            "example": 60
+          },
+          "applications": {
+            "maxItems": 500,
+            "type": "array",
+            "description": "Array of applications the authenticated user is authorized to access. Each application includes configuration details, user permissions, and the complete environment deployment flow.",
+            "items": {
+              "$ref": "#/components/schemas/applicationInfo"
+            }
+          }
+        },
+        "description": "Comprehensive TD/OMS system information including user's global roles, server context, and detailed application configurations with environment flows"
+      },
+      "applicationInfo": {
+        "type": "object",
+        "properties": {
+          "applicationCode": {
+            "maxLength": 5,
+            "type": "string",
+            "description": "Unique application identifier (up to 5 characters). This code is used throughout TD/OMS to reference the application.",
+            "example": "XMP",
+            "x-column": "PPAPPC",
+            "x-sequence": "10"
+          },
+          "applicationName": {
+            "maxLength": 60,
+            "type": "string",
+            "description": "Human-readable application name describing the business purpose",
+            "example": "Core Comics Supplies Service",
+            "x-column": "PPAPNM",
+            "x-sequence": "20"
+          },
+          "requestManager": {
+            "maxLength": 10,
+            "type": "string",
+            "description": "Request management type: 'OMS' (TD/OMS internal request management), 'WIM' (Web Interface Mode), or a user profile name for external request management integration",
+            "example": "OMS",
+            "x-column": "PPERPR",
+            "x-sequence": "30"
+          },
+          "release": {
+            "maxLength": 10,
+            "type": "string",
+            "description": "Current application release version. Empty string if release management is not enabled for this application.",
+            "example": "MS05",
+            "x-column": "PPCRLS",
+            "x-sequence": "70"
+          },
+          "requestNumber": {
+            "maxLength": 10,
+            "type": "string",
+            "description": "Last generated request/incident number or prefix. Value '*BLOCK' indicates requests are blocked for this application.",
+            "example": "XR0023",
+            "x-column": "PPCERR",
+            "x-sequence": "80"
+          },
+          "pathCode": {
+            "maxLength": 10,
+            "type": "string",
+            "description": "Default transfer path code for the application. Paths define object routes through environments. Empty if paths are not configured.",
+            "example": "MAIN",
+            "x-column": "PPPATH",
+            "x-sequence": "270"
+          },
+          "taskNumber": {
+            "maxLength": 10,
+            "type": "string",
+            "description": "Last generated task number or prefix. Special values: '*TICKET' for external ticket integration, '*NONE' if tasks are disabled.",
+            "example": "XT0777",
+            "x-column": "PPCFIX",
+            "x-sequence": "100"
+          },
+          "authorizationCode": {
+            "type": "string",
+            "description": "User's authorization level for this application: '1' (User - view access), '2' (Programmer - can develop), '3' (Manager - full control)",
+            "example": "3",
+            "enum": [
+              "1",
+              "2",
+              "3"
+            ]
+          },
+          "isUser": {
+            "type": "boolean",
+            "description": "True if the authenticated user has at least User level access (authorization code 1, 2, or 3) to this application, allowing view access to tasks, objects, and transfers",
+            "example": true
+          },
+          "isProgrammer": {
+            "type": "boolean",
+            "description": "True if the authenticated user has at least Programmer level access (authorization code 2 or 3), allowing development activities like connecting objects to tasks and making source changes",
+            "example": true
+          },
+          "isManager": {
+            "type": "boolean",
+            "description": "True if the authenticated user has Manager level access (authorization code 3), granting full control including application configuration, user management, and override capabilities",
+            "example": true
+          },
+          "isForceConnectionRules": {
+            "type": "boolean",
+            "description": "True if connection rules are strictly enforced when connecting objects to tasks. When false, programmers may bypass certain connection rules.",
+            "example": false
+          },
+          "isConfirmTransfer": {
+            "type": "boolean",
+            "description": "True if transfers require explicit confirmation (typically with password) before execution to prevent accidental deployments",
+            "example": true
+          },
+          "canCreateTasks": {
+            "type": "boolean",
+            "description": "True if the user can create new tasks (change requests) in this application",
+            "example": true
+          },
+          "canCreateRequests": {
+            "type": "boolean",
+            "description": "True if the user can create new requests/incidents in this application. False when requests are blocked (*BLOCK) or managed externally.",
+            "example": true
+          },
+          "developmentEnvironment": {
+            "type": "string",
+            "description": "Environment code where active development occurs (typically '*DEV'). This is where objects are checked out for modification.",
+            "example": "*DEV"
+          },
+          "productionEnvironment": {
+            "type": "string",
+            "description": "Environment code for production deployment (typically '*PRD'). This is the final destination for completed changes.",
+            "example": "*PRD"
+          },
+          "emergencyEnvironment": {
+            "type": "string",
+            "description": "Environment code for emergency/hotfix deployments (typically '*HOT'). Empty string if emergency path is not configured.",
+            "example": "*HOT"
+          },
+          "environments": {
+            "maxItems": 100,
+            "type": "array",
+            "description": "Ordered array of environments in the application's deployment flow, from development through production. Sequence numbers determine the deployment order.",
+            "items": {
+              "$ref": "#/components/schemas/environmentInfo"
+            }
+          }
+        },
+        "description": "TD/OMS application configuration including user permissions, workflow settings, and deployment environment references",
+        "example": "XMP",
+        "x-pfname": "OMAPP",
+        "x-library": "YOURLIB",
+        "x-host": "your.server",
+        "x-fieldSchemaNameType": "Normalized"
+      },
+      "environmentInfo": {
+        "type": "object",
+        "properties": {
+          "applicationCode": {
+            "maxLength": 5,
+            "type": "string",
+            "description": "Parent application code this environment belongs to",
+            "example": "XMP",
+            "x-column": "DLAPPC",
+            "x-sequence": "10"
+          },
+          "sequenceNumber": {
+            "maxLength": 5,
+            "type": "number",
+            "description": "Environment sequence in the deployment flow. Higher numbers indicate later stages (e.g., 10=DEV, 20=TST, 30=INT, 40=PRD). Value 0 is reserved for emergency/hotfix environments.",
+            "format": "",
+            "example": 40,
+            "x-column": "DLSEQ#",
+            "x-sequence": "20"
+          },
+          "environmentCode": {
+            "maxLength": 5,
+            "type": "string",
+            "description": "Environment identifier code. Common values: *DEV (development), *TST (test), *INT (integration), *PRD (production), *HOT (emergency/hotfix)",
+            "example": "*PRD",
+            "x-column": "DLPDLC",
+            "x-sequence": "30"
+          },
+          "ratificationType": {
+            "maxLength": 1,
+            "type": "string",
+            "description": "Approval requirement before transfer to this environment: '0' (none required), '1' (request-level ratification), '2' (task/fix-level ratification)",
+            "example": "0",
+            "enum": [
+              "0",
+              "1",
+              "2"
+            ],
+            "x-column": "DLACCT",
+            "x-sequence": "80"
+          },
+          "description": {
+            "maxLength": 100,
+            "type": "string",
+            "description": "Human-readable environment description",
+            "example": "Production",
+            "x-column": "DLPDLD",
+            "x-sequence": "40"
+          },
+          "selectionCode": {
+            "maxLength": 7,
+            "type": "string",
+            "description": "Object selection method for transfers into this environment: '*ALL' (all connected objects), '*PATH' (path-based selection), '*SELECT' (manual selection), '*USRPRF' (user profile based), '*NONE' (no selection allowed)",
+            "example": "*ALL",
+            "enum": [
+              "*SELECT",
+              "*PATH",
+              "*USRPRF",
+              "*ALL",
+              "*NONE"
+            ],
+            "x-column": "DLLVSC",
+            "x-sequence": "50"
+          },
+          "selectionNumber": {
+            "maxLength": 3,
+            "type": "number",
+            "description": "Selection number for complex selection rules. 0 indicates default selection behavior.",
+            "format": "",
+            "example": 0,
+            "x-column": "DLLVS#",
+            "x-sequence": "60"
+          },
+          "numberOfRatificationGroups": {
+            "maxLength": 3,
+            "type": "number",
+            "description": "Number of ratification groups that must approve before transfer to this environment. 0 means no ratification required. Multiple groups enable parallel or sequential approval workflows.",
+            "format": "",
+            "example": 0,
+            "x-column": "DLNAC#",
+            "x-sequence": "70"
+          },
+          "isOwner": {
+            "type": "boolean",
+            "description": "True if the authenticated user is an owner of this environment, granting ability to approve ratifications and manage environment-specific settings",
+            "example": true
+          },
+          "isProductionEnvironment": {
+            "type": "boolean",
+            "description": "True if this is the designated production environment (final deployment destination)",
+            "example": true
+          },
+          "isEmergencyEnvironment": {
+            "type": "boolean",
+            "description": "True if this is the emergency/hotfix environment used for urgent production fixes outside the normal deployment flow",
+            "example": false
+          },
+          "isDevelopmentEnvironment": {
+            "type": "boolean",
+            "description": "True if this is the primary development environment where objects are checked out and modified",
+            "example": false
+          }
+        },
+        "description": "TD/OMS environment configuration within an application's deployment flow, including workflow sequence, ratification requirements, and user permissions",
+        "x-pfname": "OMPDL",
+        "x-library": "YOURLIB",
+        "x-host": "your.server",
+        "x-fieldSchemaNameType": "Normalized"
+      },
+      "message": {
+        "maxLength": 150,
+        "type": "string",
+        "description": "Error or status message returned for non-200 response codes. Provides details about what went wrong."
+      },
+      "applicationList": {
+        "maxLength": 1024,
+        "type": "string",
+        "description": "Comma-separated list of application codes to filter results (e.g., 'XMP,GIT,TOOLS'). Maximum 1024 characters.",
+        "example": "XMP,GIT"
+      },
+      "moduleLicenseInfo": {
+        "type": "object",
+        "properties": {
+          "moduleCode": {
+            "type": "string",
+            "description": "Two-character module identifier: KE (Kernel), FP (Object Transfer), RM (Request Management), IA (Impact Analysis), OS (Object Distribution), OR (Object Receiving), SC (Source Change Control), SY (CA 2E Interface), AS (AS/SET Interface)",
+            "example": "KE",
+            "enum": [
+              "KE",
+              "FP",
+              "RM",
+              "IA",
+              "OS",
+              "OR",
+              "SC",
+              "SY",
+              "AS"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "description": "Human-readable module name",
+            "example": "Kernel"
+          },
+          "version": {
+            "type": "string",
+            "description": "Module version or status. Active modules show version (e.g., '18.0M03'). Special values: '*INACTIVE' (module not licensed), '*UNKNOWN' (status cannot be determined)",
+            "example": "18.0M03"
+          },
+          "buildDate": {
+            "type": "string",
+            "description": "Module build date and time in format 'YYYY.MM.DD HH:MM'. Empty string if module is inactive or build date unavailable.",
+            "example": "2026.03.19 12:00"
+          },
+          "numberOfUsers": {
+            "type": "integer",
+            "description": "Maximum users licensed for this module. Value 1024 typically indicates unlimited users. Value 0 indicates inactive/unlicensed module.",
+            "example": 15
+          },
+          "LicenseEndDate": {
+            "type": "string",
+            "description": "Module-specific license expiration date in CYYMMDD format. Value '0' indicates inactive or perpetually unlicensed module.",
+            "example": "1390701"
+          }
+        },
+        "description": "TD/OMS module license information including version, build date, user count, and expiration"
+      }
+    },
+    "responses": {},
+    "parameters": {},
+    "examples": {
+      "licenseInfo": {
+        "summary": "Complete license information with all licensed modules",
+        "description": "Example response showing TD/OMS license details including product version, license type, user counts, system identifiers, and comprehensive module licensing information with versions, build dates, and expiration dates.",
+        "value": {
+          "version": "18.0M03",
+          "productLibrary": "OMSXMP",
+          "message": "License Information Fetched",
+          "licenseType": "*COMBINED",
+          "lpar": 7,
+          "namedUsers": 15,
+          "floatingUsers": 4,
+          "serialNumber": "XXXXXXX",
+          "processorFeatureCode": "EPGR",
+          "licenseEndDate": "1391231",
+          "modules": [
+            {
+              "moduleCode": "KE",
+              "description": "Kernel",
+              "version": "18.0M03",
+              "buildDate": "2026.03.19 12:00",
+              "numberOfUsers": 15,
+              "LicenseEndDate": "1390701"
+            },
+            {
+              "moduleCode": "FP",
+              "description": "Object Transfer",
+              "version": "18.0M03",
+              "buildDate": "2026.03.19 12:00",
+              "numberOfUsers": 1024,
+              "LicenseEndDate": "1390701"
+            },
+            {
+              "moduleCode": "RM",
+              "description": "Request Management",
+              "version": "18.0M03",
+              "buildDate": "2026.03.19 12:00",
+              "numberOfUsers": 4,
+              "LicenseEndDate": "1390701"
+            },
+            {
+              "moduleCode": "IA",
+              "description": "Impact Analysis",
+              "version": "18.0M03",
+              "buildDate": "2026.03.19 12:00",
+              "numberOfUsers": 1024,
+              "LicenseEndDate": "1390701"
+            },
+            {
+              "moduleCode": "OS",
+              "description": "Object Distribution",
+              "version": "18.0M03",
+              "buildDate": "2026.03.19 12:00",
+              "numberOfUsers": 1024,
+              "LicenseEndDate": "1390701"
+            },
+            {
+              "moduleCode": "OR",
+              "description": "Object Receiving",
+              "version": "*INACTIVE",
+              "buildDate": "",
+              "numberOfUsers": 0,
+              "LicenseEndDate": "0"
+            },
+            {
+              "moduleCode": "SC",
+              "description": "Source Change Control",
+              "version": "10.0M01",
+              "buildDate": "",
+              "numberOfUsers": 1024,
+              "LicenseEndDate": "1390701"
+            },
+            {
+              "moduleCode": "SY",
+              "description": "CA 2E Interface",
+              "version": "*UNKNOWN",
+              "buildDate": "",
+              "numberOfUsers": 1024,
+              "LicenseEndDate": "1390701"
+            },
+            {
+              "moduleCode": "AS",
+              "description": "AS/SET Interface",
+              "version": "*INACTIVE",
+              "buildDate": "",
+              "numberOfUsers": 0,
+              "LicenseEndDate": "0"
+            }
+          ]
+        }
+      },
+      "systemInfo": {
+        "summary": "Complete system information with application and environment details",
+        "description": "Example response showing user's global roles, server context, and a fully configured application with a 5-environment deployment flow including development, test, integration, production, and emergency paths.",
+        "value": {
+          "isOMSManager": true,
+          "isExitManager": true,
+          "isSecurityManager": true,
+          "fetchTime": 1774343860,
+          "timeZone": "QP0100CET4",
+          "timeZoneOffset": 60,
+          "applications": [
+            {
+              "applicationCode": "XMP",
+              "applicationName": "Core Comics Supplies Service",
+              "requestManager": "OMS",
+              "release": "MS05",
+              "requestNumber": "XR0023",
+              "pathCode": "MAIN",
+              "taskNumber": "XT0777",
+              "authorizationCode": "3",
+              "isUser": true,
+              "isProgrammer": true,
+              "isManager": true,
+              "isForceConnectionRules": false,
+              "isConfirmTransfer": true,
+              "canCreateTasks": true,
+              "canCreateRequests": true,
+              "developmentEnvironment": "*DEV",
+              "productionEnvironment": "*PRD",
+              "emergencyEnvironment": "*HOT",
+              "environments": [
+                {
+                  "applicationCode": "XMP",
+                  "sequenceNumber": 40,
+                  "environmentCode": "*PRD",
+                  "ratificationType": "0",
+                  "description": "Production",
+                  "selectionCode": "*ALL",
+                  "selectionNumber": 0,
+                  "numberOfRatificationGroups": 0,
+                  "isOwner": true,
+                  "isProductionEnvironment": true,
+                  "isEmergencyEnvironment": false,
+                  "isDevelopmentEnvironment": false
+                },
+                {
+                  "applicationCode": "XMP",
+                  "sequenceNumber": 35,
+                  "environmentCode": "*INT",
+                  "ratificationType": "2",
+                  "description": "Integration",
+                  "selectionCode": "*SELECT",
+                  "selectionNumber": 0,
+                  "numberOfRatificationGroups": 1,
+                  "isOwner": true,
+                  "isProductionEnvironment": false,
+                  "isEmergencyEnvironment": false,
+                  "isDevelopmentEnvironment": false
+                },
+                {
+                  "applicationCode": "XMP",
+                  "sequenceNumber": 20,
+                  "environmentCode": "*TST",
+                  "ratificationType": "2",
+                  "description": "Test",
+                  "selectionCode": "*PATH",
+                  "selectionNumber": 0,
+                  "numberOfRatificationGroups": 2,
+                  "isOwner": true,
+                  "isProductionEnvironment": false,
+                  "isEmergencyEnvironment": false,
+                  "isDevelopmentEnvironment": false
+                },
+                {
+                  "applicationCode": "XMP",
+                  "sequenceNumber": 10,
+                  "environmentCode": "*DEV",
+                  "ratificationType": "0",
+                  "description": "Development",
+                  "selectionCode": "*PATH",
+                  "selectionNumber": 0,
+                  "numberOfRatificationGroups": 0,
+                  "isOwner": true,
+                  "isProductionEnvironment": false,
+                  "isEmergencyEnvironment": false,
+                  "isDevelopmentEnvironment": true
+                },
+                {
+                  "applicationCode": "XMP",
+                  "sequenceNumber": 0,
+                  "environmentCode": "*HOT",
+                  "ratificationType": "0",
+                  "description": "Hotfix",
+                  "selectionCode": "*SELECT",
+                  "selectionNumber": 0,
+                  "numberOfRatificationGroups": 0,
+                  "isOwner": true,
+                  "isProductionEnvironment": false,
+                  "isEmergencyEnvironment": true,
+                  "isDevelopmentEnvironment": false
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "requestBodies": {},
+    "securitySchemes": {
+      "JWT": {
+        "type": "http",
+        "description": "JSON Web Token (JWT) bearer authentication. Obtain a token from your IBM i authentication endpoint and include it in the Authorization header as 'Bearer <token>'. The /license endpoint can be called without authentication for connectivity testing.",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "callbacks": {}
+  }
+}
