@@ -1,0 +1,1183 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "OMS Branch Service",
+    "description" : "The OMS Branch Service manages branches (transfer paths) in the development workflow. Branches are development environments connected to tasks with the same name (e.g., branch XT0764 connected to task XT0764). Use this API to:\n\n**Core Operations:**\n- **Create branches** (/add): Create a new branch and connect it to a task using connectToFix=*BRANCH\n- **Update branches** (/change): Modify branch description\n- **Manage status** (/status): Calculate and update branch status based on connected task state\n- **Delete branches** (/delete): Remove branches (only when status is *NEW or *CMP and no connected tasks)\n\n**Stash/Restore/Purge Workflow:**\n- **Stash branches** (/stash): Archives branch for housekeeping. REMOVES branch from OMXTransferPath and stores in OMXStashedBranchesInformation table. Requirements: (1) Objects must be compiled and in *DEV environment, (2) Valid reason code required (e.g., 'O' for Obsolete), (3) Task status changes to *CMP after stash. Returns saveFile location (e.g., SB40934476) in fallBackLibrary.\n- **Restore branches** (/restore): Recovers stashed branch with all solutions. NOTE: May fail if task is in *CMP status - task must be re-activated first.\n- **Purge stashed** (/purge): Permanently deletes stashed branch info from OMXStashedBranchesInformation. Cannot be undone.\n\n**Disconnection Workflow:**\nTo delete a branch connected to a task: (1) use TDOMS Task API to set task.pathCode to 'MAIN', (2) call /status to recalculate branch status, (3) delete when status is *NEW or *CMP.\n\n**Database Schema:**\n- Branches: OMXTransferPath table with pathType='2'\n- Task connections: OMXFixExtended.pathCode field\n- Stashed branches: OMXStashedBranchesInformation table (saveFile, fallBackLibrary, pathCode)",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "info@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "MIT License",
+      "url" : "https://opensource.org/licenses/MIT"
+    },
+    "version" : "1.0.0",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "object" : "OMQRBR",
+      "library" : "V18T0188",
+      "srclibrary" : "V18T0188S",
+      "file" : "BranchService.json"
+    }
+  },
+  "servers" : [ {
+    "url" : "{protocol}://{host}:{port}/{library}/OMQRBR",
+    "description" : "",
+    "variables" : {
+      "host" : {
+        "description" : "The host serving the API",
+        "default" : "plato.remainsoftware.com"
+      },
+      "library" : {
+        "description" : "The TD/OMS library",
+        "default" : "OMS"
+      },
+      "port" : {
+        "description" : "The port to which the server is listening",
+        "default" : "45011"
+      },
+      "protocol" : {
+        "description" : "Protocol",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/add" : {
+      "summary" : "Create a new branch (transfer path)",
+      "description" : "Creates a new branch (transfer path) in the specified application. A branch is a development environment typically connected to a task with the same name. Use connectToFix=*BRANCH to automatically connect the branch to a task with matching code. The branch initializes in *PLND (Planned) status, which transitions as connected task status changes. Branches are stored in OMXTransferPath with pathType='2' and must have a description. Use forceInd=1 only if the task is already assigned to another branch (with user confirmation).",
+      "post" : {
+        "summary" : "Create a new branch",
+        "description" : "Creates a new branch in the TD/OMS system. The branch name (pathCode) typically matches the task number for consistency. When connectToFix=*BRANCH, the system automatically connects the branch to a task with code matching the pathCode. This updates OMXFixExtended.pathCode for the task from 'MAIN' to the new branch code.",
+        "operationId" : "addBranch",
+        "requestBody" : {
+          "description" : "Request body to create a new branch. Required fields: applicationCode, pathCode, transferPathDescription. The connectToFix parameter controls task assignment behavior.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/addRequest"
+              },
+              "examples" : {
+                "createBranchForTask" : {
+                  "summary" : "Create branch XT0764 for task XT0764 in application XMP",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "pathCode" : "XT0764",
+                    "connectToFix" : "*BRANCH",
+                    "transferPathDescription" : "Branch for task XT0764",
+                    "forceInd" : "0"
+                  }
+                },
+                "createBranchStandalone" : {
+                  "summary" : "Create standalone branch not connected to any task",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "pathCode" : "XT0765",
+                    "connectToFix" : "*NONE",
+                    "transferPathDescription" : "Experimental feature branch",
+                    "forceInd" : "0"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Branch created successfully. Status returns *NORM with messageId OMQ2016.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response200" : {
+                    "summary" : "Successful branch creation response",
+                    "value" : {
+                      "messages" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQ2016",
+                        "messageData" : "XT0764    XMP",
+                        "messageText" : "Action for branch XT0764 in application XMP completed normally"
+                      },
+                      "status" : "*NORM"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request: Invalid application code, branch already exists, or task already assigned to another branch (without force)",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "summary" : "Branch creation failed - application code invalid",
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQ6001",
+                      "messageData" : "BOGUS",
+                      "messageText" : "Application code BOGUS does not exist. Cause: Invalid application code. Recovery: Use a valid application code and retry."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Authentication failed: JWT token missing, expired, or invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQF201",
+                      "messageData" : "",
+                      "messageText" : "Unauthorized or expired token. Please login again."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : false
+        }
+      }
+    },
+    "/change" : {
+      "summary" : "Update branch description",
+      "description" : "Modifies the description of an existing branch. Use this to update branch documentation or notes. Only the transferPathDescription can be changed; the branch code (pathCode) is immutable. The branch must exist in the application (stored in OMXTransferPath with pathType='2').",
+      "post" : {
+        "summary" : "Change branch description",
+        "description" : "Updates the description field for an existing branch. This is useful for documenting branch purpose, status notes, or project information.",
+        "operationId" : "changeBranch",
+        "requestBody" : {
+          "description" : "Request body to update branch description. Required fields: applicationCode, pathCode. Provide new transferPathDescription value.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/changeRequest"
+              },
+              "examples" : {
+                "updateBranchDescription" : {
+                  "summary" : "Update branch description after modifications",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "pathCode" : "XT0764",
+                    "transferPathDescription" : "Branch for task XT0764 - Ready for testing"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Branch description updated successfully. Status returns *NORM with messageId OMQ2016.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response200" : {
+                    "summary" : "Successful branch update response",
+                    "value" : {
+                      "messages" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQ2016",
+                        "messageData" : "XT0764    XMP",
+                        "messageText" : "Action for branch XT0764 in application XMP completed normally"
+                      },
+                      "status" : "*NORM"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request: Invalid application code or branch not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "summary" : "Branch not found for change",
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQ5050",
+                      "messageData" : "XT9999",
+                      "messageText" : "Branch XT9999 not found in application. Recovery: Verify branch code and try again."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Authentication failed: JWT token missing, expired, or invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQF201",
+                      "messageData" : "",
+                      "messageText" : "Unauthorized or expired token. Please login again."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "02",
+          "generate" : false
+        }
+      }
+    },
+    "/delete" : {
+      "summary" : "Delete a branch (disconnect and purge)",
+      "description" : "Deletes a branch from the system. A branch can only be deleted when its status is *NEW or *CMP and it has no connected tasks or content. **Disconnection Workflow**: (1) Use TDOMS Task API to change connected task.pathCode from branch code to 'MAIN', (2) Call /status endpoint to recalculate branch status based on disconnected task, (3) Call /delete when status transitions to *NEW or *CMP. Set forceInd=1 only if branch contains objects and you want to delete all content (use with caution - requires user confirmation).",
+      "post" : {
+        "summary" : "Delete a branch",
+        "description" : "Removes a branch from the system. Branch deletion follows a workflow: disconnect tasks from the branch, recalculate status, then delete. Only branches in *NEW or *CMP status without active content can be deleted without force.",
+        "operationId" : "deleteBranch",
+        "requestBody" : {
+          "description" : "Request body to delete a branch. Required fields: applicationCode, pathCode. The forceInd parameter controls deletion of non-empty branches.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/deleteRequest"
+              },
+              "examples" : {
+                "deleteBranchNormal" : {
+                  "summary" : "Delete empty branch with status *NEW or *CMP",
+                  "description" : "This is the normal deletion path - branch has been disconnected from tasks and status is *NEW",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "pathCode" : "XT0764",
+                    "forceInd" : "0"
+                  }
+                },
+                "deleteBranchWithContent" : {
+                  "summary" : "Force delete branch with content (use with caution)",
+                  "description" : "Only use forceInd=1 if you have confirmed with the user that all branch content will be deleted",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "pathCode" : "XT0764",
+                    "forceInd" : "1"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Branch deleted successfully. Status returns *NORM with messageId OMQ2016. Branch is removed from OMXTransferPath table.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response200" : {
+                    "summary" : "Successful branch deletion response",
+                    "value" : {
+                      "messages" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQ2016",
+                        "messageData" : "XT0764    XMP",
+                        "messageText" : "Action for branch XT0764 in application XMP completed normally"
+                      },
+                      "status" : "*NORM"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request: Branch not empty, still has connected tasks, or status does not allow deletion without force",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400TaskConnected" : {
+                    "summary" : "Cannot delete branch - task still connected",
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQ5051",
+                      "messageData" : "XT0764",
+                      "messageText" : "Branch XT0764 has connected tasks. Cause: Task is still using this branch. Recovery: Disconnect task by setting OMXFixExtended.pathCode to MAIN, then call /status, then retry delete."
+                    }
+                  },
+                  "response400BranchNotEmpty" : {
+                    "summary" : "Cannot delete branch - contains libraries/objects",
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQ5052",
+                      "messageData" : "XT0764",
+                      "messageText" : "Branch XT0764 is not empty (contains objects/libraries). Cause: Branch must be cleared before deletion. Recovery: Use forceInd=1 to delete all content, or manually remove content from branch libraries."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Authentication failed: JWT token missing, expired, or invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQF201",
+                      "messageData" : "",
+                      "messageText" : "Unauthorized or expired token. Please login again."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "03",
+          "generate" : false
+        }
+      }
+    },
+    "/status" : {
+      "summary" : "Calculate and update branch status",
+      "description" : "Calculates the current status of a branch based on the connected task status and content. Branch status transitions automatically as the connected task progresses through development lifecycle (*DEV â *TST â *INT â *PRD). **Status values**: *PLND (Planned, newly created), *NEW (New, ready for deletion), *CMP (Complete, can be deleted), *INPROG (In progress), *HOLD (On hold). Call this operation after disconnecting a task from the branch to update its status for deletion eligibility.",
+      "post" : {
+        "summary" : "Calculate branch status",
+        "description" : "Recalculates and updates branch status based on current task status and branch content. Essential in disconnection workflow to determine if branch can be deleted.",
+        "operationId" : "statusBranch",
+        "requestBody" : {
+          "description" : "Request body to calculate branch status. Required fields: applicationCode, pathCode.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/statusRequest"
+              },
+              "examples" : {
+                "calculateBranchStatus" : {
+                  "summary" : "Calculate status of branch XT0764",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "pathCode" : "XT0764"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Status calculated successfully. Status returns *NORM. Branch status in OMXTransferPath is updated. Possible statuses: *PLND (Planned), *NEW (New), *CMP (Complete), *INPROG (In Progress), *HOLD (On Hold).",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response200" : {
+                    "summary" : "Status calculation successful",
+                    "value" : {
+                      "messages" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQ2016",
+                        "messageData" : "XT0764    XMP",
+                        "messageText" : "Action for branch XT0764 in application XMP completed normally"
+                      },
+                      "status" : "*NORM"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request: Invalid application code or branch not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "summary" : "Branch not found for status calculation",
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQ5050",
+                      "messageData" : "XT9999",
+                      "messageText" : "Branch XT9999 not found. Recovery: Verify branch code exists and try again."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Authentication failed: JWT token missing, expired, or invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQF201",
+                      "messageData" : "",
+                      "messageText" : "Unauthorized or expired token. Please login again."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "04",
+          "generate" : false
+        }
+      }
+    },
+    "/stash" : {
+      "summary" : "Stash a branch (archive for housekeeping)",
+      "description" : "Archives a branch by REMOVING it from OMXTransferPath and storing it in OMXStashedBranchesInformation table. Use this when a task becomes stale and you want to perform housekeeping. **Requirements**: (1) Objects must be compiled and present in *DEV environment, (2) Valid reason code required (use 'O' for Obsolete, NOT '*DFT' unless configured), (3) Branch is REMOVED from OMXTransferPath after stash. **Effects**: Task status changes to *CMP (Complete). Returns saveFile location (e.g., SB40934476) stored in fallBackLibrary (e.g., OMHD_FBS).",
+      "post" : {
+        "summary" : "Stash branch for archival",
+        "description" : "Archives branch by removing from OMXTransferPath and storing in OMXStashedBranchesInformation. Returns saveFile name and fallBackLibrary location. Task status changes to *CMP after successful stash.",
+        "operationId" : "stash",
+        "requestBody" : {
+          "description" : "Request body to stash a branch. Required: applicationCode, pathCode. The reasonCode must be a valid code configured in the system (e.g., 'O' for Obsolete).",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/stashBranchRequest"
+              },
+              "examples" : {
+                "stashBranchObsolete" : {
+                  "summary" : "Stash branch XT0764 with reason Obsolete",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "pathCode" : "XT0764",
+                    "reasonCode" : "O"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Branch stashed successfully. Branch REMOVED from OMXTransferPath, stored in OMXStashedBranchesInformation. Task status changed to *CMP.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/stashOrRestoreBranchResponse"
+                },
+                "examples" : {
+                  "stashResponse200" : {
+                    "summary" : "Successful stash - branch archived with saveFile location",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQ2016",
+                        "messageData" : "XT0764    XMP",
+                        "messageText" : "Action for branch XT0764 in application XMP completed normally"
+                      },
+                      "stashOrRestoreBranchData" : {
+                        "applicationCode" : "XMP",
+                        "environmentCode" : "*DEV",
+                        "pathCode" : "XT0764",
+                        "saveFile" : "SB40934476",
+                        "fallBackLibrary" : "OMHD_FBS",
+                        "userIdOrUserClass" : "WIM"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Stash failed: Objects not in *DEV, invalid reason code, or solutions not compiled",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "stashFailedNoSolutions" : {
+                    "summary" : "Stash failed - solutions not in DEV environment",
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQB020",
+                      "messageData" : "",
+                      "messageText" : "Branch is not stashed. Cause: Branch stashing failed because not all solutions are present in the development environment. Recovery: Ensure all solutions are available in the development environment and try again."
+                    }
+                  },
+                  "stashFailedReasonCode" : {
+                    "summary" : "Stash failed - reason code not configured",
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQB030",
+                      "messageData" : "XMP",
+                      "messageText" : "Reason code does not exist. Cause: The reason code you specified does not exist for application XMP. Recovery: Add the reason code to the table or use a valid code like 'O' (Obsolete)."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized: JWT token missing, expired, or invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQF201",
+                      "messageData" : "",
+                      "messageText" : "Unauthorized or expired token. Please login again."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "05",
+          "generate" : false
+        }
+      }
+    },
+    "/restore" : {
+      "summary" : "Restore a previously stashed branch",
+      "description" : "Recovers a previously stashed branch from OMXStashedBranchesInformation, recreating the branch in OMXTransferPath with all solutions. Reads stash data from saveFile in fallBackLibrary and recreates the branch environment with all solutions restored to their original state.",
+      "post" : {
+        "summary" : "Restore branch from stash",
+        "description" : "Restores a stashed branch from OMXStashedBranchesInformation back to OMXTransferPath with all solutions restored.",
+        "operationId" : "restore",
+        "requestBody" : {
+          "description" : "Request body to restore a stashed branch. Required: applicationCode, pathCode. Branch must exist in OMXStashedBranchesInformation.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/restoreBranchRequest"
+              },
+              "examples" : {
+                "restoreBranchFromStash" : {
+                  "summary" : "Restore previously stashed branch XT0764",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "pathCode" : "XT0764"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Branch restored successfully. Branch recreated in OMXTransferPath, solutions restored from saveFile.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/stashOrRestoreBranchResponse"
+                },
+                "examples" : {
+                  "restoreResponse200" : {
+                    "summary" : "Successful branch restore",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQ2016",
+                        "messageData" : "XT0764    XMP",
+                        "messageText" : "Action for branch XT0764 in application XMP completed normally"
+                      },
+                      "stashOrRestoreBranchData" : {
+                        "applicationCode" : "XMP",
+                        "environmentCode" : "*DEV",
+                        "pathCode" : "XT0764",
+                        "saveFile" : "SB40934476",
+                        "fallBackLibrary" : "OMHD_FBS",
+                        "userIdOrUserClass" : "WIM"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Restore failed: No stash found, task in incompatible status (*CMP with reason O), or system error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "stashRestoreresponse400" : {
+                    "summary" : "Restore failed - no stash found or environment deleted",
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQ5113",
+                      "messageData" : "XT0764",
+                      "messageText" : "Branch XT0764 cannot be restored (stashed environment deleted or no stash found). Recovery: Recreate the branch or restore from backup."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized: JWT token missing, expired, or invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQF201",
+                      "messageData" : "",
+                      "messageText" : "Unauthorized or expired token. Please login again."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "06",
+          "generate" : false
+        }
+      }
+    },
+    "/purge" : {
+      "summary" : "Purge stashed branch information",
+      "description" : "Permanently deletes stashed branch information without restoring it. Use this when you no longer need a previously stashed branch savepoint. This removes the saved state and cannot be undone. The saveFile and fallBackLibrary used by the stash are cleaned up.",
+      "post" : {
+        "summary" : "Purge stash data",
+        "description" : "Removes stashed branch information permanently. After purge, the branch cannot be restored from that stash.",
+        "operationId" : "purge",
+        "requestBody" : {
+          "description" : "Request body to purge stashed branch information. Required fields: applicationCode, pathCode.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/purgeBranchRequest"
+              },
+              "examples" : {
+                "purgeBranchStash" : {
+                  "summary" : "Purge stashed data for branch XT0764",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "pathCode" : "XT0764"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Stash purged successfully. Stashed data is permanently deleted. Status returns *NORM.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response200" : {
+                    "summary" : "Successful stash purge response",
+                    "value" : {
+                      "messages" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQ2016",
+                        "messageData" : "XT0764    XMP",
+                        "messageText" : "Action for branch XT0764 in application XMP completed normally"
+                      },
+                      "status" : "*NORM"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Purge failed: No stash found for branch or other error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "summary" : "No stash found to purge",
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQ5114",
+                      "messageData" : "XT0764",
+                      "messageText" : "No stash found for branch XT0764. Recovery: Verify the branch has been stashed before purging."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized: JWT token missing, expired, or invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQF201",
+                      "messageData" : "",
+                      "messageText" : "Unauthorized or expired token. Please login again."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "07",
+          "generate" : true
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "extendedMessage" : {
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "IBM i message file containing the message (e.g., OMSAPI, QCPFMSG). Used with messageId to look up message text in system message files.",
+            "example" : "OMSAPI"
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "Message identifier from IBM i message file (e.g., OMQ2016, OMQ6001, OMQF201). Unique within the messageFile, provides classified lookup of message meaning.",
+            "example" : "OMQ2016"
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "Variable data substituted into the message template (e.g., branch code, application code, field name in error). Used to provide context-specific details in messageText.",
+            "example" : "XT0764    XMP"
+          },
+          "messageText" : {
+            "maxLength" : 512,
+            "type" : "string",
+            "description" : "Complete human-readable message text with substituted data from messageData. Usually includes Cause and Recovery information separated by &N (new line). User-friendly explanation of what happened and corrective action.",
+            "example" : "Action for branch XT0764 in application XMP completed normally"
+          }
+        },
+        "description" : "Extended message with IBM i message context. Messages follow IBM i standard with messageFile/messageId lookup, substitution data, and human-readable text. Used in error responses to provide detailed diagnostic information."
+      },
+      "message" : {
+        "type" : "string",
+        "description" : "message"
+      },
+      "changeRequest" : {
+        "required" : [ "applicationCode", "pathCode", "transferPathDescription" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "TD/OMS application code containing the branch. Required. Must match the application where the branch exists.",
+            "example" : "XMP"
+          },
+          "pathCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Branch code to be changed. Required. Must be an existing branch in OMXTransferPath with pathType='2'.",
+            "example" : "XT0764"
+          },
+          "transferPathDescription" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "New description for the branch. Required. Used to document branch purpose, status, or project information.",
+            "example" : "Branch for task XT0764 - Ready for testing"
+          }
+        },
+        "description" : "Request schema to update a branch description. Only the description field can be changed; branch code and other properties are immutable."
+      },
+      "response" : {
+        "type" : "object",
+        "properties" : {
+          "messages" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Operation return status. *NORM = success (operation completed normally). *TERM = termination/error (check messages field for error details). *ABND = abandonment (operation was abandoned).",
+            "example" : "*NORM",
+            "enum" : [ "*NORM", "*TERM", "*ABND" ]
+          }
+        },
+        "description" : "Standard response schema for branch operations. Contains operation status and detailed message information (messageFile, messageId, messageData, messageText) from the TD/OMS system."
+      },
+      "addRequest" : {
+        "required" : [ "applicationCode", "pathCode", "transferPathDescription" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "TD/OMS application code (e.g., XMP, EXCP). Required. Must be a valid application in the system.",
+            "example" : "XMP"
+          },
+          "pathCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Branch code/name to create (e.g., XT0764). Required. Typically matches the task number when using connectToFix=*BRANCH. Will be stored as pathCode in OMXTransferPath with pathType=2.",
+            "example" : "XT0764"
+          },
+          "connectToFix" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Determines how to connect the branch to a task. Valid values: *NONE (standalone branch, no task), *BRANCH (connect to task matching pathCode), or specific task-code (connect to named task). When *BRANCH, updates OMXFixExtended.pathCode from MAIN to this branch for matching task.",
+            "example" : "*BRANCH",
+            "default" : "*NONE",
+            "enum" : [ "*NONE", "*BRANCH", "task-code" ]
+          },
+          "transferPathDescription" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "Brief description of the branch purpose (required, cannot be empty). Examples: 'Branch for task XT0764', 'Feature development branch', 'Bug fix environment'.",
+            "example" : "Branch for task XT0764"
+          },
+          "forceInd" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Force flag ('0'=no force, '1'=force). Use='1' ONLY if the task is already connected to another branch and you want to forcefully reassign it to this new branch. WARNING: Requires explicit user confirmation before setting to '1'.",
+            "example" : "0",
+            "default" : "0",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Request schema to create a new branch. A branch is a transfer path (stored in OMXTransferPath with pathType='2') used to define development environments connected to tasks. The branch name typically matches the task code for consistency."
+      },
+      "statusRequest" : {
+        "required" : [ "applicationCode", "pathCode" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "TD/OMS application code containing the branch. Required. Must match the application where the branch exists.",
+            "example" : "XMP"
+          },
+          "pathCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Branch code to calculate status for. Required. Must be an existing branch in OMXTransferPath with pathType='2'. Status is recalculated based on connected task status and branch content.",
+            "example" : "XT0764"
+          }
+        },
+        "description" : "Request schema to calculate and update branch status. The status field in OMXTransferPath is updated based on connected task lifecycle and branch content state. Common statuses: *PLND (Planned, newly created), *NEW (New, can be deleted), *CMP (Complete, can be deleted), *INPROG (In Progress), *HOLD (On Hold)."
+      },
+      "deleteRequest" : {
+        "required" : [ "applicationCode", "pathCode" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "TD/OMS application code containing the branch. Required. Must match the application where the branch exists.",
+            "example" : "XMP"
+          },
+          "pathCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Branch code to delete. Required. Must be an existing branch in OMXTransferPath with pathType='2'. Branch must have status *NEW or *CMP and no connected tasks.",
+            "example" : "XT0764"
+          },
+          "forceInd" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Force deletion flag ('0'=normal, '1'=force). Use='0' for standard deletion (branch empty, status *NEW or *CMP). Use='1' ONLY to force-delete branches with content/objects. WARNING: forceInd='1' will delete all branch libraries and content without recovery. Requires explicit user confirmation.",
+            "example" : "0",
+            "default" : "0",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "Request schema to delete a branch. **Disconnection Workflow**: (1) Use TDOMS Task API to set task.pathCode='MAIN' to disconnect from branch, (2) Call /status to recalculate branch status, (3) Call /delete when status is *NEW or *CMP. Branch is removed from OMXTransferPath (pathType='2')."
+      },
+      "stashBranchRequest" : {
+        "required" : [ "applicationCode", "pathCode", "reasonCode" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "TD/OMS application code containing the branch. Required.",
+            "example" : "XMP"
+          },
+          "pathCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Branch code to stash. Required. Must exist in OMXTransferPath with pathType='2'. Branch will be REMOVED from OMXTransferPath and stored in OMXStashedBranchesInformation.",
+            "example" : "XT0764"
+          },
+          "reasonCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Reason code explaining why the branch is stashed. Must be a valid code configured in the system. Common codes: B=Budget, C=Cancel, D=Duplicate, L=Retry, N=Network, O=Obsolete, P=Programming Error, R=Resource. NOTE: '*DFT' may not work if default is not configured - use explicit code like 'O'.",
+            "example" : "O",
+            "default" : "O",
+            "enum" : [ "B", "C", "D", "L", "N", "O", "P", "R" ]
+          }
+        },
+        "description" : "Request schema to stash (archive) a branch. Stashing REMOVES the branch from OMXTransferPath and stores info in OMXStashedBranchesInformation table. Requires: objects compiled in *DEV, valid reason code."
+      },
+      "stashOrRestoreBranchData" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "BIAPPC",
+            "x-sequence" : "10"
+          },
+          "environmentCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Environment code"
+          },
+          "pathCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Path code",
+            "x-column" : "BIPATH",
+            "x-sequence" : "20"
+          },
+          "saveFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Save file",
+            "x-column" : "BISAVF",
+            "x-sequence" : "30"
+          },
+          "fallBackLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Fall back library"
+          },
+          "userIdOrUserClass" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "User i.d., or user class",
+            "x-column" : "BIUSID",
+            "x-sequence" : "40"
+          }
+        },
+        "description" : "Response data for stash or restore branch.",
+        "x-pfname" : "OMSBI",
+        "x-library" : "V180KEP",
+        "x-host" : "plato",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "stashOrRestoreBranchResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status which can be *NORM or *TERM. In case of *TERM look at the message for more information."
+          },
+          "message" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "stashOrRestoreBranchData" : {
+            "$ref" : "#/components/schemas/stashOrRestoreBranchData"
+          }
+        },
+        "description" : "Response for stash or restore branch."
+      },
+      "restoreBranchRequest" : {
+        "required" : [ "applicationCode", "pathCode" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application code of the branch.",
+            "example" : "XMP"
+          },
+          "pathCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the branch code to restore.",
+            "example" : "XT0275"
+          }
+        },
+        "description" : "Input request to restore the branch."
+      },
+      "purgeBranchRequest" : {
+        "required" : [ "applicationCode", "pathCode" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "TD/OMS application code containing the stashed branch. Required. Must match the application where the branch exists.",
+            "example" : "XMP"
+          },
+          "pathCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Stashed branch code to purge. Required. Must have a stash previously created via /stash operation. Purge permanently deletes the stashed data.",
+            "example" : "XT0764"
+          }
+        },
+        "description" : "Request schema to permanently delete stashed branch information. Once purged, the branch cannot be restored from that stash. The saveFile and fallBackLibrary are cleaned up."
+      }
+    },
+    "responses" : { },
+    "parameters" : { },
+    "examples" : {
+      "response401" : {
+        "summary" : "Not authorized.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQF201",
+          "messageData" : "",
+          "messageText" : "Unauthorized or expired token. Please login again."
+        }
+      },
+      "response400" : {
+        "summary" : "Something went wrong.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQ6001",
+          "messageData" : "XXX",
+          "messageText" : "Application code XXX does not exist. &N Cause . . . . . :   You have entered an application code which does not exist. &N Recovery  . . . :   Enter a valid application code and try your request again."
+        }
+      },
+      "stashRestoreresponse400" : {
+        "summary" : "Something went wrong.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQ5112",
+          "messageData" : "application code                invld",
+          "messageText" : "The application code invld does not exist. \nCause . . . . . :   You have specified the application code invld that does not exist.\nRecovery  . . . :   Specify the existing application code and try your request again."
+        }
+      },
+      "response200" : {
+        "summary" : "Response to a successful API call.",
+        "value" : {
+          "messages" : {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQ2016",
+            "messageData" : "XT0275     XMP",
+            "messageText" : "Action for branch XT0275 in application XMP completed normally"
+          },
+          "status" : "*NORM"
+        }
+      }
+    },
+    "requestBodies" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "http token",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
