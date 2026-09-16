@@ -1,0 +1,958 @@
+{
+  "openapi" : "3.0.3",
+  "info" : {
+    "title" : "OMS Connection List Service",
+    "description" : "Use this API to manage a TD/OMS connection list. A connection list is the set of objects selected to be connected to a task. It acts as the staging area or shopping cart before actually connecting the object to the task. The service supports IBM i objects and IFS stream files. Use /add to add an object or IFS object to the connection list, /process to process the selected connection list by connecting the objects to the tasl, /delete to remove entries from the connection list, and /change to change the solution type for an entry. All operations require a bearer JWT token.",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License ",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "library" : "V15T0332",
+      "file" : "ConnectionListService.json",
+      "srclibrary" : "V15T0332S",
+      "object" : "@OMQRCL"
+    }
+  },
+  "servers" : [ {
+    "url" : "{protocol}://{host}:{port}/{library}/OMQRCL",
+    "description" : "TD/OMS connection list service endpoint. Replace variables with the target IBM i host, TD/OMS library, protocol, and port.",
+    "variables" : {
+      "host" : {
+        "description" : "The host serving the API",
+        "default" : "plato.remainsoftware.com"
+      },
+      "library" : {
+        "description" : "The TD/OMS library",
+        "default" : "OMS"
+      },
+      "protocol" : {
+        "description" : "Protocol",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
+      },
+      "port" : {
+        "description" : "The port to which the server is listening",
+        "default" : "45011"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "tags" : [ {
+    "name" : "Connection List",
+    "description" : "Operations for adding, processing, deleting, and changing objects in a TD/OMS connection list."
+  } ],
+  "paths" : {
+    "/add" : {
+      "summary" : "Add an object to the connection list",
+      "description" : "Adds an IBM i object or IFS stream file to the current user's TD/OMS connection list. Use this operation when the user wants to stage or select an object for later TD/OMS processing. For IBM i objects, set ifsObject to *OBJC. For IFS stream files, set objectType to *STMF and provide the full ifsObject path.",
+      "post" : {
+        "tags" : [ "Connection List" ],
+        "summary" : "Add an object to the connection list",
+        "description" : "Adds an IBM i object or IFS stream file to the current user's TD/OMS connection list. Use this operation when the user wants to stage or select an object for later TD/OMS processing. For IBM i objects, set ifsObject to *OBJC. For IFS stream files, set objectType to *STMF and provide the full ifsObject path.",
+        "operationId" : "addConnectionList",
+        "requestBody" : {
+          "description" : "Object, task, and processing options for adding an entry to the connection list.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/addConnectionListRequest"
+              },
+              "examples" : {
+                "addConnectionList" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/addConnectionList"
+                },
+                "addConnectionListIFSObject" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/addConnectionListIFSObject"
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "The TD/OMS action completed normally or returned a terminal TD/OMS status in the response body.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/connectionListResponse"
+                },
+                "examples" : {
+                  "addConnectionListResponse" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/addConnectionListResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "$ref" : "#/components/responses/BadRequest"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/Unauthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "JWT" : [ ]
+        } ],
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : false
+        },
+        "x-ai-action" : "add",
+        "x-ai-usage-note" : "Before calling this operation, collect the TD/OMS application code, task number, object identity, object type, and whether the target is an IBM i object or an IFS stream file. Use defaults only when the user did not provide a value and the default is explicitly defined in the schema."
+      }
+    },
+    "/process" : {
+      "summary" : "Process connection list entries",
+      "description" : "Processes the selected object, IFS stream file, or wildcard selection from a TD/OMS connection list. Use this operation after entries have been added and the user asks to process or execute the connection list action. Set forced to 1 only when the user explicitly asks to force processing.",
+      "post" : {
+        "tags" : [ "Connection List" ],
+        "summary" : "Process connection list entries",
+        "description" : "Processes the selected object, IFS stream file, or wildcard selection from a TD/OMS connection list. Use this operation after entries have been added and the user asks to process or execute the connection list action. Set forced to 1 only when the user explicitly asks to force processing.",
+        "operationId" : "processConnectionList",
+        "requestBody" : {
+          "description" : "Object selection and processing options for processing connection list entries.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/processConnectionListRequest"
+              },
+              "examples" : {
+                "processConnectionList" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/processConnectionList"
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "The TD/OMS action completed normally or returned a terminal TD/OMS status in the response body.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/connectionListResponse"
+                },
+                "examples" : {
+                  "processConnectionListResponse" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/processConnectionListResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "$ref" : "#/components/responses/BadRequest"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/Unauthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "JWT" : [ ]
+        } ],
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "02",
+          "generate" : false
+        },
+        "x-ai-action" : "process",
+        "x-ai-usage-note" : "Before calling this operation, collect the TD/OMS application code, task number, object identity, object type, and whether the target is an IBM i object or an IFS stream file. Use defaults only when the user did not provide a value and the default is explicitly defined in the schema."
+      }
+    },
+    "/delete" : {
+      "summary" : "Delete entries from the connection list",
+      "description" : "Deletes selected entries from a TD/OMS connection list. Use this operation when the user wants to remove an object from the list, not when the user wants to delete the object from IBM i or from IFS storage.",
+      "post" : {
+        "tags" : [ "Connection List" ],
+        "summary" : "Delete entries from the connection list",
+        "description" : "Deletes selected entries from a TD/OMS connection list. Use this operation when the user wants to remove an object from the list, not when the user wants to delete the object from IBM i or from IFS storage.",
+        "operationId" : "deleteConnectionList",
+        "requestBody" : {
+          "description" : "Object selection data for removing entries from the connection list.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/deleteConnectionListRequest"
+              },
+              "examples" : {
+                "deleteConnectionList" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/deleteConnectionList"
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "The TD/OMS action completed normally or returned a terminal TD/OMS status in the response body.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/connectionListResponse"
+                },
+                "examples" : {
+                  "deleteConnectionListResponse" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/deleteConnectionListResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "$ref" : "#/components/responses/BadRequest"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/Unauthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "JWT" : [ ]
+        } ],
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "03",
+          "generate" : false
+        },
+        "x-ai-action" : "delete",
+        "x-ai-usage-note" : "Before calling this operation, collect the TD/OMS application code, task number, object identity, object type, and whether the target is an IBM i object or an IFS stream file. Use defaults only when the user did not provide a value and the default is explicitly defined in the schema."
+      }
+    },
+    "/change" : {
+      "summary" : "Change a connection list entry",
+      "description" : "Changes a selected connection list entry, including its solution type. Use this operation when the user wants to alter how an existing entry will be handled, for example changing the solution type to *COMPILE.",
+      "post" : {
+        "tags" : [ "Connection List" ],
+        "summary" : "Change a connection list entry",
+        "description" : "Changes a selected connection list entry, including its solution type. Use this operation when the user wants to alter how an existing entry will be handled, for example changing the solution type to *COMPILE.",
+        "operationId" : "changeConnectionList",
+        "requestBody" : {
+          "description" : "Updated object selection and solution type for the connection list entry.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/changeData"
+              },
+              "examples" : {
+                "changeConnectionList" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/changeConnectionList"
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "The TD/OMS action completed normally or returned a terminal TD/OMS status in the response body.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/connectionListResponse"
+                },
+                "examples" : {
+                  "changeConnectionListResponse" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/changeConnectionListResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "$ref" : "#/components/responses/BadRequest"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/Unauthorized"
+          },
+          "404" : {
+            "$ref" : "#/components/responses/NotFound"
+          }
+        },
+        "security" : [ {
+          "JWT" : [ ]
+        } ],
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "04",
+          "generate" : true
+        },
+        "x-ai-action" : "change",
+        "x-ai-usage-note" : "Before calling this operation, collect the TD/OMS application code, task number, object identity, object type, and whether the target is an IBM i object or an IFS stream file. Use defaults only when the user did not provide a value and the default is explicitly defined in the schema."
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "addData" : {
+        "required" : [ "applicationCode", "connectionListCode", "memberCode", "objectCode", "objectLibrary", "objectType", "solutionType", "taskNumber" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "TD/OMS application code. This identifies the application that owns the task and object selection. Example: XMP.",
+            "example" : "XMP"
+          },
+          "connectionListCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Connection list to use. Use *USER for the current authenticated user's connection list.",
+            "example" : "*USER",
+            "default" : "*USER",
+            "enum" : [ "*USER" ]
+          },
+          "taskNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "TD/OMS task number that contains or receives the selected object. Example: T0497.",
+            "example" : "XT0497",
+            "default" : ""
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "IBM i object name, IFS object selector, or wildcard depending on the operation. For /add, pass the object name such as PFCONV or an IFS stream file name such as dashboard.js. For /process, /delete, and /change, use *ALL to select all eligible entries or *IFSOBJ when selecting an IFS object.",
+            "example" : "PFCONV",
+            "default" : ""
+          },
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "IBM i object library that contains the object. For IFS stream files, pass the value expected by TD/OMS for the IFS object library field. The mapping of the library field is stored in table OMIOP.",
+            "example" : "OMHD_TST"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "IBM i object type, for example *FILE, *PGM, *SRVPGM, or *STMF for an IFS stream file.",
+            "example" : "*FILE"
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "IBM i source or database file member. Use *NONE when no member applies.",
+            "example" : "*NONE",
+            "default" : "*NONE",
+            "enum" : [ "*NONE" ]
+          },
+          "ifsObject" : {
+            "maxLength" : 642,
+            "type" : "string",
+            "description" : "IFS object path. Use *OBJC when the selected object is a normal IBM i object. For IFS stream files, pass the full path, for example /QOpenSys/OMSIFS/XMP/PRD/PHP/htdocs/public/js/dashboard.js.",
+            "example" : "*OBJC",
+            "default" : "*OBJC",
+            "enum" : [ "*OBJC" ]
+          },
+          "solutionType" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "TD/OMS solution type to assign to the connection list entry. Use *CHANGE for a normal change, *COMPILE for compile-related work, or *TERMINATE to terminate processing.",
+            "example" : "*CHANGE",
+            "default" : "*CHANGE",
+            "enum" : [ "*CHANGE", "*COMPILE", "*TERMINATE" ]
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "Object or IFS stream file data to add to the TD/OMS connection list."
+      },
+      "connectionListResponse" : {
+        "required" : [ "messages", "status" ],
+        "type" : "object",
+        "properties" : {
+          "messages" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "The return status which can be *NORM or *TERM. In case of *TERM look at the messages for more information.",
+            "example" : "*NORM",
+            "enum" : [ "*NORM", "*TERM" ]
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "Output schema for connectionList"
+      },
+      "message" : {
+        "type" : "string",
+        "description" : "message",
+        "example" : "Not found."
+      },
+      "extendedMessage" : {
+        "required" : [ "field", "messageData", "messageFile", "messageId", "messageText", "messageType" ],
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The IBM i message file.",
+            "example" : "OMSAPI"
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "The message id.",
+            "example" : "OMQB502"
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "IBM i message severity/type. Empty string can be returned for informational messages; E indicates an error.",
+            "example" : "E"
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "The message substitution data.",
+            "example" : "*ADD      ALICE     XMP"
+          },
+          "field" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The field in error",
+            "example" : "applicatio"
+          },
+          "messageText" : {
+            "maxLength" : 512,
+            "type" : "string",
+            "description" : "The human readable message text.",
+            "example" : "Action *ADD for connection list ALICE in application XMP completed normally."
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "Extended Message"
+      },
+      "addProcessingOption" : {
+        "required" : [ "applicationRelation", "connectWithRules" ],
+        "type" : "object",
+        "properties" : {
+          "connectWithRules" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Whether TD/OMS should apply connection rules while adding the object. Use 0 for no, 1 for yes.",
+            "example" : "0",
+            "default" : "0",
+            "enum" : [ "0", "1" ]
+          },
+          "applicationRelation" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Whether TD/OMS should include application relations while adding the object. Use 0 for no, 1 for yes.",
+            "example" : "0",
+            "default" : "0",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "Options that control how an object is added to a connection list."
+      },
+      "addConnectionListRequest" : {
+        "required" : [ "addData", "addProcessingOption" ],
+        "type" : "object",
+        "properties" : {
+          "addProcessingOption" : {
+            "$ref" : "#/components/schemas/addProcessingOption"
+          },
+          "addData" : {
+            "$ref" : "#/components/schemas/addData"
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "Request body for adding an object or IFS stream file to a TD/OMS connection list."
+      },
+      "processData" : {
+        "required" : [ "applicationCode", "connectionListCode", "ifsObject", "memberCode", "objectCode", "objectLibrary", "objectType", "taskNumber" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "TD/OMS application code. This identifies the application that owns the task and object selection. Example: XMP.",
+            "example" : "XMP"
+          },
+          "connectionListCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Connection list to use. Use *USER for the current authenticated user's connection list.",
+            "example" : "*USER",
+            "default" : "*USER",
+            "enum" : [ "*USER" ]
+          },
+          "taskNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "TD/OMS task number that contains or receives the selected object. Example: XT0497.",
+            "example" : "XT0497",
+            "default" : ""
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "IBM i object name, IFS object selector, or wildcard depending on the operation. For /add, pass the object name such as PFCONV or an IFS stream file name such as dashboard.js. For /process, /delete, and /change, use *ALL to select all eligible entries or *IFSOBJ when selecting an IFS object.",
+            "example" : "PFCONV",
+            "default" : "*ALL",
+            "enum" : [ "*ALL", "*IFSOBJ" ]
+          },
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "IBM i object library that contains the object. For IFS stream files, pass the value expected by TD/OMS for the IFS object library field.",
+            "example" : "OMHD_TST"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "IBM i object type, for example *FILE, *PGM, *SRVPGM, or *STMF for an IFS stream file.",
+            "example" : "*FILE"
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "IBM i source or database file member. Use *NONE when no member applies.",
+            "example" : "*NONE",
+            "default" : "*NONE",
+            "enum" : [ "*NONE" ]
+          },
+          "ifsObject" : {
+            "maxLength" : 642,
+            "type" : "string",
+            "description" : "IFS object path. Use *OBJC when the selected object is a normal IBM i object. For IFS stream files, pass the full path, for example /QOpenSys/OMSIFS/XMP/PRD/PHP/htdocs/public/js/dashboard.js.",
+            "example" : "*OBJC",
+            "default" : "*OBJC",
+            "enum" : [ "*OBJC" ]
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "Object selection data for processing entries in a TD/OMS connection list."
+      },
+      "processProcessingOption" : {
+        "required" : [ "forced", "promptOnConflicts" ],
+        "type" : "object",
+        "properties" : {
+          "promptOnConflicts" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Whether processing should prompt on conflicts. Use 0 for no, 1 for yes.",
+            "example" : "0",
+            "default" : "0",
+            "enum" : [ "0", "1" ]
+          },
+          "forced" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Whether TD/OMS should force completion of the action. Use 0 for no, 1 for yes.",
+            "example" : "0",
+            "default" : "0",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "Options that control how TD/OMS processes a connection list entry."
+      },
+      "processConnectionListRequest" : {
+        "required" : [ "processData", "processProcessingOption" ],
+        "type" : "object",
+        "properties" : {
+          "processProcessingOption" : {
+            "$ref" : "#/components/schemas/processProcessingOption"
+          },
+          "processData" : {
+            "$ref" : "#/components/schemas/processData"
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "Request body for processing selected entries from a TD/OMS connection list."
+      },
+      "deleteConnectionListRequest" : {
+        "required" : [ "applicationCode", "connectionListCode", "memberCode", "objectCode", "objectLibrary", "objectType", "taskNumber" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "TD/OMS application code. This identifies the application that owns the task and object selection. Example: XMP.",
+            "example" : "XMP"
+          },
+          "connectionListCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Connection list to use. Use *USER for the current authenticated user's connection list.",
+            "example" : "*USER",
+            "default" : "*USER",
+            "enum" : [ "*USER" ]
+          },
+          "taskNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "TD/OMS task number that contains or receives the selected object. Example: XT0497.",
+            "example" : "XT0497",
+            "default" : ""
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "IBM i object name, IFS object selector, or wildcard depending on the operation. For /add, pass the object name such as PFCONV or an IFS stream file name such as dashboard.js. For /process, /delete, and /change, use *ALL to select all eligible entries or *IFSOBJ when selecting an IFS object.",
+            "example" : "PFCONV",
+            "default" : "*ALL",
+            "enum" : [ "*ALL", "*IFSOBJ" ]
+          },
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "IBM i object library that contains the object. For IFS stream files, pass the value expected by TD/OMS for the IFS object library field.",
+            "example" : "OMHD_TST"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "IBM i object type, for example *FILE, *PGM, *SRVPGM, or *STMF for an IFS stream file.",
+            "example" : "*FILE"
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "IBM i source or database file member. Use *NONE when no member applies.",
+            "example" : "*NONE",
+            "default" : "*NONE",
+            "enum" : [ "*NONE" ]
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "Request body for deleting selected entries from a TD/OMS connection list."
+      },
+      "changeData" : {
+        "required" : [ "applicationCode", "connectionListCode", "memberCode", "objectCode", "objectLibrary", "objectType", "solutionType", "taskNumber" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "TD/OMS application code. This identifies the application that owns the task and object selection. Example: XMP.",
+            "example" : "XMP"
+          },
+          "connectionListCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Connection list to use. Use *USER for the current authenticated user's connection list.",
+            "example" : "*USER",
+            "default" : "*USER",
+            "enum" : [ "*USER" ]
+          },
+          "taskNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "TD/OMS task number that contains or receives the selected object. Example: XT0497.",
+            "example" : "XT0497"
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "IBM i object name, IFS object selector, or wildcard depending on the operation. For /add, pass the object name such as PFCONV or an IFS stream file name such as dashboard.js. For /process, /delete, and /change, use *ALL to select all eligible entries or *IFSOBJ when selecting an IFS object.",
+            "example" : "PFCONV",
+            "default" : "*ALL",
+            "enum" : [ "*ALL", "*IFSOBJ" ]
+          },
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "IBM i object library that contains the object. For IFS stream files, pass the value expected by TD/OMS for the IFS object library field.",
+            "example" : "OMHD_TST"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "IBM i object type, for example *FILE, *PGM, *SRVPGM, or *STMF for an IFS stream file.",
+            "example" : "*FILE"
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "IBM i source or database file member. Use *NONE when no member applies.",
+            "example" : "*NONE",
+            "default" : "*NONE",
+            "enum" : [ "*NONE" ]
+          },
+          "ifsObject" : {
+            "maxLength" : 642,
+            "type" : "string",
+            "description" : "IFS object path. Use *OBJC when the selected object is a normal IBM i object. For IFS stream files, pass the full path, for example /QOpenSys/OMSIFS/XMP/PRD/PHP/htdocs/public/js/dashboard.js.",
+            "example" : "*OBJC",
+            "default" : "*OBJC",
+            "enum" : [ "*OBJC" ]
+          },
+          "solutionType" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "TD/OMS solution type to assign to the connection list entry. Use *CHANGE for a normal change, *COMPILE for compile-related work, or *TERMINATE to terminate processing.",
+            "example" : "*CHANGE",
+            "default" : "*CHANGE",
+            "enum" : [ "*CHANGE", "*COMPILE", "*TERMINATE" ]
+          }
+        },
+        "additionalProperties" : false,
+        "description" : "Request body for changing an existing connection list entry, including the solution type."
+      }
+    },
+    "responses" : {
+      "BadRequest" : {
+        "description" : "The request is syntactically valid JSON, but TD/OMS rejected one or more values.",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/extendedMessage"
+            },
+            "examples" : {
+              "invalidApplication" : {
+                "value" : null,
+                "$ref" : "#/components/examples/badRequestInvalidApplication"
+              }
+            }
+          }
+        }
+      },
+      "Unauthorized" : {
+        "description" : "The bearer JWT token is missing, invalid, or expired.",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/extendedMessage"
+            },
+            "examples" : {
+              "notAuthorized" : {
+                "value" : null,
+                "$ref" : "#/components/examples/notAuthorized"
+              }
+            }
+          }
+        }
+      },
+      "NotFound" : {
+        "description" : "The endpoint or requested resource was not found.",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/message"
+            },
+            "examples" : {
+              "notFound" : {
+                "value" : null,
+                "$ref" : "#/components/examples/notFound"
+              }
+            }
+          }
+        }
+      }
+    },
+    "examples" : {
+      "addConnectionList" : {
+        "summary" : "Add an IBM i database file object to the current user's connection list.",
+        "value" : {
+          "addProcessingOption" : {
+            "connectWithRules" : "0",
+            "applicationRelation" : "0"
+          },
+          "addData" : {
+            "applicationCode" : "XMP",
+            "connectionListCode" : "*USER",
+            "taskNumber" : "XT0497",
+            "objectCode" : "PFCONV",
+            "objectLibrary" : "OMHD_TST",
+            "objectType" : "*FILE",
+            "memberCode" : "*NONE",
+            "solutionType" : "*CHANGE"
+          }
+        }
+      },
+      "addConnectionListIFSObject" : {
+        "summary" : "Add an IFS stream file to the current user's connection list.",
+        "value" : {
+          "addProcessingOption" : {
+            "connectWithRules" : "0",
+            "applicationRelation" : "0"
+          },
+          "addData" : {
+            "memberCode" : "*NONE",
+            "objectCode" : "*IFSOBJ",
+            "taskNumber" : "XT0497",
+            "solutionType" : "*CHANGE",
+            "applicationCode" : "XMP",
+            "ifsObject" : "/QOpenSys/OMSIFS/XMP/PRD/PHP/htdocs/public/js/dashboard.js",
+            "connectionListCode" : "*USER",
+            "objectType" : "*STMF"
+          }
+        }
+      },
+      "notAuthorized" : {
+        "summary" : "Not authorized.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQF201",
+          "messageType" : "E",
+          "messageData" : "",
+          "field" : "",
+          "messageText" : "Unauthorized or expired token. Please login again."
+        }
+      },
+      "badRequestInvalidApplication" : {
+        "summary" : "Something went wrong.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQ6001",
+          "messageType" : "E",
+          "messageData" : "XXXX",
+          "field" : "applicatio",
+          "messageText" : "Application code XXXX does not exist. &N Cause . . . . . :   You have entered an application code which does not exist. &N Recovery  . . . :   Enter a valid application code and try your request again."
+        }
+      },
+      "notFound" : {
+        "summary" : "The requested resource was not found.",
+        "value" : "Not found."
+      },
+      "addConnectionListResponse" : {
+        "summary" : "The object was added to the connection list.",
+        "value" : {
+          "messages" : {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQB502",
+            "messageType" : "",
+            "messageData" : "*ADD      ALICE     XMP",
+            "field" : "",
+            "messageText" : "Action *ADD for connection list ALICE in application XMP completed normally."
+          },
+          "status" : "*NORM"
+        }
+      },
+      "processConnectionListResponse" : {
+        "summary" : "The connection list entry was processed.",
+        "value" : {
+          "messages" : {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQB502",
+            "messageType" : "",
+            "messageData" : "*PROCESS  ALICE     XMP",
+            "field" : "",
+            "messageText" : "Action *PROCESS for connection list ALICE in application XMP completed normally."
+          },
+          "status" : "*NORM"
+        }
+      },
+      "deleteConnectionListResponse" : {
+        "summary" : "The entry was deleted from the connection list.",
+        "value" : {
+          "messages" : {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQB502",
+            "messageType" : "",
+            "messageData" : "*DELETE   ALICE     XMP",
+            "field" : "",
+            "messageText" : "Action *DELETE for connection list ALICE in application XMP completed normally."
+          },
+          "status" : "*NORM"
+        }
+      },
+      "changeConnectionListResponse" : {
+        "summary" : "The connection list entry was changed.",
+        "value" : {
+          "messages" : {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQB502",
+            "messageType" : "",
+            "messageData" : "*CHANGE   ALICE     XMP",
+            "field" : "",
+            "messageText" : "Action *CHANGE for connection list ALICE in application XMP completed normally."
+          },
+          "status" : "*NORM"
+        }
+      },
+      "changeConnectionList" : {
+        "summary" : "Change the selected connection list entry and set the solution type to compile.",
+        "value" : {
+          "applicationCode" : "XMP",
+          "connectionListCode" : "*USER",
+          "taskNumber" : "XT0275",
+          "objectCode" : "PFCONV",
+          "objectLibrary" : "OMHD_TST",
+          "objectType" : "*FILE",
+          "memberCode" : "*NONE",
+          "solutionType" : "*COMPILE",
+          "ifsObject" : "*OBJC"
+        }
+      },
+      "processConnectionList" : {
+        "summary" : "Process a selected IBM i object in the current user's connection list.",
+        "value" : {
+          "processProcessingOption" : {
+            "promptOnConflicts" : "0",
+            "forced" : "0"
+          },
+          "processData" : {
+            "applicationCode" : "XMP",
+            "connectionListCode" : "*USER",
+            "taskNumber" : "XT0275",
+            "objectCode" : "PFCONV",
+            "objectLibrary" : "OMHD_TST",
+            "objectType" : "*FILE",
+            "memberCode" : "*NONE",
+            "ifsObject" : "*OBJC"
+          }
+        }
+      },
+      "deleteConnectionList" : {
+        "summary" : "Delete a selected IBM i object from the current user's connection list.",
+        "value" : {
+          "applicationCode" : "XMP",
+          "connectionListCode" : "*USER",
+          "taskNumber" : "XT0275",
+          "objectCode" : "PFCONV",
+          "objectLibrary" : "OMHD_TST",
+          "objectType" : "*FILE",
+          "memberCode" : "*NONE"
+        }
+      }
+    },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "Bearer JWT token obtained from the TD/OMS authentication/login API. Send as Authorization: Bearer <token>.",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
