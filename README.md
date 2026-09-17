@@ -299,9 +299,9 @@ curl -X 'POST' \
 ```
 </details>
 
-### [Compile Queue](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/compileQueue.json)
+### [Build Queue Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/BuildQueueService.json)
 
-Use [this API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/compileQueue.json) to add an object to the compile queue.
+Use [this API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/BuildQueueService.json) to add an object to the build queue.
 
 <details><summary>Request. Add all task objects to the compile queue</summary>
 
