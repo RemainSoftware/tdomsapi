@@ -1,25 +1,25 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "CompileQueue API.",
-    "description" : "The TD/OMS Compile queue API allows you to create objects as batch or interactive which can also include single or multiple objects at once.",
+    "title" : "OMS Build Queue Service",
+    "description" : "The TD/OMS Build Queue API manages the transfer of objects from a TD/OMS task to the build queue for compilation. It provides three operations: queue objects for compilation, release (submit) queued objects for batch processing, and delete objects from the queue. Use this API to control the compilation workflow, selecting individual objects or entire tasks for batch compilation.",
     "termsOfService" : "",
     "contact" : {
       "name" : "Remain Software",
       "url" : "https://remainsoftware.com",
-      "email" : "sanskar.shukla@remainsoftware.com"
+      "email" : "info@remainsoftware.com"
     },
     "license" : {
       "name" : "Remain Software Commercial License",
       "url" : "https://remainsoftware.com/software-licensing"
     },
-    "version" : "0.0.1",
+    "version" : "1.1.0",
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
       "object" : "OMQRSQ",
       "library" : "V16T0004",
       "srclibrary" : "V16T0004S",
-      "file" : "CompileQueue.json"
+      "file" : "BuildQueueService.json"
     }
   },
   "servers" : [ {
@@ -40,8 +40,8 @@
       },
       "protocol" : {
         "description" : "Protocol",
-        "default" : "https",
-        "enum" : [ "https", "http" ]
+        "enum" : [ "https", "http" ],
+        "default" : "https"
       }
     }
   } ],
@@ -51,10 +51,10 @@
   "paths" : {
     "/release" : {
       "summary" : "Release the build queue",
-      "description" : "This action will release the build queue so that all objects in the queue are compiled.",
+      "description" : "This action will release the build queue so that all objects in the queue are compiled. The submitted objects are tracked in the OMXCreateMonitor table with processingStatus transitioning from *OPEN â *SUBM â *COMP. Monitor createStatus for results: *NORM (success) or *TERM/*ABND (compilation error). Returns OMQF314 for individual object release or OMQF303 for entire task release.",
       "post" : {
         "summary" : "Release the objects for compile",
-        "description" : "This action releases all or one objects from the queue to be compiled.",
+        "description" : "This action releases all or one objects from the queue to be compiled. Start monitoring via OMXCreateMonitor table immediately after processing. Supply empty objectCode, objectType, and objectLibrary to release entire task queue at once.",
         "operationId" : "release",
         "requestBody" : {
           "description" : "Post Method",
@@ -106,15 +106,29 @@
                 },
                 "examples" : {
                   "responseReleaseQueue200" : {
-                    "summary" : "Response when object is released from the compile queue",
+                    "summary" : "Response when object is released from the compile queue for individual object",
                     "value" : {
                       "messages" : {
                         "messageFile" : "OMSAPI",
                         "messageId" : "OMQF314",
                         "messageType" : "",
-                        "messageData" : "JWTLOGI01M  *MODULE  OMHD_DEV",
+                        "messageData" : "OMH011      *PGM     O_XT0762D",
                         "field" : "",
-                        "messageText" : "The Object OMHD_DEV/JWTLOGI01M type *MODULE with detail released from the build queue in compile queue. &N Cause . . . . . :  The Object releaseed from the queue successfully. &N Recovery. . . . :   No recovery necessary. This is an informational message."
+                        "messageText" : "Object /OMH011      *PGM     O_XT0762D type  with detail  released from the build queue. \nCause . . . . . :   Object /OMH011      *PGM     O_XT0762D type  with detail  released from the queue successfully.\nRecovery. . . . :   No recovery necessary. This is an informational message."
+                      },
+                      "status" : "*NORM"
+                    }
+                  },
+                  "responseReleaseQueueAll200" : {
+                    "summary" : "Response when entire task compile queue is released",
+                    "value" : {
+                      "messages" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQF303",
+                        "messageType" : "E",
+                        "messageData" : "XMP  XT0762",
+                        "field" : "",
+                        "messageText" : "Compile queue processed for application XMP task XT0762. \nCause . . . . . :   The compile queue is processed successfully.\nRecovery. . . . :   No recovery necessary. This is an informational message."
                       },
                       "status" : "*NORM"
                     }
@@ -184,10 +198,10 @@
     },
     "/queue" : {
       "summary" : "Add an object or a task to the build queue",
-      "description" : "This action will add an object or all development objcts from a task to the build queue.",
+      "description" : "This action will add an object or all development objects from a task to the build queue. Returns OMQF302 for successful single object queue, OMQF304 for partial success in bulk operations (some objects already queued), or OMQF312 when compile already requested. Queued objects appear in OMXCreateMonitor table with processingStatus=*OPEN. Verify queue operations by querying OMXCreateMonitor for the object with matching fixNumber and objectCode. Leave all object parameters empty to queue all development objects in the task at once.",
       "post" : {
         "summary" : "Queue object or task for compile",
-        "description" : "This operation is used to add one or more objects to the build queue.",
+        "description" : "This operation is used to add one or more objects to the build queue. Use the Database Agent to verify the queue entry in OMXCreateMonitor table. Supply empty objectCode, objectType, and objectLibrary to queue all connected objects in a task.",
         "operationId" : "queue",
         "requestBody" : {
           "description" : "Post Method",
@@ -201,21 +215,35 @@
                   "summary" : "How to specify the input request to add object into the compile queue",
                   "value" : {
                     "applicationCode" : "XMP",
-                    "taskNumber" : "XT0403",
-                    "objectCode" : "JWTLOGI01M",
-                    "objectType" : "*MODULE",
-                    "objectLibrary" : "OMHD_DEV",
+                    "taskNumber" : "XT0762",
+                    "objectCode" : "OMH011",
+                    "objectType" : "*PGM",
+                    "objectLibrary" : "O_XT0762D",
                     "detail" : "",
                     "processingArray" : {
                       "clearAll" : false
                     }
                   }
                 },
-                "requestAddQueueAllObjects200" : {
-                  "summary" : "How to specify the input request to add an entire fix into the compile queue",
+                "requestAddQueueMember200" : {
+                  "summary" : "How to specify the input request to add source file member into the compile queue - includes memberCode in detail",
                   "value" : {
                     "applicationCode" : "XMP",
-                    "taskNumber" : "XT0403",
+                    "taskNumber" : "XT0762",
+                    "objectCode" : "QHTMLSRC",
+                    "objectType" : "*FILE",
+                    "objectLibrary" : "O_XT0762DS",
+                    "detail" : "AS400",
+                    "processingArray" : {
+                      "clearAll" : false
+                    }
+                  }
+                },
+                "requestAddQueueAllObjects200" : {
+                  "summary" : "How to specify the input request to add an entire fix into the compile queue - leaves object fields empty",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "taskNumber" : "XT0762",
                     "objectCode" : "",
                     "objectType" : "",
                     "objectLibrary" : "",
@@ -239,15 +267,57 @@
                 },
                 "examples" : {
                   "responseAddQueue200" : {
-                    "summary" : "Response when object is added into the compile queue",
+                    "summary" : "Response when object is successfully added into the compile queue",
                     "value" : {
                       "messages" : {
                         "messageFile" : "OMSAPI",
                         "messageId" : "OMQF302",
                         "messageType" : "",
-                        "messageData" : "JWTLOGI01M  *MODULE  OMHD_DEV",
+                        "messageData" : "OMH011      *PGM     O_XT0762D",
                         "field" : "",
-                        "messageText" : "Object OMHD_DEV/JWTLOGI01M type *MODULE with detail  placed in compile queue. &N Cause . . . . . :   Object placed in compile queue. &N Recovery. . . . :   No recovery necessary. This is an informational message."
+                        "messageText" : "Object /OMH011      *PGM     O_XT0762D type  with detail  placed in compile queue. \nCause . . . . . :   Object placed in compile queue.\nRecovery. . . . :   No recovery necessary. This is an informational message."
+                      },
+                      "status" : "*NORM"
+                    }
+                  },
+                  "responseAddQueueMember200" : {
+                    "summary" : "Response when source file member is successfully added to compile queue (with memberCode in detail)",
+                    "value" : {
+                      "messages" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQF302",
+                        "messageType" : "",
+                        "messageData" : "QHTMLSRC    *FILE    O_XT0762DS AS400",
+                        "field" : "",
+                        "messageText" : "Object /QHTMLSRC    *FILE    O_XT0762DS AS400 type  with detail  placed in compile queue. \nCause . . . . . :   Object placed in compile queue.\nRecovery. . . . :   No recovery necessary. This is an informational message."
+                      },
+                      "status" : "*NORM"
+                    }
+                  },
+                  "responseAddQueuePartial200" : {
+                    "summary" : "Response when bulk queueing succeeds partially (some objects already in queue)",
+                    "value" : {
+                      "messages" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQF304",
+                        "messageType" : "E",
+                        "messageData" : "1  4  3",
+                        "field" : "",
+                        "messageText" : "Unable to add 1 objects to the build queue out of 4. \nCause . . . . . :   Unable to add 1 objects out of 4 into the queue as they were already in the build queue.\nRecovery. . . . :   No recovery necessary. This is an informational message."
+                      },
+                      "status" : "*NORM"
+                    }
+                  },
+                  "responseAddQueueAlreadyQueued200" : {
+                    "summary" : "Response when object is already requested for compilation",
+                    "value" : {
+                      "messages" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQF312",
+                        "messageType" : "",
+                        "messageData" : "OMH011      *PGM     O_XT0762D           WIM",
+                        "field" : "",
+                        "messageText" : "Compile already requested for object /OMH011      *PGM     O_XT0762D, type  WIM with detail . \nCause . . . . . :   There is already compile command in the compile queue for object /OMH011      *PGM     O_XT0762D, type  WIM with detail .\nRecovery. . . . :   There is already a compile command on the compile queue, requested by user  which was not processed yet. Wait until the object is processed."
                       },
                       "status" : "*NORM"
                     }
@@ -257,7 +327,7 @@
             }
           },
           "400" : {
-            "description" : "Bad request from client",
+            "description" : "Bad request from client or object not found",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -270,9 +340,20 @@
                       "messageFile" : "OMSAPI",
                       "messageId" : "OMQF301",
                       "messageType" : "",
-                      "messageData" : "JWTLOGI01M  *MODULE  OMHD_DEV",
+                      "messageData" : "OMH011      *PGM     O_XT0762D",
                       "field" : "",
-                      "messageText" : "No compile command found for object OMHD_DEV/JWTLOGI01M type *MODULE with detail. &N Cause . . . . . :  No compile command found for object OMHD_DEV/JWTLOGI01M type *MODULE with detail. &N Recovery. . . . :   Refer to to the OMS-log and the joblog for more detailed information. Correct the problem and try again."
+                      "messageText" : "No compile command found for object O_XT0762D/OMH011 type *PGM with detail. &N Cause . . . . . :  No compile command defined for object type *PGM. &N Recovery. . . . :   Refer to OMS-log and joblog for details. Correct the problem and try again."
+                    }
+                  },
+                  "responseAddQueueNotFound400" : {
+                    "summary" : "Response when object solution not found in task",
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQ400E",
+                      "messageType" : "E",
+                      "messageData" : "XMP  XT0762    QHTMLSRC    *FILE",
+                      "field" : "",
+                      "messageText" : "Solution QHTMLSRC, type *FILE not found in fix XT0762, application XMP \nCause . . . . . :   Your request for solution QHTMLSRC, type *FILE and detail  in fix XT0762 of application XMP has not been processed because it was not found.\nRecovery  . . . :   Change the parameters and try your request again."
                     }
                   }
                 }
@@ -316,11 +397,11 @@
       }
     },
     "/delete" : {
-      "summary" : "Clear an single object or multiple objects from the build queue.",
-      "description" : "This action will delete the single or multiple objects from the queue.",
+      "summary" : "Clear a single object or multiple objects from the build queue.",
+      "description" : "This action will delete the single or multiple objects from the queue. Returns OMQF307 for single object deletion or OMQF309 when deleting entire task queue. Verify deletion by querying OMXCreateMonitor - deleted entries will return zero records for that object and task. Only objects with processingStatus *HOLD can be deleted; objects with status *SUBM (submitted) or *COMP (completed) cannot be deleted. Use clearAll=false to remove only last occurrence, or clearAll=true to remove all occurrences of the object.",
       "post" : {
         "summary" : "Delete the objects from the compile",
-        "description" : "This action deletes the single or miltiple objects from the queue.",
+        "description" : "This action deletes the single or multiple objects from the queue. Verify successful deletion using Database Agent query of OMXCreateMonitor table. Parameters: supply objectCode/Type/Library for single object deletion, or leave empty to delete entire task queue.",
         "operationId" : "delete",
         "requestBody" : {
           "description" : "Post Method",
@@ -331,13 +412,13 @@
               },
               "examples" : {
                 "requestDeleteQueue200" : {
-                  "summary" : "How to specify the input request to delete object from the compile queue",
+                  "summary" : "How to specify the input request to delete single object from the compile queue",
                   "value" : {
                     "applicationCode" : "XMP",
-                    "taskNumber" : "XT0403",
-                    "objectCode" : "JWTLOGI01M",
-                    "objectType" : "*MODULE",
-                    "objectLibrary" : "OMHD_DEV",
+                    "taskNumber" : "XT0762",
+                    "objectCode" : "OMH011",
+                    "objectType" : "*PGM",
+                    "objectLibrary" : "O_XT0762D",
                     "detail" : "",
                     "processingArray" : {
                       "clearAll" : false
@@ -348,7 +429,7 @@
                   "summary" : "How to specify the input request to delete an entire fix from the compile queue",
                   "value" : {
                     "applicationCode" : "XMP",
-                    "taskNumber" : "XT0403",
+                    "taskNumber" : "XT0762",
                     "objectCode" : "",
                     "objectType" : "",
                     "objectLibrary" : "",
@@ -362,10 +443,10 @@
                   "summary" : "How to specify the input request to delete all entries of a particular object from the compile queue.",
                   "value" : {
                     "applicationCode" : "XMP",
-                    "taskNumber" : "XT0403",
-                    "objectCode" : "JWTLOGI01M",
-                    "objectType" : "*MODULE",
-                    "objectLibrary" : "OMHD_DEV",
+                    "taskNumber" : "XT0762",
+                    "objectCode" : "OMH011",
+                    "objectType" : "*PGM",
+                    "objectLibrary" : "O_XT0762D",
                     "detail" : "",
                     "processingArray" : {
                       "clearAll" : true
@@ -386,15 +467,29 @@
                 },
                 "examples" : {
                   "responseDeleteQueue200" : {
-                    "summary" : "Response when object is removed from the compile queue",
+                    "summary" : "Response when object is successfully removed from the compile queue",
                     "value" : {
                       "messages" : {
                         "messageFile" : "OMSAPI",
                         "messageId" : "OMQF307",
                         "messageType" : "",
-                        "messageData" : "JWTLOGI01M",
+                        "messageData" : "OMH011",
                         "field" : "",
-                        "messageText" : "The Object JWTLOGI01M has been removed from the build queue. Cause . . . . . :   The Object JWTLOGI01M has been removed from the queue successfully . &N Recovery. . . . :   No recovery necessary. This is an informational message."
+                        "messageText" : "The Object OMH011 has been removed from the build queue. \nCause . . . . . :   The Object OMH011 has been removed from the queue successfully.\nRecovery. . . . :   No recovery necessary. This is an informational message."
+                      },
+                      "status" : "*NORM"
+                    }
+                  },
+                  "responseDeleteQueueAll200" : {
+                    "summary" : "Response when all objects in a task are deleted from the compile queue",
+                    "value" : {
+                      "messages" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQF309",
+                        "messageType" : "",
+                        "messageData" : "XT0762",
+                        "field" : "",
+                        "messageText" : "All the objects for the fix XT0762 have been deleted from the build queue. \nCause . . . . . :   All object for the fix XT0762 have been cleared successfully.\nRecovery. . . . :   No recovery necessary. This is an informational message."
                       },
                       "status" : "*NORM"
                     }
@@ -404,7 +499,7 @@
             }
           },
           "400" : {
-            "description" : "Bad request from client",
+            "description" : "Bad request or invalid queue state",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -412,14 +507,14 @@
                 },
                 "examples" : {
                   "responseDeleteQueue400" : {
-                    "summary" : "Response when object is not removed from the compile queue",
+                    "summary" : "Response when object cannot be deleted (already submitted to compile)",
                     "value" : {
                       "messageFile" : "OMSAPI",
                       "messageId" : "OMQF308",
                       "messageType" : "",
                       "messageData" : "*SUBM",
                       "field" : "",
-                      "messageText" : "Option not allowed for solution with compile status *SUBM. &N Cause . . . . . :  The delete compile record is only allowed for records with status *HOLD.No compile command found for object OMHD_DEV/JWTLOGI01M type *MODULE with detail. &N Recovery. . . . :   Change your option or choose another solution and try your request again."
+                      "messageText" : "Option not allowed for solution with compile status *SUBM. &N Cause . . . . . :  The delete compile record is only allowed for records with status *HOLD. Object compilation has already been submitted.\nRecovery. . . . :   Wait for the compilation to complete, or change your option and try again."
                     }
                   }
                 }
@@ -514,38 +609,38 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Application Code"
+            "description" : "The TD/OMS application code (e.g., XMP, EXCP). Required for all operations."
           },
           "taskNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Task Number"
+            "description" : "The TD/OMS task number containing the object or objects to process (e.g., XT0762). Required for all operations."
           },
           "objectCode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Object Code"
+            "description" : "The object name to queue, release, or delete (e.g., OMH011). Leave empty to process all development objects in the task."
           },
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Object Type"
+            "description" : "The object type (e.g., *PGM, *SERVICE, *MODULE, *FILE). Leave empty when objectCode is empty."
           },
           "objectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Object Library"
+            "description" : "The development library containing the object (e.g., O_XT0762D). Leave empty when objectCode is empty."
           },
           "detail" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Detail"
+            "description" : "Optional detail code or member code. For source file members (objectType=*FILE), pass the memberCode here (e.g., 'AS400'). For other object types, leave empty or omit."
           },
           "processingArray" : {
             "$ref" : "#/components/schemas/processingArray"
           }
         },
-        "description" : "Request data for the build queue."
+        "description" : "Request parameters for build queue operations. Specify applicationCode and taskNumber (required). To operate on a specific object, provide objectCode, objectType, and objectLibrary. To process all development objects in the task, leave object-related fields empty."
       },
       "response" : {
         "type" : "object",
@@ -556,21 +651,21 @@
           "status" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "To store status."
+            "description" : "*NORM indicates the operation was successful. Status is returned from all operations: queue, release, and delete."
           }
         },
-        "description" : "This will return a message and status."
+        "description" : "Response contains operation result (messageId) and status. Message IDs include: OMQF302 (object queued), OMQF303 (task queue released), OMQF304 (partial queue success), OMQF307 (object deleted), OMQF309 (task queue cleared), OMQF312 (already queued), OMQF314 (object released), OMQ400E (object not found)."
       },
       "processingArray" : {
         "type" : "object",
         "properties" : {
           "clearAll" : {
             "type" : "boolean",
-            "description" : "Delete all the objects or the last one for the particular object . This Field can only be used with delete path.",
-            "default" : true
+            "description" : "Controls delete operation scope (applies only to /delete endpoint). When false, removes only the last occurrence of the specified object from the queue. When true, removes all occurrences of the specified object from the queue.",
+            "default" : false
           }
         },
-        "description" : "Various flags to control the behaviour of the API."
+        "description" : "Processing control flags. clearAll applies to the /delete endpoint to control whether to delete a single queue entry or all entries for the object."
       }
     },
     "responses" : { },
