@@ -1,0 +1,671 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "OMS Source Service",
+    "description" : "REST API for retrieving and modifying source code managed by the TD/OMS DevOps system on IBM i. This API supports three source types: (1) IBM i source physical file members (QRPGLESRC, QCLLESRC, etc.), (2) IFS stream files, and (3) TD/OMS managed objects in development. All source content is Base64 encoded for transport. IMPORTANT: Source can only be modified when the object is connected to a task and in development status. Use objectGet to retrieve source and objectSave to persist changes. Pagination is supported for large source files exceeding 1MB.",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "info@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "1.1.0",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "library" : "V16T0189",
+      "file" : "SourceService.json",
+      "srclibrary" : "V16T0189S",
+      "object" : "OMRSRC",
+      "additionalBindingDirs" : "OMRESTUTIL"
+    }
+  },
+  "servers" : [ {
+    "url" : "{protocol}://{host}:{port}/{library}/OMRSRC",
+    "description" : "TD/OMS Source Service endpoint. Replace variables with your IBM i server configuration.",
+    "variables" : {
+      "host" : {
+        "description" : "The IBM i server hostname or IP address where TD/OMS is installed.",
+        "default" : "plato.remainsoftware.com"
+      },
+      "library" : {
+        "description" : "The TD/OMS product library name where the REST service program OMRSRC is located. Typically 'OMS' for production installations.",
+        "default" : "OMS"
+      },
+      "protocol" : {
+        "description" : "The HTTP protocol to use. Use 'https' for secure connections (recommended for production).",
+        "enum" : [ "https", "http" ],
+        "default" : "https"
+      },
+      "port" : {
+        "description" : "The port number for the IBM i HTTP server hosting the TD/OMS REST services.",
+        "default" : "45011"
+      }
+    }
+  } ],
+  "security" : [ {
+    "jwt" : [ ]
+  } ],
+  "tags" : [ {
+    "name" : "Source",
+    "description" : "Operations for retrieving and saving source code from TD/OMS managed objects, IBM i source physical file members, and IFS stream files. All operations require JWT authentication."
+  } ],
+  "paths" : {
+    "/object/get" : {
+      "summary" : "Retrieve source code from TD/OMS",
+      "description" : "Retrieves source code from a TD/OMS managed object, source physical file member, or IFS stream file. Returns Base64-encoded source content along with metadata including edit permissions, CCSID, source type, and related references (copybooks, includes). Use this endpoint before objectSave to obtain the lastChangeDate for optimistic locking.",
+      "post" : {
+        "tags" : [ "Source" ],
+        "summary" : "Get source code for an object, member, or IFS file",
+        "description" : "Retrieves source code with three retrieval modes: (1) Object-based: Provide applicationCode, taskNumber, objectCode, objectType, and objectLibrary to get source from a task. (2) Member-based: Provide objectLibrary, objectCode (objectType='*FILE'), and memberCode to read a specific source member. (3) IFS-based: Provide path for IFS stream files. The response indicates if the source is editable (canEdit=true when object is in development). Set pageNumber=0 to retrieve metadata only without source content. Source content is returned Base64-encoded in the sourceCode field.",
+        "operationId" : "objectGet",
+        "requestBody" : {
+          "description" : "Source retrieval request. Provide either: (1) object identifiers (applicationCode, taskNumber, objectCode, objectType, objectLibrary) for task-based retrieval, (2) member identifiers (objectLibrary, objectCode, objectType, memberCode) for direct member access, or (3) path for IFS files.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/sourceRequest"
+              },
+              "examples" : {
+                "objectGet" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/getAnyMemberReadOnly"
+                },
+                "objectGet_IFS_Object" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/objectGet_IFS_Object"
+                },
+                "objectget_copybook" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/objectget_copybook"
+                },
+                "objectget" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/objectget"
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Source retrieved successfully. The sourceCode field contains Base64-encoded source content. Check canEdit to determine if modifications are allowed. Store lastChangeDate for use in subsequent save operations.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/sourceReply"
+                },
+                "examples" : {
+                  "response200" : {
+                    "summary" : "Successful source retrieval response",
+                    "description" : "Returns source metadata and Base64-encoded content. canEdit=true indicates the source can be modified and saved back.",
+                    "value" : {
+                      "canEdit" : true,
+                      "sourceCode" : "",
+                      "includes" : [ ],
+                      "references" : [ ],
+                      "ccsid" : 37,
+                      "sourceType" : "CLLE",
+                      "pageNumber" : 0,
+                      "numberOfPages" : 1,
+                      "maximumLineLength" : 80,
+                      "lastChangeDate" : "2024-01-06-22.04.16.000000"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid request. Common causes: object not found in TD/OMS, invalid object type, missing required parameters, or object not connected to specified task.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Authentication failed. The JWT token is missing, invalid, or expired. Obtain a new token and retry the request.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "3",
+          "generate" : false
+        }
+      }
+    },
+    "/object/save" : {
+      "summary" : "Save modified source code to TD/OMS",
+      "description" : "Persists modified source code back to a TD/OMS managed object, source physical file member, or IFS stream file. The object must be in development status on a task to allow modifications. Uses optimistic locking via lastChangeDate to prevent concurrent modification conflicts.",
+      "post" : {
+        "tags" : [ "Source" ],
+        "summary" : "Save source code for an object, member, or IFS file",
+        "description" : "Saves Base64-encoded source code to the specified target. PREREQUISITES: (1) The object must be connected to the task as a solution, (2) The object must be in development status, (3) Include the lastChangeDate from the prior objectGet call to enable conflict detection. Set forceSave=true to bypass the lastChangeDate check and overwrite regardless of concurrent changes (use with caution). For large sources exceeding 1MB, use pagination by setting pageNumber and numberOfPages appropriately.",
+        "operationId" : "objectSave",
+        "requestBody" : {
+          "description" : "Source save request containing Base64-encoded source code and target identifiers. Include lastChangeDate from prior objectGet to detect concurrent modifications. Use forceSave=true only when intentionally overwriting potentially modified source.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/objectSaveRequest"
+              },
+              "examples" : {
+                "objectSave_IFS_Object" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/objectSave_IFS_Object"
+                },
+                "objectSave_copybook" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/objectSave_copybook"
+                },
+                "objectSave" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/objectSave"
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Source saved successfully. The response includes the new lastChangeDate which should be used for subsequent save operations on the same source.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response200" : {
+                    "summary" : "Successful save confirmation",
+                    "description" : "Confirms source was persisted. Store the returned lastChangeDate for future edits to the same source.",
+                    "value" : {
+                      "messageFile" : "OMSAPI",
+                      "messageId" : "OMQF209",
+                      "messageType" : "",
+                      "messageData" : "",
+                      "field" : "",
+                      "messageText" : "The source code saved successfully. &N Cause . . . . . :   The source code was saved successfully. Recovery: No recovery necessary. This is an informational message.",
+                      "lastChangeDate" : "2024-10-09-06.52.40.000000"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Save failed. Common causes: object not in development, concurrent modification detected (lastChangeDate mismatch), object not found, or insufficient permissions to modify the source.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Authentication failed. The JWT token is missing, invalid, or expired. Obtain a new token and retry the request.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "2",
+          "generate" : false
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "message" : {
+        "type" : "object",
+        "properties" : {
+          "messageText" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "The primary human-readable message text describing the result or error. This is the first-level message suitable for display to users."
+          },
+          "messageID" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "The IBM i message identifier in format XXXNNNN (e.g., CPF0000, OMQB325). Use this ID to look up detailed message documentation or for programmatic error handling."
+          },
+          "messageTextExtended" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "Extended message information providing additional context, cause analysis, and recovery instructions. Contains the second-level help text from the IBM i message."
+          },
+          "messageFile" : {
+            "type" : "string",
+            "description" : "The IBM i message file name containing the message definition (e.g., OMSAPI, QCPFMSG). Used with messageID for complete message identification."
+          }
+        },
+        "description" : "Standard message object returned by TD/OMS APIs to communicate status, errors, or informational messages. Contains IBM i message file references for detailed troubleshooting."
+      },
+      "sourceRequest" : {
+        "required" : [ "pageNumber" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The TD/OMS application code (1-5 characters, uppercase). Optional for object-based retrieval - include with taskNumber to get editable source from a development task. Example: 'XMP', 'PAYRL'. Omit for read-only access. Not used with path."
+          },
+          "taskNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The TD/OMS task number identifying the development task. Optional for object-based retrieval - include with applicationCode to get editable source. Format varies by installation, typically alphanumeric like 'XT0497'. Omit for read-only access. Not used with path."
+          },
+          "path" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "The absolute IFS (Integrated File System) path for stream file retrieval. Use forward slashes. Example: '/QOpenSys/OMSIFS/XMP/DEV/htdocs/app.js'. MUTUALLY EXCLUSIVE with objectCode, objectType, objectLibrary, and memberCode - use path OR object parameters, never both."
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "The TD/OMS object code or source file name. REQUIRED for object-based retrieval (must be provided with objectType and objectLibrary). For programs, this is the object name (e.g., 'MYPGM'). For source members, this is the source file name (e.g., 'QCPYLESRC', 'QRPGLESRC'). Maximum 12 characters, uppercase. Not used with path."
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "The IBM i object type with asterisk prefix. REQUIRED for object-based retrieval (must be provided with objectCode and objectLibrary). Common values: '*PGM' (program), '*SRVPGM' (service program), '*FILE' (for source physical files - requires memberCode), '*MODULE'. Not used with path."
+          },
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The IBM i library containing the object or source file. REQUIRED for object-based retrieval (must be provided with objectCode and objectType). For task retrieval, use the development library (e.g., 'O_XT0497D'). For direct member access, use the source library. Maximum 10 characters, uppercase. Not used with path."
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The source physical file member name. REQUIRED when objectType='*FILE' to identify the specific member within the source file (e.g., copybooks, includes). Example: 'MYINCLUDE', 'CONSTANTS'. Maximum 10 characters, uppercase. Only used with object-based retrieval, not with path. Omit for non-member objects like '*PGM'."
+          },
+          "pageNumber" : {
+            "minimum" : 0,
+            "type" : "integer",
+            "description" : "The 1-based page number for paginated source retrieval. Each page contains up to 1MB of source data. Set to 0 to retrieve metadata only (CCSID, sourceType, numberOfPages) without source content - useful for checking file size before retrieval. Default is 1 (first page with content).",
+            "default" : 1
+          }
+        },
+        "description" : "Request payload for retrieving source code. Two mutually exclusive retrieval modes: (A) OBJECT-BASED: Provide objectCode + objectType + objectLibrary (all three REQUIRED together). Optionally add applicationCode + taskNumber for editable task source, or memberCode when objectType='*FILE' for source physical file members. (B) IFS-BASED: Provide path only. Do NOT combine path with objectCode/objectType/objectLibrary/memberCode.",
+        "x-pfname" : "OMOBJ",
+        "x-library" : "V150KEP",
+        "x-host" : "plato.remain.local"
+      },
+      "sourceReply" : {
+        "type" : "object",
+        "properties" : {
+          "canEdit" : {
+            "type" : "boolean",
+            "description" : "Indicates whether the source can be modified and saved back. Returns true when: (1) the object is connected to the specified task, (2) the object is in development status, and (3) the user has edit permissions. Returns false for read-only access."
+          },
+          "sourceCode" : {
+            "maxLength" : 65535,
+            "type" : "string",
+            "description" : "The source code content encoded as a Base64 string. Decode using standard Base64 decoding before processing. For source physical file members, line breaks are CRLF. May be empty if pageNumber=0 was requested (metadata-only mode)."
+          },
+          "includes" : {
+            "maxItems" : 1024,
+            "type" : "array",
+            "description" : "Array of IFS paths to included source files (copybooks, includes, /COPY, /INCLUDE). These are dependencies detected from the source code. Useful for understanding source relationships and fetching related files.",
+            "items" : {
+              "$ref" : "#/components/schemas/ifsPath"
+            }
+          },
+          "references" : {
+            "maxItems" : 1024,
+            "type" : "array",
+            "description" : "Array of IFS paths to non-source references associated with this object, such as data files, external configurations, or related resources that are not source includes.",
+            "items" : {
+              "$ref" : "#/components/schemas/ifsPath"
+            }
+          },
+          "ccsid" : {
+            "type" : "integer",
+            "description" : "The Coded Character Set Identifier (CCSID) of the source on the IBM i system. Common values: 37 (US EBCDIC), 273 (German), 1208 (UTF-8 for IFS files). Use this value when saving the source back to maintain proper encoding."
+          },
+          "sourceType" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The source type indicating the programming language or format. Common values: 'RPGLE' (ILE RPG), 'SQLRPGLE' (RPG with embedded SQL), 'CLLE' (CL), 'CBLLE' (COBOL), 'C', 'DSPF' (display file), 'PRTF' (printer file), 'PF' (physical file), 'LF' (logical file)."
+          },
+          "pageNumber" : {
+            "type" : "integer",
+            "description" : "The current page number being returned (1-based). When numberOfPages > 1, make additional requests incrementing pageNumber to retrieve all source content."
+          },
+          "numberOfPages" : {
+            "type" : "integer",
+            "description" : "Total number of pages available for this source. Each page contains up to 1MB. If greater than 1, multiple requests are needed to retrieve complete source. Use this with pageNumber to iterate through large sources."
+          },
+          "maximumLineLength" : {
+            "type" : "integer",
+            "description" : "The maximum record length for source physical file members, typically 80, 92, 100, or 112 characters. Indicates the width constraint for source lines. Not applicable for IFS stream files."
+          },
+          "message" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "lastChangeDate" : {
+            "maxLength" : 26,
+            "type" : "string",
+            "description" : "The last modification timestamp of the source in IBM i timestamp format: 'YYYY-MM-DD-HH.MM.SS.MMMMMM'. IMPORTANT: Store this value and include it in subsequent objectSave requests to enable optimistic locking and detect concurrent modifications.",
+            "example" : "2024-01-06-22.04.16.000000"
+          }
+        },
+        "description" : "Response payload containing retrieved source code and metadata. The sourceCode field contains Base64-encoded content that must be decoded before use. Check canEdit to determine if modifications can be saved back."
+      },
+      "ifsPath" : {
+        "type" : "object",
+        "properties" : {
+          "path" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "The absolute IFS path using forward slashes. Example: '/QSYS.LIB/MYLIB.LIB/QRPGLESRC.FILE/MYINCLUDE.MBR' for source members mapped to IFS, or '/QOpenSys/home/user/source.rpgle' for stream files."
+          }
+        },
+        "description" : "Represents a path to a file in the IBM i Integrated File System (IFS). Used to reference included sources, copybooks, and related resources."
+      },
+      "objectSaveRequest" : {
+        "required" : [ "applicationCode", "numberOfPages", "pageNumber", "sourceCode", "taskNumber" ],
+        "type" : "object",
+        "properties" : {
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The IBM i library containing the object or source file. REQUIRED for object-based saves (must be provided with objectCode and objectType). For task objects, use the development library (format: 'O_<task>D', e.g., 'O_XT0497D'). Maximum 10 characters, uppercase. Not used with path."
+          },
+          "memberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The source physical file member name. REQUIRED when objectType='*FILE' to identify the specific member to save (e.g., copybooks, includes). Only used with object-based saves, not with path. Omit for non-member objects like '*PGM' or '*SRVPGM'."
+          },
+          "path" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "The absolute IFS path for saving stream files. Use forward slashes. Example: '/QOpenSys/OMSIFS/XMP/DEV/PHP_XT0497/app.js'. MUTUALLY EXCLUSIVE with objectCode, objectType, objectLibrary, and memberCode - use path OR object parameters, never both."
+          },
+          "sourceCode" : {
+            "maxLength" : 65535,
+            "type" : "string",
+            "description" : "The source code content encoded as a Base64 string. REQUIRED for all save operations. Encode the modified source using standard Base64 encoding before sending. The server will decode and persist the content."
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "The TD/OMS object code or source file name being saved. REQUIRED for object-based saves (must be provided with objectType and objectLibrary). For programs, use the object name. For source members, use the source file name (e.g., 'QCPYLESRC'). Maximum 12 characters, uppercase. Not used with path."
+          },
+          "taskNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The TD/OMS task number where the object is in development. REQUIRED for all save operations. The object must be connected to this task with development status to allow modifications."
+          },
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The TD/OMS application code (1-5 characters, uppercase). REQUIRED for all save operations. Must match the application of the task where the object is being developed."
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "The IBM i object type with asterisk prefix. REQUIRED for object-based saves (must be provided with objectCode and objectLibrary). Values: '*PGM' (program), '*SRVPGM' (service program), '*FILE' (source physical files - requires memberCode), '*MODULE'. Not used with path."
+          },
+          "ccsid" : {
+            "type" : "integer",
+            "description" : "The Coded Character Set Identifier for encoding the saved source. Use the same CCSID returned from objectGet to maintain encoding consistency. Common values: 37 (EBCDIC), 1208 (UTF-8)."
+          },
+          "pageNumber" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "description" : "The 1-based page number when saving large sources in chunks. Each page should contain up to 1MB of source. Set to 1 for sources under 1MB.",
+            "default" : 1
+          },
+          "numberOfPages" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "description" : "Total number of pages being saved for this source. Set to 1 for sources under 1MB. Must match across all page saves for the same source modification.",
+            "default" : 1
+          },
+          "forceSave" : {
+            "type" : "boolean",
+            "description" : "Bypass optimistic locking check. When false (default), the save fails if lastChangeDate doesn't match the current source timestamp (concurrent modification detected). Set to true to overwrite the source regardless of concurrent changes. USE WITH CAUTION - may lose concurrent edits.",
+            "default" : false
+          },
+          "lastChangeDate" : {
+            "type" : "string",
+            "description" : "The lastChangeDate value returned from the prior objectGet request. IMPORTANT: Include this to enable concurrent modification detection. If the source was modified since retrieval, the save will fail unless forceSave=true. Format: 'YYYY-MM-DD-HH.MM.SS.MMMMMM'.",
+            "example" : "2024-01-06-22.04.16.000000"
+          }
+        },
+        "description" : "Request payload for saving source code modifications. The object must be in development status on the specified task. Two mutually exclusive target modes: (A) OBJECT-BASED: Provide objectCode + objectType + objectLibrary (all three REQUIRED together), plus memberCode when objectType='*FILE'. (B) IFS-BASED: Provide path only. Always required: applicationCode, taskNumber, sourceCode. Include lastChangeDate from prior objectGet to enable optimistic locking.",
+        "x-pfname" : "OMOBJ",
+        "x-host" : "plato.remain.local",
+        "x-library" : "V150KEP"
+      },
+      "extendedMessage" : {
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The IBM i message file containing the message definition. Primary file is 'OMSAPI' for TD/OMS messages. Use with messageId for complete message lookup."
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "The IBM i message identifier in format XXXNNNN (e.g., 'OMQF209', 'OMQB325'). Useful for programmatic error handling and documentation lookup."
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The IBM i message type code. Values: 'E' (error), 'W' (warning), 'I' (informational), '' (empty for success messages). Use to categorize response severity.",
+            "enum" : [ "", "E", "W", "I" ]
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "The message substitution data containing variable values inserted into the message text. Contains context-specific information like object names, task numbers, or error values."
+          },
+          "field" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The name of the request field that caused the error, when applicable. Use for field-level error highlighting in user interfaces. Empty for general messages."
+          },
+          "messageText" : {
+            "maxLength" : 512,
+            "type" : "string",
+            "description" : "The complete human-readable message text including cause analysis and recovery instructions. Display this to users for error diagnosis. May contain IBM i message formatting characters (&N for newline)."
+          },
+          "lastChangeDate" : {
+            "maxLength" : 26,
+            "type" : "string",
+            "description" : "The new lastChangeDate timestamp after a successful save operation. Store this value for subsequent edits to the same source to maintain optimistic locking. Format: 'YYYY-MM-DD-HH.MM.SS.MMMMMM'.",
+            "example" : "2024-10-09-06.52.40.000000"
+          }
+        },
+        "description" : "Extended message structure providing detailed API response information including IBM i message references, error context, and human-readable descriptions. Returned for both success and error responses."
+      }
+    },
+    "responses" : { },
+    "examples" : {
+      "objectget_copybook" : {
+        "summary" : "Retrieve copybook member connected to a task",
+        "description" : "Retrieves a copybook (include file) that is connected to a development task. When the member is in development status on the task, canEdit will be true allowing modifications. Use objectType '*FILE' with memberCode for copybooks. Set pageNumber=0 to retrieve metadata only.",
+        "value" : {
+          "objectLibrary" : "IRESTLIB",
+          "memberCode" : "OMHLPDS",
+          "objectCode" : "QCPYLESRC",
+          "pageNumber" : 1,
+          "taskNumber" : "XT0497",
+          "applicationCode" : "XMP",
+          "objectType" : "*FILE"
+        }
+      },
+      "objectSave_copybook" : {
+        "summary" : "Save modified copybook member source",
+        "description" : "Saves a modified copybook back to the source physical file. CRITICAL: Include the lastChangeDate returned from objectGet to enable optimistic locking - this prevents overwriting concurrent changes by other developers. The sourceCode must be Base64 encoded.",
+        "value" : {
+          "objectLibrary" : "IRESTLIB",
+          "memberCode" : "OMHLPDS",
+          "sourceCode" : "CAgRCAgRDhDVEZQICAgIC...CA3NQ0KICAgICBEICBEOENURkwgICA",
+          "objectCode" : "QCPYLESRC",
+          "pageNumber" : 1,
+          "numberOfPages" : 1,
+          "lastChangeDate" : "2018-12-03-12.07.15.000000",
+          "taskNumber" : "XT0497",
+          "forceSave" : false,
+          "applicationCode" : "XMP",
+          "objectType" : "*FILE",
+          "ccsid" : 37
+        }
+      },
+      "objectSave" : {
+        "summary" : "Save program source to development task",
+        "description" : "Standard pattern for saving program source code. The object must be in development on the specified task. Leave memberCode empty for programs. Include lastChangeDate for concurrent modification protection. sourceCode is truncated in example but must be complete Base64-encoded content.",
+        "value" : {
+          "objectLibrary" : "O_XT0497D",
+          "memberCode" : "",
+          "sourceCode" : "cGdtICAgI...A0KDQplbmRwZ20NCg==",
+          "objectCode" : "BAS",
+          "pageNumber" : 1,
+          "numberOfPages" : 1,
+          "lastChangeDate" : "2024-01-06-22.04.16.000000",
+          "taskNumber" : "XT0497",
+          "forceSave" : false,
+          "applicationCode" : "XMP",
+          "objectType" : "*PGM",
+          "ccsid" : 37
+        }
+      },
+      "objectSave_IFS_Object" : {
+        "summary" : "Save IFS stream file source",
+        "description" : "Saves source to an IFS (Integrated File System) stream file path. Use CCSID 1208 for UTF-8 encoded files (common for web files, scripts). The path must be writable by the IBM i HTTP server user profile. Use this pattern for non-traditional IBM i source like JavaScript, PHP, Python files.",
+        "value" : {
+          "path" : "/QOpenSys/OMSIFS/XMP/DEV/PHP_XT0497/htdocs/public/js/dashboard.js",
+          "sourceCode" : "JChmdW5jdGlvbigpIH...C8vIExvYWQgdGhlIFZpc",
+          "pageNumber" : 1,
+          "numberOfPages" : 1,
+          "lastChangeDate" : "",
+          "taskNumber" : "XT0497",
+          "forceSave" : false,
+          "applicationCode" : "XMP",
+          "ccsid" : 1208
+        }
+      },
+      "objectGet_IFS_Object" : {
+        "summary" : "Retrieve IFS stream file source",
+        "description" : "Retrieves source from an IFS path. Used for stream files like web assets, scripts, configuration files. Provide the full absolute path with forward slashes. The taskNumber and applicationCode are required to determine edit permissions. Set pageNumber=0 to check file metadata without retrieving content.",
+        "value" : {
+          "path" : "/QOpenSys/OMSIFS/XMP/DEV/PHP_XT0497/htdocs/public/js/dashboard.js",
+          "pageNumber" : 1,
+          "taskNumber" : "XT0497",
+          "applicationCode" : "XMP"
+        }
+      },
+      "objectget" : {
+        "summary" : "Retrieve program source from development task",
+        "description" : "Standard retrieval pattern for a TD/OMS managed program object. Provide applicationCode, taskNumber, objectCode, objectType, and objectLibrary. Leave memberCode empty for program objects. The development library format is typically 'O_<task>D'. Set pageNumber=0 to check editability and size without fetching source.",
+        "value" : {
+          "objectLibrary" : "O_XT0497D",
+          "memberCode" : "",
+          "objectCode" : "BAS",
+          "pageNumber" : 1,
+          "taskNumber" : "XT0497",
+          "applicationCode" : "XMP",
+          "objectType" : "*PGM"
+        }
+      },
+      "getAnyMemberReadOnly" : {
+        "summary" : "Read-only member retrieval without task context",
+        "description" : "Retrieves a source member in read-only mode when no applicationCode or taskNumber is provided. Useful for viewing production source, examining existing code, or reading reference implementations. The response will have canEdit=false. Omit applicationCode and taskNumber for read-only access to any accessible source.",
+        "value" : {
+          "objectLibrary" : "V170DMP",
+          "memberCode" : "DMP0001365",
+          "objectCode" : "QRPGLESRC",
+          "pageNumber" : 1,
+          "objectType" : "*FILE"
+        }
+      },
+      "response401" : {
+        "summary" : "Authentication failure - unauthorized or expired token",
+        "description" : "Returned when the JWT bearer token is missing, malformed, or has expired. To resolve: (1) Verify the Authorization header contains 'Bearer <token>', (2) Check token expiration time, (3) Re-authenticate using the login endpoint to obtain a fresh token, (4) Retry the request with the new token.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQF201",
+          "messageType" : "",
+          "messageData" : "",
+          "field" : "",
+          "messageText" : "Unauthorized or expired token. Please login again."
+        }
+      },
+      "response400" : {
+        "summary" : "Object not found or validation error",
+        "description" : "Returned when the request cannot be processed. Common causes: (1) Object does not exist in TD/OMS object tables, (2) Object not connected to the specified task, (3) Invalid object type specified, (4) Missing required parameters, (5) Source member not found in source file. Check messageData for specific identifiers that failed.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQB325",
+          "messageType" : "E",
+          "messageData" : "xxxxx       *PGM     *N",
+          "field" : "",
+          "messageText" : "Object xxxxx type *PGM detail *N not found. &N Cause . . . . . :   The requested action for object xxxxx type *PGM detail *N could not be done because the detail or the object was not found. If the detail is *N then the object was not found. &N Recovery  . . . :   Add the detail and try your request again."
+        }
+      }
+    },
+    "securitySchemes" : {
+      "jwt" : {
+        "type" : "http",
+        "description" : "JWT (JSON Web Token) authentication. Obtain a token by authenticating with valid IBM i user credentials via the login endpoint. Include the token in the Authorization header as 'Bearer <token>'. Tokens have a limited lifespan; re-authenticate when receiving 401 responses.",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
