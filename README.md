@@ -573,11 +573,11 @@ curl -X 'POST' \
 
 
 ## The TD/OMS Rest APIs 
-* [Branch](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/BranchService.json)
-* [Comment](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/CommentService.json)
+* [Branch Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/BranchService.json)
+* [Comment Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/CommentService.json)
 * [Compile Override](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/CompileOverrideAPI.json)
-* [Compile Queue](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/compileQueue.json)
-* [Connection List](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/ConnectionListService.json)
+* [Build Queue Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/BuildQueueService.json)
+* [Connection List Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/ConnectionListService.json)
 * [Conversion Definition](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/ConversionDefinitionAPI.json)
 * [Dashboard](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/dashboardAPI.json)
 * [Database](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/OMRDBA_DataBase_API.json)
