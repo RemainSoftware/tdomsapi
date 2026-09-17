@@ -1,8 +1,8 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "TD/OMS Transfer Objects API    ",
-    "description" : "This API is used to transfer the objects.",
+    "title" : "OMS Transfer Service",
+    "description" : "This API is used to transfer objects and tasks between environments. It is often better to use the 'transfer wizard' if it is available.\r\n\r\n## Terminology\r\n* Transfer is the general name for this service.\r\n* Checkout or Pull refers to a transfer that copies to the development environment. Action is Checkout. \r\n* Promote or Push refers to a transfer that moves to a higher environment. Action is Promote\r\n* Move and Copy refer to a guided transfer that lets the user select a from and target environment and also define the action; Action is Move or Copy\r\n\r\n## Workflow\r\n\r\n### Select\r\n1. Use the 'selectRequest' schema to define a /select call. The selectRequest schema contains the action, application and taskNumber as required parameters, an optional from environment in case the from environment is known, and an optional object list in case individual objects must be passed instead of all objects in the task. \r\n\r\n2. The selectRequest receives a 'targets' schema containing an array of 'target'. If there is one 'target' object, the 'Prepare' workflow step can be started, otherwise the user has to select a 'target'.\r\n\r\n### Prepare\r\n1. Use the 'prepareRequest' schema to define a /prepare call. If a 409 response is received then the database service must be queried on table OMPTT with the received temporary transfer number from the 'prepareResponse' schema. Table OMPTC contains the header of the OMPTT records. The user must be informed about the contents of OMPTT/OMPTC and confirm it. \r\n\r\n2. After receiving a 200 or a 409 response, the transfer is prepared in the OMOW3 table which can be queried with the database service with the transferNumer to see the result of the prepare. To see the subenvironment description, table OMLBL can be queried with information from OMOW3 with applicationCode, environmentCode=toProductionLevel, and sequenceNumber=toLibrarylistSeq. The 'addressDetails' schema contains the physical taget machines that are part of this deployment. Each target lists the valid selectable job descriptions in case the user wants to override this. \r\n\r\n### Execute\r\nAfter confirmation, the 'executeRequest' schema can be filled to call /execute. The 'executeResponse' will contain the final transferNumber and the job information that processes the transfer. The job information and the transferNumber can be used to check the status of the request.\r\n\r\n### Progress\r\nAfter executing the request, the /progress path can be called to see the status of the transfer and possible remote deployments.\r\n\r\n### Cancel\r\nIf the user wants to cancel the transfer, this can be done before the /execute path is called. To clean up workfiles and resources, the /cancel path must be called. ",
     "contact" : {
       "name" : "Remain Software",
       "url" : "https://remainsoftware.com",
@@ -15,9 +15,9 @@
     "version" : "0.0.1",
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
-      "library" : "V17T0272",
-      "file" : "RequestAPI.json",
-      "srclibrary" : "V17T0272S",
+      "library" : "V18T0205",
+      "file" : "TransferService.json",
+      "srclibrary" : "V18T0205S",
       "object" : "OMQRTO"
     }
   },
@@ -35,8 +35,8 @@
       },
       "protocol" : {
         "description" : "Protocol",
-        "enum" : [ "https", "http" ],
-        "default" : "https"
+        "default" : "https",
+        "enum" : [ "https", "http" ]
       },
       "port" : {
         "description" : "The port to which the server is listening",
@@ -53,6 +53,7 @@
       "description" : "select the environments",
       "post" : {
         "summary" : "select the environment",
+        "description" : "1. Use the 'selectRequest' schema to define a /select call. The selectRequest schema contains the action, application and taskNumber as required parameters, an optional from environment in case the from environment is known, and an optional object list in case individual objects must be passed instead of all objects in the task. \r\n\r\n2. The selectRequest receives a 'targets' schema containing an array of 'target'. If there is one 'target' object, the 'Prepare' workflow step can be started, otherwise the user has to select a 'target'.",
         "operationId" : "select",
         "requestBody" : {
           "content" : {
@@ -433,8 +434,8 @@
       "summary" : "Return the transfer information",
       "description" : "Return the transfer information",
       "post" : {
-        "summary" : "Return Transfer Information.",
-        "description" : "Return Transfer Information.",
+        "summary" : "Return transfer progress information.",
+        "description" : "Return transfer progress information.",
         "operationId" : "progress",
         "requestBody" : {
           "content" : {
@@ -638,6 +639,7 @@
         "description" : "Error message"
       },
       "prepareRequest" : {
+        "required" : [ "action", "application", "confirmation", "fromEnvironment", "objects", "targetSubEnvironments", "taskNumber", "toEnvironment" ],
         "type" : "object",
         "properties" : {
           "action" : {
@@ -670,6 +672,7 @@
           "objects" : {
             "maxItems" : 256,
             "type" : "array",
+            "description" : "A list of objects which can be empty.",
             "items" : {
               "$ref" : "#/components/schemas/objectInfo"
             }
@@ -677,14 +680,14 @@
           "targetSubEnvironments" : {
             "maxItems" : 1500,
             "type" : "array",
-            "description" : "Target subenvironments",
+            "description" : "A list of target subenvironments which can be empty.",
             "items" : {
               "type" : "number"
             }
           },
           "confirmation" : {
             "type" : "boolean",
-            "description" : "Pre transfer check confirmation"
+            "description" : "Pre transfer check confirmation requested. Set to true."
           }
         },
         "description" : "Prepare the transfer request"
@@ -694,26 +697,32 @@
         "properties" : {
           "fromEnvironment" : {
             "maxLength" : 5,
-            "type" : "string"
+            "type" : "string",
+            "description" : "The from environment."
           },
           "fromEnvironmentDescription" : {
             "maxLength" : 50,
-            "type" : "string"
+            "type" : "string",
+            "description" : "The descripion of the from environment for information purposes."
           },
           "toEnvironment" : {
             "maxLength" : 5,
-            "type" : "string"
+            "type" : "string",
+            "description" : "The target environment."
           },
           "toEnvironmentDescription" : {
             "maxLength" : 50,
-            "type" : "string"
+            "type" : "string",
+            "description" : "The descripion of the target environment for information purposes."
           },
           "isDefault" : {
-            "type" : "boolean"
+            "type" : "boolean",
+            "description" : "Indicates if the environment must be preselected."
           },
           "subEnvironments" : {
             "maxItems" : 1500,
             "type" : "array",
+            "description" : "The subenvironments that are part of this transfer. This is represented by the OMLBL table in the database service.",
             "items" : {
               "$ref" : "#/components/schemas/subEnvironment"
             }
@@ -805,6 +814,7 @@
         }
       },
       "selectRequest" : {
+        "required" : [ "action", "application", "taskNumber" ],
         "type" : "object",
         "properties" : {
           "action" : {
@@ -872,6 +882,7 @@
         "description" : "Object information"
       },
       "executeRequest" : {
+        "required" : [ "schedules", "transferNumber" ],
         "type" : "object",
         "properties" : {
           "transferNumber" : {
@@ -883,7 +894,7 @@
           "schedules" : {
             "maxItems" : 100,
             "type" : "array",
-            "description" : "It contains the transfer schedule information.",
+            "description" : "The transfer schedule override information per target or empty to take the defaults. ",
             "items" : {
               "$ref" : "#/components/schemas/schedule"
             }
@@ -985,46 +996,48 @@
         "description" : "It contains the address details."
       },
       "schedule" : {
+        "required" : [ "address", "holdJob", "jobDescription", "jobDescriptionCode", "jobDescriptionLibrary", "scheduleDate", "scheduleTime" ],
         "type" : "object",
         "properties" : {
           "address" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "It contains the address information."
+            "description" : "The address information which is '**LOCAL' for the local address and the address name for remote addresses."
           },
           "scheduleDate" : {
             "maxLength" : 6,
             "type" : "string",
-            "description" : "The schedule date is used in an Object Transfer function to enter the date the Object Transfer job has to be scheduled for. The date must be entered in user format.        \r\n                        "
+            "description" : "The schedule date is used in an Object Transfer function to enter the date the Object Transfer job has to be scheduled for. The date must be entered in user format.  Use *IMMED if a schedule date is not required.\r\n                        "
           },
           "scheduleTime" : {
             "maxLength" : 6,
             "type" : "string",
-            "description" : "The schedule time is used in an Object Transfer function to enter the time the Object Transfer job has to be scheduled for. \r\n\r\n                         "
+            "description" : "The schedule time is used in an Object Transfer function to enter the time the Object Transfer job has to be scheduled for. This is HHMMSS format. Use *IMMED if a schedule time is not required.\r\n\r\n                         "
           },
           "jobDescriptionCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "It will include the job description code."
+            "description" : "Contains the job description code."
           },
           "jobDescription" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "It will include the job description."
+            "description" : "Contains the job description name."
           },
           "jobDescriptionLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "It will include the job description library."
+            "description" : "Contains the job description library."
           },
           "holdJob" : {
             "type" : "boolean",
             "description" : "Indicate whether the job must be held for managed deployments."
           }
         },
-        "description" : "It will contain the transfer schedule information."
+        "description" : "Contains the transfer schedule information."
       },
       "cancelRequest" : {
+        "required" : [ "transferNumber" ],
         "type" : "object",
         "properties" : {
           "transferNumber" : {
@@ -1041,6 +1054,7 @@
         "description" : "Return the status."
       },
       "progressRequest" : {
+        "required" : [ "job", "transferNumber" ],
         "type" : "object",
         "properties" : {
           "job" : {
@@ -1051,7 +1065,7 @@
             "type" : "string"
           }
         },
-        "description" : "Execute response"
+        "description" : "The progress request."
       },
       "progressResponse" : {
         "type" : "object",
@@ -1078,11 +1092,21 @@
             "type" : "integer",
             "description" : "Return How many objects are processed."
           },
+          "objectsSucceeded" : {
+            "maximum" : 10,
+            "type" : "integer",
+            "description" : "The number of objects successfully transferred."
+          },
+          "objectsFailed" : {
+            "maximum" : 10,
+            "type" : "integer",
+            "description" : "The number of objects that failed to transfer."
+          },
           "deployment" : {
             "$ref" : "#/components/schemas/deployment"
           }
         },
-        "description" : "Execute response"
+        "description" : "The progress response."
       },
       "deployment" : {
         "type" : "object",
@@ -1934,9 +1958,11 @@
         "value" : {
           "isJobRunning" : false,
           "jobStatus" : "OUTQ",
-          "transferStatus" : "*NORM",
+          "transferStatus" : "SUCCESS",
           "objects" : 20,
           "objectsProcessed" : 20,
+          "objectsSucceeded" : 10,
+          "objectsFailed" : 10,
           "deployment" : {
             "deployed" : 2,
             "inProgress" : 0,
