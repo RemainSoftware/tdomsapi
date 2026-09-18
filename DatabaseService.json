@@ -1,0 +1,635 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "OMS Database Service",
+    "description" : "The OMS Database Service provides comprehensive read access to the TD/OMS DevOps system database. Query tasks (fixes), objects, applications, environments, solution connections, transfer history, and all related metadata. This API uses advanced filtering capabilities with multiple operators (EQ, IN, BETWEEN, REGEX, CONTAINS, etc.) and complex logical grouping to construct sophisticated queries. The API returns paginated results with JSON records containing all requested fields. Authentication is required via JWT bearer token. Typical use cases include: discovering tasks and their status, finding objects in environments, tracking transfer history, validating object relationships, and analyzing application configurations.",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "info@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software License",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "1.0.0",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "library" : "IRESTLIB",
+      "file" : "DatabaseService.json",
+      "srclibrary" : "IRESTLIB",
+      "object" : "OMRDBA"
+    }
+  },
+  "servers" : [ {
+    "url" : "{protocol}://{host}:{port}/{library}/OMRDBA",
+    "description" : "The server",
+    "variables" : {
+      "server" : {
+        "default" : "plato.remainsoftware.com"
+      },
+      "protocol" : {
+        "default" : "https",
+        "enum" : [ "https", "http" ]
+      },
+      "library" : {
+        "description" : "",
+        "default" : "OMS"
+      },
+      "port" : {
+        "description" : "",
+        "default" : "45011"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/get" : {
+      "summary" : "Query Database Records",
+      "description" : "Query TD/OMS database tables with advanced filtering, pagination, and field selection. Retrieve records from any TD/OMS table including tasks (OMXFixExtended), objects (OMXObjectExtended), applications (OMXApplication), connections (OMXSolutionExtended), transfer history (OMXObjectTransferHistory), and metadata tables. Supports complex WHERE clauses with multiple field selections, logical grouping (AND/OR), and various comparison operators. Results are paginated and can be sorted, filtered for distinct values, and customized to return specific fields.",
+      "post" : {
+        "summary" : "Query Database Records",
+        "description" : "Execute a query against TD/OMS database tables. Use fieldSelections to filter records, sortFields to order results, and returnFields to specify which columns to include. The API supports powerful filtering capabilities including exact matches, pattern matching, range queries, regex patterns, and complex logical expressions. Pagination is required - specify pageNumber (1 or higher) and recordsPerPage (max 50). Use pageNumber=0 with returnTotalRecords=true to get only the record count.",
+        "operationId" : "getRecords",
+        "requestBody" : {
+          "description" : "Query request containing table name, field selections, sort preferences, and pagination settings",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/request"
+              },
+              "examples" : {
+                "Find all tasks for an application" : {
+                  "summary" : "Query all tasks (fixes) for application EXCP with their status",
+                  "value" : {
+                    "listInput" : {
+                      "pageNumber" : 1,
+                      "returnTotalRecords" : false,
+                      "recordsPerPage" : 50,
+                      "returnFields" : [ "applicationCode", "fixNumber", "fixStatus", "shortFixDescription", "programmer" ],
+                      "table" : "OMXFixExtended",
+                      "fieldSelections" : [ {
+                        "field" : "applicationCode",
+                        "value" : "EXCP",
+                        "operator" : "EQ"
+                      } ]
+                    },
+                    "sortFields" : [ {
+                      "fieldName" : "fixNumber",
+                      "sortBy" : "asc"
+                    } ]
+                  }
+                },
+                "Query objects with multiple criteria" : {
+                  "summary" : "Find CLLE programs in production environment",
+                  "value" : {
+                    "listInput" : {
+                      "pageNumber" : 1,
+                      "returnTotalRecords" : true,
+                      "recordsPerPage" : 20,
+                      "returnFields" : [ "applicationCode", "objectCode", "objectType", "objectLibrary", "objectDescription", "objectSourceChangeDate" ],
+                      "table" : "OMXObjectExtended",
+                      "fieldSelections" : [ {
+                        "field" : "objectAttribute",
+                        "value" : "CLLE",
+                        "operator" : "EQ"
+                      }, {
+                        "field" : "environmentCode",
+                        "value" : "*DEV,*PROD",
+                        "operator" : "IN"
+                      } ]
+                    },
+                    "sortFields" : [ {
+                      "fieldName" : "objectCode",
+                      "sortBy" : "asc"
+                    }, {
+                      "fieldName" : "environmentCode",
+                      "sortBy" : "asc"
+                    } ]
+                  }
+                },
+                "Transfer history with regex pattern" : {
+                  "summary" : "Find all object transfers matching pattern starting with OM0",
+                  "value" : {
+                    "listInput" : {
+                      "pageNumber" : 1,
+                      "returnTotalRecords" : false,
+                      "recordsPerPage" : 50,
+                      "table" : "OMXObjectTransferHistory",
+                      "fieldSelections" : [ {
+                        "field" : "transferCode",
+                        "value" : "OM0[0-9]{4}",
+                        "operator" : "REGEX"
+                      }, {
+                        "field" : "errorIndicator",
+                        "value" : "0",
+                        "operator" : "EQ"
+                      } ]
+                    },
+                    "sortFields" : [ {
+                      "fieldName" : "systemDate",
+                      "sortBy" : "desc"
+                    } ]
+                  }
+                },
+                "Complex logical query with grouping" : {
+                  "summary" : "Find EXCP application objects OR objects in production with specific attributes",
+                  "value" : {
+                    "listInput" : {
+                      "pageNumber" : 1,
+                      "recordsPerPage" : 50,
+                      "distinct" : true,
+                      "table" : "OMXObjectExtended",
+                      "fieldSelections" : [ {
+                        "operator" : "AND",
+                        "group" : 1,
+                        "parentGroup" : 0
+                      }, {
+                        "field" : "applicationCode",
+                        "value" : "EXCP",
+                        "operator" : "EQ",
+                        "group" : 1
+                      }, {
+                        "operator" : "OR",
+                        "group" : 2,
+                        "parentGroup" : 1
+                      }, {
+                        "field" : "environmentCode",
+                        "value" : "*PROD",
+                        "operator" : "EQ",
+                        "group" : 2
+                      }, {
+                        "field" : "objectType",
+                        "value" : "*PGM",
+                        "operator" : "EQ",
+                        "group" : 2
+                      } ]
+                    },
+                    "sortFields" : [ {
+                      "fieldName" : "applicationCode",
+                      "sortBy" : "asc"
+                    } ]
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful query execution. Returns status, total record count (if requested), records returned in this page, and array of matching records.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/result"
+                },
+                "examples" : {
+                  "Tasks query response" : {
+                    "summary" : "Successful response returning tasks (fixes) for application EXCP",
+                    "value" : {
+                      "returnStatus" : {
+                        "status" : "*NORM",
+                        "messages" : [ ],
+                        "fieldMessages" : [ ]
+                      },
+                      "listStatus" : {
+                        "totalRecords" : 15,
+                        "recordsReturned" : 1,
+                        "pageNumber" : 1
+                      },
+                      "records" : [ {
+                        "applicationCode" : "EXCP",
+                        "fixNumber" : "F0060",
+                        "fixStatus" : "*CMP",
+                        "shortFixDescription" : "Add jobs to http",
+                        "programmer" : "WIM"
+                      } ],
+                      "fileName" : "FixExtended"
+                    }
+                  },
+                  "Objects query response" : {
+                    "summary" : "Response showing CLLE objects with change tracking",
+                    "value" : {
+                      "returnStatus" : {
+                        "status" : "*NORM",
+                        "messages" : [ ],
+                        "fieldMessages" : [ ]
+                      },
+                      "listStatus" : {
+                        "totalRecords" : 4,
+                        "recordsReturned" : 2,
+                        "pageNumber" : 1
+                      },
+                      "records" : [ {
+                        "applicationCode" : "EXCP",
+                        "objectCode" : "CPYMBR",
+                        "objectType" : "*PGM",
+                        "objectLibrary" : "EF0048",
+                        "objectDescription" : "Change move to copy",
+                        "objectSourceChangeDate" : "1190625123044"
+                      }, {
+                        "applicationCode" : "EXCP",
+                        "objectCode" : "HNDLMSGFA",
+                        "objectType" : "*PGM",
+                        "objectLibrary" : "EF0050",
+                        "objectDescription" : "Handle messagefiles CRTDUP/replace action",
+                        "objectSourceChangeDate" : "1220819184034"
+                      } ],
+                      "fileName" : "ObjectExtended"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          },
+          "422" : {
+            "$ref" : "#/components/responses/422"
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "SO",
+          "generate" : false
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "listInput" : {
+        "required" : [ "table" ],
+        "type" : "object",
+        "properties" : {
+          "pageNumber" : {
+            "minimum" : 0,
+            "type" : "integer",
+            "description" : "Page number for pagination (1 or higher for data, 0 only with returnTotalRecords=true to get count). If the table contains 100 records and recordsPerPage=10, specify pageNumber 1-10 to retrieve records 1-10, 11-20, etc.",
+            "default" : 1
+          },
+          "returnTotalRecords" : {
+            "type" : "boolean",
+            "description" : "When true with pageNumber=0, returns only the total record count without fetching actual records (efficient for large result sets). When true with pageNumber>=1, includes totalRecords in the response along with records.",
+            "default" : false
+          },
+          "recordsPerPage" : {
+            "maximum" : 50,
+            "type" : "integer",
+            "description" : "Number of records per page (max 50). Smaller values reduce response size and latency. Use with pageNumber for pagination through large result sets.",
+            "nullable" : true,
+            "default" : 50
+          },
+          "returnFields" : {
+            "maxItems" : 100,
+            "type" : "array",
+            "description" : "Specify which fields to return in results. If omitted, all available fields are returned. Restricting to needed fields reduces payload size and improves performance. Field names are case-sensitive and must match the OMXDataDictionary longColumnName values.",
+            "example" : [ "applicationCode", "fixNumber", "fixStatus", "shortFixDescription" ],
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "schemaOverride" : {
+            "maxLength" : 128,
+            "type" : "string",
+            "description" : "Advanced option: Query the specified schema/library instead of the default OMS library. Useful for querying alternate database configurations or test libraries.",
+            "example" : "OMSTEST"
+          },
+          "whereClause" : {
+            "maxLength" : 2048,
+            "type" : "string",
+            "description" : "Advanced option: Additional SQL WHERE clause for complex filtering beyond fieldSelections. Use with caution as this directly impacts query generation. Example: 'RJAPPC = \"EXCP\" AND RJVRS# > 5'",
+            "example" : "FIXSTS = '*CMP' AND FIXPRI >= 3"
+          },
+          "table" : {
+            "maxLength" : 128,
+            "type" : "string",
+            "description" : "Name of the TD/OMS table to query. Examples: OMXFixExtended (tasks), OMXObjectExtended (objects), OMXApplication (applications), OMXSolutionExtended (connected objects), OMXObjectTransferHistory (transfer history), OMXDataDictionary (metadata).",
+            "example" : "OMXFixExtended"
+          },
+          "fieldSelections" : {
+            "maxItems" : 250,
+            "type" : "array",
+            "description" : "Array of field conditions to filter results. Supports simple equality checks and complex logical expressions. Each selection specifies a field name, operator, value, and optionally group information for AND/OR logic. Multiple selections without groups are ANDed together.",
+            "items" : {
+              "$ref" : "#/components/schemas/fieldSelection"
+            }
+          },
+          "skipChecks" : {
+            "type" : "boolean",
+            "description" : "When true, skip input validation to improve query performance. False (default) provides better error feedback. Use only when you're confident in your input accuracy.",
+            "default" : false
+          },
+          "distinct" : {
+            "type" : "boolean",
+            "description" : "When true, removes duplicate records from the results. The optional returnFields parameter can be used to determine which fields are considered when identifying duplicates. Useful for finding unique values in a field set.",
+            "default" : false
+          }
+        },
+        "description" : "Core query parameters for filtering and pagination"
+      },
+      "message" : {
+        "type" : "object",
+        "properties" : {
+          "messageText" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Primary message text describing the error or status. Examples: 'Field applicationCode not found', 'Query executed successfully'.",
+            "example" : "Query executed successfully"
+          },
+          "messageID" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "Message ID for programmatic reference and documentation lookup. Format: OMQF#### or similar OMS message code.",
+            "example" : "OMQF0000"
+          },
+          "messageTextExtended" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "Additional context and resolution guidance. Typically includes suggestions for fixing the reported issue or additional technical details.",
+            "example" : "Check that returnExtendedMessageText was set to true in request if more detail is needed"
+          }
+        },
+        "description" : "Error or status message from the API"
+      },
+      "fieldMessage" : {
+        "type" : "object",
+        "properties" : {
+          "message" : {
+            "$ref" : "#/components/schemas/message"
+          },
+          "fieldName" : {
+            "type" : "string",
+            "description" : "Name of the field that caused the error (from returnFields or fieldSelections)",
+            "example" : "fixDescription"
+          }
+        },
+        "description" : "Field-specific error information with context"
+      },
+      "listStatus" : {
+        "type" : "object",
+        "properties" : {
+          "totalRecords" : {
+            "type" : "integer",
+            "description" : "Total number of records matching the query criteria (only if returnTotalRecords was true in request). Use for calculating total pages: totalPages = ceil(totalRecords / recordsPerPage)",
+            "example" : 2514
+          },
+          "recordsReturned" : {
+            "type" : "integer",
+            "description" : "Number of records actually returned in this response. Will be <= recordsPerPage, or less on final page.",
+            "example" : 50
+          },
+          "pageNumber" : {
+            "type" : "integer",
+            "description" : "Current page number returned. Use with recordsPerPage to determine which record range was returned.",
+            "example" : 1
+          }
+        },
+        "description" : "Pagination metadata for the query result"
+      },
+      "returnStatus" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string",
+            "description" : "Return status indicator. *NORM = successful query, *TERM = terminating error, *WARN = warning conditions encountered. Check messages and fieldMessages for details on non-*NORM statuses.",
+            "example" : "*NORM",
+            "enum" : [ "*NORM", "*TERM", "*WARN" ]
+          },
+          "messages" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "General error messages not tied to specific fields. Present when status is not *NORM.",
+            "items" : {
+              "$ref" : "#/components/schemas/message"
+            }
+          },
+          "fieldMessages" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "Field-specific error messages indicating problems with particular fieldSelections or returnFields.",
+            "items" : {
+              "$ref" : "#/components/schemas/fieldMessage"
+            }
+          }
+        },
+        "description" : "Overall status and error information for the query response"
+      },
+      "sortField" : {
+        "required" : [ "fieldName" ],
+        "type" : "object",
+        "properties" : {
+          "fieldName" : {
+            "type" : "string",
+            "description" : "Field name to sort by (from OMXDataDictionary longColumnName). Use multiple sortField entries for multi-level sorting.",
+            "example" : "fixNumber"
+          },
+          "sortBy" : {
+            "type" : "string",
+            "description" : "Sort direction: ASC for ascending (A-Z, 0-9, oldest first), DESC for descending (Z-A, 9-0, newest first)",
+            "default" : "ASC",
+            "enum" : [ "ASC", "DESC" ]
+          }
+        },
+        "description" : "Field sorting specification"
+      },
+      "request" : {
+        "type" : "object",
+        "properties" : {
+          "listInput" : {
+            "$ref" : "#/components/schemas/listInput"
+          },
+          "sortFields" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "Array of fields to sort results by, in priority order. Apply sorts left to right: first sortField is primary, second is secondary, etc.",
+            "items" : {
+              "$ref" : "#/components/schemas/sortField"
+            }
+          },
+          "returnExtendedMessageText" : {
+            "type" : "boolean",
+            "description" : "When true, includes extended message text in error responses with additional context and troubleshooting guidance. Useful during development for detailed error information.",
+            "default" : false
+          }
+        },
+        "description" : "Complete request body for database query including filter, sort, and pagination parameters"
+      },
+      "fieldSelection" : {
+        "required" : [ "operator" ],
+        "type" : "object",
+        "properties" : {
+          "field" : {
+            "type" : "string",
+            "description" : "The field name to filter on (from OMXDataDictionary longColumnName). Examples: applicationCode, fixNumber, objectCode, fixStatus, environmentCode. Omit for logical operators (AND/OR) in group definitions.",
+            "example" : "fixStatus"
+          },
+          "value" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "The value to compare against. For IN operator, use comma-separated values (e.g. 'EXCP,ID110,ID130'). For BETWEEN, use comma-separated range (e.g. 'F0001,F0100'). For REGEX, use regex pattern (e.g. 'F0[0-9]{3}'). Optional for logical operators.",
+            "example" : "*CMP"
+          },
+          "operator" : {
+            "maxLength" : 20,
+            "type" : "string",
+            "description" : "Comparison or logical operator. EQ=exact match, IN=list match, BETWEEN=range, REGEX=pattern match, CONTAINS=substring, STARTSWITH=prefix, ENDSWITH=suffix, LT/GT/LE/GE/NE=numeric comparison. AND/OR=logical grouping for complex queries.",
+            "example" : "EQ",
+            "default" : "EQ",
+            "enum" : [ "IN", "NOTIN", "BETWEEN", "NOTBETWEEN", "REGEX", "EQ", "LT", "GT", "LE", "GE", "NE", "STARTSWITH", "ENDSWITH", "CONTAINS", "NOTSTARTSWITH", "NOTENDSWITH", "NOTCONTAINS", "AND", "OR" ]
+          },
+          "group" : {
+            "type" : "number",
+            "description" : "Group number for logical grouping. Use to create complex AND/OR expressions. Root level selections have group=1 with parentGroup=0. Define groups with AND/OR operators, then assign selections to those groups. Example: group 1 with AND, group 2 and 3 with OR as children of group 1.",
+            "example" : 1
+          },
+          "parentGroup" : {
+            "type" : "number",
+            "description" : "Parent group number for nested logical expressions. Use 0 for root level, otherwise reference the parent group number to nest expressions.",
+            "example" : 0
+          },
+          "ignoreCase" : {
+            "type" : "boolean",
+            "description" : "When true, string comparisons ignore case (EXCP = excp = Excp). Useful for case-insensitive searches on application codes or other text fields.",
+            "default" : false
+          }
+        }
+      },
+      "result" : {
+        "type" : "object",
+        "properties" : {
+          "returnStatus" : {
+            "$ref" : "#/components/schemas/returnStatus"
+          },
+          "listStatus" : {
+            "$ref" : "#/components/schemas/listStatus"
+          },
+          "records" : {
+            "type" : "array",
+            "description" : "Array of records matching the query. Each record is a JSON object containing the fields specified in returnFields (or all fields if not specified). Record structure varies by table - see examples for common table structures.",
+            "items" : {
+              "$ref" : "#/components/schemas/record"
+            }
+          },
+          "fileName" : {
+            "type" : "string",
+            "description" : "Friendly name of the queried table. Examples: FixExtended, ObjectExtended, Application, ObjectTransferHistory, DataDictionary",
+            "example" : "FixExtended"
+          }
+        },
+        "description" : "Complete query response including status, pagination info, and result records"
+      },
+      "record" : {
+        "maxLength" : 65535,
+        "type" : "string",
+        "description" : "A record object containing zero or more fields from the queried table. Field contents vary by table and returnFields selection. Each field is returned as its native JSON type (string, number, boolean). Date/Time fields are returned in their native format (e.g., YYYY-MM-DD, OS400Time, CenturyDate format). Null or empty fields may be omitted or returned as empty strings depending on configuration."
+      }
+    },
+    "responses" : {
+      "401" : {
+        "description" : "Unauthorized - JWT token is missing, expired, or invalid. The user is not authenticated or the session has expired.",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/message"
+            },
+            "examples" : {
+              "response401" : {
+                "summary" : "Authorization failed",
+                "value" : {
+                  "messageText" : "Unauthorized or expired token. Please login again.",
+                  "messageID" : "OMQF201",
+                  "messageTextExtended" : "Your TD/OMS session has expired. Log back into the TD/OMS Work Management interface to obtain a new JWT token."
+                }
+              }
+            }
+          }
+        }
+      },
+      "422" : {
+        "description" : "Unprocessable Entity - The request has validation errors. Check returnStatus.fieldMessages for which fields caused the issue. Common causes: invalid table name, invalid field selection operators, invalid field names, malformed where clause.",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/message"
+            },
+            "examples" : {
+              "response422" : {
+                "summary" : "Validation error in request",
+                "value" : {
+                  "messageText" : "Invalid field name in returnFields",
+                  "messageID" : "OMQF200",
+                  "messageTextExtended" : "Field 'fixDescription' was not found in table 'OMXFixExtended'. Check OMXDataDictionary for valid field names (longColumnName values)."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "parameters" : { },
+    "examples" : {
+      "IN operator example" : {
+        "summary" : "Match any value in a list",
+        "value" : {
+          "field" : "applicationCode",
+          "value" : "EXCP,ID110,ID130",
+          "operator" : "IN",
+          "description" : "Returns records where applicationCode is EXCP, ID110, or ID130"
+        }
+      },
+      "BETWEEN operator example" : {
+        "summary" : "Match values in a range",
+        "value" : {
+          "field" : "fixNumber",
+          "value" : "F0001,F0100",
+          "operator" : "BETWEEN",
+          "description" : "Returns records where fixNumber is between F0001 and F0100 (inclusive)"
+        }
+      },
+      "REGEX operator example" : {
+        "summary" : "Pattern matching",
+        "value" : {
+          "field" : "fixNumber",
+          "value" : "F0[0-9]{3}",
+          "operator" : "REGEX",
+          "description" : "Returns records where fixNumber matches pattern F0### (F0000 through F0999)"
+        }
+      },
+      "CONTAINS operator example" : {
+        "summary" : "Substring matching",
+        "value" : {
+          "field" : "shortFixDescription",
+          "value" : "http",
+          "operator" : "CONTAINS",
+          "description" : "Returns records where shortFixDescription contains 'http' anywhere in the text"
+        }
+      },
+      "Comparison operators example" : {
+        "summary" : "Numeric comparisons",
+        "value" : {
+          "field" : "priorityNumeric",
+          "value" : "3",
+          "operator" : "GE",
+          "description" : "Returns records where priorityNumeric >= 3 (priority 3 or higher)"
+        }
+      }
+    },
+    "requestBodies" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "JWT validation",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
