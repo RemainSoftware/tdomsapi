@@ -584,7 +584,7 @@ curl -X 'POST' \
 * [Compilation Event Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/CompilationEventService.json)
 * [Load Components Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/LoadComponentsService.json)
 * [Information Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/InformationService.json)
-* [Impact Analysis](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/ImpactAnalysis.json)
+* [Impact Analysis Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/ImpactAnalysisService.json)
 * [Label](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/LabelAPI.json)
 * [Login Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/LoginService.json)
 * [Managed Deployment](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/ManagedDeploymentAPI.json)
