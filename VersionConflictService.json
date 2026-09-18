@@ -1,8 +1,8 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "Version Conflict API",
-    "description" : "Use this REST API to Confirm the Version Confilct. ",
+    "title" : "OMS Version Conflict Service",
+    "description" : "Confirms an existing version conflict between TD/OMS tasks.",
     "termsOfService" : "",
     "contact" : {
       "name" : "Remain Software",
@@ -19,7 +19,7 @@
       "object" : "OMQRVC",
       "library" : "V16T0268",
       "srclibrary" : "V16T0268S",
-      "file" : "VersionConflictAPI.json"
+      "file" : "VersionConflictService.json"
     }
   },
   "servers" : [ {
@@ -191,58 +191,58 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the application code."
+            "description" : "Specify the application code of the conflict record to confirm."
           },
           "fixNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the task to which the object must be connected."
+            "description" : "Specify the task number that owns the version conflict record."
           },
           "objectCode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Specify the object that must be connected to the fix.    \r\n\r\nNote:  You can also specify the short name of the IFS object along with the route code and path extension library code if you want to confirm the version conflict for the IFS object.        \r\n                                                          \r\n*IFSOBJ                                                   \r\n    Use this value if you want to register an object from the integrated file system (IFS) instead of the normal OS/400 library structure.",
+            "description" : "Specify the object code in the conflict record.\r\n\r\nNote: You can also specify the short name of an IFS object together with routeCode and pathExtensionLibraryCode when confirming IFS conflicts.\r\n\r\n*IFSOBJ\r\n    Use this value when the target object is from the integrated file system (IFS) instead of the OS/400 library structure.",
             "default" : "*IFSOBJ",
             "enum" : [ "*IFSOBJ" ]
           },
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Specify the object type."
+            "description" : "Specify the IBM i object type of objectCode (for example *PGM or *STMF)."
           },
           "memberCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "When connecting a message or a source member the name of this member must also be specified. The possible values are:                                                      \r\n                                                          \r\n*NONE                                                     \r\n    No member is involved.",
+            "description" : "When the conflict concerns a source member, specify the member name.\r\n\r\n*NONE\r\n    No member is involved.",
             "default" : "*NONE",
             "enum" : [ "*NONE" ]
           },
           "iFSFullPathName" : {
             "maxLength" : 640,
             "type" : "string",
-            "description" : "The IFS Full Path Name is a complete reference to an IFS object. This includes the directory and the object.                                \r\n                                                                      \r\n*OBJC                                                                 \r\n    Use this value if you want to register an object from the OS/400 library structure instead of the integrated file system (IFS).",
+            "description" : "IFS full path name, including directory and object name, when confirming an IFS conflict.\r\n\r\n*OBJC\r\n    Use this value when the object is from the OS/400 library structure (not IFS).",
             "default" : "*OBJC",
             "enum" : [ "*OBJC" ]
           },
           "relatedApplicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the related application code."
+            "description" : "Specify the application code of the related conflicting task."
           },
           "relatedFixNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the Related Task number."
+            "description" : "Specify the related task number in conflict with fixNumber."
           },
           "routeCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the Route code code if you have provided the short name of the IFS object.\r\n\r\nNote:  You do not need to specify the route code when you provide the IFS full path name, because the entered route code will be ignored and calculated automatically.\r\n\r\n*NONE                                                    \r\n    No route code is involved, it contains a blank value."
+            "description" : "Specify the route code when you provide a short IFS object name.\r\n\r\nNote: You do not need to specify routeCode when iFSFullPathName is provided; the value is ignored and derived automatically.\r\n\r\n*NONE\r\n    No route code is involved (blank value)."
           },
           "pathExtensionLibraryCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the Path Extension library code if you have provided the short name of the IFS object.\r\n\r\nNote:  You do not need to specify the path extension library code when you provide the IFS full path name, because the entered path extension library code will be ignored and calculated automatically.    \r\n\r\n*NONE                                                             \r\n    No path extension library code is involved, it contains a blank value."
+            "description" : "Specify the path extension library code when you provide a short IFS object name.\r\n\r\nNote: You do not need to specify pathExtensionLibraryCode when iFSFullPathName is provided; the value is ignored and derived automatically.\r\n\r\n*NONE\r\n    No path extension library code is involved (blank value)."
           },
           "processingOptions" : {
             "$ref" : "#/components/schemas/processingOptions"
@@ -278,32 +278,32 @@
           "messageFile" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The IBM i messageFile."
+            "description" : "IBM i message file name that produced this message."
           },
           "messageId" : {
             "maxLength" : 7,
             "type" : "string",
-            "description" : "The message Idetifier."
+            "description" : "The message identifier."
           },
           "messageType" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "The message type 'E' indicates an error message, while 'N' indicates a normal message with no error."
+            "description" : "Message type where 'E' indicates error and 'N' indicates informational/normal."
           },
           "messageData" : {
             "maxLength" : 80,
             "type" : "string",
-            "description" : "The message substitution data"
+            "description" : "Substitution data used by the message text."
           },
           "field" : {
             "maxLength" : 50,
             "type" : "string",
-            "description" : "The field in error"
+            "description" : "Field name associated with the message, when applicable."
           },
           "meesageText" : {
             "maxLength" : 644,
             "type" : "string",
-            "description" : "The human readable message text."
+            "description" : "Human-readable message text."
           }
         },
         "description" : "The return messages."
@@ -370,28 +370,28 @@
           "objectVersionConflictType" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Object Version Conflict Type",
+            "description" : "Conflict category code stored for the object version conflict.",
             "x-column" : "VCOVCC",
             "x-sequence" : "90"
           },
           "confirmationRequired1required" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Confirmation Required (1=Required)",
+            "description" : "Legacy alias field: '1' means confirmation is required for this conflict (maps to OMOVC confirmationRequired).",
             "x-column" : "VCCMRQ",
             "x-sequence" : "100"
           },
           "userWhoGaveConfirmation" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "User who gave Confirmation",
+            "description" : "User profile that confirmed the version conflict.",
             "x-column" : "VCCMUS",
             "x-sequence" : "110"
           },
           "confirmationDate" : {
             "maxLength" : 7,
             "type" : "number",
-            "description" : "Confirmation Date",
+            "description" : "Confirmation date in IBM i numeric date format.",
             "format" : "zoned(7:0)",
             "x-column" : "VCCMDT",
             "x-sequence" : "120"
@@ -399,7 +399,7 @@
           "confirmationTime" : {
             "maxLength" : 6,
             "type" : "number",
-            "description" : "Confirmation Time",
+            "description" : "Confirmation time in IBM i numeric time format.",
             "format" : "zoned(6:0)",
             "x-column" : "VCCMTM",
             "x-sequence" : "130"
@@ -407,21 +407,21 @@
           "confirmed1confirmed" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Confirmed (1=Confirmed)",
+            "description" : "Legacy alias field: '1' means the conflict is confirmed (maps to OMOVC confirmed).",
             "x-column" : "VCCMED",
             "x-sequence" : "140"
           },
           "routeCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Route code",
+            "description" : "Route code for IFS conflict identification.",
             "x-column" : "VCROTC",
             "x-sequence" : "150"
           },
           "pathExtensionCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Path Extension Code",
+            "description" : "Legacy alias field for IFS path extension library code.",
             "x-column" : "VCELBC",
             "x-sequence" : "160"
           }
@@ -445,19 +445,19 @@
           "updateBuffer" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "description" : "Specify '1' to return refreshed values after processing, or '0' to skip refreshing returned data.",
             "default" : "1",
             "enum" : [ "0", "1" ]
           },
           "forceConfirmIndicator" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "The version conflict may not be confirmed if the object is in a potential version conflict stage, unless the force parameter is set to *YES.\r\n                                                                  \r\n    Note:  If you try to confirm the version conflict in the potential version conflict stage, it means you are too early as you should be aware that the                                                              \r\n               object may undergo further changes in the future.   \r\n\r\n*NO                                                                    \r\n    The version conflict will only be confirmed if the object is in a real  version conflict stage.   \r\n                                             \r\n*YES                                                                                                                                       \r\n    The version conflict will be forcefully confirmed, even if the object is in a potential version conflict stage.   \r\n       \r\n                                                                       \r\n   \r\n    ",
+            "description" : "Controls whether confirmation is forced for potential conflicts.\r\n\r\n*NO\r\n    Confirm only when the object is in a real version-conflict stage.\r\n\r\n*YES\r\n    Force confirmation even when the object is still in a potential version-conflict stage.",
             "default" : "*NO",
             "enum" : [ "*NO", "*YES" ]
           }
         },
-        "description" : "Various flags to control the behaviour of the API."
+        "description" : "Various flags to control the behavior of the API."
       }
     },
     "responses" : { },
