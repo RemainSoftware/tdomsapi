@@ -1,8 +1,8 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "Label API",
-    "description" : "The TD/OMS Label API allows you to perform all allowed actions on a Label.  You can use labels in compile selection, location selections, action selections, and filter.",
+    "title" : "OMS Label Service",
+    "description" : "The TD/OMS Label Service enables you to perform label actions.  The following actions are available:\r\n\r\n/add - Add a label\r\n/change - Change a label\r\n/delete - Delete a label\r\n/label - Label an object, member or message\r\n/unlable - Unabel an object, member or message",
     "termsOfService" : "",
     "contact" : {
       "name" : "Remain Software",
@@ -19,7 +19,7 @@
       "object" : "OMQRLB",
       "library" : "V17T0008",
       "srclibrary" : "V17T0008S",
-      "file" : "LabelAPI.json"
+      "file" : "LabelService.json"
     }
   },
   "servers" : [ {
@@ -40,8 +40,8 @@
       },
       "protocol" : {
         "description" : "Protocol",
-        "enum" : [ "https", "http" ],
-        "default" : "https"
+        "default" : "https",
+        "enum" : [ "https", "http" ]
       }
     }
   } ],
@@ -234,7 +234,7 @@
         "description" : "Use this operation to assign the label to object",
         "operationId" : "label",
         "requestBody" : {
-          "description" : "use this input to add label to object",
+          "description" : "use this input to add a label to and object, member or message",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -293,7 +293,7 @@
         "description" : "use this operation to remove Label from Object.",
         "operationId" : "unLabel",
         "requestBody" : {
-          "description" : "use this input to remove Label from object",
+          "description" : "use this input to remove Label from an object, member or message.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -368,6 +368,7 @@
         "description" : "Input parameters to decide on UpdateDB and Update Buffer"
       },
       "labelKeyDetails" : {
+        "required" : [ "labelId", "labelKey" ],
         "type" : "object",
         "properties" : {
           "labelId" : {
@@ -387,6 +388,7 @@
         "description" : "Input parameters for Label key - Label id and Label Key"
       },
       "labelRequest" : {
+        "required" : [ "interfaceLevel", "labelKeyDetails", "objectDetails", "processingOptions" ],
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
@@ -409,6 +411,7 @@
         "description" : "Input parameters to label an object"
       },
       "unlabelRequest" : {
+        "required" : [ "interfaceLevel", "labelKeyDetails", "objectDetails", "processingOptions" ],
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
@@ -467,6 +470,7 @@
         "description" : "Output error details"
       },
       "addLabelRequest" : {
+        "required" : [ "color", "interfaceLevel", "labelCode", "labelDescription", "processingOptions" ],
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
@@ -479,7 +483,7 @@
           "labelCode" : {
             "maxLength" : 30,
             "type" : "string",
-            "description" : "A label is a 30 character field that can be used to label things like Objects, Requests and Tasks. Labels can be used in filters and selections.\r\n \r\n*SAME  \r\nUse this value to indicate that the Label code does not change if you are in change mode. In Add Mode it is invalid.",
+            "description" : "A label is a 30 character field that can be used to label things like Objects, Members or Messages. Labels can be used in filters and selections.\r\n \r\n*SAME  \r\nUse this value to indicate that the Label code does not change if you are in change mode. In Add Mode it is invalid.",
             "default" : "*SAME",
             "enum" : [ "*SAME" ]
           },
@@ -503,6 +507,7 @@
         "description" : "Input parameters to add a new Label."
       },
       "changeLabelRequest" : {
+        "required" : [ "color", "interfaceLevel", "labelCode", "labelDescription", "labelKeyDetails", "processingOptions" ],
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
@@ -518,7 +523,7 @@
           "labelCode" : {
             "maxLength" : 30,
             "type" : "string",
-            "description" : "A label is a 30 character field that can be used to label things like Objects, Requests and Tasks. Labels can be used in filters and selections.\r\n\r\n*SAME  \r\nUse this value to indicate that the Label code does not change if you are in change mode. In Add Mode it is invalid.",
+            "description" : "A label is a 30 character field that can be used to label things like Objects, Members or Messages. Labels can be used in filters and selections.\r\n\r\n*SAME  \r\nUse this value to indicate that the Label code does not change if you are in change mode. In Add Mode it is invalid.",
             "default" : "*SAME",
             "enum" : [ "*SAME" ]
           },
@@ -542,6 +547,7 @@
         "description" : "input parameters to change existing Label.\r\n\r\n*SAME  \r\nUse this value to indicate that the Label code does not change if you are in change mode. In Add Mode it is invalid."
       },
       "deleteLabelRequest" : {
+        "required" : [ "interfaceLevel", "labelKeyDetails", "processingOptions" ],
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
@@ -621,6 +627,7 @@
         "description" : "Label response - Status , Error message and Response data."
       },
       "labelObjectDetails" : {
+        "required" : [ "ifsObject", "memberCode", "objectCode", "objectType" ],
         "type" : "object",
         "properties" : {
           "objectCode" : {
@@ -662,6 +669,8 @@
       }
     },
     "responses" : { },
+    "parameters" : { },
+    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
