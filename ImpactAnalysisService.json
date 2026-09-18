@@ -1,0 +1,839 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "OMS Impact Analysis Service",
+    "description" : "Use this API to retrieve direct object references or to run configured Impact Analysis reports for IBM i objects. The API returns the selected object together with referenced or dependent objects as a tree that can be used for drill-down analysis. All operations require a bearer JWT token.",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License ",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "object" : "OMQRIA",
+      "library" : "V16T0266",
+      "srclibrary" : "V16T0266S",
+      "file" : "ImpactAnalysisService.json",
+      "additionalBindingDirs" : "OMRESTUTIL"
+    }
+  },
+  "servers" : [ {
+    "url" : "{protocol}://{host}:{port}/{library}/OMQRIA",
+    "description" : "Production endpoint template for the Impact Analysis service.",
+    "variables" : {
+      "host" : {
+        "description" : "DNS host name or IP of the IBM i system that exposes the REST service.",
+        "default" : "plato.remainsoftware.com"
+      },
+      "library" : {
+        "description" : "IBM i library that contains the REST service.",
+        "default" : "OMS"
+      },
+      "protocol" : {
+        "description" : "HTTP protocol used to call the service.",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
+      },
+      "port" : {
+        "description" : "TCP port on which the REST service is listening.",
+        "default" : "45011"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/ref/{object}/{objectType}/{objectLibrary}/{member}" : {
+      "summary" : "Object reference and impact analysis report",
+      "description" : "Retrieves direct references for an IBM i object or runs an Impact Analysis report for that object. Path parameters identify the target object; optional query parameters select the report, detail level, and grouping.",
+      "get" : {
+        "summary" : "Get object references or impact analysis results",
+        "description" : "Returns an impact analysis tree for the specified object. When the report query parameter is omitted or empty, the response contains the direct references for the object. When a report code is supplied, the service runs that configured Impact Analysis report.",
+        "operationId" : "report",
+        "parameters" : [ {
+          "name" : "object",
+          "in" : "path",
+          "description" : "IBM i object name to analyze, for example a file or program name.",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/parmObject"
+          },
+          "examples" : {
+            "default" : {
+              "value" : null,
+              "$ref" : "#/components/examples/parmObjectExample"
+            }
+          }
+        }, {
+          "name" : "objectType",
+          "in" : "path",
+          "description" : "IBM i object type of the object to analyze, such as *FILE or *PGM.",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/parmObjectType"
+          },
+          "examples" : {
+            "default" : {
+              "value" : null,
+              "$ref" : "#/components/examples/parmObjectTypeExample"
+            }
+          }
+        }, {
+          "name" : "objectLibrary",
+          "in" : "path",
+          "description" : "IBM i library that contains the object to analyze.",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/parmObjectLibrary"
+          },
+          "examples" : {
+            "default" : {
+              "value" : null,
+              "$ref" : "#/components/examples/parmObjectLibraryExample"
+            }
+          }
+        }, {
+          "name" : "member",
+          "in" : "path",
+          "description" : "Source member name for member-based objects. Use *NONE when the object is not member-specific.",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/parmMember"
+          },
+          "examples" : {
+            "default" : {
+              "value" : null,
+              "$ref" : "#/components/examples/parmMemberExample"
+            }
+          }
+        }, {
+          "name" : "report",
+          "in" : "query",
+          "description" : "Impact Analysis report code to run. Omit this parameter or pass an empty value to return direct object references.",
+          "required" : false,
+          "style" : "form",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/parmReport"
+          },
+          "examples" : {
+            "default" : {
+              "value" : null,
+              "$ref" : "#/components/examples/parmReportExample"
+            }
+          }
+        }, {
+          "name" : "detail",
+          "in" : "query",
+          "description" : "Detail level for the report result. Allowed values are SINGLE (default), COMPILE, and COMPLETE.",
+          "required" : false,
+          "style" : "form",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/reportDetail"
+          },
+          "examples" : {
+            "default" : {
+              "value" : null,
+              "$ref" : "#/components/examples/reportDetailExample"
+            }
+          }
+        }, {
+          "name" : "grouping",
+          "in" : "query",
+          "description" : "Grouping mode for dependency nodes. Use NONE for the default tree or TYPE to group dependencies by object type and attribute.",
+          "required" : false,
+          "style" : "form",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/grouping"
+          },
+          "examples" : {
+            "default" : {
+              "value" : null,
+              "$ref" : "#/components/examples/groupingExample"
+            }
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Impact analysis result tree for the selected object.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/reportResult"
+                },
+                "examples" : {
+                  "directReferences" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/result1"
+                  },
+                  "impactReport" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/result2"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "The request was not authorized because the JWT bearer token is missing, expired, or invalid.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/message"
+                },
+                "examples" : {
+                  "unauthorized" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/unauthorizedMessageExample"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : false
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "message" : {
+        "type" : "object",
+        "properties" : {
+          "message" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "Human-readable status or error message."
+          }
+        },
+        "description" : "Standard message returned when the service cannot complete a request."
+      },
+      "parmReport" : {
+        "type" : "string",
+        "description" : "Impact Analysis report code. Use an empty value or omit the query parameter to return direct references instead of running a report.",
+        "default" : ""
+      },
+      "parmObject" : {
+        "type" : "string",
+        "description" : "IBM i object name to analyze."
+      },
+      "parmObjectType" : {
+        "type" : "string",
+        "description" : "IBM i object type, such as *FILE or *PGM."
+      },
+      "parmObjectLibrary" : {
+        "type" : "string",
+        "description" : "IBM i library that contains the object."
+      },
+      "reportDetail" : {
+        "type" : "string",
+        "description" : "Detail level used when running an Impact Analysis report. Allowed values are SINGLE, COMPILE, and COMPLETE.",
+        "default" : "SINGLE",
+        "enum" : [ "SINGLE", "COMPILE", "COMPLETE" ]
+      },
+      "parmMember" : {
+        "type" : "string",
+        "description" : "Source member name for member-based objects. Use *NONE when no member applies.",
+        "default" : "*NONE"
+      },
+      "grouping" : {
+        "type" : "string",
+        "description" : "Grouping mode for dependencies. NONE returns the default tree; TYPE groups dependencies by object type and attribute.",
+        "enum" : [ "NONE", "TYPE" ]
+      },
+      "reportResult" : {
+        "required" : [ "name" ],
+        "type" : "object",
+        "properties" : {
+          "objectLibrary" : {
+            "type" : "string",
+            "description" : "IBM i library that contains the object represented by this node."
+          },
+          "objectCode" : {
+            "type" : "string",
+            "description" : "IBM i object name represented by this node."
+          },
+          "environmentCode" : {
+            "type" : "string",
+            "description" : "TD/OMS environment code associated with the object, when known."
+          },
+          "sourceMember" : {
+            "type" : "string",
+            "description" : "Source member used to build or define the object, when known."
+          },
+          "sourceLibrary" : {
+            "type" : "string",
+            "description" : "Source library that contains the source member, when known."
+          },
+          "refLink" : {
+            "type" : "string",
+            "description" : "Relative API link that can be used to drill down into this object."
+          },
+          "sourceFile" : {
+            "type" : "string",
+            "description" : "Source file that contains the source member, when known."
+          },
+          "objectAttribute" : {
+            "type" : "string",
+            "description" : "IBM i object attribute, such as PF, LF, RPGLE, or DSPF."
+          },
+          "objectType" : {
+            "type" : "string",
+            "description" : "IBM i object type, such as *FILE or *PGM."
+          },
+          "children" : {
+            "type" : "array",
+            "description" : "Child dependency nodes below this node.",
+            "items" : {
+              "$ref" : "#/components/schemas/reportResult"
+            }
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "Human-readable display name for this node."
+          },
+          "applicationCode" : {
+            "type" : "string",
+            "description" : "Application code associated with the object, when known."
+          },
+          "objectDescription" : {
+            "type" : "string",
+            "description" : "Text description of the object or report node."
+          },
+          "impactReportDetail" : {
+            "description" : "Report detail level that was used to produce this node, when the node belongs to a report result.",
+            "allOf" : [ {
+              "$ref" : "#/components/schemas/reportDetail"
+            } ]
+          },
+          "impactReportCode" : {
+            "description" : "Impact Analysis report code that produced this node, when the node belongs to a report result.",
+            "allOf" : [ {
+              "$ref" : "#/components/schemas/parmReport"
+            } ]
+          },
+          "memberCode" : {
+            "type" : "string",
+            "description" : "Member name for member-level references, when available."
+          },
+          "memberAttributeMBSEU" : {
+            "type" : "string",
+            "description" : "Member attribute returned by member metadata, when available."
+          }
+        },
+        "description" : "A node in the impact analysis result tree. Nodes can represent the selected object, report levels, grouping headings, or dependent objects."
+      }
+    },
+    "responses" : { },
+    "examples" : {
+      "result2" : {
+        "summary" : "Running an Impact Analysis Report",
+        "description" : "Example impact analysis response body.",
+        "value" : {
+          "name" : "OMCUS OMS - Customers",
+          "objectCode" : "OMCUS",
+          "objectLibrary" : "OMHD_PRD",
+          "objectType" : "*FILE",
+          "objectAttribute" : "PF",
+          "memberCode" : "",
+          "memberAttributeMBSEU" : "",
+          "sourceFile" : "QSQLSRC",
+          "sourceLibrary" : "OMHD_PRDS",
+          "sourceMember" : "OMCUS",
+          "impactReportCode" : "PFCHANGES",
+          "impactReportDetail" : "SINGLE",
+          "objectDescription" : "OMS - Customers",
+          "refLink" : "/ref/OMCUS/*FILE/OMHD_PRD/*NONE",
+          "children" : [ {
+            "name" : "Level 1",
+            "impactReportCode" : "PFCHANGES",
+            "objectDescription" : "Report level 1",
+            "children" : [ {
+              "name" : "*FILE.LF",
+              "children" : [ {
+                "name" : "OMCUSL1 OMS - Customers logical",
+                "objectCode" : "OMCUSL1",
+                "objectLibrary" : "OMHD_PRD",
+                "objectType" : "*FILE",
+                "objectAttribute" : "LF",
+                "memberCode" : "",
+                "memberAttributeMBSEU" : "",
+                "sourceFile" : "QDDSSRC",
+                "sourceLibrary" : "OMHD_PRDS",
+                "sourceMember" : "OMCUSL1",
+                "objectDescription" : "OMS - Customers logical",
+                "refLink" : "/ref/OMCUSL1/*FILE/OMHD_PRD/*NONE"
+              } ]
+            }, {
+              "name" : "*PGM.RPGLE",
+              "children" : [ {
+                "name" : "OMQCHGCU OMS - API Change Customer",
+                "objectCode" : "OMQCHGCU",
+                "objectLibrary" : "OMHD_PRD",
+                "objectType" : "*PGM",
+                "objectAttribute" : "RPGLE",
+                "memberCode" : "",
+                "memberAttributeMBSEU" : "",
+                "sourceFile" : "QRPGLESRC",
+                "sourceLibrary" : "OMHD_PRDS",
+                "sourceMember" : "OMQCHGCU",
+                "objectDescription" : "OMS - API Change Customer",
+                "refLink" : "/ref/OMQCHGCU/*PGM/OMHD_PRD/*NONE"
+              } ]
+            } ]
+          }, {
+            "name" : "Level 2",
+            "impactReportCode" : "PFCHANGES",
+            "objectDescription" : "Report level 2",
+            "children" : [ {
+              "name" : "*PGM.RPGLE",
+              "children" : [ {
+                "name" : "OMH011 OMS - Customer maintenance",
+                "objectCode" : "OMH011",
+                "objectLibrary" : "O_XT0805T",
+                "objectType" : "*PGM",
+                "objectAttribute" : "RPGLE",
+                "memberCode" : "",
+                "memberAttributeMBSEU" : "",
+                "sourceFile" : "QRPGLESRC",
+                "sourceLibrary" : "O_XT0805T",
+                "sourceMember" : "OMH011",
+                "objectDescription" : "OMS - Customer maintenance",
+                "refLink" : "/ref/OMH011/*PGM/O_XT0805T/*NONE"
+              }, {
+                "name" : "OMH012 OMS - Contacts maintenance",
+                "objectCode" : "OMH012",
+                "objectLibrary" : "OMHD_ACC",
+                "objectType" : "*PGM",
+                "objectAttribute" : "RPGLE",
+                "memberCode" : "",
+                "memberAttributeMBSEU" : "",
+                "sourceFile" : "QRPGLESRC",
+                "sourceLibrary" : "OMHD_ACC",
+                "sourceMember" : "OMH012",
+                "objectDescription" : "OMS - Contacts maintenance",
+                "refLink" : "/ref/OMH012/*PGM/OMHD_ACC/*NONE"
+              }, {
+                "name" : "OMH015 OMS - Add customer call",
+                "objectCode" : "OMH015",
+                "objectLibrary" : "OMHD_PRD",
+                "objectType" : "*PGM",
+                "objectAttribute" : "RPGLE",
+                "memberCode" : "",
+                "memberAttributeMBSEU" : "",
+                "sourceFile" : "QRPGLESRC",
+                "sourceLibrary" : "OMHD_PRDS",
+                "sourceMember" : "OMH015",
+                "objectDescription" : "OMS - Add customer call",
+                "refLink" : "/ref/OMH015/*PGM/OMHD_PRD/*NONE"
+              }, {
+                "name" : "OMH024 OMS - Show customer information",
+                "objectCode" : "OMH024",
+                "objectLibrary" : "OMHD_PRD",
+                "objectType" : "*PGM",
+                "objectAttribute" : "RPGLE",
+                "memberCode" : "",
+                "memberAttributeMBSEU" : "",
+                "sourceFile" : "QRPGLESRC",
+                "sourceLibrary" : "OMHD_PRDS",
+                "sourceMember" : "OMH024",
+                "objectDescription" : "OMS - Show customer information",
+                "refLink" : "/ref/OMH024/*PGM/OMHD_PRD/*NONE"
+              }, {
+                "name" : "OMH033 OMS - Create HTML Form",
+                "objectCode" : "OMH033",
+                "objectLibrary" : "OMHD_PRD",
+                "objectType" : "*PGM",
+                "objectAttribute" : "RPGLE",
+                "memberCode" : "",
+                "memberAttributeMBSEU" : "",
+                "sourceFile" : "QRPGLESRC",
+                "sourceLibrary" : "OMHD_PRDS",
+                "sourceMember" : "OMH033",
+                "objectDescription" : "OMS - Create HTML Form",
+                "refLink" : "/ref/OMH033/*PGM/OMHD_PRD/*NONE"
+              }, {
+                "name" : "OMH036 OMS - Create mail message from template",
+                "objectCode" : "OMH036",
+                "objectLibrary" : "OMHD_PRD",
+                "objectType" : "*PGM",
+                "objectAttribute" : "RPGLE",
+                "memberCode" : "",
+                "memberAttributeMBSEU" : "",
+                "sourceFile" : "QRPGLESRC",
+                "sourceLibrary" : "OMHD_PRDS",
+                "sourceMember" : "OMH036",
+                "objectDescription" : "OMS - Create mail message from template",
+                "refLink" : "/ref/OMH036/*PGM/OMHD_PRD/*NONE"
+              }, {
+                "name" : "OMH037_2 OMS - Check distribution",
+                "objectCode" : "OMH037_2",
+                "objectLibrary" : "OMHD_PRD",
+                "objectType" : "*PGM",
+                "objectAttribute" : "RPGLE",
+                "memberCode" : "",
+                "memberAttributeMBSEU" : "",
+                "sourceFile" : "QRPGLESRC",
+                "sourceLibrary" : "OMHD_PRDS",
+                "sourceMember" : "OMH037_2",
+                "objectDescription" : "OMS - Check distribution",
+                "refLink" : "/ref/OMH037_2/*PGM/OMHD_PRD/*NONE"
+              }, {
+                "name" : "OMH039 OMS - Distribute definitions",
+                "objectCode" : "OMH039",
+                "objectLibrary" : "OMHD_PRD",
+                "objectType" : "*PGM",
+                "objectAttribute" : "RPGLE",
+                "memberCode" : "",
+                "memberAttributeMBSEU" : "",
+                "sourceFile" : "QRPGLESRC",
+                "sourceLibrary" : "OMHD_PRDS",
+                "sourceMember" : "OMH039",
+                "objectDescription" : "OMS - Distribute definitions",
+                "refLink" : "/ref/OMH039/*PGM/OMHD_PRD/*NONE"
+              }, {
+                "name" : "OMH041 OMS - Customer mail extensions maintenance",
+                "objectCode" : "OMH041",
+                "objectLibrary" : "OMHD_PRD",
+                "objectType" : "*PGM",
+                "objectAttribute" : "RPGLE",
+                "memberCode" : "",
+                "memberAttributeMBSEU" : "",
+                "sourceFile" : "QRPGLESRC",
+                "sourceLibrary" : "OMHD_PRDS",
+                "sourceMember" : "OMH041",
+                "objectDescription" : "OMS - Customer mail extensions maintenance",
+                "refLink" : "/ref/OMH041/*PGM/OMHD_PRD/*NONE"
+              }, {
+                "name" : "OMQCHGCC OMS - API Change Customer Call",
+                "objectCode" : "OMQCHGCC",
+                "objectLibrary" : "OMHD_PRD",
+                "objectType" : "*PGM",
+                "objectAttribute" : "RPGLE",
+                "memberCode" : "",
+                "memberAttributeMBSEU" : "",
+                "sourceFile" : "QRPGLESRC",
+                "sourceLibrary" : "OMHD_PRDS",
+                "sourceMember" : "OMQCHGCC",
+                "objectDescription" : "OMS - API Change Customer Call",
+                "refLink" : "/ref/OMQCHGCC/*PGM/OMHD_PRD/*NONE"
+              }, {
+                "name" : "OMQCHGCO OMS - API Change Customer Contact",
+                "objectCode" : "OMQCHGCO",
+                "objectLibrary" : "OMHD_PRD",
+                "objectType" : "*PGM",
+                "objectAttribute" : "RPGLE",
+                "memberCode" : "",
+                "memberAttributeMBSEU" : "",
+                "sourceFile" : "QRPGLESRC",
+                "sourceLibrary" : "OMHD_PRDS",
+                "sourceMember" : "OMQCHGCO",
+                "objectDescription" : "OMS - API Change Customer Contact",
+                "refLink" : "/ref/OMQCHGCO/*PGM/OMHD_PRD/*NONE"
+              }, {
+                "name" : "OMQRTVCU OMS - API retrieve customer",
+                "objectCode" : "OMQRTVCU",
+                "objectLibrary" : "OMHD_PRD",
+                "objectType" : "*PGM",
+                "objectAttribute" : "RPGLE",
+                "memberCode" : "",
+                "memberAttributeMBSEU" : "",
+                "sourceFile" : "QRPGLESRC",
+                "sourceLibrary" : "OMHD_PRDS",
+                "sourceMember" : "OMQRTVCU",
+                "objectDescription" : "OMS - API retrieve customer",
+                "refLink" : "/ref/OMQRTVCU/*PGM/OMHD_PRD/*NONE"
+              }, {
+                "name" : "OMX128 OMS - Select Customer",
+                "objectCode" : "OMX128",
+                "objectLibrary" : "O_XT0078T",
+                "objectType" : "*PGM",
+                "objectAttribute" : "RPGLE",
+                "memberCode" : "",
+                "memberAttributeMBSEU" : "",
+                "sourceFile" : "QRPGLESRC",
+                "sourceLibrary" : "OMHD_PRDS",
+                "sourceMember" : "OMX128",
+                "objectDescription" : "OMS - Select Customer",
+                "refLink" : "/ref/OMX128/*PGM/O_XT0078T/*NONE"
+              } ]
+            } ]
+          }, {
+            "name" : "Level 3",
+            "impactReportCode" : "PFCHANGES",
+            "objectDescription" : "Report level 3",
+            "children" : [ {
+              "name" : "*FILE.DSPF",
+              "children" : [ {
+                "name" : "OMH011D OMS - Customer maintenance",
+                "objectCode" : "OMH011D",
+                "objectLibrary" : "O_XT0805T",
+                "objectType" : "*FILE",
+                "objectAttribute" : "DSPF",
+                "memberCode" : "",
+                "memberAttributeMBSEU" : "",
+                "sourceFile" : "QDDSSRC",
+                "sourceLibrary" : "O_XT0805T",
+                "sourceMember" : "OMH011D",
+                "objectDescription" : "OMS - Customer maintenance",
+                "refLink" : "/ref/OMH011D/*FILE/O_XT0805T/*NONE"
+              }, {
+                "name" : "OMH012D OMS - Customer contact maintenance",
+                "objectCode" : "OMH012D",
+                "objectLibrary" : "OMHD_PRD",
+                "objectType" : "*FILE",
+                "objectAttribute" : "DSPF",
+                "memberCode" : "",
+                "memberAttributeMBSEU" : "",
+                "sourceFile" : "QDDSSRC",
+                "sourceLibrary" : "OMHD_PRDS",
+                "sourceMember" : "OMH012D",
+                "objectDescription" : "OMS - Customer contact maintenance",
+                "refLink" : "/ref/OMH012D/*FILE/OMHD_PRD/*NONE"
+              }, {
+                "name" : "OMH015D OMS - Add customer call",
+                "objectCode" : "OMH015D",
+                "objectLibrary" : "OMHD_PRD",
+                "objectType" : "*FILE",
+                "objectAttribute" : "DSPF",
+                "memberCode" : "",
+                "memberAttributeMBSEU" : "",
+                "sourceFile" : "QDDSSRC",
+                "sourceLibrary" : "OMHD_PRDS",
+                "sourceMember" : "OMH015D",
+                "objectDescription" : "OMS - Add customer call",
+                "refLink" : "/ref/OMH015D/*FILE/OMHD_PRD/*NONE"
+              }, {
+                "name" : "OMH024D OMS - Display customer information",
+                "objectCode" : "OMH024D",
+                "objectLibrary" : "OMHD_PRD",
+                "objectType" : "*FILE",
+                "objectAttribute" : "DSPF",
+                "memberCode" : "",
+                "memberAttributeMBSEU" : "",
+                "sourceFile" : "QDDSSRC",
+                "sourceLibrary" : "OMHD_PRDS",
+                "sourceMember" : "OMH024D",
+                "objectDescription" : "OMS - Display customer information",
+                "refLink" : "/ref/OMH024D/*FILE/OMHD_PRD/*NONE"
+              }, {
+                "name" : "OMH037D OMS - Receive distributions",
+                "objectCode" : "OMH037D",
+                "objectLibrary" : "OMHD_PRD",
+                "objectType" : "*FILE",
+                "objectAttribute" : "DSPF",
+                "memberCode" : "",
+                "memberAttributeMBSEU" : "",
+                "sourceFile" : "QDDSSRC",
+                "sourceLibrary" : "OMHD_PRDS",
+                "sourceMember" : "OMH037D",
+                "objectDescription" : "OMS - Receive distributions",
+                "refLink" : "/ref/OMH037D/*FILE/OMHD_PRD/*NONE"
+              }, {
+                "name" : "OMH041D OMS - Mail extension maintenance",
+                "objectCode" : "OMH041D",
+                "objectLibrary" : "OMHD_PRD",
+                "objectType" : "*FILE",
+                "objectAttribute" : "DSPF",
+                "memberCode" : "",
+                "memberAttributeMBSEU" : "",
+                "sourceFile" : "QDDSSRC",
+                "sourceLibrary" : "OMHD_PRDS",
+                "sourceMember" : "OMH041D",
+                "objectDescription" : "OMS - Mail extension maintenance",
+                "refLink" : "/ref/OMH041D/*FILE/OMHD_PRD/*NONE"
+              } ]
+            } ]
+          } ]
+        }
+      },
+      "result1" : {
+        "summary" : "Result for a single object",
+        "description" : "Example impact analysis response body.",
+        "value" : {
+          "objectLibrary" : "OMHD_PRD",
+          "objectCode" : "OMCUS",
+          "environmentCode" : "*PRD",
+          "sourceMember" : "OMCUS",
+          "sourceLibrary" : "OMHD_PRDS",
+          "refLink" : "/ref/OMCUS/*FILE/OMHD_PRD/*NONE",
+          "sourceFile" : "QSQLSRC",
+          "objectAttribute" : "PF",
+          "objectType" : "*FILE",
+          "children" : [ {
+            "children" : [ {
+              "children" : [ {
+                "objectLibrary" : "OMHD_PRD",
+                "objectCode" : "OMCUSL1",
+                "environmentCode" : "*PRD",
+                "sourceMember" : "OMCUSL1",
+                "name" : "OMCUSL1      OMS - Customers logical",
+                "sourceLibrary" : "OMHD_PRDS",
+                "refLink" : "/ref/OMCUSL1/*FILE/OMHD_PRD/*NONE",
+                "sourceFile" : "QDDSSRC",
+                "applicationCode" : "XMP",
+                "objectAttribute" : "LF",
+                "objectType" : "*FILE",
+                "objectDescription" : "OMS - Customers logical"
+              } ],
+              "name" : "*FILE.LF"
+            }, {
+              "children" : [ {
+                "objectLibrary" : "OMHD_PRD",
+                "objectCode" : "OMQCHGCU",
+                "environmentCode" : "*PRD",
+                "sourceMember" : "OMQCHGCU",
+                "name" : "OMQCHGCU     OMS - API Change Customer",
+                "sourceLibrary" : "OMHD_PRDS",
+                "refLink" : "/ref/OMQCHGCU/*PGM/OMHD_PRD/*NONE",
+                "sourceFile" : "QRPGLESRC",
+                "applicationCode" : "XMP",
+                "objectAttribute" : "RPGLE",
+                "objectType" : "*PGM",
+                "objectDescription" : "OMS - API Change Customer"
+              } ],
+              "name" : "*PGM.RPGLE"
+            } ],
+            "name" : "<-- used by"
+          } ],
+          "name" : "OMCUS OMS - Customers",
+          "applicationCode" : "XMP",
+          "objectDescription" : "OMS - Customers"
+        }
+      },
+      "messageTextExample" : {
+        "summary" : "Message text",
+        "description" : "Example text returned in the message property.",
+        "value" : "Not authorized."
+      },
+      "unauthorizedMessageExample" : {
+        "summary" : "Unauthorized response",
+        "description" : "Example response body returned when authorization fails.",
+        "value" : {
+          "message" : "Not authorized."
+        }
+      },
+      "parmReportExample" : {
+        "summary" : "Report code",
+        "description" : "Example Impact Analysis report code.",
+        "value" : "PFCHANGES"
+      },
+      "parmObjectExample" : {
+        "summary" : "Object name",
+        "description" : "Example IBM i object name.",
+        "value" : "OMCUS"
+      },
+      "parmObjectTypeExample" : {
+        "summary" : "Object type",
+        "description" : "Example IBM i object type.",
+        "value" : "*FILE"
+      },
+      "parmObjectLibraryExample" : {
+        "summary" : "Object library",
+        "description" : "Example IBM i library name.",
+        "value" : "OMS"
+      },
+      "reportDetailExample" : {
+        "summary" : "Report detail",
+        "description" : "Example report detail level.",
+        "value" : "SINGLE"
+      },
+      "parmMemberExample" : {
+        "summary" : "No member",
+        "description" : "Use *NONE when the object is not member-specific.",
+        "value" : "*NONE"
+      },
+      "groupingExample" : {
+        "summary" : "Group by type",
+        "description" : "Example grouping mode that groups dependencies by object type and attribute.",
+        "value" : "TYPE"
+      },
+      "objectLibraryExample" : {
+        "summary" : "Result object library",
+        "description" : "Example library name for a result node.",
+        "value" : "OMHD_PRD"
+      },
+      "objectCodeExample" : {
+        "summary" : "Result object name",
+        "description" : "Example object name for a result node.",
+        "value" : "OMCUS"
+      },
+      "environmentCodeExample" : {
+        "summary" : "Environment code",
+        "description" : "Example TD/OMS environment code.",
+        "value" : "*DEV"
+      },
+      "sourceMemberExample" : {
+        "summary" : "Source member",
+        "description" : "Example source member name.",
+        "value" : "OMCUS"
+      },
+      "sourceLibraryExample" : {
+        "summary" : "Source library",
+        "description" : "Example source library name.",
+        "value" : "OMHD_PRDS"
+      },
+      "refLinkExample" : {
+        "summary" : "Drill-down link",
+        "description" : "Example relative link for drilling into another object.",
+        "value" : "/ref/OMQCHGCU/*PGM/OMHD_PRD/*NONE"
+      },
+      "sourceFileExample" : {
+        "summary" : "Source file",
+        "description" : "Example source file name.",
+        "value" : "QSQLSRC"
+      },
+      "objectAttributeExample" : {
+        "summary" : "Object attribute",
+        "description" : "Example IBM i object attribute.",
+        "value" : "PF"
+      },
+      "nodeNameExample" : {
+        "summary" : "Display name",
+        "description" : "Example display name for a result node.",
+        "value" : "OMCUS - The customer file"
+      },
+      "applicationCodeExample" : {
+        "summary" : "Application code",
+        "description" : "Example application code.",
+        "value" : "XMP"
+      },
+      "objectDescriptionExample" : {
+        "summary" : "Object description",
+        "description" : "Example object description.",
+        "value" : "The customer file"
+      }
+    },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "JWT Security",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
