@@ -1,0 +1,224 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "OMS Login Service",
+    "description" : "API used to request a JSON Web Token for TD/OMS requests. A client can sign in with a user name and password. A client can also request a new JWT by sending the user name with an empty password and supplying an existing expired JWT or API token in the Authorization header.",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License ",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "http://plato:45040/generator",
+      "library" : "V150DEV",
+      "file" : "LoginService.json",
+      "srclibrary" : "V150DEV",
+      "object" : "OMGAUTH",
+      "additionalBindingDirs" : "OMREGUTIL,OMLOGGER"
+    }
+  },
+  "servers" : [ {
+    "url" : "{protocol}://{host}:{port}/{library}/OMGAUTH",
+    "description" : "Dynamic TD/OMS server for the Login API.",
+    "variables" : {
+      "host" : {
+        "description" : "The host serving the API.",
+        "default" : "plato.remainsoftware.com"
+      },
+      "library" : {
+        "description" : "The TD/OMS library that contains the login API object.",
+        "default" : "OMS"
+      },
+      "protocol" : {
+        "description" : "The protocol used to call the API.",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
+      },
+      "port" : {
+        "description" : "The port on which the API server is listening.",
+        "default" : "45011"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/login" : {
+      "summary" : "Login",
+      "description" : "Requests a JSON Web Token that can be used to authorize subsequent API requests.",
+      "post" : {
+        "summary" : "Request access token",
+        "description" : "Signs in with a user name and password and returns a JSON Web Token. The same operation can also refresh an existing active or expired token by sending the user name, an empty password, and the existing token in the Authorization header.",
+        "operationId" : "login",
+        "requestBody" : {
+          "description" : "Login credentials, or a token refresh request with an empty password.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/signIn"
+              },
+              "examples" : {
+                "loginWithPassword" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/login1"
+                },
+                "refreshWithToken" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/login2"
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "$ref" : "#/components/responses/200"
+          },
+          "401" : {
+            "$ref" : "#/components/responses/401"
+          }
+        },
+        "callbacks" : { },
+        "security" : [ { }, {
+          "JWT" : [ ]
+        } ],
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : true,
+          "suffix" : "1",
+          "generate" : "true"
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Error" : {
+        "type" : "object",
+        "properties" : {
+          "err_msg" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "Human-readable error message.",
+            "example" : "Invalid user name or password"
+          }
+        },
+        "description" : "Error response returned when login or token refresh fails."
+      },
+      "JWT" : {
+        "type" : "object",
+        "properties" : {
+          "token" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "JSON Web Token used to authorize subsequent requests.",
+            "example" : "eyJhbGciOiJIUzZg0bz1p3_WLXbggo..."
+          }
+        },
+        "description" : "Response containing a JSON Web Token."
+      },
+      "signIn" : {
+        "required" : [ "email_or_username", "password" ],
+        "type" : "object",
+        "properties" : {
+          "email_or_username" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "User name or email address used to sign in.",
+            "example" : "alice"
+          },
+          "password" : {
+            "maxLength" : 128,
+            "type" : "string",
+            "description" : "Password for normal login, or an empty string when refreshing a token using the Authorization header.",
+            "format" : "password",
+            "example" : "secretpa$$word"
+          }
+        },
+        "description" : "Login request sent to the TD/OMS login API."
+      }
+    },
+    "responses" : {
+      "200" : {
+        "description" : "Login or token refresh succeeded. The response contains a JSON Web Token.",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/JWT"
+            },
+            "examples" : {
+              "success" : {
+                "value" : null,
+                "$ref" : "#/components/examples/loginSuccess"
+              }
+            }
+          }
+        }
+      },
+      "401" : {
+        "description" : "Login or token refresh failed because the credentials or token were invalid.",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Error"
+            },
+            "examples" : {
+              "invalidCredentials" : {
+                "value" : null,
+                "$ref" : "#/components/examples/invalidCredentials"
+              }
+            }
+          }
+        }
+      }
+    },
+    "examples" : {
+      "login1" : {
+        "summary" : "Login with user name and password",
+        "description" : "Use this request to sign in with a user name and password.",
+        "value" : {
+          "email_or_username" : "alice",
+          "password" : "secretpa$$word"
+        }
+      },
+      "login2" : {
+        "summary" : "Refresh an existing token",
+        "description" : "Use this request with an Authorization header containing the existing token. The password must be an empty string. A token can only be traded in one time for a new token.",
+        "value" : {
+          "email_or_username" : "alice",
+          "password" : ""
+        }
+      },
+      "loginSuccess" : {
+        "summary" : "Token response",
+        "description" : "Successful login or refresh response containing a JSON Web Token.",
+        "value" : {
+          "token" : "eyJhbGciOiJIUzZg0bz1p3_WLXbggo..."
+        }
+      },
+      "invalidCredentials" : {
+        "summary" : "Invalid login",
+        "description" : "Returned when the user name, password, or supplied token is invalid.",
+        "value" : {
+          "err_msg" : "Invalid user name or password"
+        }
+      }
+    },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "Bearer token authentication using a JSON Web Token.",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
