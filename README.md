@@ -155,9 +155,9 @@ curl -X 'POST' \
 ```
 </details>
 
-### [Task](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/TaskAPI.json)
+### [Task Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/TaskService.json)
 
-Use [this API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/TaskAPI.json) for task actions.
+Use [this API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/TaskService.json) for task actions.
 
 </details>
 
@@ -600,7 +600,7 @@ curl -X 'POST' \
 * [Solution Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/SolutionService.json)
 * [Source Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/SourceService.json)
 * [Spool File](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/SpoolFileAPI.json)
-* [Task](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/TaskAPI.json)
+* [Task Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/TaskService.json)
 * [Transfer Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/TransferService.json)
 * [User Defined Variable](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/UserDefinedVariableAPI.json)
 * [User Options](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/UserOptionsAPI.json)
