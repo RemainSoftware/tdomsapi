@@ -6,9 +6,9 @@ In order to use the TD/OMS REST API, the rest server must be configured and star
 
 The TD/OMS Rest API's follow the OAS3 specification. Links to the swagger editor can be found below for each API.
 
-### [Login](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/Login.json)[REST Login API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/Login.json)
+### [Login Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/LoginService.json)[REST Login Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/LoginService.json)
 
-Use the [REST Login API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/Login.json) to retrieve a JWT token for further communication.
+Use the [REST Login Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/LoginService.json) to retrieve a JWT token for further communication.
 
 <details><summary>Request</summary>
 	
@@ -586,7 +586,7 @@ curl -X 'POST' \
 * [Information Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/InformationService.json)
 * [Impact Analysis](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/ImpactAnalysis.json)
 * [Label](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/LabelAPI.json)
-* [Login](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/Login.json)
+* [Login Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/LoginService.json)
 * [Managed Deployment](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/ManagedDeploymentAPI.json)
 * [New Object](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/NewObjectAPI.json)
 * [Object](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/ObjectAPI.json)
