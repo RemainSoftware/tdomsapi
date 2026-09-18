@@ -582,7 +582,7 @@ curl -X 'POST' \
 * [Dashboard](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/dashboardAPI.json)
 * [Database Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/DatabaseService.json)
 * [Compilation Event Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/CompilationEventService.json)
-* [Fill Object File](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/FillObjectFileAPI.json)
+* [Load Components Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/LoadComponentsService.json)
 * [Information Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/InformationService.json)
 * [Impact Analysis](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/ImpactAnalysis.json)
 * [Label](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/LabelAPI.json)
