@@ -33,9 +33,9 @@ curl -X 'POST' \
 ```
 </details>
 
-### [Database](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/OMRDBA_DataBase_API.json)
+### [Database Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/DatabaseService.json)
 
-Use [this API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/OMRDBA_DataBase_API.json) to access the database. The database tables and fields are described in our data dictionary file OMDDI.
+Use [this API](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/DatabaseService.json) to access the database. The database tables and fields are described in our data dictionary file OMDDI.
 
 <details><summary>Request</summary>
 
@@ -580,7 +580,7 @@ curl -X 'POST' \
 * [Connection List Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/ConnectionListService.json)
 * [Conversion Definition](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/ConversionDefinitionAPI.json)
 * [Dashboard](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/dashboardAPI.json)
-* [Database](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/OMRDBA_DataBase_API.json)
+* [Database Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/DatabaseService.json)
 * [Compilation Event Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/CompilationEventService.json)
 * [Fill Object File](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/FillObjectFileAPI.json)
 * [Information Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/InformationService.json)
