@@ -1,8 +1,8 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "TD/OMS - Task API",
-    "description" : "The TD/OMS Task API allows you to interact with a task. You can Create, Change or Delete a task. Also other actions like Copy, Link Request, Unlink Request, Ratify, Complete, Status Recalculations, Link ticket and Unlink ticket are available.",
+    "title" : "OMS Task Service",
+    "description" : "The TD/OMS Task Service provides comprehensive task management capabilities for the TD/OMS DevOps lifecycle management system. This API enables programmatic control over the complete task lifecycle including:\n\n## Core Operations\n- **Create Tasks**: Generate new tasks with auto-generated or custom task numbers\n- **Modify Tasks**: Update task attributes like description, programmer assignment, priority, and dates\n- **Delete Tasks**: Remove tasks from the system\n- **Copy Tasks**: Duplicate tasks, optionally including solutions\n\n## Lifecycle Management\n- **Complete Tasks**: Mark tasks as completed with a reason code\n- **Ratify Tasks**: Approve tasks as a member of a ratification group\n- **Status Recalculation**: Recalculate task status based on current state\n\n## Integration Features\n- **Link/Unlink Requests**: Associate tasks with requests for traceability\n- **Link/Unlink Tickets**: Connect external issue tracking systems (e.g., Gravity, Jira)\n\n## Table Codes Reference\nThe following table codes from OMXTable are used by this API:\n- **01**: Priority codes (tableValueNumeric contains priority level 1-9)\n- **11**: Completion reason codes (required for completeTask operation)\n- **21**: Impact codes\n- **22**: Type codes (Change, Bug, etc.)\n- **31**: Activity codes\n\nQuery the Database API with `applicationCode` and `tableCode` filters on `OMXTable` to retrieve valid values.\n\n## Ratification Tables Reference\nFor ratifyTask operations, use these Database API tables:\n- **OMXRatificationGroup** (OMRAG): Ratification group definitions\n- **OMXRatificationGroupMember** (OMRGM): Group members (check `userIDOrUserClass` for membership)\n- **OMXRatificationPerEnvironment** (OMREG): Groups linked to environments (use task `fixStatus` as `environmentCode`)\n\nWorkflow: Get task fixStatus â Query OMREG for groups â Verify user in OMRGM â Call ratifyTask for each group.\n\n## Authentication\nAll endpoints require JWT bearer token authentication. Obtain a token via the TD/OMS authentication endpoint.\n\n## Common Response Codes\n- `200 OK`: Operation completed successfully (check `status` field for *NORM or *TERM)\n- `400 Bad Request`: Validation error (see `messageText` for details)\n- `401 Unauthorized`: Invalid or expired JWT token\n- `404 Not Found`: Requested resource not found",
     "contact" : {
       "name" : "Remain Software",
       "url" : "https://remainsoftware.com",
@@ -12,11 +12,11 @@
       "name" : "Remain Software Commercial License ",
       "url" : "https://remainsoftware.com/software-licensing"
     },
-    "version" : "0.0.1",
+    "version" : "1.0.0",
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
       "library" : "V17T0139",
-      "file" : "ChangeAPI.json",
+      "file" : "TaskService.json",
       "srclibrary" : "V17T0139S",
       "object" : "OMQRTA",
       "additionalBindingDirs" : "OMRESTUTIL",
@@ -51,11 +51,11 @@
   } ],
   "paths" : {
     "/add" : {
-      "summary" : "Use this path to add the task.",
-      "description" : "Use this path to add the task.",
+      "summary" : "Create a new task in an application.",
+      "description" : "Creates a new task (fix) in the specified application. The task number can be auto-generated using *GEN or explicitly provided. The task is created in *NEW status and assigned to the development environment.",
       "post" : {
-        "summary" : "Use this operation to add the task.",
-        "description" : "Use this operation to add the task.",
+        "summary" : "Create a new task.",
+        "description" : "Creates a new task with the specified attributes. Required fields are applicationCode and shortFixDescription. Other fields default to application settings (*DFT) or retain values (*SAME). Use sendMessageToProgrammer=1 to notify the assigned programmer.",
         "operationId" : "addTask",
         "requestBody" : {
           "description" : "The add task request",
@@ -138,11 +138,11 @@
       }
     },
     "/change" : {
-      "summary" : "Use this path to change the task.",
-      "description" : "Use this path to change the task.",
+      "summary" : "Modify an existing task.",
+      "description" : "Updates the attributes of an existing task. Use *SAME to keep current values unchanged. Supports updating description, programmer, priority, dates, and hours.",
       "post" : {
-        "summary" : "Use this operation to change the task.",
-        "description" : "Use this operation to change the task.",
+        "summary" : "Update task attributes.",
+        "description" : "Modifies the specified task attributes. Use hourCounter option to add (1), subtract (2), or replace (0) realized hours. The fixNumber and applicationCode are required to identify the task.",
         "operationId" : "changeTask",
         "requestBody" : {
           "description" : "The change task request",
@@ -225,11 +225,11 @@
       }
     },
     "/complete" : {
-      "summary" : "Use this path to complete the task.",
-      "description" : "Use this path to complete the task.",
+      "summary" : "Mark a task as completed.",
+      "description" : "Completes a task by setting its status to complete. A reason code is required to identify why the task was completed (e.g., delivered, cancelled, postponed). The task must be in a completable state.",
       "post" : {
-        "summary" : "Use this operation to complete the task.",
-        "description" : "Use this operation to complete the task.",
+        "summary" : "Complete the task with a reason code.",
+        "description" : "Marks the task as completed. Requires a valid reason code which must be configured in TD/OMS via STRTM (Start Table Maintenance). Use *DFT for the default reason code if configured.",
         "operationId" : "completeTask",
         "requestBody" : {
           "description" : "The complete task request",
@@ -312,11 +312,11 @@
       }
     },
     "/link/request" : {
-      "summary" : "Use this path to link the request to the task.",
-      "description" : "Use this path to link the request to the task.",
+      "summary" : "Associate a task with a request.",
+      "description" : "Links a task to a request for traceability. This creates a relationship between the task (implementation work) and the request (business requirement or change request).",
       "post" : {
-        "summary" : "Use this operation to link the request to the task.",
-        "description" : "Use this operation to link the request to the task.",
+        "summary" : "Link a request to the task.",
+        "description" : "Creates an association between the specified task and request. Use applicationCodeRequest=*APPL to use the same application as the task. Multiple requests can be linked to a single task.",
         "operationId" : "linkRequest",
         "requestBody" : {
           "description" : "The request to the task.",
@@ -399,11 +399,11 @@
       }
     },
     "/unlink/request" : {
-      "summary" : "Use this path to unlink the request to the task.",
-      "description" : "Use this path to unlink the request to the task.",
+      "summary" : "Remove the association between a task and request.",
+      "description" : "Removes the link between a task and a request. Use *ALL to unlink all requests from the task.",
       "post" : {
-        "summary" : "Use this operation to unlink the request to the task.",
-        "description" : "Use this operation to unlink the request to the task.",
+        "summary" : "Unlink a request from the task.",
+        "description" : "Removes the association between the specified task and request. This does not delete either the task or request, only the relationship between them.",
         "operationId" : "unlinkRequest",
         "requestBody" : {
           "description" : "Unlink the request to the task.",
@@ -486,11 +486,11 @@
       }
     },
     "/copy" : {
-      "summary" : "Use this path to copy the task.",
-      "description" : "Use this path to copy the task.",
+      "summary" : "Create a copy of an existing task.",
+      "description" : "Duplicates an existing task to create a new task. Optionally copies the linked solutions to the new task's connection list for bulk connection.",
       "post" : {
-        "summary" : "Use this operation to copy the task.",
-        "description" : "Use this operation to copy the task.",
+        "summary" : "Copy a task to a new task number.",
+        "description" : "Creates a new task as a copy of the source task. Use *GEN for toFixNumber to auto-generate the new task number. Set copySolutions=1 to include the source task's solutions in the new task's connection list.",
         "operationId" : "copyTask",
         "requestBody" : {
           "description" : "The copy task request",
@@ -573,11 +573,11 @@
       }
     },
     "/delete" : {
-      "summary" : "Use this path to delete the task.",
-      "description" : "Use this path to delete the task.",
+      "summary" : "Permanently remove a task.",
+      "description" : "Deletes a task from the system. This action is irreversible. The task must not have active solutions or be locked by another process.",
       "post" : {
-        "summary" : "Use this operation to delete the task.",
-        "description" : "Use this operation to delete the task.",
+        "summary" : "Delete the specified task.",
+        "description" : "Permanently removes the task and its associated data. Use updateDb=0 to validate the delete operation without actually performing it.",
         "operationId" : "deleteTask",
         "requestBody" : {
           "description" : "The delete task request",
@@ -660,11 +660,11 @@
       }
     },
     "/ratify" : {
-      "summary" : "Use this path to ratify the task.",
-      "description" : "Use this path to ratify the task.",
+      "summary" : "Approve or reject a task requiring ratification.",
+      "description" : "Ratifies (approves or rejects) a task that is pending ratification in a controlled environment. The user must be a member of the specified ratification group to perform this action.",
       "post" : {
-        "summary" : "Use this operation to ratify the task.",
-        "description" : "Use this operation to ratify the task.",
+        "summary" : "Ratify the task as a ratification group member.",
+        "description" : "Submits a ratification decision for the task. Use ratificationCode=1 for approval or ratificationCode=0 for rejection. The ratificationGroup must match a group configured for the task's current environment, and the user must be authorized as a group member.",
         "operationId" : "ratifyTask",
         "requestBody" : {
           "description" : "The ratify task request",
@@ -747,11 +747,11 @@
       }
     },
     "/status" : {
-      "summary" : "Use this path to recalculate the status.",
-      "description" : "Use this path to recalculate the status.",
+      "summary" : "Recalculate the task status.",
+      "description" : "Triggers a recalculation of the task's status based on its current solutions and their positions in the development lifecycle environments.",
       "post" : {
-        "summary" : "Use this operation to recalculate the status.",
-        "description" : "Use this operation to recalculate the status.",
+        "summary" : "Recalculate task status from solution states.",
+        "description" : "Analyzes all solutions connected to the task and recalculates the overall task status. Useful after manual interventions or to synchronize task status with actual solution positions.",
         "operationId" : "statusTask",
         "requestBody" : {
           "description" : "The status task request",
@@ -834,11 +834,11 @@
       }
     },
     "/link/ticket" : {
-      "summary" : "Use this path to link the ticket to the task.",
-      "description" : "Use this path to link the ticket to the task.",
+      "summary" : "Link an external issue tracking ticket to a task.",
+      "description" : "Creates a bidirectional link between a TD/OMS task and an external issue tracking system ticket (e.g., Gravity, Jira, GitHub Issues). This enables traceability between development work and external issue management.",
       "post" : {
-        "summary" : "Use this operation to link the ticket to the task.",
-        "description" : "Use this operation to link the ticket to the task.",
+        "summary" : "Link an external ticket to the task or request.",
+        "description" : "Associates an external ticket with a task or request using URLs and a unique identifier. The urlToItem provides direct access to the ticket. The universalUniqueId enables bidirectional synchronization.",
         "operationId" : "linkTicket",
         "requestBody" : {
           "description" : "Link ticket request.",
@@ -966,11 +966,11 @@
       }
     },
     "/unlink/ticket" : {
-      "summary" : "Use this path to unlink the ticket to the task.",
-      "description" : "Use this path to unlink the ticket to the task.",
+      "summary" : "Remove the link to an external ticket.",
+      "description" : "Removes the association between a TD/OMS task or request and an external issue tracking ticket. The external ticket itself is not modified.",
       "post" : {
-        "summary" : "Use this operation to unlink the ticket to the task.",
-        "description" : "Use this operation to unlink the ticket to the task.",
+        "summary" : "Unlink an external ticket from the task or request.",
+        "description" : "Removes the ticket link identified by the applicationCode, task/request number, product ID, and URL combination. This breaks the bidirectional link without affecting either system's data.",
         "operationId" : "unlinkTicket",
         "requestBody" : {
           "description" : "Unlink ticket request.",
@@ -997,8 +997,7 @@
                     "freeFormatProductId" : "Gravity",
                     "urlToItem" : "http://plato:45050/gravity/wm/?viewitem=oREbYnf3SD-hr0rgPKd2EA"
                   }
-                }
-              }
+                }              }
             }
           },
           "required" : true
@@ -1827,7 +1826,7 @@
           "reasonCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Reason code \r\n\r\n*SAME Use this value to indicate that the reason code does not change. TD/OMS will try to find the best value for the element if a fix is completed and the value *SAME is used.\r\n\r\n*DFT Use this value to indicate that the default reason code is to be used to complete the fix. The default reason code is user-defined.",
+            "description" : "Reason code - A single character code from OMXTable (tableCode='11') indicating why the task was completed.\r\n\r\nCommon reason codes (application-specific):\r\n- P: Programming Error\r\n- B: Budget\r\n- D: Duplicate/Deploy problem\r\n- N: Network issue\r\n- O: Obsolete\r\n- R: Resource\r\n- S: Stash\r\n- L: Retry deployment\r\n\r\nQuery the Database API with OMXTable, filtering by applicationCode and tableCode='11' to retrieve valid codes for a specific application.\r\n\r\nNote: *SAME and *DFT may not work if no default is configured. Always use a valid single-character code.",
             "externalDocs" : {
               "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Reason_code_(REAC)_2"
             },
@@ -1997,8 +1996,7 @@
             "description" : "Fix number",
             "example" : "XT0588",
             "externalDocs" : {
-              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"
-            },
+              "url" : "https://remainsoftware.com/wiki/index.php/UOA:Task_API%27s#Fix_number_(FIX)_2"            },
             "x-column" : "RSFIX#",
             "x-sequence" : "20"
           }
@@ -2294,8 +2292,8 @@
           "ratificationGroup" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the ratification group for which you want to do the ratification. You must be a member of the ratification group. Otherwise, your ratification is not accepted.",
-            "example" : "USERS"
+            "description" : "The ratification group code for which you want to perform the ratification. You must be a member of the group (verified via OMXRatificationGroupMember). The group must be linked to the task's current environment (fixStatus) in OMXRatificationPerEnvironment. Query these tables via the Database API to find valid groups and verify membership before calling this endpoint.",
+            "example" : "REPLICTEST"
           },
           "updateDb" : {
             "maxLength" : 1,
@@ -2634,7 +2632,8 @@
     "parameters" : { },
     "examples" : {
       "response400" : {
-        "summary" : "Something went wrong.",
+        "summary" : "Example error response when application code is invalid.",
+        "description" : "This example shows the error response returned when an invalid application code is provided. The messageText field contains both the cause and recovery information.",
         "value" : {
           "messageFile" : "OMSAPI",
           "messageID" : "OMQ6001",
@@ -2644,8 +2643,33 @@
           "messageText" : "Application code INVLD does not exist. &N Cause . . . . . :   You have entered an application code which does not exist. &N Recovery  . . . :   Enter a valid application code and try your request again."
         }
       },
+      "response400ReasonCode" : {
+        "summary" : "Example error when reason code is required but not provided.",
+        "description" : "This error occurs when completing a task without specifying a valid reason code.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageID" : "OMQ5125",
+          "messageType" : "E",
+          "messageData" : "",
+          "field" : "",
+          "messageText" : "A reason code is required. &N Cause . . . . . :   You must select a reason code to complete the requested action. If there are no reason codes available you can add them with the STRTM command (start table maintenance). &N Recovery. . . . :   Enter a valid reason code and try your request again."
+        }
+      },
+      "response400RatificationGroup" : {
+        "summary" : "Example error when ratification group is invalid.",
+        "description" : "This error occurs when attempting to ratify a task with a non-existent ratification group.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageID" : "OMQ8700",
+          "messageType" : "E",
+          "messageData" : "*ANY",
+          "field" : "",
+          "messageText" : "Ratification group *ANY not found. &N Cause . . . . . :   You have requested an action for ratification group *ANY but this group does not exist. &N Recovery  . . . :   Change the name of the ratification group and try your request again."
+        }
+      },
       "response401" : {
-        "summary" : "Not authorized.",
+        "summary" : "Authentication error - token invalid or expired.",
+        "description" : "This error indicates the JWT bearer token is missing, invalid, or has expired. Re-authenticate to obtain a new token.",
         "value" : {
           "messageFile" : "OMSAPI",
           "messageID" : "OMQF201",
@@ -2656,39 +2680,40 @@
         }
       },
       "response200" : {
-        "summary" : "Response to a successful API call.",
+        "summary" : "Successful task operation response.",
+        "description" : "This example shows a successful response after creating or modifying a task. The status field will be *NORM for success.",
         "value" : {
           "messages" : {
             "messageFile" : "OMSAPI",
             "messageID" : "OMQ2011",
             "messageType" : "",
-            "messageData" : "XMP  XT0588",
+            "messageData" : "XMP  XT0774",
             "field" : "",
-            "messageText" : "Action for fix XT0588 in application XMP completed normally"
+            "messageText" : "Action for fix XT0774 in application XMP completed normally"
           },
           "status" : "*NORM",
           "taskResponseData" : {
             "applicationCode" : "XMP",
-            "fixNumber" : "XT0588",
+            "fixNumber" : "XT0774",
             "fixType" : "C",
-            "release" : "MS03",
+            "release" : "MS05",
             "developmentExitCount" : 0,
             "reasonCode" : "",
             "fixStatus" : "*NEW",
             "priorityNumeric" : "5",
-            "programmer" : "ALICE",
-            "expectedStartDate" : 1240917,
+            "programmer" : "WIM",
+            "expectedStartDate" : 1260323,
             "realizedStartDate" : 0,
-            "expectedCompletionDate" : 1240917,
+            "expectedCompletionDate" : 1260323,
             "realizedCompletionDate" : 0,
-            "expectedDevEndDate" : 1240917,
+            "expectedDevEndDate" : 1260323,
             "realizedDevEndDate" : 0,
             "expectedNumberOfHours" : 0,
             "realizedNumberOfHours" : 0,
-            "shortFixDescription" : "Description of the task.",
+            "shortFixDescription" : "Test task for XMP application",
             "numberOfRatificationGrps" : 0,
             "ratificationCount" : 0,
-            "rejectedIndicator" : "0",
+            "rejectedIndicator" : "",
             "freeUserSpace" : "",
             "pathCode" : "MAIN",
             "commentCount" : 0,
@@ -2699,10 +2724,198 @@
             "priorityValueDescription" : "Normal priority",
             "typeValueDescription" : "Change",
             "reasonValueDescription" : "",
-            "taskURI" : "https://octo.remainsoftware.com/org/Remain/?handle=tdoms/tasks/XMP/XT0588&config=Example",
+            "taskURI" : "https://octodev.remainsoftware.com/org/RemainSoftware/?handle=tdoms/tasks/XMP/XT0774&config=Example",
             "activeJobsCount" : 0
           },
-          "longDescription" : ""
+          "longDescription" : "Testing the task service on application XMP"
+        }
+      },
+      "response200Completed" : {
+        "summary" : "Successful task completion response.",
+        "description" : "This example shows a successful response after completing a task. Note the fixStatus is *CMP, reasonCode is set, and realizedCompletionDate is populated.",
+        "value" : {
+          "messages" : {
+            "messageFile" : "OMSAPI",
+            "messageID" : "OMQ2011",
+            "messageType" : "",
+            "messageData" : "XMP  XT0774",
+            "field" : "",
+            "messageText" : "Action for fix XT0774 in application XMP completed normally"
+          },
+          "status" : "*NORM",
+          "taskResponseData" : {
+            "applicationCode" : "XMP",
+            "fixNumber" : "XT0774",
+            "fixType" : "C",
+            "release" : "MS05",
+            "developmentExitCount" : 0,
+            "reasonCode" : "P",
+            "fixStatus" : "*CMP",
+            "priorityNumeric" : "5",
+            "programmer" : "WIM",
+            "expectedStartDate" : 1260323,
+            "realizedStartDate" : 0,
+            "expectedCompletionDate" : 1260323,
+            "realizedCompletionDate" : 1260323,
+            "expectedDevEndDate" : 1260323,
+            "realizedDevEndDate" : 0,
+            "expectedNumberOfHours" : 0,
+            "realizedNumberOfHours" : 0,
+            "shortFixDescription" : "Agent test (updated)",
+            "numberOfRatificationGrps" : 0,
+            "ratificationCount" : 0,
+            "rejectedIndicator" : "",
+            "freeUserSpace" : "",
+            "pathCode" : "MAIN",
+            "commentCount" : 0,
+            "completedSolutionsCount" : 0,
+            "activeSolutionCount" : 0,
+            "linkedItemsCount" : 0,
+            "linkedRequestsCount" : 0,
+            "priorityValueDescription" : "Normal priority",
+            "typeValueDescription" : "Change",
+            "reasonValueDescription" : "Programming Error",
+            "taskURI" : "https://octodev.remainsoftware.com/org/RemainSoftware/?handle=tdoms/tasks/XMP/XT0774&config=Example",
+            "activeJobsCount" : 0
+          },
+          "longDescription" : "Updated test task - verifying changeTask operation works correctly"
+        }
+      },
+      "addTaskRequest" : {
+        "summary" : "Example request to create a new task.",
+        "description" : "This example creates a new task in the XMP application with a generated task number. The programmer is set to the current user and dates are set to today.",
+        "value" : {
+          "interfaceLevel" : "V3R0M0",
+          "addProcessingOptions" : {
+            "sendMessageToProgrammer" : "0",
+            "updateBuffer" : "1",
+            "updateDb" : "1"
+          },
+          "addData" : {
+            "applicationCode" : "XMP",
+            "shortFixDescription" : "Implement new customer validation feature",
+            "longDescription" : "Add comprehensive input validation for customer registration form including:\n- Email format validation\n- Phone number format validation\n- Required field checks\n- Real-time feedback to users",
+            "pathCode" : "*DFT",
+            "priorityNumeric" : "*DFT"
+          }
+        }
+      },
+      "changeTaskRequest" : {
+        "summary" : "Example request to update an existing task.",
+        "description" : "This example updates the description and programmer assignment for an existing task.",
+        "value" : {
+          "interfaceLevel" : "V3R0M0",
+          "changeProcessingOptions" : {
+            "hourCounter" : "0",
+            "updateBuffer" : "1",
+            "updateDb" : "1"
+          },
+          "changeData" : {
+            "applicationCode" : "XMP",
+            "fixNumber" : "XT0774",
+            "shortFixDescription" : "Updated: Customer validation feature",
+            "longDescription" : "Updated task description with additional requirements",
+            "realizedNumberOfHours" : 8.5
+          }
+        }
+      },
+      "completeTaskRequest" : {
+        "summary" : "Example request to complete a task.",
+        "description" : "This example completes a task with a completion reason code. The reasonCode must be a valid single-character code from OMXTable where tableCode='11'. Common codes include: P (Programming Error), B (Budget), D (Duplicate/Deploy problem), N (Network issue), O (Obsolete), R (Resource), S (Stash). Query the Database API for application-specific reason codes.",
+        "value" : {
+          "interfaceLevel" : "V3R0M0",
+          "completeProcessingOptions" : {
+            "updateBuffer" : "1",
+            "updateDb" : "1"
+          },
+          "completeData" : {
+            "applicationCode" : "XMP",
+            "fixNumber" : "XT0774",
+            "reasonCode" : "P"
+          }
+        }
+      },
+      "ratifyTaskRequest" : {
+        "summary" : "Example request to ratify a task.",
+        "description" : "Ratifies a task for a specific ratification group. Before calling this endpoint:\n\n1. Get the task's fixStatus (environment) from OMXFixExtended\n2. Query OMXRatificationPerEnvironment to find groups for that environment\n3. Query OMXRatificationGroupMember to verify user membership\n4. Call ratifyTask for each group the user belongs to\n\nThe ratificationCode is '1' for approval or '0' for rejection. Check numberOfRatificationGrps vs ratificationCount in the response to see remaining ratifications needed.",
+        "value" : {
+          "interfaceLevel" : "V3R0M0",
+          "ratifyProcessingOptions" : {
+            "ratificationCode" : "1",
+            "ratificationGroup" : "REPLICTEST",
+            "updateBuffer" : "1",
+            "updateDb" : "1"
+          },
+          "ratifyData" : {
+            "applicationCode" : "XMP",
+            "fixNumber" : "XT0771",
+            "longDescription" : "Approved after code review - all tests passing"
+          }
+        }
+      },
+      "copyTaskRequest" : {
+        "summary" : "Example request to copy a task.",
+        "description" : "Copies an existing task to create a new task. Use *GEN for toFixNumber to auto-generate the new task number. Set copySolutions=1 to include the source task's solutions in the new task's connection list. Tested workflow: Create XT0776 â Copy to XT0777 â Delete original XT0776.",
+        "value" : {
+          "interfaceLevel" : "V3R0M0",
+          "copyProcessingOptions" : {
+            "copySolutions" : "0",
+            "toApplicationCode" : "XMP",
+            "toFixNumber" : "*GEN",
+            "updateBuffer" : "1",
+            "updateDb" : "1"
+          },
+          "copyData" : {
+            "applicationCode" : "XMP",
+            "fixNumber" : "XT0776"
+          }
+        }
+      },
+      "deleteTaskRequest" : {
+        "summary" : "Example request to delete a task.",
+        "description" : "Permanently removes a task from the system. This action cannot be undone. Tasks with active solutions may not be deletable. Use updateDb=0 to validate the delete operation without actually performing it.",
+        "value" : {
+          "interfaceLevel" : "V3R0M0",
+          "deleteProcessingOptions" : {
+            "updateBuffer" : "1",
+            "updateDb" : "1"
+          },
+          "deleteData" : {
+            "applicationCode" : "XMP",
+            "fixNumber" : "XT0776"
+          }
+        }
+      },
+      "linkRequestExample" : {
+        "summary" : "Example request to link a task to a request.",
+        "description" : "This example links a task to a request for traceability purposes.",
+        "value" : {
+          "interfaceLevel" : "V3R0M0",
+          "linkRequestProcessingOptions" : {
+            "applicationCodeRequest" : "*APPL",
+            "requestCode" : "XR0020",
+            "updateBuffer" : "1",
+            "updateDb" : "1"
+          },
+          "linkRequestData" : {
+            "applicationCode" : "XMP",
+            "fixNumber" : "XT0774"
+          }
+        }
+      },
+      "statusRecalcRequest" : {
+        "summary" : "Example request to recalculate task status.",
+        "description" : "This example triggers a status recalculation for a task based on its current solutions and environment positions.",
+        "value" : {
+          "interfaceLevel" : "V3R0M0",
+          "statusProcessingOptions" : {
+            "updateBuffer" : "1",
+            "updateDb" : "1"
+          },
+          "statusData" : {
+            "applicationCode" : "XMP",
+            "fixNumber" : "XT0774"
+          }
         }
       }
     },
@@ -2718,3 +2931,4 @@
     "callbacks" : { }
   }
 }
+
