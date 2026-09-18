@@ -1,8 +1,8 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "EVF Event File API.",
-    "description" : "The EVF event file REST API parses information from the EVFEVENT file. It currently exhibits various record types, including Timestamp Records, Processor Records, File ID Records, File End Records, Error Information Records, and Expansion Records.\r\n\r\nCurrently, the API retrieves the first 999 Error Information Records.\r\n\r\nIn addition, the API now supports retrieving Raw Records with pagination. Users can fetch 100 records per page, and the response includes the total number of records as well.",
+    "title" : "OMS Compilation Event Service",
+    "description" : "The OMS Compilation Event Service REST API extracts and retrieves error information and compilation event records from the EVFEVENT file (IBM i Compilation Event File). Supports structured parsing and raw streaming access to compilation results.\r\n\r\nSupported Record Types: Timestamp, Processor, File ID, File End, Error Information, and Expansion Records.\r\n\r\nKey Features:\r\n- Parse: Retrieves up to 999 Error Information Records with full structured details\r\n- GetRawRecords: Paginated access (100 records per page) to raw event file content\r\n- Supports development task libraries and native source libraries\r\n- Returns comprehensive error information with line numbers and source references",
     "termsOfService" : "",
     "contact" : {
       "name" : "Remain Software",
@@ -17,9 +17,9 @@
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
       "object" : "OMQREV",
-      "library" : "V18T0142",
-      "srclibrary" : "V18T0142S",
-      "file" : "EVFEventFileAPI.json"
+      "library" : "V17T0204",
+      "srclibrary" : "V17T0204S",
+      "file" : "CompilationEventService.json"
     }
   },
   "servers" : [ {
@@ -78,12 +78,12 @@
                 "examples" : {
                   "parseEvent200" : {
                     "summary" : "Response for a successful call to the API. ",
-                    "description" : "Response for parseEvent 200.",
+                    "description" : "Response for parseEvent 200 with task XT0773 CLLE program compilation errors.",
                     "value" : {
-                      "status" : "*NORM",
+                      "status" : "*TERM",
                       "timestampRecord" : {
                         "version" : "0",
-                        "timestamp" : "20240917112246"
+                        "timestamp" : "20260325065950"
                       },
                       "fileEndRecord" : [ {
                         "version" : "0",
@@ -96,10 +96,10 @@
                       } ],
                       "fileIdRecord" : [ {
                         "sourceId" : "001",
-                        "sourcefileTimestamp" : "20240913113736",
-                        "fileName" : "O_XT0585DS/QCLLESRC(PGM)",
+                        "sourcefileTimestamp" : "20260325065950",
+                        "fileName" : "O_XT0773DS/QCLLESRC(XT0773CL)",
                         "line" : "000000",
-                        "length" : "024",
+                        "length" : "030",
                         "tempFlag" : "0",
                         "version" : "0"
                       }, {
@@ -122,23 +122,37 @@
                         "version" : "0"
                       } ],
                       "errorInfoRecord" : [ {
-                        "msg" : "No data areas, variables, or labels used in program.",
-                        "sevNum" : "10",
-                        "length" : "116",
-                        "endErrLine" : "000008",
-                        "msgId" : "CPD0792",
-                        "tokenStart" : "000",
+                        "msg" : "A character constant beginning with a single quote is not closed within the statement.",
+                        "sevNum" : "8",
+                        "length" : "114",
+                        "endErrLine" : "000002",
+                        "msgId" : "CPD0001",
+                        "tokenStart" : "012",
                         "version" : "0",
-                        "startErrLine" : "000008",
-                        "tokenEnd" : "000",
+                        "startErrLine" : "000002",
+                        "tokenEnd" : "025",
                         "annotClass" : "1",
-                        "stmtLine" : "000008",
-                        "sevChar" : "W",
+                        "stmtLine" : "000002",
+                        "sevChar" : "E",
                         "fileId" : "001"
                       }, {
-                        "msg" : "Program PGM created in library O_XT0585D.",
-                        "sevNum" : "00",
-                        "length" : "041",
+                        "msg" : "Statement is nested incorrectly.",
+                        "sevNum" : "8",
+                        "length" : "50",
+                        "endErrLine" : "000003",
+                        "msgId" : "CPD0701",
+                        "tokenStart" : "000",
+                        "version" : "0",
+                        "startErrLine" : "000003",
+                        "tokenEnd" : "000",
+                        "annotClass" : "1",
+                        "stmtLine" : "000003",
+                        "sevChar" : "E",
+                        "fileId" : "001"
+                      }, {
+                        "msg" : "Program XT0773CL not created in library O_XT0773D.",
+                        "sevNum" : "0",
+                        "length" : "51",
                         "endErrLine" : "000000",
                         "msgId" : "CPC5D07",
                         "tokenStart" : "000",
@@ -165,22 +179,6 @@
                 }
               }
             }
-          },
-          "400" : {
-            "description" : "Something went wrong.",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/eventErrorResponse"
-                },
-                "examples" : {
-                  "response400" : {
-                    "value" : null,
-                    "$ref" : "#/components/examples/response400"
-                  }
-                }
-              }
-            }
           }
         },
         "callbacks" : { },
@@ -193,11 +191,11 @@
       }
     },
     "/getRawRecords" : {
-      "summary" : "Use this path to get raw records from the event file.",
-      "description" : "Use this path to parse get records from the event file.",
+      "summary" : "Retrieve raw compilation event records with pagination support.",
+      "description" : "Retrieves raw event records from the EVFEVENT file in paginated format (100 records per page). Useful for accessing complete event streams when structured parsing is not required.",
       "post" : {
-        "summary" : "Use this operation to get raw records from the event file.",
-        "description" : "Use this operation to get raw records from the event file.",
+        "summary" : "Get raw compilation event records.",
+        "description" : "Retrieves raw event records from the EVFEVENT file for the specified source member with pagination support.",
         "operationId" : "getRawrecords",
         "requestBody" : {
           "description" : "Use this input to get raw records from the event file.",
@@ -220,24 +218,20 @@
                 },
                 "examples" : {
                   "getRawRecordsResponse200" : {
-                    "summary" : "Response for a successful API call.",
+                    "summary" : "Response for a successful API call with XT0773 task data.",
                     "value" : {
-                      "status" : "*NORM",
-                      "totalNumberOfRecords" : 12,
+                      "status" : "*TERM",
+                      "totalNumberOfRecords" : 10,
                       "data" : [ {
-                        "record" : "TIMESTAMP  0 20241224110652"
+                        "record" : "TIMESTAMP  0 20260325065950"
                       }, {
                         "record" : "PROCESSOR  0 000 1"
                       }, {
-                        "record" : "FILEID     0 001 000000 026 OMHD_DEV/QCLLESRC(CLPGM01) 20241224064551 0"
+                        "record" : "FILEID     0 001 000000 030 O_XT0773DS/QCLLESRC(XT0773CL) 20260325065950 0"
                       }, {
-                        "record" : "ERROR      0 000 1 000000 000000 000 000000 000 CPD0725 W 10 116 End of source file reached without ENDPGM command."
+                        "record" : "ERROR      0 001 1 000002 000002 012 000002 025 CPD0001 E 8 114 A character constant beginning with a single quote is not closed within the statement."
                       }, {
-                        "record" : "ERROR      0 000 1 000000 000000 000 000000 000 CPD0740 W 10 116 PGM command missing."
-                      }, {
-                        "record" : "ERROR      0 000 1 000000 000000 000 000000 000 CPD0729 W 10 116 No executable commands found in source file."
-                      }, {
-                        "record" : "ERROR      0 000 1 000000 000000 000 000000 000 CPD0792 W 10 116 No data areas, variables, or labels used in program."
+                        "record" : "ERROR      0 001 1 000003 000003 000 000003 000 CPD0701 E 8 50 Statement is nested incorrectly."
                       }, {
                         "record" : "FILEEND    0 001 000000"
                       }, {
@@ -245,7 +239,7 @@
                       }, {
                         "record" : "FILEID     0 000 000000 000  19700101010000 0"
                       }, {
-                        "record" : "ERROR      0 000 0 000000 000000 000 000000 000 CPC5D07 I 00 044 Program CLPGM01 created in library OMHD_DEV."
+                        "record" : "ERROR      0 000 0 000000 000000 000 000000 000 CPC5D07 I 00 051 Program XT0773CL not created in library O_XT0773D."
                       }, {
                         "record" : "FILEEND    0 000 000000"
                       } ]
@@ -264,22 +258,6 @@
                 }
               }
             }
-          },
-          "400" : {
-            "description" : "Something went wrong.",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/eventErrorResponse"
-                },
-                "examples" : {
-                  "response400" : {
-                    "value" : null,
-                    "$ref" : "#/components/examples/response400"
-                  }
-                }
-              }
-            }
           }
         },
         "callbacks" : { },
@@ -287,7 +265,7 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "02",
-          "generate" : false
+          "generate" : true
         }
       }
     }
@@ -301,17 +279,17 @@
           "memberName" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the member's name.",
-            "example" : "PGM"
+            "description" : "Source file member name (without extension). Corresponds to a member in QCLLESRC, QRPGLESRC, or similar source files.",
+            "example" : "XT0773CL"
           },
           "library" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the library.",
-            "example" : "O_XT0585D"
+            "description" : "Library containing the source file. Use O_<taskNumber>DS format for development task sources.",
+            "example" : "O_XT0773DS"
           }
         },
-        "description" : "Request data to parse the EVF event file."
+        "description" : "Request parameters to locate and retrieve event data from the EVFEVENT file."
       },
       "response" : {
         "type" : "object",
@@ -376,18 +354,6 @@
             "type" : "string",
             "description" : "Message Id",
             "example" : "OMQF201"
-          },
-          "messageType" : {
-            "maxLength" : 1,
-            "type" : "string",
-            "description" : "The message type 'E' indicates an error message.",
-            "example" : "E"
-          },
-          "messageData" : {
-            "maxLength" : 80,
-            "type" : "string",
-            "description" : "The message substitution data.",
-            "example" : ""
           },
           "messageText" : {
             "maxLength" : 644,
@@ -645,17 +611,17 @@
           "memberName" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the member's name.",
-            "example" : "CLPGM01"
+            "description" : "Source file member name to retrieve raw records for (without file type extension).",
+            "example" : "XT0773CL"
           },
           "library" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the library name.",
-            "example" : "OMHD_DEV"
+            "description" : "Library containing the source file (e.g., O_<taskNumber>DS for development sources).",
+            "example" : "O_XT0773DS"
           }
         },
-        "description" : "Specify the request input to get the raw records from the event file."
+        "description" : "Specify library and memberName to retrieve raw records from the EVFEVENT file."
       },
       "rawData" : {
         "type" : "object",
@@ -667,39 +633,11 @@
           }
         },
         "description" : "The raw data of raw records response."
-      },
-      "eventErrorResponse" : {
-        "type" : "object",
-        "properties" : {
-          "status" : {
-            "maxLength" : 5,
-            "type" : "string",
-            "description" : "The return status which can be *NORM, *WARN or *TERM. In case of *TERM look at the messages for more information.",
-            "example" : "*TERM"
-          },
-          "message" : {
-            "$ref" : "#/components/schemas/extendedMessage"
-          }
-        },
-        "description" : "The error response of the EVF event API."
       }
     },
     "responses" : { },
-    "examples" : {
-      "response400" : {
-        "summary" : "Something went wrong.",
-        "value" : {
-          "status" : "*WARN",
-          "message" : {
-            "messageFile" : "OMSAPI",
-            "messageId" : "OMQF236",
-            "messageType" : "E",
-            "messageData" : "INVALID",
-            "messageText" : "No errors or warnings are found for INVALID. \nCause . . . . . :   No event file was found for INVALID or it contains no data.\nRecovery  . . . :   Make sure to compile with *EVENTF. Refer to the spool file to see the compilation listing."
-          }
-        }
-      }
-    },
+    "parameters" : { },
+    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
