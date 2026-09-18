@@ -1,0 +1,549 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "OMS Load Components Service",
+    "description" : "This service fills, empties, or reports on the TD/OMS object file for a selected application, environment, library, object, and object type. Use it to refresh the TD/OMS object database from IBM i objects, IFS files or supported 4GL objects, and use the job status endpoint to check batch processing results. All operations require a bearer JWT token.",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator",
+      "object" : "OMQRFO",
+      "library" : "V18T0293",
+      "srclibrary" : "V18T0293S",
+      "file" : "LoadComponentsService.json"
+    }
+  },
+  "servers" : [ {
+    "url" : "{protocol}://{host}:{port}/{library}/OMQRFO",
+    "description" : "Configurable TD/OMS endpoint for the Fill Object File service.",
+    "variables" : {
+      "host" : {
+        "description" : "Host name of the IBM i system or gateway that serves the API.",
+        "default" : "plato.remainsoftware.com"
+      },
+      "library" : {
+        "description" : "TD/OMS product library used in the API path.",
+        "default" : "OMS"
+      },
+      "protocol" : {
+        "description" : "Transport protocol used to call the service.",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
+      },
+      "port" : {
+        "description" : "HTTP or HTTPS port on which the service listens.",
+        "default" : "45011"
+      }
+    }
+  }, {
+    "url" : "http://localhost:8080/mockserver/LoadComponentsService.json"
+  }, {
+    "url" : "http://localhost:8080/cors/{protocol}://{host}:{port}/{library}/OMQRFO",
+    "variables" : {
+      "host" : {
+        "description" : "Host name of the IBM i system or gateway that serves the API.",
+        "default" : "plato.remainsoftware.com"
+      },
+      "library" : {
+        "description" : "TD/OMS product library used in the API path.",
+        "default" : "OMS"
+      },
+      "protocol" : {
+        "description" : "Transport protocol used to call the service.",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
+      },
+      "port" : {
+        "description" : "HTTP or HTTPS port on which the service listens.",
+        "default" : "45011"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/fillObject" : {
+      "summary" : "Fill the TD/OMS object file",
+      "description" : "Starts a Fill Object File run for normal IBM i objects, 4GL objects, or both. The request selects the application, environment, object source, and processing options.",
+      "post" : {
+        "summary" : "Run Fill Object File",
+        "description" : "Runs the Fill Object File process. Depending on the processing options, the service can load selected objects into TD/OMS, remove selected objects from TD/OMS, rebuild only object relations, or produce a report without changing stored object information.",
+        "operationId" : "fillObject",
+        "requestBody" : {
+          "description" : "Selection and processing options for the Fill Object File run.",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/request"
+              },
+              "examples" : {
+                "fillObject" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/fillObject"
+                },
+                "fillObjectFor4GLObject" : {
+                  "value" : null,
+                  "$ref" : "#/components/examples/fillObjectFor4GLObject"
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "The Fill Object File request was accepted or completed successfully. Check status and messages for details.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "fillObjectResponse200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/fillObjectResponse200"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "The request could not be processed because one or more supplied values are invalid.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "fillObjectResponse400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/fillObjectResponse400"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "The bearer token is missing, invalid, or expired.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "unauthorizedResponse401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/unauthorizedResponse401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : false
+        }
+      }
+    },
+    "/jobStatus" : {
+      "summary" : "Get Fill Object File job status",
+      "description" : "Returns a count of Fill Object File jobs by state: active, waiting on a job queue, and completed with output available on an output queue.",
+      "get" : {
+        "summary" : "Get Fill Object File job status",
+        "description" : "Retrieves current Fill Object File job counts so clients can monitor batch processing after a fill request.",
+        "operationId" : "jobStatus",
+        "responses" : {
+          "200" : {
+            "description" : "Fill Object File job status was retrieved successfully.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/jobStatusResponse"
+                },
+                "examples" : {
+                  "jobStatusResponse200" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/jobStatusResponse200"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "The bearer token is missing, invalid, or expired.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "unauthorizedResponse401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/unauthorizedResponse401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "02",
+          "generate" : true
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "extendedMessage" : {
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "IBM i message file that contains the message definition."
+          },
+          "messageId" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "IBM i or TD/OMS message identifier."
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Single-character message severity or type code, for example E for error or N for normal information."
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "Substitution data used to build the returned message text."
+          },
+          "field" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "Request field related to the message, when the message applies to a specific input value."
+          },
+          "messageText" : {
+            "maxLength" : 644,
+            "type" : "string",
+            "description" : "Human-readable message text including cause and recovery information when available."
+          }
+        },
+        "description" : "A TD/OMS or IBM i message returned by the service."
+      },
+      "request" : {
+        "required" : [ "applicationCode", "objectCode" ],
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "TD/OMS application code that contains the objects to process."
+          },
+          "environmentCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Environment within the selected application. Use *ALL to select all environments in the application.",
+            "default" : "*ALL",
+            "enum" : [ "*ALL" ]
+          },
+          "routeCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Route used when selecting IFS objects. Use *ALL for all routes or *NONE when routes must not be used. When routeCode is *NONE, objectLibrary may not be *NONE.",
+            "default" : "*NONE",
+            "enum" : [ "*ALL", "*NONE" ]
+          },
+          "objectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "IBM i object library to scan. Use *ALL for all selected libraries or *NONE when libraries must not be used. When objectLibrary is *NONE, routeCode may not be *NONE.",
+            "default" : "*NONE",
+            "enum" : [ "*ALL", "*NONE" ]
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Object name selection. Use *ALL for all objects, a generic object name, or a wildcard pattern supported by TD/OMS.",
+            "enum" : [ "*ALL" ]
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "IBM i object type selection. Use *ALL to process all object types selected by the other request fields.",
+            "default" : "*ALL",
+            "enum" : [ "*ALL" ]
+          },
+          "objectAttribute" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Object attribute selection. Use *ALL to process all object attributes selected by the other request fields.",
+            "default" : "*ALL",
+            "enum" : [ "*ALL" ]
+          },
+          "processingOptions" : {
+            "$ref" : "#/components/schemas/processingOptions"
+          }
+        },
+        "description" : "Request body used to select objects and control how the Fill Object File process runs."
+      },
+      "response" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Return status. *NORM means normal completion; *TERM means the request ended with an error and messages should be inspected."
+          },
+          "jobName" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "IBM i job name that handled the request."
+          },
+          "userId" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "IBM i user profile under which the job ran."
+          },
+          "jobNumber" : {
+            "maximum" : 999999,
+            "type" : "number",
+            "description" : "Six-digit IBM i job number.",
+            "format" : "zoned(6:0)"
+          },
+          "messages" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "description" : "Messages returned by the Fill Object File process.",
+            "items" : {
+              "$ref" : "#/components/schemas/extendedMessage"
+            }
+          }
+        },
+        "description" : "Result of a Fill Object File request, including the job identity and returned messages."
+      },
+      "processingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "processingMode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Execution environment for the command. *INTERACTIVE runs in the current job; *FORCEBATCH submits the work to batch using job description OMSJOBD.",
+            "default" : "*FORCEBATCH",
+            "enum" : [ "*FORCEBATCH", "*INTERACTIVE" ]
+          },
+          "processingMethod" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "Action to perform. *FILL loads selected objects into TD/OMS; *EMPTY removes selected objects from TD/OMS; *REPORT compares TD/OMS data with the current object state without storing changes.",
+            "default" : "*FILL",
+            "enum" : [ "*FILL", "*EMPTY", "*REPORT" ]
+          },
+          "processOnlyRelations" : {
+            "maxLength" : 4,
+            "type" : "string",
+            "description" : "Controls whether only object relationships are rebuilt. *NO fully loads the selected objects; *YES rebuilds only relationships for the selection.",
+            "default" : "*NO",
+            "enum" : [ "*NO", "*YES" ]
+          },
+          "objectAndOr4GLGroup" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "Object group to process. *BOTH processes normal IBM i and 4GL objects; *OBJECT processes normal IBM i objects; *GROUP processes 4GL objects.",
+            "default" : "*OBJECT",
+            "enum" : [ "*BOTH", "*OBJECT", "*GROUP" ]
+          },
+          "typeCA2ESelection" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "Synon/CA 2E selection mode. *ANY selects all areas, *AREA selects the area named in cA2EObjectCode, *ANYSYS also includes internal system objects, and *AREASYS combines area selection with internal system objects.",
+            "default" : "*ANY",
+            "enum" : [ "*ANY", "*AREA", "*ANYSYS", "*AREASYS" ]
+          },
+          "cA2EObjectCode" : {
+            "maxLength" : 25,
+            "type" : "string",
+            "description" : "Synon/CA 2E object or area selection. Use *ALL for all selected Synon objects, or provide a name when the selection mode requires a specific area or object.",
+            "format" : "",
+            "default" : "*ALL",
+            "enum" : [ "*ALL" ]
+          },
+          "cA2EOwningObject" : {
+            "maxLength" : 25,
+            "type" : "string",
+            "description" : "Owning Synon/CA 2E object. Use *ALLOBJ when cA2EObjectCode is *ALL, *ANY to skip owning object selection, or provide a specific owning object name.",
+            "default" : "*ALLOBJ",
+            "enum" : [ "*ALLOBJ" ]
+          }
+        },
+        "description" : "Processing options for execution mode, fill method, relation rebuilding, and 4GL object selection."
+      },
+      "jobStatusResponse" : {
+        "type" : "object",
+        "properties" : {
+          "totalNumberOfJobs" : {
+            "type" : "number",
+            "description" : "Total number of Fill Object File jobs found across all reported states.",
+            "format" : "zoned(5:0)"
+          },
+          "activeJobs" : {
+            "type" : "number",
+            "description" : "Number of Fill Object File jobs currently active.",
+            "format" : "zoned(5:0)"
+          },
+          "jobsOnJobQueue" : {
+            "type" : "number",
+            "description" : "Number of Fill Object File jobs waiting on a job queue.",
+            "format" : "zoned(5:0)"
+          },
+          "jobsOnOutputQueue" : {
+            "type" : "number",
+            "description" : "Number of completed Fill Object File jobs with output waiting on an output queue.",
+            "format" : "zoned(5:0)"
+          },
+          "message" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          }
+        },
+        "description" : "Counts of Fill Object File jobs by processing state, plus the related TD/OMS status message."
+      }
+    },
+    "responses" : { },
+    "parameters" : { },
+    "examples" : {
+      "fillObject" : {
+        "summary" : "Fill normal IBM i objects",
+        "description" : "Example request that fills normal IBM i objects for application XMP across all environments and libraries.",
+        "value" : {
+          "applicationCode" : "XMP",
+          "environmentCode" : "*ALL",
+          "routeCode" : "*NONE",
+          "objectLibrary" : "*ALL",
+          "objectCode" : "PGM",
+          "objectType" : "*ALL",
+          "objectAttribute" : "*ALL",
+          "processingOptions" : {
+            "processingMode" : "*INTERACTIVE",
+            "processingMethod" : "*FILL",
+            "processOnlyRelations" : "*NO",
+            "objectAndOr4GLGroup" : "*OBJECT"
+          }
+        }
+      },
+      "fillObjectFor4GLObject" : {
+        "summary" : "Fill 4GL objects",
+        "description" : "Example request that fills all selected 4GL objects for application XMP.",
+        "value" : {
+          "applicationCode" : "XMP",
+          "environmentCode" : "*ALL",
+          "routeCode" : "*NONE",
+          "objectLibrary" : "*ALL",
+          "objectCode" : "*ALL",
+          "objectType" : "*ALL",
+          "objectAttribute" : "*ALL",
+          "processingOptions" : {
+            "processingMode" : "*INTERACTIVE",
+            "processingMethod" : "*FILL",
+            "processOnlyRelations" : "*NO",
+            "objectAndOr4GLGroup" : "*GROUP",
+            "typeCA2ESelection" : "*ANY",
+            "cA2EObjectCode" : "*ALL",
+            "cA2EOwningObject" : "*ALLOBJ"
+          }
+        }
+      },
+      "fillObjectResponse200" : {
+        "summary" : "Fill completed successfully",
+        "description" : "Successful response showing normal completion and an informational TD/OMS message.",
+        "value" : {
+          "status" : "*NORM",
+          "jobName" : "OMSXMP",
+          "userId" : "ALICE",
+          "jobNumber" : 111111,
+          "messages" : [ {
+            "messageFile" : "OMSMSG",
+            "messageId" : "OBJE011",
+            "messageType" : "N",
+            "messageData" : "",
+            "field" : "",
+            "messageText" : "1 objects added, 0 changed and 0 removed for environment *DEV. Cause: The fill object file request has been processed. Recovery: No recovery is necessary."
+          } ]
+        }
+      },
+      "fillObjectResponse400" : {
+        "summary" : "Invalid application code",
+        "description" : "Error response returned when the supplied application code does not exist.",
+        "value" : {
+          "status" : "*TERM",
+          "jobName" : "OMSXMP",
+          "userId" : "ALICE",
+          "jobNumber" : 111111,
+          "messages" : [ {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQ5112",
+            "messageType" : "E",
+            "messageData" : "application code                XXXXX",
+            "field" : "applicationCode",
+            "messageText" : "The application code XXXXX does not exist. Cause: You have specified an application code that does not exist. Recovery: Specify an existing application code and try the request again."
+          } ]
+        }
+      },
+      "unauthorizedResponse401" : {
+        "summary" : "Unauthorized request",
+        "description" : "Response returned when the bearer token is missing, invalid, or expired.",
+        "value" : {
+          "messageFile" : "OMSAPI",
+          "messageId" : "OMQF201",
+          "messageType" : "E",
+          "messageData" : "",
+          "field" : "",
+          "messageText" : "Unauthorized or expired token. Please login again."
+        }
+      },
+      "jobStatusResponse200" : {
+        "summary" : "Fill Object File job counts",
+        "description" : "Successful response showing active, queued, and completed Fill Object File jobs.",
+        "value" : {
+          "totalNumberOfJobs" : 26,
+          "activeJobs" : 0,
+          "jobsOnJobQueue" : 0,
+          "jobsOnOutputQueue" : 26,
+          "message" : {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQF416",
+            "messageType" : "N",
+            "messageData" : "0    26   0    26",
+            "field" : "",
+            "messageText" : "0 out of 26 Fill Object File jobs are active. Cause: Out of 26 Fill Object File jobs, 0 jobs are active, 0 are on job queue, and 26 are on output queue. Recovery: No action is required."
+          }
+        }
+      }
+    },
+    "requestBodies" : { },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "JWT bearer token returned by the OMS login API or an equivalent authorized token.",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
