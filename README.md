@@ -6,7 +6,7 @@ In order to use the TD/OMS REST API, the rest server must be configured and star
 
 The TD/OMS Rest API's follow the OAS3 specification. Links to the swagger editor can be found below for each API.
 
-### [Login Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/LoginService.json)[REST Login Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/LoginService.json)
+### [Login Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/LoginService.json)
 
 Use the [REST Login Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/LoginService.json) to retrieve a JWT token for further communication.
 
