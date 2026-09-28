@@ -16,9 +16,9 @@
     "version" : "0.0.1",
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
-      "object" : "@OMQRNO",
-      "library" : "V19T0061",
-      "srclibrary" : "V19T0061S",
+      "object" : "OMQRNO",
+      "library" : "V19T0082",
+      "srclibrary" : "V19T0082S",
       "file" : "newObjectAPI.json"
     }
   },
@@ -36,8 +36,8 @@
       },
       "protocol" : {
         "description" : "Protocol",
-        "enum" : [ "https", "http" ],
-        "default" : "https"
+        "default" : "https",
+        "enum" : [ "https", "http" ]
       },
       "port" : {
         "description" : "The port to which the server is listening",
@@ -197,7 +197,7 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "02",
-          "generate" : true
+          "generate" : false
         }
       }
     },
@@ -319,6 +319,101 @@
           "session" : false,
           "jwtlogin" : false,
           "suffix" : "03",
+          "generate" : false
+        }
+      }
+    },
+    "/addDataArea" : {
+      "summary" : "Use this operation to create the data area.",
+      "description" : "Use this operation to create the data area.",
+      "post" : {
+        "summary" : "Use this operation to create the data area.",
+        "description" : "Use this operation to create the data area.",
+        "operationId" : "addDataArea",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/addDataAreaRequest"
+              },
+              "examples" : {
+                "addDataArea" : {
+                  "summary" : "How to specify the request input parameter value to add data area.",
+                  "value" : {
+                    "applicationCode" : "XMP",
+                    "environment" : "*DEV",
+                    "taskNumber" : "XT0852",
+                    "dataArea" : "GETUSER",
+                    "library" : "O_XT052D",
+                    "type" : "*CHAR",
+                    "length" : 10,
+                    "decimalPosition" : 0,
+                    "initialValue" : "ALICE",
+                    "description" : "User name"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "addDataAreaResponse200" : {
+                    "summary" : "Response to a successful API call.",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageId" : "OMQF248",
+                        "messageData" : "XT0852    *DTAARA  GETUSER   XMP  *DEV",
+                        "messageText" : "Data area GETUSER, type *DTAARA, created successfully. \nCause . . . . . :   Data area mydata, type *DTAARA, was added to task XT0852 for application XMP in environment *DEV.\nRecovery  . . . :   No recovery necessary. This is an informational message."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request from Client",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "not authorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/response"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "04",
           "generate" : false
         }
       }
@@ -635,9 +730,66 @@
           }
         },
         "description" : "Use this input schema to create the new IFS object."
+      },
+      "addDataAreaRequest" : {
+        "type" : "object",
+        "properties" : {
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the application name."
+          },
+          "environment" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specify the environment name."
+          },
+          "taskNumber" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the task number."
+          },
+          "dataArea" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the name of the data area being created"
+          },
+          "library" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the library where the data area is created."
+          },
+          "type" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Specifies the type of value that the data area being created will contain. The value can be character, decimal, or logical (1 or 0)."
+          },
+          "length" : {
+            "type" : "number",
+            "description" : "Specifies the length of the data area being created.",
+            "format" : "packed(6:0)"
+          },
+          "decimalPosition" : {
+            "type" : "number",
+            "description" : "If the type is numeric, specify the decimal position",
+            "format" : "packed(6:0)"
+          },
+          "initialValue" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "Specifies the value assigned to the data area at the time it is created."
+          },
+          "description" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "Specify no more than 50 characters of text, enclosed in apostrophes."
+          }
+        },
+        "description" : "Use this operation to create the data area."
       }
     },
     "responses" : { },
+    "parameters" : { },
     "examples" : {
       "addObject" : {
         "summary" : "How to add a new object with a template",
@@ -704,6 +856,7 @@
         }
       }
     },
+    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
