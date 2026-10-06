@@ -1,0 +1,1909 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "OMS New Object Template Service",
+    "description" : "The New Object Template API enables users to manage object templates used during object creation and processing. With this API, you can add, change, copy and delete object templates.",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "Remain Software",
+      "url" : "https://remainsoftware.com",
+      "email" : "helpdesk@remainsoftware.com"
+    },
+    "license" : {
+      "name" : "Remain Software Commercial License ",
+      "url" : "https://remainsoftware.com/software-licensing"
+    },
+    "version" : "0.0.1",
+    "x-restgeninfo" : {
+      "server" : "https://plato.remainsoftware.com:45111/generator/generator",
+      "object" : "OMQROT",
+      "library" : "V19T0079",
+      "srclibrary" : "V19T0079S",
+      "file" : "NewObjectTemplateService.json"
+    }
+  },
+  "servers" : [ {
+    "url" : "{protocol}://{host}:{port}/{library}/OMQROT",
+    "description" : "A dynamic https host.",
+    "variables" : {
+      "host" : {
+        "description" : "The host serving the API.",
+        "default" : "plato.remainsoftware.com"
+      },
+      "library" : {
+        "description" : "The TD/OMS library.",
+        "default" : "OMS"
+      },
+      "protocol" : {
+        "description" : "Protocol",
+        "default" : "https",
+        "enum" : [ "https", "http" ]
+      },
+      "port" : {
+        "description" : "The port to which the server is listening.",
+        "default" : "45011"
+      }
+    }
+  } ],
+  "security" : [ {
+    "JWT" : [ ]
+  } ],
+  "paths" : {
+    "/add" : {
+      "summary" : "Create a new object template.",
+      "description" : "Adds a new object template for the specified application. The template is created with the provided template details and is available for object processing.",
+      "post" : {
+        "summary" : "Create a new object template.",
+        "description" : "Adds a new object template with the specified attributes. DescriptionType is a mandatory field, while other fields use their default values where applicable.",
+        "operationId" : "addTemplate",
+        "requestBody" : {
+          "description" : "Post Method",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/addTemplateRequest"
+              },
+              "examples" : {
+                "ObjectAddRequest" : {
+                  "summary" : "How to add and Object Template for template type OBJECT.",
+                  "value" : {
+                    "interfaceLevel" : "V19R1M0",
+                    "addProcessingOptions" : {
+                      "templateType" : "*OBJECT",
+                      "basedObjectInd" : "*NO",
+                      "updateDb" : "1",
+                      "updateBuffer" : "1"
+                    },
+                    "addTemplateData" : {
+                      "relatedObjectCode" : "*SAME",
+                      "messageText" : "*SAME",
+                      "relatedMemberCode" : "*SAME",
+                      "objectCode" : "*SAME",
+                      "description" : "Object Template",
+                      "mayNotExistIndicator" : "*NO",
+                      "relatedObjectLibrary" : "*SAME",
+                      "messageText1" : "*SAME",
+                      "sourceFile" : "QRPGLESRC",
+                      "objectAttribute" : "RPGLE",
+                      "objectType" : "*PGM",
+                      "labelCode2" : "*SAME",
+                      "labelCode1" : "LABEL1",
+                      "labelCode4" : "*SAME",
+                      "memberAttributeMbseu" : "QRPGLESRC",
+                      "labelCode3" : "*SAME",
+                      "labelCode5" : "*SAME",
+                      "regularExpression1" : "*SAME",
+                      "relatedObjectType" : "*SAME",
+                      "regularExpression2" : "*SAME",
+                      "category" : "REST API"
+                    }
+                  }
+                },
+                "MessageAddRequest" : {
+                  "summary" : "How to add and Object Template for template type Message.",
+                  "value" : {
+                    "interfaceLevel" : "V19R1M0",
+                    "addProcessingOptions" : {
+                      "templateType" : "*MESSAGE",
+                      "basedObjectInd" : "*NO",
+                      "updateDb" : "1",
+                      "updateBuffer" : "1"
+                    },
+                    "addTemplateData" : {
+                      "relatedObjectCode" : "*SAME",
+                      "messageText" : "*SAME",
+                      "relatedMemberCode" : "*SAME",
+                      "objectCode" : "OMSMSG",
+                      "description" : "Message Template",
+                      "mayNotExistIndicator" : "*NO",
+                      "relatedObjectLibrary" : "*SAME",
+                      "messageText1" : "*SAME",
+                      "sourceFile" : "*SAME",
+                      "objectAttribute" : "*SAME",
+                      "objectType" : "*SAME",
+                      "labelCode2" : "*SAME",
+                      "labelCode1" : "*SAME",
+                      "labelCode4" : "*SAME",
+                      "memberAttributeMbseu" : "*SAME",
+                      "labelCode3" : "*SAME",
+                      "labelCode5" : "*SAME",
+                      "regularExpression1" : "*SAME",
+                      "relatedObjectType" : "*SAME",
+                      "regularExpression2" : "*SAME",
+                      "category" : "*REST API"
+                    }
+                  }
+                },
+                "SourceAddRequest" : {
+                  "summary" : "How to add and Object Template for template type SRCMEMBER.",
+                  "value" : {
+                    "interfaceLevel" : "V19R1M0",
+                    "addProcessingOptions" : {
+                      "templateType" : "*SRCMEMBER",
+                      "basedObjectInd" : "*NO",
+                      "updateDb" : "1",
+                      "updateBuffer" : "1"
+                    },
+                    "addTemplateData" : {
+                      "relatedObjectCode" : "*SAME",
+                      "messageText" : "*SAME",
+                      "relatedMemberCode" : "*SAME",
+                      "objectCode" : "*SAME",
+                      "description" : "Source Template",
+                      "mayNotExistIndicator" : "*NO",
+                      "relatedObjectLibrary" : "*SAME",
+                      "messageText1" : "*SAME",
+                      "sourceFile" : "QRPGLESRC",
+                      "objectAttribute" : "*SAME",
+                      "objectType" : "*SAME",
+                      "labelCode2" : "*SAME",
+                      "labelCode1" : "*SAME",
+                      "labelCode4" : "*SAME",
+                      "memberAttributeMbseu" : "RPGLE",
+                      "labelCode3" : "*SAME",
+                      "labelCode5" : "*SAME",
+                      "regularExpression1" : "*SAME",
+                      "relatedObjectType" : "*SAME",
+                      "regularExpression2" : "*SAME",
+                      "category" : "*REST API"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/objectTemplateResponse"
+                },
+                "examples" : {
+                  "addResponse200" : {
+                    "summary" : "Response to a successful API call",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageID" : "OMQD591",
+                        "messageType" : "N",
+                        "messageData" : "*ADD   Object Template          REST API",
+                        "field" : "",
+                        "messageText" : "Action *ADD for object template Object Template REST API completed normally. \nCause . . . . . :   Action *ADD for object template Object Template REST API completed normally.\nRecovery  . . . :   None needed, this message is informational."
+                      },
+                      "objectTemplateResponseData" : {
+                        "description" : "Object Template          REST API",
+                        "applicationCode" : "",
+                        "objectType" : "*PGM",
+                        "objectAttribute" : "RPGLE",
+                        "mayNotExistIndicator" : "0",
+                        "sequenceNumber" : 0,
+                        "sourceFile" : "QRPGLESRC",
+                        "objectCode" : "",
+                        "sourceMember" : "",
+                        "memberAttributeMbseu" : "RPGLE",
+                        "relatedObjectCode" : "",
+                        "relatedObjectType" : "",
+                        "relatedObjectLibrary" : "",
+                        "relatedMemberCode" : "",
+                        "regularExpression1" : "",
+                        "messageText1" : "",
+                        "regularExpression2" : "",
+                        "messageText" : "",
+                        "labelId1" : 0,
+                        "labelId2" : 0,
+                        "labelId3" : 0,
+                        "labelId4" : 0,
+                        "labelId" : 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/objectTemplateErrorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "01",
+          "generate" : false
+        }
+      }
+    },
+    "/change" : {
+      "summary" : "Change an existing object template",
+      "description" : "Changes an existing object template for the specified application. The template is updated with the provided template details and is available for object processing.",
+      "post" : {
+        "summary" : "Change an existing object template.",
+        "description" : "Changes an existing object template with the specified attributes. DescriptionType is a mandatory field, while other fields use their default values where applicable.",
+        "operationId" : "changeTemplate",
+        "requestBody" : {
+          "description" : "Post Method",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/changeTemplateRequest"
+              },
+              "examples" : {
+                "ObjectChangeRequest" : {
+                  "summary" : "How to change and Object Template for template type OBJECT.",
+                  "value" : {
+                    "interfaceLevel" : "V19R1M0",
+                    "changeProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "templateType" : "*OBJECT",
+                      "basedObjectInd" : "*NO"
+                    },
+                    "changeTemplateData" : {
+                      "category" : "REST API",
+                      "description" : "Object Template",
+                      "newCategory" : "*SAME",
+                      "newDescription" : "Object Temp Changed",
+                      "objectType" : "*SAME",
+                      "objectAttribute" : "*SAME",
+                      "mayNotExistIndicator" : "*SAME",
+                      "sourceFile" : "*SAME",
+                      "objectCode" : "*SAME",
+                      "memberAttributeMbseu" : "*SAME",
+                      "relatedObjectCode" : "*SAME",
+                      "relatedObjectType" : "*SAME",
+                      "relatedObjectLibrary" : "*SAME",
+                      "relatedMemberCode" : "*SAME",
+                      "regularExpression1" : "*SAME",
+                      "messageText1" : "*SAME",
+                      "regularExpression2" : "*SAME",
+                      "messageText" : "*SAME",
+                      "labelCode1" : "*SAME",
+                      "labelCode2" : "*SAME",
+                      "labelCode3" : "*SAME",
+                      "labelCode4" : "*SAME",
+                      "labelCode5" : "*SAME"
+                    }
+                  }
+                },
+                "MessageChangeRequest" : {
+                  "summary" : "How to change and Object Template for template type Message.",
+                  "value" : {
+                    "interfaceLevel" : "V19R1M0",
+                    "changeProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "templateType" : "*MESSAGE",
+                      "basedObjectInd" : "*NO"
+                    },
+                    "changeTemplateData" : {
+                      "category" : "REST API",
+                      "description" : "Message Template",
+                      "newCategory" : "*SAME",
+                      "newDescription" : "Message Temp Changed",
+                      "objectType" : "*SAME",
+                      "objectAttribute" : "*SAME",
+                      "mayNotExistIndicator" : "*SAME",
+                      "sourceFile" : "*SAME",
+                      "objectCode" : "*SAME",
+                      "memberAttributeMbseu" : "*SAME",
+                      "relatedObjectCode" : "*SAME",
+                      "relatedObjectType" : "*SAME",
+                      "relatedObjectLibrary" : "*SAME",
+                      "relatedMemberCode" : "*SAME",
+                      "regularExpression1" : "*SAME",
+                      "messageText1" : "*SAME",
+                      "regularExpression2" : "*SAME",
+                      "messageText" : "*SAME",
+                      "labelCode1" : "*SAME",
+                      "labelCode2" : "*SAME",
+                      "labelCode3" : "*SAME",
+                      "labelCode4" : "*SAME",
+                      "labelCode5" : "*SAME"
+                    }
+                  }
+                },
+                "SourceChangeRequest" : {
+                  "summary" : "How to change and Object Template for template type SRCMEMBER.",
+                  "value" : {
+                    "interfaceLevel" : "V19R1M0",
+                    "changeProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "templateType" : "*SRCMEMBER",
+                      "basedObjectInd" : "*NO"
+                    },
+                    "changeTemplateData" : {
+                      "category" : "REST API",
+                      "description" : "Source Template",
+                      "newCategory" : "*SAME",
+                      "newDescription" : "Source Temp Changed",
+                      "objectType" : "*SAME",
+                      "objectAttribute" : "*SAME",
+                      "mayNotExistIndicator" : "*SAME",
+                      "sourceFile" : "*SAME",
+                      "objectCode" : "*SAME",
+                      "memberAttributeMbseu" : "*SAME",
+                      "relatedObjectCode" : "*SAME",
+                      "relatedObjectType" : "*SAME",
+                      "relatedObjectLibrary" : "*SAME",
+                      "relatedMemberCode" : "*SAME",
+                      "regularExpression1" : "*SAME",
+                      "messageText1" : "*SAME",
+                      "regularExpression2" : "*SAME",
+                      "messageText" : "*SAME",
+                      "labelCode1" : "*SAME",
+                      "labelCode2" : "*SAME",
+                      "labelCode3" : "*SAME",
+                      "labelCode4" : "*SAME",
+                      "labelCode5" : "*SAME"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/objectTemplateResponse"
+                },
+                "examples" : {
+                  "changeResponse200" : {
+                    "summary" : "Response to successful API call",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageID" : "OMQD591",
+                        "messageType" : "N",
+                        "messageData" : "*CHANGE   Object Template          REST API",
+                        "field" : "",
+                        "messageText" : "Action *CHANGE for object template Object Template REST API completed normally. \nCause . . . . . :   Action *ADD for object template Object Template REST API completed normally.\nRecovery  . . . :   None needed, this message is informational."
+                      },
+                      "objectTemplateResponseData" : {
+                        "description" : "Object Template          REST API",
+                        "applicationCode" : "",
+                        "objectType" : "*PGM",
+                        "objectAttribute" : "RPGLE",
+                        "mayNotExistIndicator" : "0",
+                        "sequenceNumber" : 0,
+                        "sourceFile" : "QRPGLESRC",
+                        "objectCode" : "",
+                        "sourceMember" : "",
+                        "memberAttributeMbseu" : "RPGLE",
+                        "relatedObjectCode" : "",
+                        "relatedObjectType" : "",
+                        "relatedObjectLibrary" : "",
+                        "relatedMemberCode" : "",
+                        "regularExpression1" : "",
+                        "messageText1" : "",
+                        "regularExpression2" : "",
+                        "messageText" : "",
+                        "labelId1" : 0,
+                        "labelId2" : 0,
+                        "labelId3" : 0,
+                        "labelId4" : 0,
+                        "labelId" : 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/objectTemplateErrorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "02",
+          "generate" : false
+        }
+      }
+    },
+    "/copy" : {
+      "summary" : "Copy an existing object template.",
+      "description" : "Copies an existing object template for the specified application. The template is copied with the provided template details and is available for object processing.",
+      "post" : {
+        "summary" : "Copy an existing object template.",
+        "description" : "Copies an existing object template with the specified attributes. DescriptionType and NewDescription are mandatory fields, while other fields use their default values where applicable.",
+        "operationId" : "copyTemplate",
+        "requestBody" : {
+          "description" : "Post Method",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/copyTemplateRequest"
+              },
+              "examples" : {
+                "ObjectCopyRequest" : {
+                  "summary" : "How to copy and Object Template for template type OBJECT.",
+                  "value" : {
+                    "interfaceLevel" : "V19R1M0",
+                    "copyProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "templateType" : "*OBJECT",
+                      "basedObjectInd" : "*NO"
+                    },
+                    "copyTemplateData" : {
+                      "category" : "REST API",
+                      "description" : "Object Temp Changed",
+                      "newCategory" : "*SAME",
+                      "newDescription" : "Object Temp Copied",
+                      "objectType" : "*SAME",
+                      "objectAttribute" : "*SAME",
+                      "mayNotExistIndicator" : "*SAME",
+                      "sourceFile" : "*SAME",
+                      "objectCode" : "*SAME",
+                      "memberAttributeMbseu" : "*SAME",
+                      "relatedObjectCode" : "*SAME",
+                      "relatedObjectType" : "*SAME",
+                      "relatedObjectLibrary" : "*SAME",
+                      "relatedMemberCode" : "*SAME",
+                      "regularExpression1" : "*SAME",
+                      "messageText1" : "*SAME",
+                      "regularExpression2" : "*SAME",
+                      "messageText" : "*SAME",
+                      "labelCode1" : "*SAME",
+                      "labelCode2" : "*SAME",
+                      "labelCode3" : "*SAME",
+                      "labelCode4" : "*SAME",
+                      "labelCode5" : "*SAME"
+                    }
+                  }
+                },
+                "MessageChangeRequest" : {
+                  "summary" : "How to copy and Object Template for template type Message.",
+                  "value" : {
+                    "interfaceLevel" : "V19R1M0",
+                    "copyProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "templateType" : "*MESSAGE",
+                      "basedObjectInd" : "*NO"
+                    },
+                    "copyTemplateData" : {
+                      "category" : "REST API",
+                      "description" : "Message Temp Changed",
+                      "newCategory" : "*SAME",
+                      "newDescription" : "Message Temp Copied",
+                      "objectType" : "*SAME",
+                      "objectAttribute" : "*SAME",
+                      "mayNotExistIndicator" : "*SAME",
+                      "sourceFile" : "*SAME",
+                      "objectCode" : "*SAME",
+                      "memberAttributeMbseu" : "*SAME",
+                      "relatedObjectCode" : "*SAME",
+                      "relatedObjectType" : "*SAME",
+                      "relatedObjectLibrary" : "*SAME",
+                      "relatedMemberCode" : "*SAME",
+                      "regularExpression1" : "*SAME",
+                      "messageText1" : "*SAME",
+                      "regularExpression2" : "*SAME",
+                      "messageText" : "*SAME",
+                      "labelCode1" : "*SAME",
+                      "labelCode2" : "*SAME",
+                      "labelCode3" : "*SAME",
+                      "labelCode4" : "*SAME",
+                      "labelCode5" : "*SAME"
+                    }
+                  }
+                },
+                "SourceChangeRequest" : {
+                  "summary" : "How to copy and Object Template for template type SRCMEMBER.",
+                  "value" : {
+                    "interfaceLevel" : "V19R1M0",
+                    "copyProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1",
+                      "templateType" : "*SRCMEMBER",
+                      "basedObjectInd" : "*NO"
+                    },
+                    "copyTemplateData" : {
+                      "category" : "REST API",
+                      "description" : "Source Temp Changed",
+                      "newCategory" : "*SAME",
+                      "newDescription" : "Source Temp Copied",
+                      "objectType" : "*SAME",
+                      "objectAttribute" : "*SAME",
+                      "mayNotExistIndicator" : "*SAME",
+                      "sourceFile" : "*SAME",
+                      "objectCode" : "*SAME",
+                      "memberAttributeMbseu" : "*SAME",
+                      "relatedObjectCode" : "*SAME",
+                      "relatedObjectType" : "*SAME",
+                      "relatedObjectLibrary" : "*SAME",
+                      "relatedMemberCode" : "*SAME",
+                      "regularExpression1" : "*SAME",
+                      "messageText1" : "*SAME",
+                      "regularExpression2" : "*SAME",
+                      "messageText" : "*SAME",
+                      "labelCode1" : "*SAME",
+                      "labelCode2" : "*SAME",
+                      "labelCode3" : "*SAME",
+                      "labelCode4" : "*SAME",
+                      "labelCode5" : "*SAME"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/objectTemplateResponse"
+                },
+                "examples" : {
+                  "copyResponse200" : {
+                    "summary" : "Response to a successful API call",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageID" : "OMQD591",
+                        "messageFile" : "OMSAPI",
+                        "messageType" : "N",
+                        "messageData" : "*COPY   Object Template          REST API",
+                        "messageText" : "Action *COPY for object template Object Template REST API completed normally. \nCause . . . . . :   Action *ADD for object template Object Template REST API completed normally.\nRecovery  . . . :   None needed, this message is informational."
+                      },
+                      "objectTemplateResponseData" : {
+                        "description" : "Object Template          REST API",
+                        "applicationCode" : "",
+                        "objectType" : "*PGM",
+                        "objectAttribute" : "RPGLE",
+                        "mayNotExistIndicator" : "0",
+                        "sequenceNumber" : 0,
+                        "sourceFile" : "QRPGLESRC",
+                        "objectCode" : "",
+                        "sourceMember" : "",
+                        "memberAttributeMbseu" : "RPGLE",
+                        "relatedObjectCode" : "",
+                        "relatedObjectType" : "",
+                        "relatedObjectLibrary" : "",
+                        "relatedMemberCode" : "",
+                        "regularExpression1" : "",
+                        "messageText1" : "",
+                        "regularExpression2" : "",
+                        "messageText" : "",
+                        "labelId1" : 0,
+                        "labelId2" : 0,
+                        "labelId3" : 0,
+                        "labelId4" : 0,
+                        "labelId" : 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/objectTemplateErrorResponse"
+                },
+                "examples" : {
+                  "response400" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response400"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "03",
+          "generate" : false
+        }
+      }
+    },
+    "/delete" : {
+      "summary" : "Delete an existing object template",
+      "description" : "Deletes an existing object template for the specified application. The template is removed and is no longer available for object processing.",
+      "post" : {
+        "summary" : "Delete an existing object template.",
+        "description" : "Deletes an existing object template with the specified attributes. DescriptionType is a mandatory field, while other fields use their default values where applicable.",
+        "operationId" : "deleteTemplate",
+        "requestBody" : {
+          "description" : "Post Method",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/deleteTemplateRequest"
+              },
+              "examples" : {
+                "DeleteRequest" : {
+                  "summary" : "How to delete an Object Template.",
+                  "value" : {
+                    "interfaceLevel" : "V19R1M0",
+                    "deleteProcessingOptions" : {
+                      "updateDb" : "1",
+                      "updateBuffer" : "1"
+                    },
+                    "deleteTemplateData" : {
+                      "category" : "REST API",
+                      "description" : "Object Temp Copied"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/objectTemplateResponse"
+                },
+                "examples" : {
+                  "deleteResponse200" : {
+                    "summary" : "Response to a successful API call",
+                    "value" : {
+                      "status" : "*NORM",
+                      "message" : {
+                        "messageFile" : "OMSAPI",
+                        "messageID" : "OMQD591",
+                        "messageType" : "N",
+                        "messageData" : "*DELETEObject Temp Copied       REST API",
+                        "field" : "",
+                        "messageText" : "Action *DELETE for object template Object Temp Copied REST API completed normally. \nCause . . . . . :   Action *DELETE for object template Object Temp Copied REST API completed normally.\nRecovery  . . . :   None needed, this message is informational."
+                      },
+                      "objectTemplateResponseData" : {
+                        "description" : "Object Temp Copied       REST API",
+                        "applicationCode" : "",
+                        "objectType" : "",
+                        "objectAttribute" : "",
+                        "mayNotExistIndicator" : "",
+                        "sequenceNumber" : 0,
+                        "sourceFile" : "",
+                        "objectCode" : "",
+                        "sourceMember" : "",
+                        "memberAttributeMbseu" : "",
+                        "relatedObjectCode" : "",
+                        "relatedObjectType" : "",
+                        "relatedObjectLibrary" : "",
+                        "relatedMemberCode" : "",
+                        "regularExpression1" : "",
+                        "messageText1" : "",
+                        "regularExpression2" : "",
+                        "messageText" : "",
+                        "labelId1" : 0,
+                        "labelId2" : 0,
+                        "labelId3" : 0,
+                        "labelId4" : 0,
+                        "labelId" : 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Something went wrong.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/objectTemplateErrorResponse"
+                },
+                "examples" : {
+                  "deleteResponse400" : {
+                    "summary" : "Something went wrong.",
+                    "value" : {
+                      "status" : "*TERM",
+                      "messages" : [ {
+                        "messageFile" : "OMSAPI",
+                        "messageID" : "OMQ500B",
+                        "messageType" : "E",
+                        "messageData" : "OMQCHGNT  V19R0M0",
+                        "field" : "interfaceLevel",
+                        "messageText" : "Interface level V19R0M0 not supported for OMQCHGNT. \nCause . . . . . :   Your request to the OMS application program interface OMQCHGNT has been denied because the interface level V19R0M0 is not valid or not supported.\nRecovery  . . . :   Enter a valid interface level in the format VxRyMz (E.g. V3R0M0). Check the OMS documentation for the correct parameter description and supported interface levels."
+                      } ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authorized.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/extendedMessage"
+                },
+                "examples" : {
+                  "response401" : {
+                    "value" : null,
+                    "$ref" : "#/components/examples/response401"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "callbacks" : { },
+        "x-generate" : {
+          "session" : false,
+          "jwtlogin" : false,
+          "suffix" : "04",
+          "generate" : false
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "extendedMessage" : {
+        "required" : [ "field", "messageData", "messageFile", "messageID", "messageType" ],
+        "type" : "object",
+        "properties" : {
+          "messageFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "The IBM i message file"
+          },
+          "messageID" : {
+            "maxLength" : 7,
+            "type" : "string",
+            "description" : "The message ID"
+          },
+          "messageType" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "The message type\r\n"
+          },
+          "messageData" : {
+            "maxLength" : 80,
+            "type" : "string",
+            "description" : "The message substitution data"
+          },
+          "field" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "The field in error"
+          },
+          "messageText" : {
+            "maxLength" : 644,
+            "type" : "string",
+            "description" : "The human readable message text."
+          }
+        },
+        "description" : "The return Message"
+      },
+      "message" : {
+        "type" : "string",
+        "description" : "simple return message"
+      },
+      "objectTemplateProsessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "templateType" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the type of template. Use *Object for an object template, *Srcmember for a source member template, or *Message for a message template.",
+            "default" : "*OBJECT",
+            "enum" : [ "*OBJECT", "*SRCMEMBER", "*MESSAGE" ]
+          },
+          "basedObjectInd" : {
+            "maxLength" : 4,
+            "type" : "string",
+            "description" : "Specify *Yes if the template is based on an object or *No if it is not based on an object.",
+            "default" : "*NO",
+            "enum" : [ "*NO", "*YES" ]
+          }
+        },
+        "description" : "various flags to control the behavior of the API."
+      },
+      "addTemplateData" : {
+        "required" : [ "description" ],
+        "type" : "object",
+        "properties" : {
+          "category" : {
+            "maxLength" : 25,
+            "type" : "string",
+            "description" : "Specify the category of the object template. The category is used together with the description to identify the template.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "description" : {
+            "maxLength" : 25,
+            "type" : "string",
+            "description" : "Specify the description of the object template. The description is used together with the category to identify the template.",
+            "x-column" : "OTDESC",
+            "x-sequence" : "10"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Specify the object type associated with the template.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTOBJT",
+            "x-sequence" : "30"
+          },
+          "objectAttribute" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the object attribute associated with the template.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTOBJA",
+            "x-sequence" : "40"
+          },
+          "mayNotExistIndicator" : {
+            "maxLength" : 4,
+            "type" : "string",
+            "description" : "Specify whether the object template is for a virtual or temporary.",
+            "default" : "*NO",
+            "enum" : [ "*YES", "*NO" ]
+          },
+          "sourceFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the source file associated with the template.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTSRCF",
+            "x-sequence" : "70"
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Specify the object code,",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTOBJC",
+            "x-sequence" : "80"
+          },
+          "memberAttributeMbseu" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the source attribute associated with the template.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTMBRA",
+            "x-sequence" : "100"
+          },
+          "relatedObjectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Specify the object code of the related object. This value is applicable when the related object indicator is *YES.       ",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTROBC",
+            "x-sequence" : "110"
+          },
+          "relatedObjectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Specify the type of the related object. This value is applicable when the related object indicator is *YES.                                  ",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTROBT",
+            "x-sequence" : "120"
+          },
+          "relatedObjectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the library containing the related object. This value is applicable when the related object indicator is *YES.            ",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTROBL",
+            "x-sequence" : "130"
+          },
+          "relatedMemberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the source member associated with the related object. This value is applicable when the related object indicator is *YES.                 ",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTRMBC",
+            "x-sequence" : "140"
+          },
+          "regularExpression1" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "Specify the regular expression used to validate the object or source member name. ",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTRGX1",
+            "x-sequence" : "150"
+          },
+          "messageText1" : {
+            "maxLength" : 240,
+            "type" : "string",
+            "description" : "Specify the message to be issued when the object or source member name does not match the new regular expression.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTMSG1",
+            "x-sequence" : "160"
+          },
+          "regularExpression2" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "Specify the regular expression used to validate the description.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTRGX2",
+            "x-sequence" : "170"
+          },
+          "messageText" : {
+            "maxLength" : 240,
+            "type" : "string",
+            "description" : "Specify the message to be issued when the description does not match the regular expression.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTMSG2",
+            "x-sequence" : "180"
+          },
+          "labelCode1" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "Specify the labels associated with the object template.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "labelCode2" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "Specify the labels associated with the object template.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "labelCode3" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "Specify the labels associated with the object template.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "labelCode4" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "Specify the labels associated with the object template.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "labelCode5" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "Specify the labels associated with the object template.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          }
+        },
+        "description" : "Use this input to add a new object template. The DescriptionType field is mandator",
+        "x-pfname" : "OMNOT",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato.remainsoftware.com",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "changeTemplateData" : {
+        "required" : [ "description" ],
+        "type" : "object",
+        "properties" : {
+          "category" : {
+            "maxLength" : 25,
+            "type" : "string",
+            "description" : "Specify the category of the object template. The category is used together with the description to identify the template.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "description" : {
+            "maxLength" : 25,
+            "type" : "string",
+            "description" : "Specify the description of the object template. The description is used together with the category to identify the template.",
+            "x-column" : "OTDESC",
+            "x-sequence" : "10"
+          },
+          "newCategory" : {
+            "maxLength" : 25,
+            "type" : "string",
+            "description" : "Specify the new category for the object template. Use *SAME to indicate that the category does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "newDescription" : {
+            "maxLength" : 25,
+            "type" : "string",
+            "description" : "Specify the new description of the object template. Use *SAME to indicate that the category does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTDESC",
+            "x-sequence" : "10"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Specify the object type associated with the template. Use *SAME to indicate that the object type does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTOBJT",
+            "x-sequence" : "30"
+          },
+          "objectAttribute" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the object attribute associated with the template. Use *SAME to indicate that the object attribute does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTOBJA",
+            "x-sequence" : "40"
+          },
+          "mayNotExistIndicator" : {
+            "maxLength" : 4,
+            "type" : "string",
+            "description" : "Specify whether the object template is for a virtual or temporary object or for a real object. Use *SAME to indicate that thevirtual or temporary object or for a real object does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "sourceFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the source file associated with the template. Use *SAME to indicate that the source file does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTSRCF",
+            "x-sequence" : "70"
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Specify the object code. Use *SAME to indicate that the object code does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTOBJC",
+            "x-sequence" : "80"
+          },
+          "memberAttributeMbseu" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the source attribute associated with the template. Use *SAME to indicate that the source attribute does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTMBRA",
+            "x-sequence" : "100"
+          },
+          "relatedObjectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Specify the object code of the related object. This value is applicable when the related object indicator is *YES. Use *SAME to indicate that the related object code does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTROBC",
+            "x-sequence" : "110"
+          },
+          "relatedObjectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Specify the type of the related object. This value is applicable when the related object indicator is *YES. Use *SAME to indicate that the related object type does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTROBT",
+            "x-sequence" : "120"
+          },
+          "relatedObjectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the library containing the related object. This value is applicable when the related object indicator is *YES. Use *SAME to indicate that the related object library does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTROBL",
+            "x-sequence" : "130"
+          },
+          "relatedMemberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the source member associated with the related object. This value is applicable when the related object indicator is *YES. Use *SAME to indicate that the related member code does not change. ",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTRMBC",
+            "x-sequence" : "140"
+          },
+          "regularExpression1" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "Specify the regular expression used to validate the object or source member name. Use *SAME to indicate that the regular expression 1 does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTRGX1",
+            "x-sequence" : "150"
+          },
+          "messageText1" : {
+            "maxLength" : 240,
+            "type" : "string",
+            "description" : "Specify the message to be issued when the object or source member name does not match the new regular expression. Use *SAME to indicate that the message 1 does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTMSG1",
+            "x-sequence" : "160"
+          },
+          "regularExpression2" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "Specify the regular expression used to validate the description. Use *SAME to indicate that the regular expression 2 does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTRGX2",
+            "x-sequence" : "170"
+          },
+          "messageText" : {
+            "maxLength" : 240,
+            "type" : "string",
+            "description" : "Specify the message to be issued when the description does not match the regular expression.  Use *SAME to indicate that the message 1 does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTMSG2",
+            "x-sequence" : "180"
+          },
+          "labelCode1" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "Specify the labels associated with the object template.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "labelCode2" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "Specify the labels associated with the object template.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "labelCode3" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "Specify the labels associated with the object template.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "labelCode4" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "Specify the labels associated with the object template.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "labelCode5" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "Specify the labels associated with the object template.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          }
+        },
+        "description" : "Use this input to Change the object template. The DescriptionType field is mandator",
+        "x-pfname" : "OMNOT",
+        "x-host" : "plato.remainsoftware.com",
+        "x-fieldSchemaNameType" : "Normalized",
+        "x-library" : "OMSRUN51"
+      },
+      "copyTemplateData" : {
+        "required" : [ "description", "newDescription" ],
+        "type" : "object",
+        "properties" : {
+          "category" : {
+            "maxLength" : 25,
+            "type" : "string",
+            "description" : "Specify the category of the object template. The category is used together with the description to identify the template.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "description" : {
+            "maxLength" : 25,
+            "type" : "string",
+            "description" : "Specify the description of the object template. The description is used together with the category to identify the template.",
+            "x-column" : "OTDESC",
+            "x-sequence" : "10"
+          },
+          "newCategory" : {
+            "maxLength" : 25,
+            "type" : "string",
+            "description" : "Specify the new category for the object template. Use *SAME to indicate that the category does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "newDescription" : {
+            "maxLength" : 25,
+            "type" : "string",
+            "description" : "Specify the new description of the object template. Use *SAME to indicate that the category does not change.",
+            "x-column" : "OTDESC",
+            "x-sequence" : "10"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Specify the object type associated with the template. Use *SAME to indicate that the object type does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTOBJT",
+            "x-sequence" : "30"
+          },
+          "objectAttribute" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the object attribute associated with the template. Use *SAME to indicate that the object attribute does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTOBJA",
+            "x-sequence" : "40"
+          },
+          "mayNotExistIndicator" : {
+            "maxLength" : 4,
+            "type" : "string",
+            "description" : "Specify whether the object template is for a virtual or temporary object or for a real object. Use *SAME to indicate that thevirtual or temporary object or for a real object does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTEXCI",
+            "x-sequence" : "50"
+          },
+          "sourceFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the source file associated with the template. Use *SAME to indicate that the source file does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTSRCF",
+            "x-sequence" : "70"
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Specify the object code. Use *SAME to indicate that the object code does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTOBJC",
+            "x-sequence" : "80"
+          },
+          "memberAttributeMbseu" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the source attribute associated with the template. Use *SAME to indicate that the source attribute does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTMBRA",
+            "x-sequence" : "100"
+          },
+          "relatedObjectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Specify the object code of the related object. This value is applicable when the related object indicator is *YES. Use *SAME to indicate that the related object code does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTROBC",
+            "x-sequence" : "110"
+          },
+          "relatedObjectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Specify the type of the related object. This value is applicable when the related object indicator is *YES. Use *SAME to indicate that the related object type does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTROBT",
+            "x-sequence" : "120"
+          },
+          "relatedObjectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the library containing the related object. This value is applicable when the related object indicator is *YES. Use *SAME to indicate that the related object library does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTROBL",
+            "x-sequence" : "130"
+          },
+          "relatedMemberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Specify the source member associated with the related object. This value is applicable when the related object indicator is *YES. Use *SAME to indicate that the related member code does not change. ",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTRMBC",
+            "x-sequence" : "140"
+          },
+          "regularExpression1" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "Specify the regular expression used to validate the object or source member name. Use *SAME to indicate that the regular expression 1 does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTRGX1",
+            "x-sequence" : "150"
+          },
+          "messageText1" : {
+            "maxLength" : 240,
+            "type" : "string",
+            "description" : "Specify the message to be issued when the object or source member name does not match the new regular expression. Use *SAME to indicate that the message 1 does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTMSG1",
+            "x-sequence" : "160"
+          },
+          "regularExpression2" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "Specify the regular expression used to validate the description. Use *SAME to indicate that the regular expression 2 does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTRGX2",
+            "x-sequence" : "170"
+          },
+          "messageText" : {
+            "maxLength" : 240,
+            "type" : "string",
+            "description" : "Specify the message to be issued when the description does not match the regular expression.  Use *SAME to indicate that the message 1 does not change.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ],
+            "x-column" : "OTMSG2",
+            "x-sequence" : "180"
+          },
+          "labelCode1" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "Specify the labels associated with the object template.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "labelCode2" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "Specify the labels associated with the object template.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "labelCode3" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "Specify the labels associated with the object template.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "labelCode4" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "Specify the labels associated with the object template.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          },
+          "labelCode5" : {
+            "maxLength" : 30,
+            "type" : "string",
+            "description" : "Specify the labels associated with the object template.",
+            "default" : "*SAME",
+            "enum" : [ "*SAME" ]
+          }
+        },
+        "description" : "Use this input to Copy the object template. The Description field is mandator",
+        "x-pfname" : "OMNOT",
+        "x-host" : "plato.remainsoftware.com",
+        "x-fieldSchemaNameType" : "Normalized",
+        "x-library" : "OMSRUN51"
+      },
+      "deleteTemplateData" : {
+        "required" : [ "description" ],
+        "type" : "object",
+        "properties" : {
+          "category" : {
+            "maxLength" : 25,
+            "type" : "string",
+            "description" : "Specify the category of the object template. The category is used together with the description to identify the template."
+          },
+          "description" : {
+            "maxLength" : 25,
+            "type" : "string",
+            "description" : "Specify the description of the object template. The description is used together with the category to identify the template.",
+            "x-column" : "OTDESC",
+            "x-sequence" : "10"
+          }
+        },
+        "description" : "Use this input to Delete the object template. The Description field is mandator",
+        "x-pfname" : "OMNOT",
+        "x-host" : "plato.remainsoftware.com",
+        "x-fieldSchemaNameType" : "Normalized",
+        "x-library" : "OMSRUN51"
+      },
+      "deleteProcessingOptions" : {
+        "type" : "object",
+        "properties" : {
+          "updateDb" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          },
+          "updateBuffer" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "default" : "1",
+            "enum" : [ "0", "1" ]
+          }
+        },
+        "description" : "various flags to control the behavior of the API."
+      },
+      "deleteTemplateRequest" : {
+        "required" : [ "interfaceLevel" ],
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V19R1M0",
+            "default" : "V19R1M0",
+            "enum" : [ "V19R1M0" ]
+          },
+          "deleteProcessingOptions" : {
+            "$ref" : "#/components/schemas/deleteProcessingOptions"
+          },
+          "deleteTemplateData" : {
+            "$ref" : "#/components/schemas/deleteTemplateData"
+          }
+        },
+        "description" : "Input schema for action delete."
+      },
+      "addTemplateRequest" : {
+        "required" : [ "interfaceLevel" ],
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V19R1M0",
+            "default" : "V19R1M0",
+            "enum" : [ "V19R1M0" ]
+          },
+          "addProcessingOptions" : {
+            "$ref" : "#/components/schemas/objectTemplateProsessingOptions"
+          },
+          "addTemplateData" : {
+            "$ref" : "#/components/schemas/addTemplateData"
+          }
+        },
+        "description" : "Input schema for action add"
+      },
+      "changeTemplateRequest" : {
+        "required" : [ "interfaceLevel" ],
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V19R1M0",
+            "default" : "V19R1M0",
+            "enum" : [ "V19R1M0" ]
+          },
+          "changeProcessingOptions" : {
+            "$ref" : "#/components/schemas/objectTemplateProsessingOptions"
+          },
+          "changeTemplateData" : {
+            "$ref" : "#/components/schemas/changeTemplateData"
+          }
+        },
+        "description" : "Input schema for action change"
+      },
+      "copyTemplateRequest" : {
+        "required" : [ "interfaceLevel" ],
+        "type" : "object",
+        "properties" : {
+          "interfaceLevel" : {
+            "maxLength" : 8,
+            "type" : "string",
+            "description" : "The interface level must be V19R1M0",
+            "default" : "V19R1M0",
+            "enum" : [ "V19R1M0" ]
+          },
+          "copyProcessingOptions" : {
+            "$ref" : "#/components/schemas/objectTemplateProsessingOptions"
+          },
+          "copyTemplateData" : {
+            "$ref" : "#/components/schemas/copyTemplateData"
+          }
+        },
+        "description" : "Input schema for action copy"
+      },
+      "objectTemplateResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
+          },
+          "message" : {
+            "$ref" : "#/components/schemas/extendedMessage"
+          },
+          "objectTemplateResponseData" : {
+            "$ref" : "#/components/schemas/objectTemplateResponseData"
+          }
+        },
+        "description" : "Response for object template."
+      },
+      "objectTemplateResponseData" : {
+        "type" : "object",
+        "properties" : {
+          "description" : {
+            "maxLength" : 50,
+            "type" : "string",
+            "description" : "Description",
+            "x-column" : "OTDESC",
+            "x-sequence" : "10"
+          },
+          "applicationCode" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "Application code",
+            "x-column" : "OTAPPC",
+            "x-sequence" : "20"
+          },
+          "objectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Object type",
+            "x-column" : "OTOBJT",
+            "x-sequence" : "30"
+          },
+          "objectAttribute" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Object attribute",
+            "x-column" : "OTOBJA",
+            "x-sequence" : "40"
+          },
+          "mayNotExistIndicator" : {
+            "maxLength" : 1,
+            "type" : "string",
+            "description" : "May not exist indicator",
+            "x-column" : "OTEXCI",
+            "x-sequence" : "50"
+          },
+          "sequenceNumber" : {
+            "maxLength" : 9,
+            "type" : "number",
+            "description" : "Sequence number",
+            "format" : "packed(9:0)",
+            "x-column" : "OTSEQ9",
+            "x-sequence" : "60"
+          },
+          "sourceFile" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Source file",
+            "x-column" : "OTSRCF",
+            "x-sequence" : "70"
+          },
+          "objectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Object code",
+            "x-column" : "OTOBJC",
+            "x-sequence" : "80"
+          },
+          "sourceMember" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Source member",
+            "x-column" : "OTSRCM",
+            "x-sequence" : "90"
+          },
+          "memberAttributeMbseu" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Member attribute (MBSEU)",
+            "x-column" : "OTMBRA",
+            "x-sequence" : "100"
+          },
+          "relatedObjectCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Related object code",
+            "x-column" : "OTROBC",
+            "x-sequence" : "110"
+          },
+          "relatedObjectType" : {
+            "maxLength" : 9,
+            "type" : "string",
+            "description" : "Related object type",
+            "x-column" : "OTROBT",
+            "x-sequence" : "120"
+          },
+          "relatedObjectLibrary" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Related object library",
+            "x-column" : "OTROBL",
+            "x-sequence" : "130"
+          },
+          "relatedMemberCode" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Related member code",
+            "x-column" : "OTRMBC",
+            "x-sequence" : "140"
+          },
+          "regularExpression1" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "",
+            "x-column" : "OTRGX1",
+            "x-sequence" : "150"
+          },
+          "messageText1" : {
+            "maxLength" : 240,
+            "type" : "string",
+            "description" : "Message text",
+            "x-column" : "OTMSG1",
+            "x-sequence" : "160"
+          },
+          "regularExpression2" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "",
+            "x-column" : "OTRGX2",
+            "x-sequence" : "170"
+          },
+          "messageText" : {
+            "maxLength" : 240,
+            "type" : "string",
+            "description" : "Message text",
+            "x-column" : "OTMSG2",
+            "x-sequence" : "180"
+          },
+          "labelId1" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Label ID",
+            "format" : "zoned(7:0)",
+            "x-column" : "OTLBID01",
+            "x-sequence" : "190"
+          },
+          "labelId2" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Label ID",
+            "format" : "zoned(7:0)",
+            "x-column" : "OTLBID02",
+            "x-sequence" : "200"
+          },
+          "labelId3" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Label ID",
+            "format" : "zoned(7:0)",
+            "x-column" : "OTLBID03",
+            "x-sequence" : "210"
+          },
+          "labelId4" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Label ID",
+            "format" : "zoned(7:0)",
+            "x-column" : "OTLBID04",
+            "x-sequence" : "220"
+          },
+          "labelId" : {
+            "maxLength" : 7,
+            "type" : "number",
+            "description" : "Label ID",
+            "format" : "zoned(7:0)",
+            "x-column" : "OTLBID05",
+            "x-sequence" : "230"
+          }
+        },
+        "description" : "Response data for linked ticket.",
+        "x-pfname" : "OMNOT",
+        "x-library" : "OMSRUN51",
+        "x-host" : "plato.remainsoftware.com",
+        "x-fieldSchemaNameType" : "Normalized"
+      },
+      "objectTemplateErrorResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "maxLength" : 5,
+            "type" : "string",
+            "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
+          },
+          "messages" : {
+            "maxItems" : 50,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/extendedMessage"
+            }
+          }
+        },
+        "description" : "This will return the error information."
+      }
+    },
+    "responses" : { },
+    "examples" : {
+      "response401" : {
+        "summary" : "Not authorized.",
+        "value" : {
+          "messageText" : "Unauthorized or expired token. Please login again.",
+          "messageType" : "E",
+          "field" : "",
+          "messageId" : "OMQF201",
+          "messageFile" : "OMSAPI",
+          "messageData" : ""
+        }
+      },
+      "response400" : {
+        "summary" : "Something went wrong.",
+        "value" : {
+          "messages" : [ {
+            "messageText" : "The related object code may not be blank. \nCause . . . . . :   You cannot specify the blank value for related object code.\nRecovery  . . . :   Specify the valid related object code and try your request again.",
+            "messageType" : "E",
+            "field" : "relatedObjectCode",
+            "messageID" : "OMQ5111",
+            "messageFile" : "OMSAPI",
+            "messageData" : "related object code"
+          }, {
+            "messageText" : "The realted object type may not be blank. \nCause . . . . . :   You cannot specify the blank value for realted object type.\nRecovery  . . . :   Specify the valid realted object type and try your request again.",
+            "messageType" : "E",
+            "field" : "relatedObjectType",
+            "messageID" : "OMQ5111",
+            "messageFile" : "OMSAPI",
+            "messageData" : "realted object type"
+          }, {
+            "messageText" : "The related object library may not be blank. \nCause . . . . . :   You cannot specify the blank value for related object library.\nRecovery  . . . :   Specify the valid related object library and try your request again.",
+            "messageType" : "E",
+            "field" : "relatedObjectLibrary",
+            "messageID" : "OMQ5111",
+            "messageFile" : "OMSAPI",
+            "messageData" : "related object library"
+          } ],
+          "status" : "*TERM"
+        }
+      }
+    },
+    "securitySchemes" : {
+      "JWT" : {
+        "type" : "http",
+        "description" : "The HTTP API Token",
+        "name" : "JWT",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "callbacks" : { }
+  }
+}
