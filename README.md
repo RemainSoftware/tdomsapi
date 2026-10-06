@@ -605,4 +605,4 @@ curl -X 'POST' \
 * [User Defined Variable](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/UserDefinedVariableAPI.json)
 * [User Options](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/UserOptionsAPI.json)
 * [Version Conflict Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/VersionConflictService.json)
-* [New ObjectTemplate Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/NewObjectTemplateService.json)
+* [New Object Template Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/NewObjectTemplateService.json)
