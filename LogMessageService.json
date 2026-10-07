@@ -1,8 +1,8 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "OMS Log Message API",
-    "description" : "This API is used to show to job log messages.",
+    "title" : "OMS Log Message Service",
+    "description" : "This service exposes OMS log and message retrieval operations for retrieving detailed message content, fetch log history, and list filtered application messages.",
     "termsOfService" : "",
     "contact" : {
       "name" : "Remain Software",
@@ -19,28 +19,28 @@
       "object" : "OMQRLH",
       "library" : "V17T0119",
       "srclibrary" : "V17T0119S",
-      "file" : "OMSLogMessageAPI.json"
+      "file" : "LogMessageService.json"
     }
   },
   "servers" : [ {
     "url" : "{protocol}://{host}:{port}/{library}/OMQRLH",
-    "description" : "plato",
+    "description" : "Plato environment for the OMS Log Message Service.",
     "variables" : {
       "protocol" : {
-        "description" : "Protocol",
+        "description" : "Protocol used to access the API.",
         "default" : "https",
         "enum" : [ "https", "http" ]
       },
       "host" : {
-        "description" : "The host serves the API.",
+        "description" : "The host that serves the API.",
         "default" : "plato.remainsoftware.com"
       },
       "library" : {
-        "description" : "The TD/OMS library.",
+        "description" : "The TD/OMS library name.",
         "default" : "OMS"
       },
       "port" : {
-        "description" : "The port to which the server is listening.",
+        "description" : "The port on which the service is listening.",
         "default" : "45011"
       }
     }
@@ -50,14 +50,14 @@
   } ],
   "paths" : {
     "/getMessage" : {
-      "summary" : "It will return the second level message.",
-      "description" : "It will return the second level message.",
+      "summary" : "Retrieve a specific message definition.",
+      "description" : "Returns the detailed message text and associated information for an IBM i message identified by its message ID, file, and message data.",
       "post" : {
-        "summary" : "it will return the second level message.",
-        "description" : "it will return the second level message.",
+        "summary" : "Retrieve the details of a message by identifier.",
+        "description" : "Fetches the message description, cause, recovery text, and severity for the supplied message record.",
         "operationId" : "getMessage",
         "requestBody" : {
-          "description" : "Post Method",
+          "description" : "Message lookup input containing the identifier and supporting metadata required to resolve the message definition.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -68,7 +68,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK",
+            "description" : "Successful request. Returns the resolved message details.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -78,7 +78,7 @@
             }
           },
           "400" : {
-            "description" : "Bad Request from Client",
+            "description" : "The request payload is invalid or incomplete.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -88,7 +88,7 @@
             }
           },
           "401" : {
-            "description" : "Not authorized",
+            "description" : "Authentication is required or the supplied token is invalid or expired.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -114,14 +114,14 @@
       }
     },
     "/getLogHistory" : {
-      "summary" : "Get the log history",
-      "description" : "Get the log history",
+      "summary" : "Retrieve job log history records.",
+      "description" : "Returns a paginated list of log history entries for the specified application and filter criteria.",
       "post" : {
-        "summary" : "Get the log history",
-        "description" : "Get the log history",
+        "summary" : "Get application log history by filter criteria.",
+        "description" : "Searches and returns historical OMS job log entries matching the supplied application code, paging settings, and filter definitions.",
         "operationId" : "getLogHistory",
         "requestBody" : {
-          "description" : "Post Method",
+          "description" : "Criteria used to query the log history, including paging, filters, and search flags.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -129,7 +129,7 @@
               },
               "examples" : {
                 "getLogHistoryRequest" : {
-                  "summary" : "How to specify the get log history request input parameter value.",
+                  "summary" : "Example request payload for retrieving log history.",
                   "value" : {
                     "applicationCode" : "XMP",
                     "pagingDetails" : {
@@ -150,7 +150,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK",
+            "description" : "Successful request. Returns a paginated log history response.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -158,7 +158,7 @@
                 },
                 "examples" : {
                   "getLoghistory" : {
-                    "summary" : "Response to a successful API call.",
+                    "summary" : "Example successful response for log history retrieval.",
                     "value" : {
                       "status" : "*NORM",
                       "totalRecords" : 46555,
@@ -220,7 +220,7 @@
             }
           },
           "400" : {
-            "description" : "Bad Request from Client",
+            "description" : "The request is malformed or contains invalid filter data.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -230,7 +230,7 @@
             }
           },
           "401" : {
-            "description" : "Not authorized",
+            "description" : "Authentication is required or the supplied token is invalid or expired.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -256,14 +256,14 @@
       }
     },
     "/listMessages" : {
-      "summary" : "Get the list of messages.",
-      "description" : "Get the list of messages.",
+      "summary" : "List application messages.",
+      "description" : "Returns a paginated list of system messages matching the provided application, user, job, and message filter criteria.",
       "post" : {
-        "summary" : "List the messages where messageid starts with OTPXXXX.",
-        "description" : "List the messages where messageid starts with OTPXXXX.",
+        "summary" : "List filtered OMS messages for an application or job.",
+        "description" : "Returns message entries matching the supplied filter conditions and paging data, including message text, severity, and source information.",
         "operationId" : "listMessages",
         "requestBody" : {
-          "description" : "Post Method",
+          "description" : "Message list query parameters, including pagination, application scope, and optional message filters.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -271,7 +271,7 @@
               },
               "examples" : {
                 "listMessagesRequest" : {
-                  "summary" : "How to specify the list messages request input parameter value.",
+                  "summary" : "Example request for listing filtered messages.",
                   "value" : {
                     "applicationCode" : "XMP",
                     "pagingDetails" : {
@@ -297,7 +297,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "return code 200 response",
+            "description" : "Successful request. Returns a page of matched message entries.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -305,7 +305,7 @@
                 },
                 "examples" : {
                   "listMessages200" : {
-                    "summary" : "response to a successful API call.",
+                    "summary" : "Example successful response for message listing.",
                     "value" : {
                       "status" : "*NORM",
                       "totalRecords" : 9,
@@ -434,7 +434,7 @@
             }
           },
           "400" : {
-            "description" : "Bad Request from Client",
+            "description" : "The request is malformed or contains invalid message query parameters.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -444,7 +444,7 @@
             }
           },
           "401" : {
-            "description" : "Not authorized",
+            "description" : "Authentication is required or the supplied token is invalid or expired.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -474,47 +474,49 @@
     "schemas" : {
       "extendedMessage" : {
         "type" : "object",
+        "description" : "Detailed information returned by the API when an error or informational message is reported.",
         "properties" : {
           "messageFile" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The IBMi message file.",
+            "description" : "IBM i message file that contains the message definition.",
             "example" : "OMSMSG"
           },
           "messageId" : {
             "maxLength" : 7,
             "type" : "string",
-            "description" : "The IBMi message id.",
+            "description" : "Identifier of the IBM i message.",
             "example" : "DUPXXXX"
           },
           "messageType" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "The IBMi message type.",
+            "description" : "IBM i message type, such as informational, warning, or error.",
             "example" : "E"
           },
           "messageData" : {
             "maxLength" : 256,
             "type" : "string",
-            "description" : "The IBMi message data.",
+            "description" : "Variable message data associated with the message.",
             "example" : "DUPXXXX"
           },
           "field" : {
             "maxLength" : 50,
             "type" : "string",
-            "description" : "The error in field.",
+            "description" : "Field name or field reference associated with the message when relevant.",
             "example" : ""
           },
           "messageText" : {
             "maxLength" : 644,
             "type" : "string",
-            "description" : "The human readable message text.",
+            "description" : "Human-readable message text describing the issue or informational status.",
             "example" : "The message id is not found."
           }
         }
       },
       "errorResponse" : {
         "type" : "object",
+        "description" : "Error payload returned when the request cannot be processed successfully.",
         "properties" : {
           "messages" : {
             "$ref" : "#/components/schemas/extendedMessage"
@@ -522,74 +524,76 @@
           "status" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "It returns the status.",
+            "description" : "Processing status returned by the service. Typically indicates a terminal or abnormal completion status.",
             "example" : "*TERM"
           }
         }
       },
       "messageInfo" : {
         "type" : "object",
+        "description" : "Basic message lookup details needed to resolve a message definition.",
         "properties" : {
           "messageId" : {
             "maxLength" : 7,
             "type" : "string",
-            "description" : "It will contain the message id."
+            "description" : "Identifier of the IBM i message to resolve."
           },
           "messageFile" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "It will contain the message file."
+            "description" : "Message file that contains the message definition."
           },
           "messageData" : {
             "maxLength" : 256,
             "type" : "string",
-            "description" : "It will contain the message data."
+            "description" : "Variable message data used to resolve the message context."
           }
-        },
-        "description" : "It will contain the message information."
+        }
       },
       "messageResponse" : {
         "type" : "object",
+        "description" : "Standard response payload returned when a single message definition is successfully retrieved.",
         "properties" : {
           "status" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "It contains the status.",
+            "description" : "Operational status indicating the result of the message retrieval request.",
             "example" : "*NORM"
           },
           "messageText" : {
             "maxLength" : 256,
             "type" : "string",
-            "description" : "This contains the message text.",
+            "description" : "Primary human-readable message text associated with the resolved message.",
             "example" : "This is a subsetted list."
           },
           "cause" : {
             "maxLength" : 1024,
             "type" : "string",
-            "description" : "This contains the message cause.",
+            "description" : "Explanation of why the message was generated.",
             "example" : "The list was built using user defined selection data. This means that probably not all available information is displayed."
           },
           "recovery" : {
             "maxLength" : 1024,
             "type" : "string",
-            "description" : "This contains the message recovery.",
+            "description" : "Recommended action or recovery guidance for the user.",
             "example" : "None needed. This message is informational."
           },
           "severityCode" : {
             "maximum" : 10,
             "type" : "integer",
-            "description" : "It contains the severity code.",
+            "description" : "Numerical severity level assigned to the message.",
             "example" : 0
           }
         }
       },
       "logHistoryRequest" : {
         "type" : "object",
+        "description" : "Input payload for querying OMS log history records using application scope, pagination, and filters.",
         "properties" : {
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "The application name."
+            "description" : "Application code for which log history is being requested."
           },
           "pagingDetails" : {
             "$ref" : "#/components/schemas/pagingDetails"
@@ -608,61 +612,63 @@
       },
       "filterRecords" : {
         "type" : "object",
+        "description" : "A single filter entry used to constrain the log history search by period, job, or task attributes.",
         "properties" : {
           "startDate" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The start date in YYYY-MM-DD format."
+            "description" : "Inclusive start date for the search in YYYY-MM-DD format."
           },
           "startTime" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "The start time HH:MM:SS format."
+            "description" : "Inclusive start time for the search in HH:MM:SS format."
           },
           "taskNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The task number."
+            "description" : "Task number used to narrow the log history results."
           },
           "requestNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The request number."
+            "description" : "Request number used to narrow the log history results."
           },
           "releaseNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The release number."
+            "description" : "Release number used to narrow the log history results."
           },
           "jobName" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "It contains the job name."
+            "description" : "Job name used to filter the results."
           },
           "userIDOrUserClass" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "It contains the user name."
+            "description" : "User ID or user class used to filter the results."
           },
           "jobNumber" : {
             "maxLength" : 6,
             "type" : "string",
-            "description" : "It contains the job number."
+            "description" : "Job number used to filter the results."
           }
         }
       },
       "logHistoryResponse" : {
         "type" : "object",
+        "description" : "Response containing the status and a paginated collection of OMS log history records.",
         "properties" : {
           "status" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "It returns the status."
+            "description" : "Status code returned by the service for this request."
           },
           "totalRecords" : {
             "maximum" : 10,
             "type" : "integer",
-            "description" : "Return the total number of records."
+            "description" : "Total number of matching log history records before pagination is applied."
           },
           "jobLogsHistory" : {
             "maxItems" : 50,
@@ -671,67 +677,67 @@
               "$ref" : "#/components/schemas/jobLogsHistory"
             }
           }
-        },
-        "description" : "It contains the DSPLOGOMS log."
+        }
       },
       "jobLogsHistory" : {
         "type" : "object",
+        "description" : "A single OMS log history entry describing a job execution or event record.",
         "properties" : {
           "jobName" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "It contains the job name."
+            "description" : "Name of the job associated with the log entry."
           },
           "jobNumber" : {
             "maximum" : 6,
             "type" : "number",
-            "description" : "It contains the job number."
+            "description" : "System-assigned job number associated with the log entry."
           },
           "userIDOrUserClass" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "it contains the user name."
+            "description" : "User ID or user class associated with the job."
           },
           "requestNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "It contains the request number."
+            "description" : "Request number associated with the log entry."
           },
           "taskNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "It contains the task number."
+            "description" : "Task number associated with the log entry."
           },
           "releaseNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "It contains the release number."
+            "description" : "Release number associated with the log entry."
           },
           "incomeDate" : {
             "type" : "number",
-            "description" : "Income Date.",
+            "description" : "Date when the job or log event was received in the system format.",
             "format" : "zoned(7:0)"
           },
           "incomeTime" : {
             "type" : "number",
-            "description" : "Income time.",
+            "description" : "Time when the job or log event was received in the system format.",
             "format" : "zoned(6:0)"
           },
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "It contains the application code."
+            "description" : "Application code to which the log entry belongs."
           }
-        },
-        "description" : "It contains the DSPLOGOMS log."
+        }
       },
       "messageListRequest" : {
         "type" : "object",
+        "description" : "Input payload used to query a paginated list of system messages with optional filters and search options.",
         "properties" : {
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "It contains the application Code."
+            "description" : "Application code for the messages to be retrieved."
           },
           "pagingDetails" : {
             "$ref" : "#/components/schemas/pagingDetails"
@@ -739,16 +745,16 @@
           "userIDOrUserClass" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "It contains the user name."
+            "description" : "User ID or user class that owns or generated the messages."
           },
           "jobName" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "It contains the job name."
+            "description" : "Name of the job associated with the messages."
           },
           "jobNumber" : {
             "type" : "number",
-            "description" : "It contains the job number.",
+            "description" : "Job number used to narrow the result set.",
             "format" : "zoned(6:0)"
           },
           "messageFilterRecords" : {
@@ -764,23 +770,23 @@
           "relativeRecordNumber" : {
             "maximum" : 10,
             "type" : "integer",
-            "description" : "It will contain from relative record number."
+            "description" : "Relative record number from which paging should begin."
           }
-        },
-        "description" : ""
+        }
       },
       "messageListResponse" : {
         "type" : "object",
+        "description" : "Response containing the result status and paginated list of message entries.",
         "properties" : {
           "status" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "It contains the status."
+            "description" : "Status code returned by the service for the request."
           },
           "totalRecords" : {
             "maximum" : 10,
             "type" : "integer",
-            "description" : "The total number of message entries in the list. Divide this by 50 to get the number of pages."
+            "description" : "Total number of message records that match the query before pagination is applied."
           },
           "messageLists" : {
             "maxItems" : 50,
@@ -789,171 +795,171 @@
               "$ref" : "#/components/schemas/messageLists"
             }
           }
-        },
-        "description" : ""
+        }
       },
       "pagingDetails" : {
         "type" : "object",
+        "description" : "Pagination settings used to control the size and position of a result page.",
         "properties" : {
           "pageNumber" : {
             "maximum" : 10,
             "type" : "integer",
-            "description" : "The page number to view. If the file contains 100 records and you want 50 records back then you can specify the page number e.g. 1 to get records 1 to 50."
+            "description" : "Page number to retrieve. This is used together with pageSize to control the requested result window."
           },
           "pageSize" : {
             "maximum" : 10,
             "type" : "integer",
-            "description" : "It contains the number of records to be returned."
+            "description" : "Number of records to return in the current page."
           }
         }
       },
       "messageFilterRecords" : {
         "type" : "object",
+        "description" : "Optional search criteria used to filter the list of messages by text, ID, date, time, or severity.",
         "properties" : {
           "messageTexts" : {
             "maxLength" : 256,
             "type" : "string",
-            "description" : "This contains the message texts."
+            "description" : "Text to match within the message body or display text."
           },
           "messageId" : {
             "maxLength" : 7,
             "type" : "string",
-            "description" : "It contains the message id."
+            "description" : "Message identifier to match exactly or partially, depending on search configuration."
           },
           "startTime" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "The start time HH:MM:SS format."
+            "description" : "Start time for the search in HH:MM:SS format."
           },
           "startDate" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The start date in YYYY-MM-DD format."
+            "description" : "Start date for the search in YYYY-MM-DD format."
           },
           "severityCode" : {
             "maximum" : 10,
             "type" : "integer",
-            "description" : "It contains severity code."
+            "description" : "Minimum or exact severity code to include in the filter."
           }
-        },
-        "description" : ""
+        }
       },
       "messageLists" : {
         "type" : "object",
+        "description" : "Single message entry returned as part of a paginated message list result.",
         "properties" : {
           "messageText" : {
             "maxLength" : 256,
             "type" : "string",
-            "description" : "It contains the message text."
+            "description" : "Human-readable message text for the entry."
           },
           "messageId" : {
             "maxLength" : 7,
             "type" : "string",
-            "description" : "it contains the message id."
+            "description" : "System message identifier associated with the entry."
           },
           "startTime" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "The start time HH:MM:SS format."
+            "description" : "Time the message was logged in HH:MM:SS format."
           },
           "severityCode" : {
             "maximum" : 10,
             "type" : "integer",
-            "description" : "It contains the severity code."
+            "description" : "Severity level of the message."
           },
           "messageFile" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "It contains the message file."
+            "description" : "Message file where the message definition is stored."
           },
           "startDate" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The start date in YYYY-MM-DD format."
+            "description" : "Date the message was logged in YYYY-MM-DD format."
           },
           "messageData" : {
             "maxLength" : 256,
             "type" : "string",
-            "description" : "It contains the message data."
+            "description" : "Variable data associated with the message."
           },
           "isParent" : {
             "type" : "boolean",
-            "description" : "If OTPXXXX message has subsequent message then return true else false.",
+            "description" : "Indicates whether the message has a following related message in the log chain.",
             "default" : false
           },
           "relativeRecordNumber" : {
             "maximum" : 10,
             "type" : "integer",
-            "description" : "It contains the relative record number."
+            "description" : "Relative record index of the message within the matched result set."
           },
           "program" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "It contains the program name."
+            "description" : "Program that created or generated the message."
           },
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "It contains the application code."
+            "description" : "Application code related to the message."
           },
           "applicationDescription" : {
             "maxLength" : 50,
             "type" : "string",
-            "description" : "It contains the application descriptions."
+            "description" : "Human-readable description of the application that generated the message."
           }
-        },
-        "description" : ""
+        }
       },
       "messageRequest" : {
         "type" : "object",
+        "description" : "Input payload for resolving a specific message definition from the message file and data.",
         "properties" : {
           "messageId" : {
             "maxLength" : 7,
             "type" : "string",
-            "description" : "Contains the message id.",
+            "description" : "Identifier of the message to retrieve.",
             "example" : "SUB0001"
           },
           "messageFile" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Contains the message file.",
+            "description" : "Name of the message file that contains the message definition.",
             "example" : "OMSMSG"
           },
           "messageData" : {
             "maxLength" : 256,
             "type" : "string",
-            "description" : "Contains the message data.",
+            "description" : "Variable substitution data used to resolve the message.",
             "example" : ""
           }
-        },
-        "description" : ""
+        }
       },
       "searchFlags" : {
         "type" : "object",
+        "description" : "Flags that control how filtering and matching are applied during a search operation.",
         "properties" : {
           "exactMatch" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "It will contain 0 = false and 1 = true."
+            "description" : "Indicates whether matching should be exact. 0 = false, 1 = true."
           },
           "caseSensitive" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "It will contain 0 = false and 1 = true."
+            "description" : "Indicates whether string comparison is case-sensitive. 0 = false, 1 = true."
           },
           "isOROperator" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "It will contain 0 = false and 1 = true."
+            "description" : "Indicates whether the search condition uses OR logic. 0 = false, 1 = true."
           }
-        },
-        "description" : "It contains the job information."
+        }
       }
     },
     "responses" : { },
     "examples" : {
       "response401" : {
-        "summary" : "Not authorized.",
+        "summary" : "Unauthorized access example.",
         "value" : {
           "messages" : {
             "messageFile" : "OMSAPI",
@@ -970,7 +976,7 @@
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
-        "description" : "The HTTP API Token",
+        "description" : "Bearer token used to authenticate calls to the API.",
         "scheme" : "bearer",
         "bearerFormat" : "JWT"
       }
