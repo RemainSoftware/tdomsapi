@@ -589,7 +589,7 @@ curl -X 'POST' \
 * [Login Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/LoginService.json)
 * [Managed Deployment Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/ManagedDeploymentService.json)
 * [New Object Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/NewObjectService.json)
-* [Object](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/ObjectAPI.json)
+* [Object Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/ObjectService.json)
 * [Octo KanBan Provider](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/octo_kanban_provider.json)
 * [Log Message Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/LogMessageService.json)
 * [Program Call](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/programCall.json)
