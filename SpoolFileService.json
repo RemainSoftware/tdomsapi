@@ -1,8 +1,8 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "SpoolFileAPI API.",
-    "description" : "The Spool File API enables the selection of a specific file based on criteria such as user name, spool file name, and job name. The selection process allows filtering based on these attributes for more targeted results.",
+    "title" : "OMS Spool File Service",
+    "description" : "The Spool File Service provides authenticated operations for managing IBM i spooled files. Use the list operation to find spooled files by user, job, status, date, time, output queue, form type, user data, or system. Use fetch to export a selected spooled file to the server file system, and use delete to remove one selected spooled file or all eligible spooled files for a user. Requests use IBM i special values such as *CURRENT, *ALL, *ONLY, *LAST, and *SELECT where documented. Successful and error responses include an IBM i message object.",
     "termsOfService" : "",
     "contact" : {
       "name" : "Remain Software",
@@ -50,14 +50,14 @@
   } ],
   "paths" : {
     "/delete" : {
-      "summary" : "This path will allow to delete the spool file.",
-      "description" : "This path will allow to delete the selected spool file .",
+      "summary" : "Delete a spooled file",
+      "description" : "Deletes one selected spooled file or all eligible spooled files matching the supplied IBM i selection criteria.",
       "post" : {
-        "summary" : "This Action will delete the spool file.",
-        "description" : "This action will allow the user to select a specific spool file to delete. If you want to delete all spool files, you need to use the default values, which will delete all spool files associated with a particular user.",
+        "summary" : "Delete a selected spooled file",
+        "description" : "Deletes a selected spooled file. To delete all eligible spooled files for a user, use the documented *SELECT, *ALL, and default selection values.",
         "operationId" : "delete",
         "requestBody" : {
-          "description" : "Post Method",
+          "description" : "JSON selection criteria for the deletion request.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -66,7 +66,20 @@
               "examples" : {
                 "deleteSpoolFile" : {
                   "summary" : "How to specify the input request to delete the particular spool file",
-                  "value" : "{\r\n  \"spooledFileName\": \"JWTLOGI01M\",\r\n  \"qualifiedJobName\": \"399358/ALICE/JWTLOGI01M\",\r\n  \"spooledFileNumber\": \"2\",\r\n  \"system\": \"*ONLY\",\r\n  \"creationDate\": \"*ONLY\",\r\n  \"creationTime\": \"*ONLY\",\r\n  \"user\": \"ALICE\",\r\n  \"outputQueue\": \"*ALL\",\r\n  \"formType\": \"*ALL\",\r\n  \"userData\": \"*ALL\",\r\n  \"asp\": \"*ALL\",\r\n  \"aspDevice\": \"*\"\r\n}\r\n"
+                  "value" : {
+                    "spooledFileName" : "JWTLOGI01M",
+                    "qualifiedJobName" : "399358/ALICE/JWTLOGI01M",
+                    "spooledFileNumber" : "2",
+                    "system" : "*ONLY",
+                    "creationDate" : "*ONLY",
+                    "creationTime" : "*ONLY",
+                    "user" : "ALICE",
+                    "outputQueue" : "*ALL",
+                    "formType" : "*ALL",
+                    "userData" : "*ALL",
+                    "asp" : "*ALL",
+                    "aspDevice" : "*"
+                  }
                 },
                 "deleteAllSpoolFile" : {
                   "summary" : "How to specify the input request to delete all spoolFiles for particular user",
@@ -100,7 +113,6 @@
                 },
                 "examples" : {
                   "responseDeleteSpoolFile200" : {
-                    "value" : null,
                     "$ref" : "#/components/examples/responseDeleteSpoolFile200"
                   },
                   "responseDeleteAllSpoolFile200" : {
@@ -153,7 +165,6 @@
                 },
                 "examples" : {
                   "response401" : {
-                    "value" : null,
                     "$ref" : "#/components/examples/response401"
                   }
                 }
@@ -171,14 +182,14 @@
       }
     },
     "/fetch" : {
-      "summary" : "This path will allow to fetch the spool file.",
-      "description" : "This path will allow to fetch the selected spool file .",
+      "summary" : "Fetch a spooled file",
+      "description" : "Fetches the content of a selected spooled file and returns the path of the exported file on the server.",
       "post" : {
-        "summary" : "This Action will fetch the spool file.",
-        "description" : "This Action will allow the user to fetch the selected spool file.",
+        "summary" : "Fetch selected spooled file content",
+        "description" : "Fetches a selected spooled file by qualified job name and spool file name. The spool file number is optional and can identify a specific file or the last matching file.",
         "operationId" : "fetch",
         "requestBody" : {
-          "description" : "Post Method",
+          "description" : "JSON selection criteria for the fetch request.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -207,7 +218,6 @@
                 },
                 "examples" : {
                   "fetchSpoolFile200" : {
-                    "value" : null,
                     "$ref" : "#/components/examples/fetchSpoolFile200"
                   }
                 }
@@ -227,7 +237,7 @@
                     "value" : {
                       "messageFile" : "OMSAPI",
                       "messageId" : "OMQF501",
-                      "meaageType" : "E",
+                        "messageType" : "E",
                       "messageData" : "",
                       "field" : "",
                       "messageText" : "No spool files were found. &N Cause . . . . . : There were no spool files found. &N Recovery  . . . : No recover necessary. This is an informational message."
@@ -238,7 +248,7 @@
             }
           },
           "401" : {
-            "description" : "not authorzed",
+            "description" : "Authentication is required or the supplied token is invalid or expired.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -246,7 +256,6 @@
                 },
                 "examples" : {
                   "response401" : {
-                    "value" : null,
                     "$ref" : "#/components/examples/response401"
                   }
                 }
@@ -264,14 +273,14 @@
       }
     },
     "/list" : {
-      "summary" : "This will give us a list of spool file according to the selection criteria.",
-      "description" : "We can have a list of spool files according to the selection criteria.",
+      "summary" : "List spooled files",
+      "description" : "Returns a page of spooled files matching the supplied IBM i selection criteria.",
       "post" : {
-        "summary" : "To get the list of spool fie.",
-        "description" : "To get the list of the spool file according to the selection criteria.",
+        "summary" : "List spooled files using selection criteria",
+        "description" : "Returns up to 50 spooled files for the requested page and selection criteria.",
         "operationId" : "list",
         "requestBody" : {
-          "description" : "Post methodd",
+          "description" : "JSON selection criteria for the requested page of spooled files.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -325,7 +334,7 @@
                   "$ref" : "#/components/schemas/listResponse"
                 },
                 "examples" : {
-                  "reponse200" : {
+                  "responseAllSpoolFiles200" : {
                     "summary" : "Response for all spool files",
                     "value" : {
                       "status" : "*NORM",
@@ -343,7 +352,7 @@
                         "spoolFileNumber" : 1,
                         "status" : "READY",
                         "priority" : 5,
-                        "date" : "2024-10-10T09:12:41Z",
+                        "date" : "2024-10-10T09:12:41+0200",
                         "userData" : "",
                         "size" : 266240,
                         "pages" : 34,
@@ -364,7 +373,7 @@
                         "spoolFileNumber" : 2,
                         "status" : "READY",
                         "priority" : 5,
-                        "date" : "2024-10-10T09:12:41Z",
+                        "date" : "2024-10-10T09:12:41+0200",
                         "userData" : "CRTSQLRPGI",
                         "size" : 28672,
                         "pages" : 2,
@@ -385,7 +394,7 @@
                         "spoolFileNumber" : 3,
                         "status" : "READY",
                         "priority" : 5,
-                        "date" : "2024-10-10T09:12:41Z",
+                        "date" : "2024-10-10T09:12:41+0200",
                         "userData" : "",
                         "size" : 331776,
                         "pages" : 49,
@@ -406,7 +415,7 @@
                         "spoolFileNumber" : 4,
                         "status" : "READY",
                         "priority" : 5,
-                        "date" : "2024-10-10T09:12:40Z",
+                        "date" : "2024-10-10T09:12:40+0200",
                         "userData" : "OMX016",
                         "size" : 28672,
                         "pages" : 1,
@@ -427,7 +436,7 @@
                         "spoolFileNumber" : 5,
                         "status" : "READY",
                         "priority" : 5,
-                        "date" : "2024-10-10T09:12:40Z",
+                        "date" : "2024-10-10T09:12:40+0200",
                         "userData" : "JWTLOGISHR",
                         "size" : 69632,
                         "pages" : 8,
@@ -448,7 +457,7 @@
                         "spoolFileNumber" : 1,
                         "status" : "READY",
                         "priority" : 5,
-                        "date" : "2024-10-10T09:12:37Z",
+                        "date" : "2024-10-10T09:12:37+0200",
                         "userData" : "",
                         "size" : 217088,
                         "pages" : 26,
@@ -469,7 +478,7 @@
                         "spoolFileNumber" : 2,
                         "status" : "READY",
                         "priority" : 5,
-                        "date" : "2024-10-10T09:12:37Z",
+                        "date" : "2024-10-10T09:12:37+0200",
                         "userData" : "CRTSQLRPGI",
                         "size" : 28672,
                         "pages" : 2,
@@ -490,7 +499,7 @@
                         "spoolFileNumber" : 3,
                         "status" : "READY",
                         "priority" : 5,
-                        "date" : "2024-10-10T09:12:37Z",
+                        "date" : "2024-10-10T09:12:37+0200",
                         "userData" : "",
                         "size" : 266240,
                         "pages" : 39,
@@ -525,7 +534,7 @@
                       "spoolfileList" : [ {
                         "status" : "READY",
                         "qualifiedJobName" : "399209/ALICE/JWTLOGI01M",
-                        "date" : "2024-10-10T09:12:41Z",
+                        "date" : "2024-10-10T09:12:41+0200",
                         "jobName" : "JWTLOGI01M",
                         "spoolFileName" : "JWTLOGI01M",
                         "formType" : "*STD",
@@ -546,7 +555,7 @@
                       }, {
                         "status" : "READY",
                         "qualifiedJobName" : "399209/ALICE/JWTLOGI01M",
-                        "date" : "2024-10-10T09:12:41Z",
+                        "date" : "2024-10-10T09:12:41+0200",
                         "jobName" : "JWTLOGI01M",
                         "spoolFileName" : "JWTLOGI01M",
                         "formType" : "*STD",
@@ -567,7 +576,7 @@
                       }, {
                         "status" : "READY",
                         "qualifiedJobName" : "399209/ALICE/JWTLOGI01M",
-                        "date" : "2024-10-10T09:12:41Z",
+                        "date" : "2024-10-10T09:12:41+0200",
                         "jobName" : "JWTLOGI01M",
                         "spoolFileName" : "JWTLOGI01M",
                         "formType" : "*STD",
@@ -624,7 +633,6 @@
                 },
                 "examples" : {
                   "response401" : {
-                    "value" : null,
                     "$ref" : "#/components/examples/response401"
                   }
                 }
@@ -902,7 +910,7 @@
             "enum" : [ "*", "*SYSBAS", "*CURASPGRP" ]
           }
         },
-        "description" : "To dele the requested spool file"
+        "description" : "Selection criteria used to identify the spooled file or files to delete."
       },
       "deleteResponse" : {
         "type" : "object",
@@ -966,9 +974,9 @@
             "description" : "The priority of the spooled file"
           },
           "date" : {
-            "maxLength" : 20,
+            "maxLength" : 30,
             "type" : "string",
-            "description" : "The timestamp, based on local job time, when the file was opened. The timestamp format is YYYY-MM-DDTHH:MM:SSZ"
+            "description" : "The timestamp, based on local job time, when the file was opened. The timestamp format is YYYY-MM-DDTHH:MM:SSUTC Universal Time offset"
           },
           "userData" : {
             "maxLength" : 10,
