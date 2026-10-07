@@ -1,8 +1,8 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "User Options API",
-    "description" : "The API enables you to perform all the actions allowed in the User Options. You can use this REST API to add, change, copy, delete or execute the user option definition.\r\n\r\nThe user option function enables you to select and maintain user-defined options. If you are a TD/OMS manager, you are able to define global and private user options. As a non-manager, you can define your own user options which can be promoted to global user options by the TD/OMS manager. ",
+    "title" : "OMS User Options Service",
+    "description" : "The User Options API enables authorized users to create, update, copy, delete, and execute user-defined option definitions in TD/OMS. TD/OMS managers can maintain global user options, while other users can create private user options and promote them when authorized. This OpenAPI 3 specification describes the available REST operations and payloads for managing those definitions.",
     "termsOfService" : "",
     "contact" : {
       "name" : "https://remainsoftware.com",
@@ -19,7 +19,7 @@
       "object" : "OMQRUO",
       "library" : "V17T0288",
       "srclibrary" : "V17T0288S",
-      "file" : "UserOptionsAPI.json"
+      "file" : "UserOptionsService.json"
     }
   },
   "servers" : [ {
@@ -50,14 +50,14 @@
   } ],
   "paths" : {
     "/add" : {
-      "summary" : "Use this path to add the user option.",
-      "description" : "Use this path to add the user option.",
+      "summary" : "Create a user option definition.",
+      "description" : "Creates a new user option definition for a specified user or user class. This operation is used to define private or global user options based on the caller's permissions.",
       "post" : {
-        "summary" : "Use this operation to add the user option.",
-        "description" : "Use this operation to add the user option.",
+        "summary" : "Create a user option definition.",
+        "description" : "Creates a new user option definition for a specified user or user class. This operation is used to define private or global user options based on the caller's permissions.",
         "operationId" : "add",
         "requestBody" : {
-          "description" : "Use this input to add the user option.",
+          "description" : "Request body used to create a new user option definition.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -95,7 +95,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK",
+            "description" : "The user option was created successfully.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -179,14 +179,14 @@
       }
     },
     "/change" : {
-      "summary" : "Use this path to change the user option.",
-      "description" : "Use this path to change the user option.",
+      "summary" : "Update an existing user option definition.",
+      "description" : "Updates the attributes of an existing user option definition, including its execution settings, visibility, and access rules.",
       "post" : {
-        "summary" : "Use this operation to change the user option.",
-        "description" : "Use this operation to change the user option.",
+        "summary" : "Update an existing user option definition.",
+        "description" : "Updates the attributes of an existing user option definition, including its execution settings, visibility, and access rules.",
         "operationId" : "change",
         "requestBody" : {
-          "description" : "Use this input to change the user option.",
+          "description" : "Request body used to update an existing user option definition.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -225,7 +225,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK",
+            "description" : "The user option was updated successfully.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -309,14 +309,14 @@
       }
     },
     "/copy" : {
-      "summary" : "Use this path to copy the user option.",
-      "description" : "Use this path to copy the user option.",
+      "summary" : "Copy a user option definition.",
+      "description" : "Creates a new user option definition by copying an existing one and optionally assigning it to another user or user class.",
       "post" : {
-        "summary" : "Use this operation to copy the user option.",
-        "description" : "Use this operation to copy the user option.",
+        "summary" : "Copy a user option definition.",
+        "description" : "Creates a new user option definition by copying an existing one and optionally assigning it to another user or user class.",
         "operationId" : "copy",
         "requestBody" : {
-          "description" : "Use this input to copy the user option.",
+          "description" : "Request body used to copy an existing user option definition.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -356,7 +356,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK",
+            "description" : "The user option was copied successfully.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -440,14 +440,14 @@
       }
     },
     "/delete" : {
-      "summary" : "Use this path to delete the user option.",
-      "description" : "Use this path to delete the user option.",
+      "summary" : "Delete a user option definition.",
+      "description" : "Deletes an existing user option definition for the specified user or user class.",
       "post" : {
-        "summary" : "Use this operation to delete the user option.",
-        "description" : "Use this operation to delete the user option.",
+        "summary" : "Delete a user option definition.",
+        "description" : "Deletes an existing user option definition for the specified user or user class.",
         "operationId" : "delete",
         "requestBody" : {
-          "description" : "Use this input to delete the user option.",
+          "description" : "Request body used to delete an existing user option definition.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -473,7 +473,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK",
+            "description" : "The user option was deleted successfully.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -557,14 +557,14 @@
       }
     },
     "/execute" : {
-      "summary" : "Use this path to execute the user option.",
-      "description" : "Use this path to execute the user option.",
+      "summary" : "Execute a user option.",
+      "description" : "Executes a defined user option in a task, request, solution, or object context. The selected entity and key values determine the target of execution.",
       "post" : {
-        "summary" : "Use this operation to execute the user option.",
-        "description" : "Use this operation to execute the user option.",
+        "summary" : "Execute a user option.",
+        "description" : "Executes a defined user option in a task, request, solution, or object context. The selected entity and key values determine the target of execution.",
         "operationId" : "execute",
         "requestBody" : {
-          "description" : "Use this input to execute the user option.",
+          "description" : "Request body used to execute a user option in a TD/OMS context.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -594,7 +594,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK",
+            "description" : "The user option executed successfully.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -670,35 +670,35 @@
           "messageFile" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The message file."
+            "description" : "Name of the message file that supplied the message."
           },
           "messageId" : {
             "maxLength" : 7,
             "type" : "string",
-            "description" : "The message Idetifier."
+            "description" : "Identifier of the message in the message file."
           },
           "messageType" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "The message type 'E' indicates an error message,  while 'N' indicates a normal message with no error."
+            "description" : "Message severity indicator. E indicates an error and N indicates an informational or normal message."
           },
           "messageData" : {
             "maxLength" : 80,
             "type" : "string",
-            "description" : "The message substitution data"
+            "description" : "Substitution data associated with the message."
           },
           "field" : {
             "maxLength" : 50,
             "type" : "string",
-            "description" : "The field in error"
+            "description" : "Field name related to the message, if applicable."
           },
           "messageText" : {
             "maxLength" : 644,
             "type" : "string",
-            "description" : "The human readable message text."
+            "description" : "Human-readable text describing the message and recovery guidance."
           }
         },
-        "description" : "The return messages information."
+        "description" : "Structured message payload returned by the API for informational, warning, and error conditions."
       },
       "errorResponse" : {
         "type" : "object",
@@ -706,7 +706,7 @@
           "status" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
+            "description" : "Completion status of the operation. *NORM indicates success and *TERM indicates termination with errors."
           },
           "messages" : {
             "maxItems" : 50,
@@ -716,7 +716,7 @@
             }
           }
         },
-        "description" : "This will return the error information."
+        "description" : "Standard error response returned when a request cannot be processed successfully."
       },
       "changeRequest" : {
         "required" : [ "userOption3" ],
@@ -964,7 +964,7 @@
           "status" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
+            "description" : "Completion status of the operation. *NORM indicates a successful call and *TERM indicates termination with errors."
           },
           "message" : {
             "$ref" : "#/components/schemas/extendedMessage"
@@ -973,7 +973,7 @@
             "$ref" : "#/components/schemas/responseData"
           }
         },
-        "description" : "This will return the response data."
+        "description" : "Standard response payload returned by add, change, copy, and delete operations."
       },
       "executeRequest" : {
         "type" : "object",
@@ -1148,19 +1148,19 @@
           "toUserIDOrUserClass" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the user id or user class for the global or private user option.\r\nThe possible values are:      \r\n                                                                        \r\n*SAME     \r\nUse this value to indicate that the user does not change if you are in change mode. In copy mode, the current user profile will be used.\r\n                                                                        \r\n*ALL      \r\nUse this value to define the global user option.                    \r\n                                                                        \r\n   Note:   \r\n   Only the TD/OMS manager is allowed to define a global user option.",
+            "description" : "Specify the user ID or user class to receive the changed option when the operation targets a different owner.",
             "default" : "*SAME",
             "enum" : [ "*SAME", "*ALL" ]
           },
           "ignoreWarnings" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the ignore warnings indicator. The possible values are:    \r\n                                                                 \r\n*NO                                                              \r\nUse this value if you want to show warning messages.         \r\n                                                                 \r\n*YES                                                             \r\nUse this value if you do not want to show warning messages.",
+            "description" : "Controls whether warning messages are displayed during processing. Use *NO to display warnings and *YES to suppress them.",
             "default" : "*NO",
             "enum" : [ "*NO", "*YES" ]
           }
         },
-        "description" : "Various flags to control the behavior of the API."
+        "description" : "Flags that control database updates, response refresh behavior, target ownership, and warning handling for change requests."
       },
       "addProcessingOptions" : {
         "type" : "object",
@@ -1182,12 +1182,12 @@
           "ignoreWarnings" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the ignore warnings indicator. The possible values are:  \r\n                                                                 \r\n*NO      \r\nUse this value if you want to show warning messages.         \r\n                                                                 \r\n*YES                                   \r\nUse this value if you do not want to show warning messages.",
+            "description" : "Controls whether warning messages are displayed during processing. Use *NO to display warnings and *YES to suppress them.",
             "default" : "*NO",
             "enum" : [ null, "*NO", "*YES" ]
           }
         },
-        "description" : "Various flags to control the behavior of the API."
+        "description" : "Flags that control database updates, response refresh behavior, and warning handling for add requests."
       },
       "responseData" : {
         "type" : "object",
@@ -1195,103 +1195,103 @@
           "userOption3" : {
             "maxLength" : 2,
             "type" : "string",
-            "description" : "User option",
+            "description" : "User option identifier.",
             "x-column" : "PTUOPC",
             "x-sequence" : "10"
           },
           "userIdOrUserClass" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "User i.d., or user class",
+            "description" : "User ID or user class associated with the option.",
             "x-column" : "PTUSID",
             "x-sequence" : "20"
           },
           "entityCode" : {
             "maxLength" : 2,
             "type" : "string",
-            "description" : "Entity Code",
+            "description" : "Entity code identifying the TD/OMS entity for which the option is valid.",
             "x-column" : "PTENTC",
             "x-sequence" : "30"
           },
           "actionGroupCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Action group code",
+            "description" : "Action group used to organize related user options in the user interface.",
             "x-column" : "PTAGRC",
             "x-sequence" : "40"
           },
           "userOptionDescription" : {
             "maxLength" : 60,
             "type" : "string",
-            "description" : "User option description",
+            "description" : "Description of the user option definition.",
             "x-column" : "PTUOPD",
             "x-sequence" : "50"
           },
           "authorisationCode2" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Authorisation code",
+            "description" : "Authorization level required to execute the user option.",
             "x-column" : "PTAUTC",
             "x-sequence" : "60"
           },
           "programName" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Program name",
+            "description" : "Program invoked when the user option is executed.",
             "x-column" : "PTPGMN",
             "x-sequence" : "70"
           },
           "programLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Program library",
+            "description" : "Library containing the program invoked by the user option.",
             "x-column" : "PTPGML",
             "x-sequence" : "80"
           },
           "passParametersIndicator" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Pass parameters indicator",
+            "description" : "Indicates whether parameters are passed to the target program.",
             "x-column" : "PTPRMI",
             "x-sequence" : "90"
           },
           "interfaceLevel" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "Interface level",
+            "description" : "Interface level used for the user option definition.",
             "x-column" : "PTINTL",
             "x-sequence" : "100"
           },
           "commandString" : {
             "maxLength" : 2048,
             "type" : "string",
-            "description" : "Command string",
+            "description" : "Command string executed when the user option is invoked.",
             "x-column" : "PTCMDS",
             "x-sequence" : "110"
           },
           "whereToActivateIndicator" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Where to activate indicator",
+            "description" : "Location where the option is activated at runtime.",
             "x-column" : "PTWTAI",
             "x-sequence" : "120"
           },
           "checkEntry" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Check Entry",
+            "description" : "Indicates whether the selected entry must be validated before execution.",
             "x-column" : "PTCHEI",
             "x-sequence" : "130"
           },
           "whereVisibleIndicator" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Where visibile indicator",
+            "description" : "Location where the option is displayed in the user interface.",
             "x-column" : "PTWVII",
             "x-sequence" : "140"
           }
         },
-        "description" : "User option response data.",
+        "description" : "User option definition data returned in the response payload.",
         "x-pfname" : "OMOPT",
         "x-library" : "OMSRUN51",
         "x-host" : "plato",
@@ -1315,7 +1315,7 @@
             "enum" : [ "0", "1" ]
           }
         },
-        "description" : "Various flags to control the behavior of the API."
+        "description" : "Flags that control database updates and response refresh behavior for delete requests."
       },
       "copyProcessingOptions" : {
         "type" : "object",
@@ -1337,24 +1337,24 @@
           "toUserOption" : {
             "maxLength" : 2,
             "type" : "string",
-            "description" : "Specify the to user option."
+            "description" : "Target user option identifier for the copied definition."
           },
           "toUserIDOrUserClass" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the user id or user class for the global or private user option.\r\nThe possible values are:      \r\n                                                                        \r\n*SAME     \r\nUse this value to indicate that the user does not change if you are in change mode. In copy mode, the current user profile will be used.\r\n                                                                        \r\n*ALL      \r\nUse this value to define the global user option.                    \r\n                                                                        \r\n   Note:   \r\n   Only the TD/OMS manager is allowed to define a global user option.",
+            "description" : "User ID or user class that will own the copied option. Use *ALL for a global option when authorized.",
             "default" : "*SAME",
             "enum" : [ "*SAME", "*ALL" ]
           },
           "ignoreWarnings" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the ignore warnings indicator. The possible values are:    \r\n                                                                 \r\n*NO                                                              \r\nUse this value if you want to show warning messages.         \r\n                                                                 \r\n*YES                                                             \r\nUse this value if you do not want to show warning messages.",
+            "description" : "Controls whether warning messages are displayed during processing. Use *NO to display warnings and *YES to suppress them.",
             "default" : "*NO",
             "enum" : [ "*NO", "*YES" ]
           }
         },
-        "description" : "Various flags to control the behavior of the API."
+        "description" : "Flags that control database updates, ownership assignment, response refresh behavior, and warning handling for copy requests."
       },
       "taskKey" : {
         "type" : "object",
