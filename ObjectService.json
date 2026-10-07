@@ -1,8 +1,8 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "Object API",
-    "description" : "The Object REST API enables interaction with an object, allowing you to Add, Change, or Delete the object. Additional actions such as Refill, Close, Object Relation, and Job Relation are also supported.",
+    "title" : "OMS Object Service",
+    "description" : "The OMS Object Service REST API manages TD/OMS object records for both library-based IBM i objects and IFS objects. The OpenAPI 3 specification exposes seven operations: Add, Change, Delete, Refill, Object Relation, Job Relation, and Close. Most object-specific requests accept exactly one of two input shapes: either objectCode, objectLibrary, and objectType for a library-based object, or iFSFullPathName for an IFS object. In addition to object maintenance, the service can queue or rebuild object relationships, process pending relationship requests in batch for a job, and explicitly close the object database interface to complete final processing.",
     "termsOfService" : "",
     "contact" : {
       "name" : "Remain Software",
@@ -19,7 +19,7 @@
       "object" : "OMQROB",
       "library" : "V17T0171",
       "srclibrary" : "V17T0171S",
-      "file" : "ObjectAPI.json"
+      "file" : "ObjectService.json"
     }
   },
   "servers" : [ {
@@ -50,14 +50,14 @@
   } ],
   "paths" : {
     "/add" : {
-      "summary" : "Use this path to add a new object to the TD/OMS database.",
-      "description" : "Use this path to add a new object to the TD/OMS database.",
+      "summary" : "Add an object record to the TD/OMS database.",
+      "description" : "Creates a TD/OMS object record for either a library-based IBM i object or an IFS object. The request must identify exactly one object shape: objectCode, objectLibrary, and objectType for library objects, or iFSFullPathName for IFS objects.",
       "post" : {
-        "summary" : "Use this operation to add a new object to the TD/OMS database.",
-        "description" : "Use this operation to add a new object to the TD/OMS database.",
+        "summary" : "Add an object record.",
+        "description" : "Registers a new TD/OMS object and can optionally control relationship building, reporting, and end-of-processing behavior through addProcessingOptions.",
         "operationId" : "add",
         "requestBody" : {
-          "description" : "Use this input to add the new object.",
+          "description" : "Payload for creating a TD/OMS object record. Provide exactly one request shape: either objectCode, objectLibrary, and objectType for a library-based object, or iFSFullPathName for an IFS object.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -65,7 +65,7 @@
               },
               "examples" : {
                 "addTemporaryObject" : {
-                  "summary" : "How to specify the request input parameter value to add the temporary Or Virtual object.",
+                  "summary" : "Example request for adding a temporary or virtual object.",
                   "value" : {
                     "interfaceLevel" : "V3R0M0",
                     "objectCode" : "CLLEPGM",
@@ -95,7 +95,7 @@
                   }
                 },
                 "addObject" : {
-                  "summary" : "How to specify the request input parameter value to add the object.",
+                  "summary" : "Example request for adding a library-based object.",
                   "value" : {
                     "interfaceLevel" : "V3R0M0",
                     "objectCode" : "CLLEPGM",
@@ -125,7 +125,7 @@
                   }
                 },
                 "addIFSObject" : {
-                  "summary" : "How to specify the request input parameter value to add the IFS object.",
+                  "summary" : "Example request for adding an IFS object.",
                   "value" : {
                     "interfaceLevel" : "V3R0M0",
                     "iFSFullPathName" : "/QOpenSys/tdoms/xmp/dev/R1/F0390/elements.html",
@@ -216,14 +216,14 @@
       }
     },
     "/change" : {
-      "summary" : "Use this path to change one or more object attributes.",
-      "description" : "Use this path to change one or more object attributes.",
+      "summary" : "Change one or more object attributes.",
+      "description" : "Updates a TD/OMS object definition for either a library-based IBM i object or an IFS object. The request must identify exactly one supported object shape.",
       "post" : {
-        "summary" : "Use this operation to change one or more object attributes.",
-        "description" : "Use this operation to change one or more object attributes.",
+        "summary" : "Update an existing object record.",
+        "description" : "Changes object metadata and optional processing behavior, including relationship rebuild and reporting options, for the identified TD/OMS object.",
         "operationId" : "change",
         "requestBody" : {
-          "description" : "Use this input to change the object attributes.",
+          "description" : "Payload for updating object attributes. Provide exactly one request shape: either objectCode, objectLibrary, and objectType for a library-based object, or iFSFullPathName for an IFS object.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -231,7 +231,7 @@
               },
               "examples" : {
                 "changeObject" : {
-                  "summary" : "How to specify the request input parameter value to change the object.",
+                  "summary" : "Example request for changing a library-based object.",
                   "value" : {
                     "interfaceLevel" : "V3R0M0",
                     "objectCode" : "CLLEPGM",
@@ -260,7 +260,7 @@
                   }
                 },
                 "changeIFSObject" : {
-                  "summary" : "How to specify the request input parameter value to change the IFS object.",
+                  "summary" : "Example request for changing an IFS object.",
                   "value" : {
                     "interfaceLevel" : "V3R0M0",
                     "iFSFullPathName" : "/QOpenSys/tdoms/xmp/dev/R1/F0390/elements.html",
@@ -350,14 +350,14 @@
       }
     },
     "/delete" : {
-      "summary" : "Use this path to delete the object from the TD/OMS database.  You are also able to delete the related object and source.",
-      "description" : "Use this path to delete the object from the TD/OMS database.  You are also able to delete the related object and source.",
+      "summary" : "Delete an object record from the TD/OMS database.",
+      "description" : "Removes a TD/OMS object record for either a library-based IBM i object or an IFS object. Processing options can also request deletion of the underlying object and its source where supported.",
       "post" : {
-        "summary" : "Use this operation to delete the object from the TD/OMS database.  You are also able to delete the related object and source.",
-        "description" : "Use this operation to delete the object from the TD/OMS database.  You are also able to delete the related object and source.",
+        "summary" : "Delete an object record.",
+        "description" : "Deletes the identified TD/OMS object record and can optionally remove the underlying object and source according to deleteProcessingOptions.",
         "operationId" : "delete",
         "requestBody" : {
-          "description" : "Use this input to delete the object.",
+          "description" : "Payload for deleting a TD/OMS object record. Provide exactly one request shape: either objectCode, objectLibrary, and objectType for a library-based object, or iFSFullPathName for an IFS object.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -365,7 +365,7 @@
               },
               "examples" : {
                 "deleteObject" : {
-                  "summary" : "How to specify the request input parameter value to delete the object.",
+                  "summary" : "Example request for deleting a library-based object.",
                   "value" : {
                     "interfaceLevel" : "V3R0M0",
                     "objectCode" : "CLLEPGM",
@@ -381,7 +381,7 @@
                   }
                 },
                 "deleteIFSObject" : {
-                  "summary" : "How to specify the request input parameter value to delete the IFS object.",
+                  "summary" : "Example request for deleting an IFS object.",
                   "value" : {
                     "interfaceLevel" : "V3R0M0",
                     "iFSFullPathName" : "/QOpenSys/tdoms/xmp/dev/R1/F0390/elements.html",
@@ -507,14 +507,14 @@
       }
     },
     "/jobRelation" : {
-      "summary" : "Use this path to process pending relationship requests for a certain job. Requests are also queued to build the relationship database if objects are added to the TD/OMS database. These requests are processed in batches to make the relationship search faster.",
-      "description" : "Use this path to process pending relationship requests for a certain job. Requests are also queued to build the relationship database if objects are added to the TD/OMS database. These requests are processed in batches to make the relationship search faster.    \r\n\r\nExample: \r\nThree programs are added to the TD/OMS object database. These programs are called PGMA, PGMB and PGMC. PGMA calls both PGMB and PGMC. If PGMA is added to the database, a relationship request is queued for it and the next object (PGMB) is added. PGMB also places a relationship request in the queue and the same steps are performed for PGMC. The function now sees that there are no more objects to be added and starts dequeueing the relationship requests.           \r\n\r\nIf the relationships of PGMA were determined when the object was added to the database, both PGMB and PGMC would not yet exist. This would cause error reporting. This action code dequeues all requests and starts building the relationships.",
+      "summary" : "Process queued relationship requests for a job.",
+      "description" : "Processes queued TD/OMS relationship rebuild requests in batch for the current job or for all jobs. This operation is intended for deferred relationship handling, where object additions queue relation work that is completed later for better throughput and fewer dependency timing issues.",
       "post" : {
-        "summary" : "Use this operation to process pending relationship requests for a certain job. Requests are also queued to build the relationship database if objects are added to the TD/OMS database. These requests are processed in batches to make the relationship search faster.",
-        "description" : "Use this operation to process pending relationship requests for a certain job. Requests are also queued to build the relationship database if objects are added to the TD/OMS database. These requests are processed in batches to make the relationship search faster.\r\n\r\nExample: Three programs are added to the TD/OMS object database. These programs are called PGMA, PGMB and PGMC. PGMA calls both PGMB and PGMC. If PGMA is added to the database, a relationship request is queued for it and the next object (PGMB) is added. PGMB also places a relationship request in the queue and the same steps are performed for PGMC. The function now sees that there are no more objects to be added and starts dequeueing the relationship requests. If the relationships of PGMA were determined when the object was added to the database, both PGMB and PGMC would not yet exist. This would cause error reporting.  This action code dequeues all requests and starts building the relationships.",
+        "summary" : "Run deferred relationship processing.",
+        "description" : "Dequeues and processes pending relationship requests after object registration. This is the batch-oriented companion to delayed relation handling controlled by buildRelationsIndicator on add, change, and refill operations.",
         "operationId" : "jobRelation",
         "requestBody" : {
-          "description" : "Use this input to process pending relationship requests for a certain job.",
+          "description" : "Payload for processing queued relationship requests for the current job or all jobs.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -597,14 +597,14 @@
       }
     },
     "/objectRelation" : {
-      "summary" : "Use this path to request a relationship rebuild for the specified object.",
-      "description" : "Use this path to request a relationship rebuild for the specified object.",
+      "summary" : "Request a relationship rebuild for an object.",
+      "description" : "Queues or performs relationship processing for a single TD/OMS object identified as either a library-based IBM i object or an IFS object.",
       "post" : {
-        "summary" : "Use this operation to request a relationship rebuild for the specified object.",
-        "description" : "Use this operation to request a relationship rebuild for the specified object.",
+        "summary" : "Rebuild relationships for one object.",
+        "description" : "Requests relationship recalculation for the identified object and applies objectRelProcessingOptions to control database updates and deferred processing behavior.",
         "operationId" : "objectRelation",
         "requestBody" : {
-          "description" : "Use this input to request a relationship rebuild for the specified object.",
+          "description" : "Payload for requesting object-specific relationship processing. Provide exactly one request shape: either objectCode, objectLibrary, and objectType for a library-based object, or iFSFullPathName for an IFS object.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -612,7 +612,7 @@
               },
               "examples" : {
                 "rebuildRelation" : {
-                  "summary" : "How to specify the request input parameter value to rebuild the relation for specified object.",
+                  "summary" : "Example request for rebuilding relations for a library-based object.",
                   "value" : {
                     "interfaceLevel" : "V3R0M0",
                     "objectCode" : "CLLEPGM",
@@ -627,7 +627,7 @@
                   }
                 },
                 "rebuildRelationForIFSObject" : {
-                  "summary" : "How to specify the request input parameter value to rebuild the relation for IFS object.",
+                  "summary" : "Example request for rebuilding relations for an IFS object.",
                   "value" : {
                     "interfaceLevel" : "V3R0M0",
                     "iFSFullPathName" : "/QOpenSys/tdoms/xmp/dev/R1/F0390/elements.html",
@@ -704,14 +704,14 @@
       }
     },
     "/refill" : {
-      "summary" : "Use this path to request a refresh of the specified object. If the object was not found in the database it will be added, or it will be changed according to the user specifications or the new attributes of the object.",
-      "description" : "Use this path to request a refresh of the specified object. If the object was not found in the database it will be added, or it will be changed according to the user specifications or the new attributes of the object.",
+      "summary" : "Refresh an object record from current object data.",
+      "description" : "Refreshes the identified TD/OMS object. If the object is not yet present it is added; if it already exists it is updated according to the supplied request values and the current object attributes.",
       "post" : {
-        "summary" : "Use this operation to request a refresh of the specified object. If the object was not found in the database it will be added, or it will be changed according to the user specifications or the new attributes of the object.",
-        "description" : "Use this operation to request a refresh of the specified object. If the object was not found in the database it will be added, or it will be changed according to the user specifications or the new attributes of the object.",
+        "summary" : "Refill an object record.",
+        "description" : "Synchronizes TD/OMS object metadata for the identified library-based IBM i object or IFS object and can also trigger relationship handling and reporting through refillProcessingOptions.",
         "operationId" : "refill",
         "requestBody" : {
-          "description" : "Use this input to request a refresh of the specified object.",
+          "description" : "Payload for refreshing a TD/OMS object record. Provide exactly one request shape: either objectCode, objectLibrary, and objectType for a library-based object, or iFSFullPathName for an IFS object.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -719,7 +719,7 @@
               },
               "examples" : {
                 "refillObject" : {
-                  "summary" : "How to specify the request input parameter value to refill the object.",
+                  "summary" : "Example request for refilling a library-based object.",
                   "value" : {
                     "interfaceLevel" : "V3R0M0",
                     "objectCode" : "CLLEPGM",
@@ -749,7 +749,7 @@
                   }
                 },
                 "refillIFSObject" : {
-                  "summary" : "How to specify the request input parameter value to refill the IFS object.",
+                  "summary" : "Example request for refilling an IFS object.",
                   "value" : {
                     "interfaceLevel" : "V3R0M0",
                     "iFSFullPathName" : "/QOpenSys/tdoms/xmp/dev/R1/F0390/elements.html",
@@ -840,14 +840,14 @@
       }
     },
     "/close" : {
-      "summary" : "Use this path to close the object database and to perform last record processing. This option enables you to keep the interface to the object database open until you explicitly close it. This will make the interface faster.",
-      "description" : "Use this path to close the object database and to perform last record processing. This option enables you to keep the interface to the object database open until you explicitly close it. This will make the interface faster.",
+      "summary" : "Close the object database interface.",
+      "description" : "Closes the TD/OMS object database interface and performs final processing for a series of prior operations that kept files and state open for performance reasons.",
       "post" : {
-        "summary" : "Use this operation to close the object database and to perform last record processing. This option enables you to keep the interface to the object database open until you explicitly close it. This will make the interface faster.",
-        "description" : "Use this operation to close the object database and to perform last record processing. This option enables you to keep the interface to the object database open until you explicitly close it. This will make the interface faster.",
+        "summary" : "Finalize and close the object session.",
+        "description" : "Completes pending TD/OMS processing, closes open files, and frees API state that may have been retained across previous object operations.",
         "operationId" : "close",
         "requestBody" : {
-          "description" : "Use this input to close the database file.",
+          "description" : "Optional empty payload for closing the object database interface.",
           "content" : {
             "application/json" : { }
           },
@@ -965,7 +965,7 @@
             "enum" : [ "*CURRENT", "*ALL" ]
           }
         },
-        "description" : "Request data for job relation."
+        "description" : "Request payload for processing queued relationship rebuild work for the current job or all jobs."
       },
       "extendedMessage" : {
         "type" : "object",
@@ -1001,7 +1001,7 @@
             "description" : "The human readable message text."
           }
         },
-        "description" : "The return message information."
+        "description" : "Standard TD/OMS message details returned for success, warning, and error outcomes."
       },
       "errorResponse" : {
         "type" : "object",
@@ -1015,7 +1015,7 @@
             "$ref" : "#/components/schemas/extendedMessage"
           }
         },
-        "description" : "This will return the error information."
+        "description" : "Error envelope returned when the request cannot be completed successfully."
       },
       "response" : {
         "type" : "object",
@@ -1032,10 +1032,26 @@
             "$ref" : "#/components/schemas/responseData"
           }
         },
-        "description" : "This will return the response data."
+        "description" : "Standard success or warning envelope returned by object operations."
       },
       "addObjectRequest" : {
-        "required" : [ "objectLibrary", "objectType" ],
+        "oneOf" : [ {
+          "required" : [ "objectCode", "objectLibrary", "objectType" ],
+          "not" : {
+            "required" : [ "iFSFullPathName" ]
+          }
+        }, {
+          "required" : [ "iFSFullPathName" ],
+          "not" : {
+            "anyOf" : [ {
+              "required" : [ "objectCode" ]
+            }, {
+              "required" : [ "objectLibrary" ]
+            }, {
+              "required" : [ "objectType" ]
+            } ]
+          }
+        } ],
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
@@ -1050,7 +1066,11 @@
             "type" : "string",
             "description" : "The object code is the OS/400 system name of an object.  The length is 10 characters for normal objects and 12 for document library objects.                                \r\n\r\nIf the name contains a tilde (~) or a question mark (?), it is the short name for an object in the Integrated  File System. You can also have short name's if your application contains LANSA objects. The details for the  entry show the full name of the object.    \r\n\r\n*IFSOBJ      \r\nUse this value if you want to register an object from the integrated file system (IFS) instead of the normal OS/400 library structure.      \r\n\r\nObject code         \r\nSpecify the object code.",
             "default" : "*IFSOBJ",
-            "enum" : [ "*IFSOBJ" ]
+            "anyOf" : [ {
+              "enum" : [ "*IFSOBJ" ]
+            }, {
+              "pattern" : ".*"
+            } ]
           },
           "objectLibrary" : {
             "maxLength" : 10,
@@ -1067,49 +1087,52 @@
             "type" : "string",
             "description" : "Specify the attribute of the object. The possible values are:     \r\n\r\n*SAME     \r\nThe value of the element does not change. If *SAME is used when the object is first added, then the attribute is retrieved from the object's description. This value is not allowed for temporary objects.      \r\n\r\n*OBJD        \r\nThe attribute is retrieved from the object's object description. This value is not allowed when adding a temporary object.          \r\n\r\nobject-attribute   \r\nSpecify the object attribute. The value you specify here is only used for temporary objects.",
             "default" : "*SAME",
-            "enum" : [ "*SAME", "*OBJD" ]
+            "anyOf" : [ {
+              "enum" : [ "*SAME" ]
+            }, {
+              "pattern" : ".*"
+            } ]
           },
           "iFSFullPathName" : {
             "maxLength" : 5000,
             "type" : "string",
             "description" : "The IFS Full Path Name is a complete reference to an IFS object.  This includes the directory and the object.          \r\n\r\n*OBJC     \r\nUse this value if you want to register an object from the OS/400 library structure instead of the integrated file system (IFS).  \r\n\r\nFull path-name  \r\nSpecify a full path name to the object.",
             "default" : "*OBJC",
-            "enum" : [ "*OBJC" ]
+            "anyOf" : [ {
+              "enum" : [ "*OBJC" ]
+            }, {
+              "pattern" : ".*"
+            } ]
           },
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
             "description" : "Specify the application code of the object. The possible\r\nvalues are:       \r\n\r\n*SAME      \r\nThe application code of the object does not change.  This value is not allowed if an object is first added to the object database.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME" ]
+            "default" : "*SAME"
           },
           "environmentCode" : {
             "maxLength" : 5,
             "type" : "string",
             "description" : "Specify the environment code where the object resides.  TD/OMS will check if the library of the object is defined in the definition of the specified environment. The possible values are:     \r\n\r\n*SAME     \r\nThe environment code of the object does not change.  This value is not allowed if an object is first added to the object database.   \r\n\r\nenvironment-code    \r\nSpecify the environment code of the object.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME" ]
+            "default" : "*SAME"
           },
           "fixNumber" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "The fix number attribute of the object is not the fix the object is currently connected to, but the fix which caused the object to be placed in this environment. The possible values are:      \r\n\r\n*SAME   \r\nThe fix number in the object does not change.  \r\n\r\n*NONE     \r\nThe solution database is not searched for the fix by which the object could have been placed in this  environment.      \r\n\r\n*ACTIVE    \r\nThe solution database is searched and the last fix to which this object was connected is used as the fix  number for this object. However, if the fix number in the object is already filled then the fix number does not change.             \r\n\r\nfix-number  \r\nspecify the fix number to be used as the fix number in he object file. If a fix is specified, it must exist  in the TD/OMS database and the object must be connected to it.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME", "*NONE", "*ACTIVE" ]
+            "default" : "*SAME"
           },
           "objectDescription" : {
             "maxLength" : 50,
             "type" : "string",
             "description" : "Specify the description of the object. The possible values are:      \r\n\r\n*SAME   \r\nThe description of the object does not change. When the object is first added to the TD/OMS database the description is taken from the object's header. This value is not allowed when adding temporary objects.    \r\n\r\n*OBJD   \r\nThe object description is retrieved from the object's header. This value is not allowed for temporary objects.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME", "*OBJD" ]
+            "default" : "*SAME"
           },
           "userWhichCreatedObject" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "Specify the user who created the object. The possible values are:        \r\n\r\n*SAME       \r\nThe user does not change. The value is retrieved from the header of the object if objects are added to the database. This value is not allowed when adding temporary objects.        \r\n\r\n*OBJD                                                   \r\nThe user who created the object is taken from the header of the object. This value is not allowed for temporary objects.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME", "*OBJD" ]
+            "default" : "*SAME"
           },
           "userDefined" : {
             "maxLength" : 5,
@@ -1136,31 +1159,44 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Specify the name of the source file. The possible values are:           \r\n\r\n*SAME        \r\nThe value of the element does not change. If *SAME is used when the object is first added then the source file and library are determined by TD/OMS.        \r\n\r\n*NONE                                                    \r\nThe object does not have a source or the object has a source but the source is not available. TD/OMS will not try to search for the object's source if it transfers the object.\r\n\r\n*OBJD    \r\nThe object is initially taken from the object's object description. TD/OMS will try to locate a better source if one is available.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME", "*NONE", "*OBJD" ]
+            "default" : "*SAME"
           },
           "sourceLibrary" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "Specify the name of the source library.   \r\n\r\n*SAME      \r\nThe value of the element does not change. If *SAME is used when the object is first added then the library is determined by TD/OMS.      \r\n\r\n*BEST                                                   \r\nTD/OMS will search for the best logical source location and will issue a report with possible source conflicts.                                                                 \r\n\r\n*OBJD   \r\nThe library is initially taken from the object's object description. TD/OMS will try to locate a better source library if one is available.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME", "*BEST", "*OBJD" ]
+            "default" : "*SAME"
           },
           "sourceMember" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "Specify the name of the source member. The possible values are:      \r\n\r\n*SAME      \r\nThe value of the element does not change. If *SAME is used when the object is first added then the member is determined by TD/OMS.       \r\n\r\n*OBJD   \r\nThe member is initially taken from the object's object description. TD/OMS will try to locate a better source member if one is available.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME", "*OBJD" ]
+            "default" : "*SAME"
           },
           "addProcessingOptions" : {
             "$ref" : "#/components/schemas/addProcessingOptions"
           }
         },
-        "description" : "Request data to add the object."
+        "description" : "Request data to add the object. This schema accepts exactly one of two request shapes: either objectCode, objectLibrary, and objectType for a library-based object, or iFSFullPathName for an IFS object."
       },
       "changeObjectRequest" : {
-        "required" : [ "objectLibrary", "objectType" ],
+        "oneOf" : [ {
+          "required" : [ "objectCode", "objectLibrary", "objectType" ],
+          "not" : {
+            "required" : [ "iFSFullPathName" ]
+          }
+        }, {
+          "required" : [ "iFSFullPathName" ],
+          "not" : {
+            "anyOf" : [ {
+              "required" : [ "objectCode" ]
+            }, {
+              "required" : [ "objectLibrary" ]
+            }, {
+              "required" : [ "objectType" ]
+            } ]
+          }
+        } ],
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
@@ -1175,7 +1211,11 @@
             "type" : "string",
             "description" : "The object code is the OS/400 system name of an object.  The length is 10 characters for normal objects and 12 for document library objects.                                \r\n\r\nIf the name contains a tilde (~) or a question mark (?), it is the short name for an object in the Integrated  File System. You can also have short name's if your application contains LANSA objects. The details for the  entry show the full name of the object.    \r\n\r\n*IFSOBJ      \r\nUse this value if you want to register an object from the integrated file system (IFS) instead of the normal OS/400 library structure.      \r\n\r\nObject code         \r\nSpecify the object code.",
             "default" : "*IFSOBJ",
-            "enum" : [ "*IFSOBJ" ]
+            "anyOf" : [ {
+              "enum" : [ "*IFSOBJ" ]
+            }, {
+              "pattern" : ".*"
+            } ]
           },
           "objectLibrary" : {
             "maxLength" : 10,
@@ -1192,49 +1232,52 @@
             "type" : "string",
             "description" : "Specify the attribute of the object. The possible values are:     \r\n\r\n*SAME     \r\nThe value of the element does not change. If *SAME is used when the object is first added, then the attribute is retrieved from the object's description. This value is not allowed for temporary objects.      \r\n\r\n*OBJD        \r\nThe attribute is retrieved from the object's object description. This value is not allowed when adding a temporary object.          \r\n\r\nobject-attribute   \r\nSpecify the object attribute. The value you specify here is only used for temporary objects.",
             "default" : "*SAME",
-            "enum" : [ "*SAME", "*OBJD" ]
+            "anyOf" : [ {
+              "enum" : [ "*SAME" ]
+            }, {
+              "pattern" : ".*"
+            } ]
           },
           "iFSFullPathName" : {
             "maxLength" : 5000,
             "type" : "string",
             "description" : "The IFS Full Path Name is a complete reference to an IFS object.  This includes the directory and the object.          \r\n\r\n*OBJC     \r\nUse this value if you want to register an object from the OS/400 library structure instead of the integrated file system (IFS).  \r\n\r\nFull path-name  \r\nSpecify a full path name to the object.",
             "default" : "*OBJC",
-            "enum" : [ "*OBJC" ]
+            "anyOf" : [ {
+              "enum" : [ "*OBJC" ]
+            }, {
+              "pattern" : ".*"
+            } ]
           },
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
             "description" : "Specify the application code of the object. The possible\r\nvalues are:       \r\n\r\n*SAME      \r\nThe application code of the object does not change.  This value is not allowed if an object is first added to the object database.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME" ]
+            "default" : "*SAME"
           },
           "environmentCode" : {
             "maxLength" : 5,
             "type" : "string",
             "description" : "Specify the environment code where the object resides.  TD/OMS will check if the library of the object is defined in the definition of the specified environment. The possible values are:     \r\n\r\n*SAME     \r\nThe environment code of the object does not change.  This value is not allowed if an object is first added to the object database.   \r\n\r\nenvironment-code   \r\nSpecify the environment code of the object.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME" ]
+            "default" : "*SAME"
           },
           "fixNumber" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "The fix number attribute of the object is not the fix the object is currently connected to, but the fix which caused the object to be placed in this environment. The possible values are:      \r\n\r\n*SAME   \r\nThe fix number in the object does not change.  \r\n\r\n*NONE     \r\nThe solution database is not searched for the fix by which the object could have been placed in this  environment.      \r\n\r\n*ACTIVE    \r\nThe solution database is searched and the last fix to which this object was connected is used as the fix  number for this object. However, if the fix number in the object is already filled then the fix number does not change.             \r\n\r\nfix-number  \r\nspecify the fix number to be used as the fix number in he object file. If a fix is specified, it must exist  in the TD/OMS database and the object must be connected to it.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME", "*NONE", "*ACTIVE" ]
+            "default" : "*SAME"
           },
           "objectDescription" : {
             "maxLength" : 50,
             "type" : "string",
             "description" : "Specify the description of the object. The possible values are:      \r\n\r\n*SAME   \r\nThe description of the object does not change. When the object is first added to the TD/OMS database the description is taken from the object's header. This value is not allowed when adding temporary objects.    \r\n\r\n*OBJD   \r\nThe object description is retrieved from the object's header. This value is not allowed for temporary objects.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME", "*OBJD" ]
+            "default" : "*SAME"
           },
           "userWhichCreatedObject" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "Specify the user who created the object. The possible values are:        \r\n\r\n*SAME       \r\nThe user does not change. The value is retrieved from the header of the object if objects are added to the database. This value is not allowed when adding temporary objects.        \r\n\r\n*OBJD                                                   \r\nThe user who created the object is taken from the header of the object. This value is not allowed for temporary objects.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME", "*OBJD" ]
+            "default" : "*SAME"
           },
           "userDefined" : {
             "maxLength" : 5,
@@ -1254,31 +1297,44 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Specify the name of the source file. The possible values are:           \r\n\r\n*SAME        \r\nThe value of the element does not change. If *SAME is used when the object is first added then the source file and library are determined by TD/OMS.        \r\n\r\n*NONE                                                    \r\nThe object does not have a source or the object has a source but the source is not available. TD/OMS will not try to search for the object's source if it transfers the object.\r\n\r\n*OBJD    \r\nThe object is initially taken from the object's object description. TD/OMS will try to locate a better source if one is available.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME", "*NONE", "*OBJD" ]
+            "default" : "*SAME"
           },
           "sourceLibrary" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "Specify the name of the source library.   \r\n\r\n*SAME      \r\nThe value of the element does not change. If *SAME is used when the object is first added then the library is determined by TD/OMS.      \r\n\r\n*BEST                                                   \r\nTD/OMS will search for the best logical source location and will issue a report with possible source conflicts.                                                                 \r\n\r\n*OBJD   \r\nThe library is initially taken from the object's object description. TD/OMS will try to locate a better source library if one is available.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME", "*BEST", "*OBJD" ]
+            "default" : "*SAME"
           },
           "sourceMember" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "Specify the name of the source member. The possible values are:      \r\n\r\n*SAME      \r\nThe value of the element does not change. If *SAME is used when the object is first added then the member is determined by TD/OMS.       \r\n\r\n*OBJD   \r\nThe member is initially taken from the object's object description. TD/OMS will try to locate a better source member if one is available.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME", "*OBJD" ]
+            "default" : "*SAME"
           },
           "changeProcessingOptions" : {
             "$ref" : "#/components/schemas/changeProcessingOptions"
           }
         },
-        "description" : "Request data to change the object definition."
+        "description" : "Request data to change the object definition. This schema accepts exactly one of two request shapes: either objectCode, objectLibrary, and objectType for a library-based object, or iFSFullPathName for an IFS object."
       },
       "refillObjectRequest" : {
-        "required" : [ "objectLibrary", "objectType" ],
+        "oneOf" : [ {
+          "required" : [ "objectCode", "objectLibrary", "objectType" ],
+          "not" : {
+            "required" : [ "iFSFullPathName" ]
+          }
+        }, {
+          "required" : [ "iFSFullPathName" ],
+          "not" : {
+            "anyOf" : [ {
+              "required" : [ "objectCode" ]
+            }, {
+              "required" : [ "objectLibrary" ]
+            }, {
+              "required" : [ "objectType" ]
+            } ]
+          }
+        } ],
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
@@ -1293,7 +1349,11 @@
             "type" : "string",
             "description" : "The object code is the OS/400 system name of an object.  The length is 10 characters for normal objects and 12 for document library objects.                                \r\n\r\nIf the name contains a tilde (~) or a question mark (?), it is the short name for an object in the Integrated  File System. You can also have short name's if your application contains LANSA objects. The details for the  entry show the full name of the object.    \r\n\r\n*IFSOBJ      \r\nUse this value if you want to register an object from the integrated file system (IFS) instead of the normal OS/400 library structure.      \r\n\r\nObject code         \r\nSpecify the object code.",
             "default" : "*IFSOBJ",
-            "enum" : [ "*IFSOBJ" ]
+            "anyOf" : [ {
+              "enum" : [ "*IFSOBJ" ]
+            }, {
+              "pattern" : ".*"
+            } ]
           },
           "objectLibrary" : {
             "maxLength" : 10,
@@ -1310,49 +1370,52 @@
             "type" : "string",
             "description" : "Specify the attribute of the object. The possible values are:     \r\n\r\n*SAME     \r\nThe value of the element does not change. If *SAME is used when the object is first added, then the attribute is retrieved from the object's description. This value is not allowed for temporary objects.      \r\n\r\n*OBJD        \r\nThe attribute is retrieved from the object's object description. This value is not allowed when adding a temporary object.          \r\n\r\nobject-attribute   \r\nSpecify the object attribute. The value you specify here is only used for temporary objects.",
             "default" : "*SAME",
-            "enum" : [ "*SAME", "*OBJD" ]
+            "anyOf" : [ {
+              "enum" : [ "*SAME" ]
+            }, {
+              "pattern" : ".*"
+            } ]
           },
           "iFSFullPathName" : {
             "maxLength" : 5000,
             "type" : "string",
             "description" : "The IFS Full Path Name is a complete reference to an IFS object.  This includes the directory and the object.          \r\n\r\n*OBJC     \r\nUse this value if you want to register an object from the OS/400 library structure instead of the integrated file system (IFS).  \r\n\r\nFull path-name  \r\nSpecify a full path name to the object.",
             "default" : "*OBJC",
-            "enum" : [ "*OBJC" ]
+            "anyOf" : [ {
+              "enum" : [ "*OBJC" ]
+            }, {
+              "pattern" : ".*"
+            } ]
           },
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
             "description" : "Specify the application code of the object. The possible\r\nvalues are:       \r\n\r\n*SAME      \r\nThe application code of the object does not change.  This value is not allowed if an object is first added to the object database.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME" ]
+            "default" : "*SAME"
           },
           "environmentCode" : {
             "maxLength" : 5,
             "type" : "string",
             "description" : "Specify the environment code where the object resides.  TD/OMS will check if the library of the object is defined in the definition of the specified environment. The possible values are:     \r\n\r\n*SAME     \r\nThe environment code of the object does not change.  This value is not allowed if an object is first added to the object database.   \r\n\r\nenvironment-code   \r\nSpecify the environment code of the object.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME" ]
+            "default" : "*SAME"
           },
           "fixNumber" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "The fix number attribute of the object is not the fix the object is currently connected to, but the fix which caused the object to be placed in this environment. The possible values are:      \r\n\r\n*SAME   \r\nThe fix number in the object does not change.  \r\n\r\n*NONE     \r\nThe solution database is not searched for the fix by which the object could have been placed in this  environment.      \r\n\r\n*ACTIVE    \r\nThe solution database is searched and the last fix to which this object was connected is used as the fix  number for this object. However, if the fix number in the object is already filled then the fix number does not change.             \r\n\r\nfix-number  \r\nspecify the fix number to be used as the fix number in he object file. If a fix is specified, it must exist  in the TD/OMS database and the object must be connected to it.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME", "*NONE", "*ACTIVE" ]
+            "default" : "*SAME"
           },
           "objectDescription" : {
             "maxLength" : 50,
             "type" : "string",
             "description" : "Specify the description of the object. The possible values are:      \r\n\r\n*SAME   \r\nThe description of the object does not change. When the object is first added to the TD/OMS database the description is taken from the object's header. This value is not allowed when adding temporary objects.    \r\n\r\n*OBJD   \r\nThe object description is retrieved from the object's header. This value is not allowed for temporary objects.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME", "*OBJD" ]
+            "default" : "*SAME"
           },
           "userWhichCreatedObject" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "Specify the user who created the object. The possible values are:        \r\n\r\n*SAME       \r\nThe user does not change. The value is retrieved from the header of the object if objects are added to the database. This value is not allowed when adding temporary objects.        \r\n\r\n*OBJD                                                   \r\nThe user who created the object is taken from the header of the object. This value is not allowed for temporary objects.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME", "*OBJD" ]
+            "default" : "*SAME"
           },
           "userDefined" : {
             "maxLength" : 5,
@@ -1379,31 +1442,44 @@
             "maxLength" : 10,
             "type" : "string",
             "description" : "Specify the name of the source file. The possible values are:           \r\n\r\n*SAME        \r\nThe value of the element does not change. If *SAME is used when the object is first added then the source file and library are determined by TD/OMS.        \r\n\r\n*NONE                                                    \r\nThe object does not have a source or the object has a source but the source is not available. TD/OMS will not try to search for the object's source if it transfers the object.\r\n\r\n*OBJD    \r\nThe object is initially taken from the object's object description. TD/OMS will try to locate a better source if one is available.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME", "*NONE", "*OBJD" ]
+            "default" : "*SAME"
           },
           "sourceLibrary" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "Specify the name of the source library.   \r\n\r\n*SAME      \r\nThe value of the element does not change. If *SAME is used when the object is first added then the library is determined by TD/OMS.      \r\n\r\n*BEST                                                   \r\nTD/OMS will search for the best logical source location and will issue a report with possible source conflicts.                                                                 \r\n\r\n*OBJD   \r\nThe library is initially taken from the object's object description. TD/OMS will try to locate a better source library if one is available.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME", "*BEST", "*OBJD" ]
+            "default" : "*SAME"
           },
           "sourceMember" : {
             "maxLength" : 10,
             "type" : "string",
             "description" : "Specify the name of the source member. The possible values are:      \r\n\r\n*SAME      \r\nThe value of the element does not change. If *SAME is used when the object is first added then the member is determined by TD/OMS.       \r\n\r\n*OBJD   \r\nThe member is initially taken from the object's object description. TD/OMS will try to locate a better source member if one is available.",
-            "default" : "*SAME",
-            "enum" : [ "*SAME", "*OBJD" ]
+            "default" : "*SAME"
           },
           "refillProcessingOptions" : {
             "$ref" : "#/components/schemas/refillProcessingOptions"
           }
         },
-        "description" : "Request data to refill the object."
+        "description" : "Request data to refill the object. This schema accepts exactly one of two request shapes: either objectCode, objectLibrary, and objectType for a library-based object, or iFSFullPathName for an IFS object."
       },
       "deleteObjectRequest" : {
-        "required" : [ "objectLibrary", "objectType" ],
+        "oneOf" : [ {
+          "required" : [ "objectCode", "objectLibrary", "objectType" ],
+          "not" : {
+            "required" : [ "iFSFullPathName" ]
+          }
+        }, {
+          "required" : [ "iFSFullPathName" ],
+          "not" : {
+            "anyOf" : [ {
+              "required" : [ "objectCode" ]
+            }, {
+              "required" : [ "objectLibrary" ]
+            }, {
+              "required" : [ "objectType" ]
+            } ]
+          }
+        } ],
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
@@ -1418,7 +1494,11 @@
             "type" : "string",
             "description" : "The object code is the OS/400 system name of an object.  The length is 10 characters for normal objects and 12 for document library objects.                                \r\n\r\nIf the name contains a tilde (~) or a question mark (?), it is the short name for an object in the Integrated  File System. You can also have short name's if your application contains LANSA objects. The details for the  entry show the full name of the object.    \r\n\r\n*IFSOBJ      \r\nUse this value if you want to register an object from the integrated file system (IFS) instead of the normal OS/400 library structure.      \r\n\r\nObject code         \r\nSpecify the object code.",
             "default" : "*IFSOBJ",
-            "enum" : [ "*IFSOBJ" ]
+            "anyOf" : [ {
+              "enum" : [ "*IFSOBJ" ]
+            }, {
+              "pattern" : ".*"
+            } ]
           },
           "objectLibrary" : {
             "maxLength" : 10,
@@ -1435,16 +1515,36 @@
             "type" : "string",
             "description" : "The IFS Full Path Name is a complete reference to an IFS object.  This includes the directory and the object.          \r\n\r\n*OBJC     \r\nUse this value if you want to register an object from the OS/400 library structure instead of the integrated file system (IFS).  \r\n\r\nFull path-name  \r\nSpecify a full path name to the object.",
             "default" : "*OBJC",
-            "enum" : [ "*OBJC" ]
+            "anyOf" : [ {
+              "enum" : [ "*OBJC" ]
+            }, {
+              "pattern" : ".*"
+            } ]
           },
           "deleteProcessingOptions" : {
             "$ref" : "#/components/schemas/deleteProcessingOptions"
           }
         },
-        "description" : "Request data to delete the object."
+        "description" : "Request data to delete the object. This schema accepts exactly one of two request shapes: either objectCode, objectLibrary, and objectType for a library-based object, or iFSFullPathName for an IFS object."
       },
       "objectRelationRequest" : {
-        "required" : [ "objectLibrary", "objectType" ],
+        "oneOf" : [ {
+          "required" : [ "objectCode", "objectLibrary", "objectType" ],
+          "not" : {
+            "required" : [ "iFSFullPathName" ]
+          }
+        }, {
+          "required" : [ "iFSFullPathName" ],
+          "not" : {
+            "anyOf" : [ {
+              "required" : [ "objectCode" ]
+            }, {
+              "required" : [ "objectLibrary" ]
+            }, {
+              "required" : [ "objectType" ]
+            } ]
+          }
+        } ],
         "type" : "object",
         "properties" : {
           "interfaceLevel" : {
@@ -1459,7 +1559,11 @@
             "type" : "string",
             "description" : "The object code is the OS/400 system name of an object.  The length is 10 characters for normal objects and 12 for document library objects.                                \r\n\r\nIf the name contains a tilde (~) or a question mark (?), it is the short name for an object in the Integrated  File System. You can also have short name's if your application contains LANSA objects. The details for the  entry show the full name of the object.    \r\n\r\n*IFSOBJ      \r\nUse this value if you want to register an object from the integrated file system (IFS) instead of the normal OS/400 library structure.      \r\n\r\nObject code         \r\nSpecify the object code.",
             "default" : "*IFSOBJ",
-            "enum" : [ "*IFSOBJ" ]
+            "anyOf" : [ {
+              "enum" : [ "*IFSOBJ" ]
+            }, {
+              "pattern" : ".*"
+            } ]
           },
           "objectLibrary" : {
             "maxLength" : 10,
@@ -1476,13 +1580,17 @@
             "type" : "string",
             "description" : "The IFS Full Path Name is a complete reference to an IFS object.  This includes the directory and the object.          \r\n\r\n*OBJC     \r\nUse this value if you want to register an object from the OS/400 library structure instead of the integrated file system (IFS).  \r\n\r\nFull path-name  \r\nSpecify a full path name to the object.",
             "default" : "*OBJC",
-            "enum" : [ "*OBJC" ]
+            "anyOf" : [ {
+              "enum" : [ "*OBJC" ]
+            }, {
+              "pattern" : ".*"
+            } ]
           },
           "objectRelProcessingOptions" : {
             "$ref" : "#/components/schemas/objectRelProcessingOptions"
           }
         },
-        "description" : "Request data for object relation."
+        "description" : "Request payload for object-specific relationship processing. This schema accepts exactly one of two request shapes: either objectCode, objectLibrary, and objectType for a library-based object, or iFSFullPathName for an IFS object."
       },
       "responseData" : {
         "type" : "object",
@@ -1710,7 +1818,7 @@
           "labelCount" : {
             "maxLength" : 5,
             "type" : "number",
-            "description" : "",
+            "description" : "Number of labels currently associated with the object.",
             "format" : "packed(5:0)",
             "x-column" : "RJLAB#",
             "x-sequence" : "320"
@@ -1718,7 +1826,7 @@
           "activeSolutionCount" : {
             "maxLength" : 5,
             "type" : "number",
-            "description" : "",
+            "description" : "Number of active TD/OMS solutions currently connected to the object.",
             "format" : "packed(5:0)",
             "x-column" : "RJSOL#",
             "x-sequence" : "330"
@@ -1726,7 +1834,7 @@
           "createOverrideCount" : {
             "maxLength" : 5,
             "type" : "number",
-            "description" : "",
+            "description" : "Number of create override definitions associated with the object.",
             "format" : "packed(5:0)",
             "x-column" : "RJCOB#",
             "x-sequence" : "340"
@@ -1734,7 +1842,7 @@
           "commentCount" : {
             "maxLength" : 5,
             "type" : "number",
-            "description" : "",
+            "description" : "Number of comments stored for the object.",
             "format" : "packed(5:0)",
             "x-column" : "RJCMN#",
             "x-sequence" : "350"
@@ -1742,13 +1850,13 @@
           "activeSolutionCountForRelatedApplications" : {
             "maxLength" : 5,
             "type" : "number",
-            "description" : "",
+            "description" : "Number of active solutions connected through related applications.",
             "format" : "packed(5:0)",
             "x-column" : "RJSLO#",
             "x-sequence" : "360"
           }
         },
-        "description" : "Object response data.",
+        "description" : "Normalized object metadata returned by add, change, delete, refill, objectRelation, and close operations.",
         "x-pfname" : "OMOBJV1",
         "x-library" : "OMSRUN51",
         "x-host" : "plato",
@@ -1786,7 +1894,7 @@
             "enum" : [ "*NO", "*YES" ]
           }
         },
-        "description" : "Various flags to control the behavior of the API."
+        "description" : "Processing options that control how object-specific relationship rebuild requests are executed."
       },
       "changeProcessingOptions" : {
         "type" : "object",
@@ -1841,7 +1949,7 @@
             "enum" : [ "*NO", "*YES" ]
           }
         },
-        "description" : "Various flags to control the behavior of the API."
+        "description" : "Processing options that control how change requests update TD/OMS state, reporting, and relationship handling."
       },
       "deleteProcessingOptions" : {
         "type" : "object",
@@ -1882,7 +1990,7 @@
             "enum" : [ "*NO", "*YES" ]
           }
         },
-        "description" : "Various flags to control the behavior of the API."
+        "description" : "Processing options that control whether TD/OMS only removes the database record or also deletes the underlying object and source."
       },
       "addProcessingOptions" : {
         "type" : "object",
@@ -1937,7 +2045,7 @@
             "enum" : [ "*NO", "*YES" ]
           }
         },
-        "description" : "Various flags to control the behavior of the API."
+        "description" : "Processing options that control how add requests update TD/OMS state, reporting, and relationship handling."
       },
       "refillProcessingOptions" : {
         "type" : "object",
@@ -1992,7 +2100,7 @@
             "enum" : [ "*NO", "*YES" ]
           }
         },
-        "description" : "Various flags to control the behavior of the API."
+        "description" : "Processing options that control how refill requests update TD/OMS state, reporting, and relationship handling."
       },
       "jobRelationResponse" : {
         "type" : "object",
@@ -2022,7 +2130,7 @@
             "$ref" : "#/components/schemas/extendedMessage"
           }
         },
-        "description" : "Response for the action job relation."
+        "description" : "Response returned after queued relationship requests are processed for a job scope."
       }
     },
     "responses" : { },
