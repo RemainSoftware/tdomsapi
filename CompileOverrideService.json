@@ -1,8 +1,8 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "Compile Override API",
-    "description" : "This REST API allows you to perform actions such as adding, changing, copying, deleting, or authorizing compile overrides. Additionally, you can manage details of compile overrides using this API.\r\n\r\nThere are two ways to interact with compile overrides using this REST API:  \r\n\r\n1. Using create command type *HEADER: This indicates that you want to add, change, or delete the compile override header.\r\n\r\n2. Using a create command type other than *HEADER allows you to perform actions on the compile override details. Here, valid options include *PRE, *COMPILE, *POST, and *ALL.\r\n                                                ",
+    "title" : "OMS Compile Override Service",
+    "description" : "Manage TD/OMS compile overrides and their command details.\r\n\r\nUse this service to add, change, copy, delete, or authorize compile overrides. A compile override consists of a header plus one or more command details that run before, during, or after compilation.\r\n\r\nRequest behavior depends on `createCommandType`:\r\n\r\n- `*HEADER` targets the compile override header.\r\n- `*PRE`, `*COMPILE`, and `*POST` target individual command details.\r\n- `*ALL` is only valid where the operation explicitly allows all command details to be addressed at once.",
     "termsOfService" : "",
     "contact" : {
       "name" : "Remain Software",
@@ -19,12 +19,12 @@
       "object" : "OMQRCO",
       "library" : "V17T0016",
       "srclibrary" : "V17T0016S",
-      "file" : "CompileOverrideAPI.json"
+      "file" : "CompileOverrideService.json"
     }
   },
   "servers" : [ {
     "url" : "{protocol}://{host}:{port}/{library}/OMQRCO",
-    "description" : "A dynamic https host",
+    "description" : "Base URL for the OMS Compile Override Service.",
     "variables" : {
       "host" : {
         "description" : "The host serves the API.",
@@ -50,14 +50,14 @@
   } ],
   "paths" : {
     "/add" : {
-      "summary" : "Use this path to add a new compile override header or its command detail.",
-      "description" : "Use this path to add a new compile override header or its command detail.  \r\n\r\nNote:  \r\nWhen you add the compile override header, the default command detail will be automatically added.",
+      "summary" : "Add a compile override header or command detail.",
+      "description" : "Creates a compile override header or adds a command detail to an existing compile override.\r\n\r\nWhen `createCommandType` is `*HEADER`, TD/OMS creates the header and automatically adds the default compile command detail.",
       "post" : {
-        "summary" : "Use this operation to add a new compile override header or its command detail.",
-        "description" : "Use this operation to add a new compile override header or its command detail.    \r\n\r\nNote: Using the create command type *HEADER will automatically add the default command details along with the compile override header.",
+        "summary" : "Add a compile override header or command detail.",
+        "description" : "Creates a compile override header or command detail.\r\n\r\nUse `*HEADER` to create the header. Use `*PRE`, `*COMPILE`, or `*POST` to add a command detail. Creating a header also creates the default command detail.",
         "operationId" : "add",
         "requestBody" : {
-          "description" : "Use this input to add a new compile override or its command detail.",
+          "description" : "Request payload for creating a compile override header or command detail.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -79,7 +79,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK",
+            "description" : "Compile override created successfully.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -95,7 +95,7 @@
             }
           },
           "400" : {
-            "description" : "Something went wrong.",
+            "description" : "The request was invalid or the compile override could not be created.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -111,7 +111,7 @@
             }
           },
           "401" : {
-            "description" : "Not authorized.",
+            "description" : "Authentication failed or the bearer token is missing or expired.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -137,14 +137,14 @@
       }
     },
     "/change" : {
-      "summary" : "Use this path to change the contents or certain attributes of the compile override header or its command detail.",
-      "description" : "Use this path to change the contents or certain attributes of the compile override header or its command detail.",
+      "summary" : "Change a compile override header or command detail.",
+      "description" : "Updates a compile override header or one of its command details.",
       "post" : {
-        "summary" : "Use this operation to change the contents or certain attributes of the compile override header or its command detail.",
-        "description" : "Use this operation to change the contents or certain attributes of the compile override header or its command detail.\r\n\r\nNote: Using the create command type *HEADER will change the compile override header. If a different create command type is used, it will change the compile override details.",
+        "summary" : "Change a compile override header or command detail.",
+        "description" : "Updates a compile override header or command detail.\r\n\r\nUse `*HEADER` to update header-level fields. Use `*PRE`, `*COMPILE`, or `*POST` together with a sequence number to update a specific command detail.",
         "operationId" : "change",
         "requestBody" : {
-          "description" : "Use this input to change the attributes of the compile override or its command detail.",
+          "description" : "Request payload for updating a compile override header or command detail.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -166,7 +166,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK",
+            "description" : "Compile override updated successfully.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -182,7 +182,7 @@
             }
           },
           "400" : {
-            "description" : "Something went wrong.",
+            "description" : "The request was invalid or the compile override could not be updated.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -198,7 +198,7 @@
             }
           },
           "401" : {
-            "description" : "Not authorized.",
+            "description" : "Authentication failed or the bearer token is missing or expired.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -224,14 +224,14 @@
       }
     },
     "/copy" : {
-      "summary" : "Use this path to copy the compile override header.",
-      "description" : "Use this path to copy the compile override header.\r\n\r\nNote:  When you copy the compile override header, its associated command details will be automatically copied.",
+      "summary" : "Copy a compile override.",
+      "description" : "Copies a compile override header to a new target. The associated command details are copied automatically.",
       "post" : {
-        "summary" : "Use this operation to copy the compile override header.",
-        "description" : "Use this operation to copy the compile override header.  \r\n\r\nNote:  When you copy the compile override header, its associated command details will be automatically copied.",
+        "summary" : "Copy a compile override.",
+        "description" : "Copies a compile override header and all associated command details to the target object, application, environment, library, or member values supplied in the request.",
         "operationId" : "copy",
         "requestBody" : {
-          "description" : "Use this input to copy the compile override with its command detail.",
+          "description" : "Request payload for copying a compile override and its command details.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -269,7 +269,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK",
+            "description" : "Compile override copied successfully.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -285,7 +285,7 @@
             }
           },
           "400" : {
-            "description" : "Something went wrong.",
+            "description" : "The request was invalid or the compile override could not be copied.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -301,7 +301,7 @@
             }
           },
           "401" : {
-            "description" : "Not authorized.",
+            "description" : "Authentication failed or the bearer token is missing or expired.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -327,14 +327,14 @@
       }
     },
     "/delete" : {
-      "summary" : "Use this path to delete the compile override header or its details.",
-      "description" : "Use this path to delete the compile override header or its detail.  \r\n\r\nNote: Using the create command type *HEADER will automatically delete all associated details along with the compile override header.",
+      "summary" : "Delete a compile override header or command detail.",
+      "description" : "Deletes a compile override header or one or more command details.\r\n\r\nDeleting with `createCommandType` set to `*HEADER` also removes all associated command details.",
       "post" : {
-        "summary" : "Use this operation to delete the compile override header or its command detail.",
-        "description" : "Use this operation to delete the compile override header or its command detail.   \r\n\r\nNote: Using the create command type *HEADER will automatically delete all associated details along with the compile override header.",
+        "summary" : "Delete a compile override header or command detail.",
+        "description" : "Deletes a compile override header or command detail.\r\n\r\nUse `*HEADER` to remove the entire compile override. Use a detail-level `createCommandType` or `*ALL` where supported to remove command details only.",
         "operationId" : "delete",
         "requestBody" : {
-          "description" : "Use this input to delete the compile override with its command detail.",
+          "description" : "Request payload for deleting a compile override header or command detail.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -356,7 +356,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK",
+            "description" : "Compile override deleted successfully.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -395,7 +395,7 @@
             }
           },
           "400" : {
-            "description" : "Something went wrong.",
+            "description" : "The request was invalid or the compile override could not be deleted.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -411,7 +411,7 @@
             }
           },
           "401" : {
-            "description" : "Not authorized.",
+            "description" : "Authentication failed or the bearer token is missing or expired.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -437,14 +437,14 @@
       }
     },
     "/authorize" : {
-      "summary" : "Use this path to authorize the compile override.",
-      "description" : "Use this path to authorize the compile override.",
+      "summary" : "Authorize a compile override.",
+      "description" : "Marks the specified compile override as authorized.",
       "post" : {
-        "summary" : "Use this operation to authorize the compile override.",
-        "description" : "Use this operation to authorize the compile override.",
+        "summary" : "Authorize a compile override.",
+        "description" : "Marks the specified compile override as authorized and optionally returns the updated header and detail data.",
         "operationId" : "authorize",
         "requestBody" : {
-          "description" : "Use this input to authorize the compile override.",
+          "description" : "Request payload for authorizing a compile override.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -476,7 +476,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK",
+            "description" : "Compile override authorized successfully.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -492,7 +492,7 @@
             }
           },
           "400" : {
-            "description" : "Something went wrong.",
+            "description" : "The request was invalid or the compile override could not be authorized.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -508,7 +508,7 @@
             }
           },
           "401" : {
-            "description" : "Not authorized.",
+            "description" : "Authentication failed or the bearer token is missing or expired.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -543,7 +543,7 @@
           "interfaceLevel" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "The interface level must be V16R1M0.",
+            "description" : "Interface level supported by this service. This API currently accepts only `V16R1M0`.",
             "default" : "V16R1M0",
             "enum" : [ "V16R1M0" ]
           },
@@ -553,14 +553,14 @@
           "createCommandType" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "These command type groups create the object commands. The possible values are:\r\n\r\n*PRE   \r\nThis command type must be used for the Pre commands. \r\n\r\n*COMPILE  \r\nThis command type must be used for the create command. \r\n\r\n*POST  \r\nThis command type must be used for the Post commands.  \r\n\r\n*ALL  \r\nUse this value to delete all command types only if you are in delete mode and if you are in add or change mode, this value is not allowed.  \r\n\r\n*HEADER  \r\nUse this value when you want to add, change or delete the compile override header. \r\n\r\nNote:  \r\nWhen the command type is *HEADER, it indicates that you want to execute an action on the compile override header. If the command type is other than *HEADER, it means that you want to execute an action on the compile override details.",
+            "description" : "Identifies which part of the compile override is targeted.\r\n\r\n- `*HEADER`: target the compile override header.\r\n- `*PRE`: target a pre-compile command detail.\r\n- `*COMPILE`: target the compile command detail.\r\n- `*POST`: target a post-compile command detail.\r\n- `*ALL`: target all command details where the operation supports it.\r\n\r\nFor add and change requests, use `*HEADER` for header-level work and one of the detail values for command details.",
             "default" : "*HEADER",
             "enum" : [ "*HEADER", "*PRE", "*COMPILE", "*POST", "*ALL" ]
           },
           "createCommandSequenceNumber" : {
             "maximum" : 5,
             "type" : "number",
-            "description" : "Specify the command sequence number. \r\n\r\n-1 (*NEXT)  \r\nUse this value to allocate the next command sequence number. It will increment by 10    \r\nor round off to the nearest multiple of 10 if you are in add mode. However, if you are in \r\nchange or delete mode, this value is not allowed.  \r\n\r\n1 (*ONLY)  \r\nYou can use this value with the command type *COMPILE.\r\n\r\n-2 (*ALL)  \r\nUse this value to delete all command sequence numbers if you are in delete mode and if \r\nyou are in add or change mode, this value is not allowed.",
+            "description" : "Sequence number of the command detail.\r\n\r\n- `-1` (`*NEXT`): allocate the next available sequence number when adding a detail.\r\n- `1` (`*ONLY`): identify the single compile command detail when `createCommandType` is `*COMPILE`.\r\n- `-2` (`*ALL`): address all sequence numbers where the operation supports it, typically for delete requests.\r\n\r\nDo not use `*NEXT` or `*ALL` where the operation rules disallow them.",
             "format" : "packed(5:0)",
             "default" : -1.0,
             "enum" : [ -1.0, -2.0, 1.0 ]
@@ -568,14 +568,14 @@
           "behaviourOnError" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "This field indicates in what circumstances a create command detail should be executed. The possible values are:    \r\n\r\n*ALWAYS  \r\nThis value indicates that the create command detail should always be executed, whether or not there have been errors during the execution of previous create command details.   \r\n\r\n*NOTERROR  \r\nThis value indicates that the create command detail will not be executed if there have been errors during the execution of previous create command details.   \r\n\r\n*ERROR  \r\nThis value indicates that the create command detail will only be executed if there have been errors during the execution of previous create command details.   \r\n\r\n*SAME                                                     \r\nUse this value to indicate that the behavior on error does not change if you are in change mode. If you are in add mode it contains the default value, the default value for the behavior on error is *NOTERROR.",
+            "description" : "Controls when a command detail runs relative to earlier command failures.\r\n\r\n- `*ALWAYS`: always run the command detail.\r\n- `*NOTERROR`: run only when no prior command detail has failed.\r\n- `*ERROR`: run only after a prior command detail has failed.\r\n- `*SAME`: keep the current setting on change requests; for add requests the effective default is `*NOTERROR`.",
             "default" : "*SAME",
             "enum" : [ "*ALWAYS", "*NOTERROR", "*ERROR", "*SAME" ]
           },
           "commandString" : {
             "maxLength" : 1024,
             "type" : "string",
-            "description" : "The Command String can be used to enter a command string that can be executed by TD/OMS.  The attributes of the command string can be substituted. The substitution variables used are the same as used in action definitions.  \r\n\r\n*SAME  \r\nUse this value to indicate that the command string does not change if you are in change mode. It is not allowed in add mode when you try to add compile override details.",
+            "description" : "IBM i command string to execute for the command detail. TD/OMS substitution variables supported by action definitions may be used in the command text.\r\n\r\nUse `*SAME` only on change requests to leave the existing command string unchanged.",
             "default" : "*SAME",
             "enum" : [ "*SAME" ]
           },
@@ -583,7 +583,7 @@
             "$ref" : "#/components/schemas/addProcessingOptions"
           }
         },
-        "description" : "Request data to add the compile override."
+        "description" : "Payload for adding a compile override header or command detail."
       },
       "changeRequest" : {
         "type" : "object",
@@ -591,7 +591,7 @@
           "interfaceLevel" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "The interface level must be V16R1M0.",
+            "description" : "Interface level supported by this service. This API currently accepts only `V16R1M0`.",
             "default" : "V16R1M0",
             "enum" : [ "V16R1M0" ]
           },
@@ -601,14 +601,14 @@
           "createCommandType" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "These command type groups create the object commands. The possible values are:\r\n\r\n*PRE   \r\nThis command type must be used for the Pre commands. \r\n\r\n*COMPILE  \r\nThis command type must be used for the create command. \r\n\r\n*POST  \r\nThis command type must be used for the Post commands.  \r\n\r\n*ALL  \r\nUse this value to delete all command types only if you are in delete mode and if you are in add or change mode, this value is not allowed.  \r\n\r\n*HEADER  \r\nUse this value when you want to add, change or delete the compile override header. \r\n\r\nNote:  \r\nWhen the command type is *HEADER, it indicates that you want to execute an action on the compile override header. If the command type is other than *HEADER, it means that you want to execute an action on the compile override details.",
+            "description" : "Identifies which part of the compile override is targeted.\r\n\r\n- `*HEADER`: target the compile override header.\r\n- `*PRE`: target a pre-compile command detail.\r\n- `*COMPILE`: target the compile command detail.\r\n- `*POST`: target a post-compile command detail.\r\n- `*ALL`: target all command details where the operation supports it.",
             "default" : "*HEADER",
             "enum" : [ "*HEADER", "*PRE", "*COMPILE", "*POST", "*ALL" ]
           },
           "createCommandSequenceNumber" : {
             "maximum" : 5,
             "type" : "number",
-            "description" : "Specify the command sequence number. \r\n\r\n-1 (*NEXT)  \r\nUse this value to allocate the next command sequence number. It will increment by 10    \r\nor round off to the nearest multiple of 10 if you are in add mode. However, if you are in \r\nchange or delete mode, this value is not allowed.  \r\n\r\n1 (*ONLY)  \r\nYou can use this value with the command type *COMPILE.\r\n\r\n-2 (*ALL)  \r\nUse this value to delete all command sequence numbers if you are in delete mode and if \r\nyou are in add or change mode, this value is not allowed.",
+            "description" : "Sequence number of the command detail to update.\r\n\r\nUse `1` (`*ONLY`) with `*COMPILE` to address the single compile command detail. Values such as `*NEXT` and `*ALL` are not valid where change semantics require a specific detail.",
             "format" : "packed(5:0)",
             "default" : -1.0,
             "enum" : [ -1.0, -2.0, 1.0 ]
@@ -616,14 +616,14 @@
           "behaviourOnError" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "This field indicates in what circumstances a create command detail should be executed. The possible values are:    \r\n\r\n*ALWAYS  \r\nThis value indicates that the create command detail should always be executed, whether or not there have been errors during the execution of previous create command details.   \r\n\r\n*NOTERROR  \r\nThis value indicates that the create command detail will not be executed if there have been errors during the execution of previous create command details.   \r\n\r\n*ERROR  \r\nThis value indicates that the create command detail will only be executed if there have been errors during the execution of previous create command details.   \r\n\r\n*SAME                                                     \r\nUse this value to indicate that the behavior on error does not change if you are in change mode. If you are in add mode it contains the default value, the default value for the behavior on error is *NOTERROR.",
+            "description" : "Controls when a command detail runs relative to earlier command failures.\r\n\r\n- `*ALWAYS`: always run the command detail.\r\n- `*NOTERROR`: run only when no prior command detail has failed.\r\n- `*ERROR`: run only after a prior command detail has failed.\r\n- `*SAME`: keep the current setting unchanged.",
             "default" : "*SAME",
             "enum" : [ "*ALWAYS", "*NOTERROR", "*ERROR", "*SAME" ]
           },
           "commandString" : {
             "maxLength" : 1024,
             "type" : "string",
-            "description" : "The Command String can be used to enter a command string that can be executed by TD/OMS.  The attributes of the command string can be substituted. The substitution variables used are the same as used in action definitions.  \r\n\r\n*SAME  \r\nUse this value to indicate that the command string does not change if you are in change mode. It is not allowed in add mode when you try to add compile override details.",
+            "description" : "IBM i command string to execute for the command detail. TD/OMS substitution variables supported by action definitions may be used in the command text.\r\n\r\nUse `*SAME` only on change requests to leave the existing command string unchanged.",
             "default" : "*SAME",
             "enum" : [ "*SAME" ]
           },
@@ -631,7 +631,7 @@
             "$ref" : "#/components/schemas/changeProcessingOptions"
           }
         },
-        "description" : "Request data to change the compile override or its detail."
+        "description" : "Payload for updating a compile override header or command detail."
       },
       "copyRequest" : {
         "type" : "object",
@@ -639,7 +639,7 @@
           "interfaceLevel" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "The interface level must be V16R1M0.",
+            "description" : "Interface level supported by this service. This API currently accepts only `V16R1M0`.",
             "default" : "V16R1M0",
             "enum" : [ "V16R1M0" ]
           },
@@ -650,7 +650,7 @@
             "$ref" : "#/components/schemas/copyProcessingOptions"
           }
         },
-        "description" : "Request data to copy the compile override with its detail."
+        "description" : "Payload for copying a compile override header together with all command details."
       },
       "deleteRequest" : {
         "type" : "object",
@@ -658,7 +658,7 @@
           "interfaceLevel" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "The interface level must be V16R1M0.",
+            "description" : "Interface level supported by this service. This API currently accepts only `V16R1M0`.",
             "default" : "V16R1M0",
             "enum" : [ "V16R1M0" ]
           },
@@ -668,14 +668,14 @@
           "createCommandType" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "These command type groups create the object commands. The possible values are:\r\n\r\n*PRE   \r\nThis command type must be used for the Pre commands. \r\n\r\n*COMPILE  \r\nThis command type must be used for the create command. \r\n\r\n*POST  \r\nThis command type must be used for the Post commands.  \r\n\r\n*ALL  \r\nUse this value to delete all command types only if you are in delete mode and if you are in add or change mode, this value is not allowed.  \r\n\r\n*HEADER  \r\nUse this value when you want to add, change or delete the compile override header. \r\n\r\nNote:  \r\nWhen the command type is *HEADER, it indicates that you want to execute an action on the compile override header. If the command type is other than *HEADER, it means that you want to execute an action on the compile override details.",
+            "description" : "Identifies which part of the compile override to delete.\r\n\r\n- `*HEADER`: delete the header and all associated command details.\r\n- `*PRE`, `*COMPILE`, `*POST`: delete a specific command detail.\r\n- `*ALL`: delete all command details while leaving the header in place, where supported.",
             "default" : "*HEADER",
             "enum" : [ "*HEADER", "*PRE", "*COMPILE", "*POST", "*ALL" ]
           },
           "createCommandSequenceNumber" : {
             "maximum" : 5,
             "type" : "number",
-            "description" : "Specify the command sequence number. \r\n\r\n-1 (*NEXT)  \r\nUse this value to allocate the next command sequence number. It will increment by 10    \r\nor round off to the nearest multiple of 10 if you are in add mode. However, if you are in \r\nchange or delete mode, this value is not allowed.  \r\n\r\n1 (*ONLY)  \r\nYou can use this value with the command type *COMPILE.\r\n\r\n-2 (*ALL)  \r\nUse this value to delete all command sequence numbers if you are in delete mode and if \r\nyou are in add or change mode, this value is not allowed.",
+            "description" : "Sequence number of the command detail to delete.\r\n\r\nUse `1` (`*ONLY`) with `*COMPILE` for the single compile command detail. Use `-2` (`*ALL`) only when deleting all applicable sequence numbers is supported by the request.",
             "format" : "packed(5:0)",
             "default" : -1.0,
             "enum" : [ -1.0, -2.0, 1.0 ]
@@ -684,7 +684,7 @@
             "$ref" : "#/components/schemas/deleteProcessingOptions"
           }
         },
-        "description" : "Request data to delete the compile override."
+        "description" : "Payload for deleting a compile override header or command detail."
       },
       "authorizeRequest" : {
         "type" : "object",
@@ -692,7 +692,7 @@
           "interfaceLevel" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "The interface level must be V16R1M0.",
+            "description" : "Interface level supported by this service. This API currently accepts only `V16R1M0`.",
             "default" : "V16R1M0",
             "enum" : [ "V16R1M0" ]
           },
@@ -703,7 +703,7 @@
             "$ref" : "#/components/schemas/authorizeProcessingOptions"
           }
         },
-        "description" : "Request data to authorize the compile override."
+        "description" : "Payload for authorizing a compile override."
       },
       "response" : {
         "type" : "object",
@@ -711,7 +711,7 @@
           "status" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
+            "description" : "Execution status returned by the service. `*NORM` indicates success and `*TERM` indicates that processing terminated with one or more messages."
           },
           "message" : {
             "$ref" : "#/components/schemas/extendedMessage"
@@ -727,7 +727,7 @@
             }
           }
         },
-        "description" : "This will return the response data."
+        "description" : "Successful response payload containing status, message text, and the resulting compile override data."
       },
       "errorResponse" : {
         "type" : "object",
@@ -735,7 +735,7 @@
           "status" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
+            "description" : "Execution status returned by the service. Error responses typically return `*TERM`."
           },
           "messages" : {
             "maxItems" : 50,
@@ -745,7 +745,7 @@
             }
           }
         },
-        "description" : "This will return the error information."
+        "description" : "Error response payload containing one or more messages that explain why the request failed."
       },
       "extendedMessage" : {
         "type" : "object",
@@ -753,35 +753,35 @@
           "messageFile" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The message file."
+            "description" : "IBM i message file that supplied the message."
           },
           "messageId" : {
             "maxLength" : 7,
             "type" : "string",
-            "description" : "The message Idetifier."
+            "description" : "Identifier of the returned message."
           },
           "messageType" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "The message type 'E' indicates an error message, 'W' indicates a warning, while a blank indicates a normal message with no error."
+            "description" : "Message severity. `E` indicates an error, `W` indicates a warning, and blank indicates an informational message."
           },
           "messageData" : {
             "maxLength" : 80,
             "type" : "string",
-            "description" : "The message substitution data"
+            "description" : "Substitution data associated with the message."
           },
           "field" : {
             "maxLength" : 50,
             "type" : "string",
-            "description" : "The field in error"
+            "description" : "Request field associated with the message, when applicable."
           },
           "messageText" : {
             "maxLength" : 644,
             "type" : "string",
-            "description" : "The human readable message text."
+            "description" : "Human-readable message text returned by the service."
           }
         },
-        "description" : "The return messages."
+        "description" : "Message object returned in success and error responses."
       },
       "addProcessingOptions" : {
         "type" : "object",
@@ -789,19 +789,19 @@
           "updateDb" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "description" : "Set to `1` to persist the change. Set to `0` to validate the request without updating the database.",
             "default" : "1",
             "enum" : [ "0", "1" ]
           },
           "updateBuffer" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "description" : "Set to `1` to return refreshed data in the response. Set to `0` to skip the refresh.",
             "default" : "1",
             "enum" : [ "0", "1" ]
           }
         },
-        "description" : "Various flags to control the behavior of the API."
+        "description" : "Processing options that control add behavior and response refresh handling."
       },
       "authorizeProcessingOptions" : {
         "type" : "object",
@@ -809,19 +809,19 @@
           "updateDb" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "description" : "Set to `1` to persist the change. Set to `0` to validate the request without updating the database.",
             "default" : "1",
             "enum" : [ "0", "1" ]
           },
           "updateBuffer" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "description" : "Set to `1` to return refreshed data in the response. Set to `0` to skip the refresh.",
             "default" : "1",
             "enum" : [ "0", "1" ]
           }
         },
-        "description" : "Various flags to control the behavior of the API."
+        "description" : "Processing options that control authorization behavior and response refresh handling."
       },
       "changeProcessingOptions" : {
         "type" : "object",
@@ -829,48 +829,48 @@
           "updateDb" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "description" : "Set to `1` to persist the change. Set to `0` to validate the request without updating the database.",
             "default" : "1",
             "enum" : [ "0", "1" ]
           },
           "updateBuffer" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "description" : "Set to `1` to return refreshed data in the response. Set to `0` to skip the refresh.",
             "default" : "1",
             "enum" : [ "0", "1" ]
           },
           "toApplicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the To-application code. The possible values are:  \r\n\r\n*SAME  \r\nUse this value to indicate that the application code does not change.  \r\n\r\n*ALL  \r\nSpecify the To-application code to *ALL, It is valid for all applications.",
+            "description" : "Replacement application code for the compile override header. Use `*SAME` to keep the current value or `*ALL` to make the override valid for all applications.",
             "default" : "*SAME",
             "enum" : [ "*SAME", "*ALL" ]
           },
           "toEnvironmentCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the To-environment code. The possible values are:  \r\n\r\n*SAME  \r\nUse this value to indicate that the environment code does not change.  \r\n\r\n*ALL  \r\nSpecify the To-environment code to *ALL, It is valid for all environments.",
+            "description" : "Replacement environment code for the compile override header. Use `*SAME` to keep the current value or `*ALL` to make the override valid for all environments.",
             "default" : "*SAME",
             "enum" : [ "*SAME", "*ALL" ]
           },
           "toObjectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the To-object library. The possible values are:  \r\n\r\n*SAME  \r\nUse this value to indicate that the object library does not change.\r\n\r\n*ALL  \r\nSpecify the To-object library to *ALL, It is valid for all libraries.",
+            "description" : "Replacement object library for the compile override header. Use `*SAME` to keep the current value or `*ALL` to make the override valid for all libraries.",
             "default" : "*SAME",
             "enum" : [ "*SAME", "*ALL" ]
           },
           "crtCmdNewSeqNum" : {
             "maximum" : 5,
             "type" : "number",
-            "description" : "Specify the command new sequence number. The possible values are: \r\n\r\n-1 (*SAME)  \r\nUse this value to indicate that the command sequence number does not change. \r\n\r\n-2 (*NEXT)  \r\nUse this value to modify the command sequence number to a new value. It will increase by 10 or round off to the nearest multiple of 10.",
+            "description" : "New sequence number to assign to a command detail during a change request. Use `-1` (`*SAME`) to keep the current sequence number or `-2` (`*NEXT`) to allocate the next available value.",
             "format" : "packed(5:0)",
             "default" : -1.0,
             "enum" : [ -1.0, -2.0 ]
           }
         },
-        "description" : "Various flags to control the behavior of the API."
+        "description" : "Processing options that control update behavior, target reassignment, and response refresh handling."
       },
       "copyProcessingOptions" : {
         "type" : "object",
@@ -878,61 +878,61 @@
           "updateDb" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "description" : "Set to `1` to persist the change. Set to `0` to validate the request without updating the database.",
             "default" : "1",
             "enum" : [ "0", "1" ]
           },
           "updateBuffer" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "description" : "Set to `1` to return refreshed data in the response. Set to `0` to skip the refresh.",
             "default" : "1",
             "enum" : [ "0", "1" ]
           },
           "toObjectCode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Specify the To-object code.  \r\n\r\n*SAME  \r\nUse this value to indicate that the object code does not change.",
+            "description" : "Target object code for the copied compile override. Use `*SAME` to keep the source object code.",
             "default" : "*SAME",
             "enum" : [ "*SAME" ]
           },
           "toObjectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Specify the To-object type.  \r\n\r\n*SAME  \r\nUse this value to indicate that the object type does not change.",
+            "description" : "Target object type for the copied compile override. Use `*SAME` to keep the source object type.",
             "default" : "*SAME",
             "enum" : [ "*SAME" ]
           },
           "toMemberCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "When connecting a message or a source member the name of this member code must also be specified. The possible values are:  \r\n\r\n*SAME  \r\nUse this value to indicate that the detail does not change.  \r\n\r\n*NONE  \r\nNo member code is involved.",
+            "description" : "Target member code for the copied compile override when the object requires one. Use `*SAME` to keep the source member code or `*NONE` when no member is involved.",
             "default" : "*SAME",
             "enum" : [ "*SAME", "*NONE" ]
           },
           "toApplicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the To-application code. The possible values are:  \r\n\r\n*SAME  \r\nUse this value to indicate that the application code does not change.  \r\n\r\n*ALL  \r\nSpecify the To-application code to *ALL, It is valid for all applications.",
+            "description" : "Target application code for the copied compile override. Use `*SAME` to keep the source value or `*ALL` to make the copy valid for all applications.",
             "default" : "*SAME",
             "enum" : [ "*SAME", "*ALL" ]
           },
           "toEnvironmentCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the To-environment code. The possible values are:  \r\n\r\n*SAME  \r\nUse this value to indicate that the environment code does not change.  \r\n\r\n*ALL  \r\nSpecify the To-environment code to *ALL, It is valid for all environments.",
+            "description" : "Target environment code for the copied compile override. Use `*SAME` to keep the source value or `*ALL` to make the copy valid for all environments.",
             "default" : "*SAME",
             "enum" : [ "*SAME", "*ALL" ]
           },
           "toObjectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the To-object library. The possible values are:  \r\n\r\n*SAME  \r\nUse this value to indicate that the object library does not change.\r\n\r\n*ALL  \r\nSpecify the To-object library to *ALL, It is valid for all libraries.",
+            "description" : "Target object library for the copied compile override. Use `*SAME` to keep the source value or `*ALL` to make the copy valid for all libraries.",
             "default" : "*SAME",
             "enum" : [ "*SAME", "*ALL" ]
           }
         },
-        "description" : "Various flags to control the behavior of the API."
+        "description" : "Processing options that control copy behavior, copy targets, and response refresh handling."
       },
       "request" : {
         "required" : [ "objectCode", "objectType" ],
@@ -941,43 +941,43 @@
           "objectCode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Specify the object code."
+            "description" : "Object code that identifies the compile override."
           },
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Specify the object type."
+            "description" : "IBM i object type of `objectCode`, for example `*PGM`."
           },
           "memberCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "When connecting a message or a source member the name of this member code must also be specified. The possible values are: \r\n                                                                                                              \r\n*NONE                                                    \r\n    No member code is involved.",
+            "description" : "Member code associated with the object when the object is member-based. Use `*NONE` when no member is involved.",
             "default" : "*NONE",
             "enum" : [ "*NONE" ]
           },
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the application code. The possible values are:   \r\n                                                         \r\n*ALL  \r\nSpecify the application code to *ALL, It is valid for all applications.         \r\n                               ",
+            "description" : "Application code that scopes the compile override. Use `*ALL` for a compile override that applies to all applications.",
             "default" : "*ALL",
             "enum" : [ "*ALL" ]
           },
           "environmentCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the environment code. The possible values are:   \r\n\r\n*ALL  \r\nSpecify the environment code to *ALL, It is valid for all environments.",
+            "description" : "Environment code that scopes the compile override. Use `*ALL` for a compile override that applies to all environments.",
             "default" : "*ALL",
             "enum" : [ "*ALL" ]
           },
           "objectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the object library. The possible values are:   \r\n\r\n*ALL  \r\nSpecify the object library to *ALL, It is valid for all libraries.",
+            "description" : "Object library that scopes the compile override. Use `*ALL` for a compile override that applies to all libraries.",
             "default" : "*ALL",
             "enum" : [ "*ALL" ]
           }
         },
-        "description" : "Common fields for all path"
+        "description" : "Common identifier fields used to locate a compile override header or command detail."
       },
       "deleteProcessingOptions" : {
         "type" : "object",
@@ -985,19 +985,19 @@
           "updateDb" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "description" : "Set to `1` to persist the change. Set to `0` to validate the request without updating the database.",
             "default" : "1",
             "enum" : [ "0", "1" ]
           },
           "updateBuffer" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "description" : "Set to `1` to return refreshed data in the response. Set to `0` to skip the refresh.",
             "default" : "1",
             "enum" : [ "0", "1" ]
           }
         },
-        "description" : "Various flags to control the behavior of the API."
+        "description" : "Processing options that control delete behavior and response refresh handling."
       },
       "compileOverrideHeader" : {
         "type" : "object",
@@ -1005,56 +1005,56 @@
           "objectCode" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Object code",
+            "description" : "Object code of the compile override header.",
             "x-column" : "OBOBJC",
             "x-sequence" : "10"
           },
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Object type",
+            "description" : "IBM i object type of the compile override header.",
             "x-column" : "OBOBJT",
             "x-sequence" : "20"
           },
           "objectAttribute" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Object attribute",
+            "description" : "Object attribute returned for the compile override header.",
             "x-column" : "OBOBJA",
             "x-sequence" : "30"
           },
           "memberCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Member code",
+            "description" : "Member code associated with the compile override header, when applicable.",
             "x-column" : "OBMBRC",
             "x-sequence" : "40"
           },
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Application code",
+            "description" : "Application scope of the compile override header.",
             "x-column" : "OBAPPC",
             "x-sequence" : "50"
           },
           "environmentCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Environment code",
+            "description" : "Environment scope of the compile override header.",
             "x-column" : "OBPDLC",
             "x-sequence" : "60"
           },
           "objectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Object library",
+            "description" : "Object library scope of the compile override header.",
             "x-column" : "OBOBJL",
             "x-sequence" : "70"
           },
           "createCommandKeyNumber" : {
             "maxLength" : 7,
             "type" : "number",
-            "description" : "Create command key number",
+            "description" : "Internal key that identifies the compile override header.",
             "format" : "packed(7:0)",
             "x-column" : "OBCCK#",
             "x-sequence" : "80"
@@ -1062,19 +1062,19 @@
           "authorizedByUser" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Authorized by user",
+            "description" : "User profile that authorized the compile override.",
             "x-column" : "OBABUS",
             "x-sequence" : "90"
           },
           "typeCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Type code",
+            "description" : "Type code stored on the compile override header.",
             "x-column" : "OBTYPC",
             "x-sequence" : "100"
           }
         },
-        "description" : "Compile override header response data.",
+        "description" : "Compile override header returned by the service.",
         "x-pfname" : "OMCOB",
         "x-library" : "OMSRUN51",
         "x-host" : "plato",
@@ -1086,7 +1086,7 @@
           "createCommandKeyNumber" : {
             "maxLength" : 7,
             "type" : "number",
-            "description" : "Create command key number",
+            "description" : "Internal key of the compile override header that owns this detail.",
             "format" : "packed(7:0)",
             "x-column" : "OCCCK#",
             "x-sequence" : "10"
@@ -1094,14 +1094,14 @@
           "createCommandType" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Command type",
+            "description" : "Stored command type code for the detail record.",
             "x-column" : "OCCTYP",
             "x-sequence" : "20"
           },
           "createCommandSequenceNumber" : {
             "maxLength" : 5,
             "type" : "number",
-            "description" : "Create command sequence nbr.",
+            "description" : "Sequence number of the command detail.",
             "format" : "packed(5:0)",
             "x-column" : "OCCCS#",
             "x-sequence" : "30"
@@ -1109,19 +1109,19 @@
           "commandString" : {
             "maxLength" : 2048,
             "type" : "string",
-            "description" : "Command string",
+            "description" : "IBM i command string executed for this detail.",
             "x-column" : "OCCMDS",
             "x-sequence" : "40"
           },
           "behaviourOnError" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Behaviour on error",
+            "description" : "Stored behavior-on-error code for the detail record.",
             "x-column" : "OCERRB",
             "x-sequence" : "50"
           }
         },
-        "description" : "Compile override detail response data.",
+        "description" : "Compile override command detail returned by the service.",
         "x-pfname" : "OMCOC",
         "x-library" : "OMSRUN51",
         "x-host" : "plato",
@@ -1328,7 +1328,7 @@
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
-        "description" : "JWT security",
+        "description" : "Bearer token authentication using JWT.",
         "scheme" : "bearer",
         "bearerFormat" : "JWT"
       }
