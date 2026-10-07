@@ -1,8 +1,8 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "Managed Deployment API.",
-    "description" : "The Managed Deployment REST API enables users to monitor and manage the deployment transfers staged before completion. With this API, you can hold, release, schedule , close, and purge the transfers.     ",
+    "title" : "OMS Managed Deployment Service",
+    "description" : "The OMS Managed Deployment REST API manages TD/OMS deployment transfers that have been staged for distribution. The OpenAPI 3 specification exposes five operations to control a transfer lifecycle: hold a transfer, release a held transfer, schedule a transfer for later processing, close a failed or distributed transfer, and purge completed transfer artifacts.",
     "termsOfService" : "",
     "contact" : {
       "name" : "Remain Software",
@@ -19,7 +19,7 @@
       "object" : "OMQRMD",
       "library" : "V17T0187",
       "srclibrary" : "V17T0187S",
-      "file" : "ManagedDeploymentAPI.json"
+      "file" : "ManagedDeploymentService.json"
     }
   },
   "servers" : [ {
@@ -50,14 +50,14 @@
   } ],
   "paths" : {
     "/hold" : {
-      "summary" : "Use this path to hold the transfer.",
-      "description" : "Use this path to hold the transfer.",
+      "summary" : "Place a deployment transfer on hold.",
+      "description" : "Suspends processing for a specific managed deployment transfer identified by application, transfer code, and target address.",
       "post" : {
-        "summary" : "Use this operation to hold the transfer.",
-        "description" : "Use this operation to hold the transfer.",
+        "summary" : "Hold a deployment transfer.",
+        "description" : "Changes the identified managed deployment transfer to held status so it is not processed until it is explicitly released.",
         "operationId" : "hold",
         "requestBody" : {
-          "description" : "Use this input to hold the transfer.",
+          "description" : "Payload that identifies the managed deployment transfer to hold and optionally controls whether TD/OMS updates and returns refreshed transfer data.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -69,7 +69,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "Ok",
+            "description" : "The transfer was held successfully.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -110,7 +110,7 @@
             }
           },
           "400" : {
-            "description" : "Something went wrong.",
+            "description" : "The request was invalid or the transfer could not be processed.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -126,7 +126,7 @@
             }
           },
           "401" : {
-            "description" : "Not authorized.",
+            "description" : "The bearer token is missing, invalid, or expired.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -152,14 +152,14 @@
       }
     },
     "/release" : {
-      "summary" : "Use this path to release the transfer.",
-      "description" : "Use this path to release the transfer.",
+      "summary" : "Release a managed deployment transfer.",
+      "description" : "Resumes processing for a specific managed deployment transfer that is currently held or otherwise awaiting release.",
       "post" : {
-        "summary" : "Use this operation to release the transfer.",
-        "description" : "Use this operation to release the transfer.",
+        "summary" : "Release a deployment transfer.",
+        "description" : "Updates the identified managed deployment transfer to a ready state so TD/OMS can continue processing it.",
         "operationId" : "release",
         "requestBody" : {
-          "description" : "Use this input to release the transfer.",
+          "description" : "Payload that identifies the managed deployment transfer to release and optionally controls update and refresh behavior.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -171,7 +171,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK",
+            "description" : "The transfer was released successfully.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -212,7 +212,7 @@
             }
           },
           "400" : {
-            "description" : "Something went wrong.",
+            "description" : "The request was invalid or the transfer could not be processed.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -228,7 +228,7 @@
             }
           },
           "401" : {
-            "description" : "Not authorized.",
+            "description" : "The bearer token is missing, invalid, or expired.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -254,14 +254,14 @@
       }
     },
     "/purge" : {
-      "summary" : "Use this path to purge the transfer.",
-      "description" : "Use this path to purge the transfers. that are completed for all addresses. Purging will remove the associated deployment files from the deployment library (default library is OMSDISTR).  Purging should\r\nbe done on a regular basis to avoid excessive disk usage.",
+      "summary" : "Purge completed deployment transfers.",
+      "description" : "Removes completed managed deployment transfers and their associated deployment files from the deployment library, typically for all addresses in the specified application.",
       "post" : {
-        "summary" : "Use this operetion to purge the transfer.",
-        "description" : "Use this operetion to purge the transfers. that are completed for all addresses. Purging will remove the associated deployment files from the deployment library (default library is OMSDISTR).  Purging should\r\nbe done on a regular basis to avoid excessive disk usage.",
+        "summary" : "Purge completed deployment transfer artifacts.",
+        "description" : "Deletes completed managed deployment transfers together with the related deployment artifacts stored in the deployment library. Run this operation regularly to control disk usage.",
         "operationId" : "purge",
         "requestBody" : {
-          "description" : "Use this input to purge the transfer.",
+          "description" : "Payload that identifies which completed transfers to purge for the specified application and controls update behavior.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -273,7 +273,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK",
+            "description" : "The completed transfers were purged successfully.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -314,7 +314,7 @@
             }
           },
           "400" : {
-            "description" : "Something went wrong.",
+            "description" : "The request was invalid or the purge operation could not be completed.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -330,7 +330,7 @@
             }
           },
           "401" : {
-            "description" : "Not authorized.",
+            "description" : "The bearer token is missing, invalid, or expired.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -356,14 +356,14 @@
       }
     },
     "/schedule" : {
-      "summary" : "Use this path to schedule the transfer.",
-      "description" : "Use this path to schedule the transfer.",
+      "summary" : "Schedule a deployment transfer.",
+      "description" : "Assigns a future processing date and time to a specific managed deployment transfer.",
       "post" : {
-        "summary" : "Use this operetion to schedule the transfer.",
-        "description" : "Use this operetion to schedule the transfer.",
+        "summary" : "Schedule transfer processing.",
+        "description" : "Updates the identified managed deployment transfer with the supplied schedule date and time so TD/OMS can process it later.",
         "operationId" : "schedule",
         "requestBody" : {
-          "description" : "Use this input to schedule the transfer.",
+          "description" : "Payload that identifies the managed deployment transfer to schedule, supplies the target date and time, and optionally controls update behavior.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -375,7 +375,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK",
+            "description" : "The transfer was scheduled successfully.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -416,7 +416,7 @@
             }
           },
           "400" : {
-            "description" : "Something went wrong.",
+            "description" : "The request was invalid or the transfer could not be scheduled.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -432,7 +432,7 @@
             }
           },
           "401" : {
-            "description" : "Not authorized.",
+            "description" : "The bearer token is missing, invalid, or expired.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -458,14 +458,14 @@
       }
     },
     "/close" : {
-      "summary" : "Use this path to close the transfers.",
-      "description" : "Use this path to close the transfer. Only transfer with status **ERR or **DST can be forcefully\r\nclosed. The transfer status is updated to *TERM. Please note that the remote job in the remote job monitor must be closed first.",
+      "summary" : "Force-close a managed deployment transfer.",
+      "description" : "Terminates a managed deployment transfer that can no longer continue processing. Only transfers in eligible statuses such as **ERR or **DST can be closed, and any related remote job must already be closed.",
       "post" : {
-        "summary" : "Use this operation to close the transfer.",
-        "description" : "Use this operation to close the transfer. Only transfer with status **ERR or **DST can be forcefully\r\nclosed. The transfer status is updated to *TERM. Please note that the remote job in the remote job monitor must be closed first.",
+        "summary" : "Close a deployment transfer.",
+        "description" : "Marks the identified managed deployment transfer as terminated by setting its status to *TERM. Use this operation only after any related remote job has been closed.",
         "operationId" : "close",
         "requestBody" : {
-          "description" : "Use this input to close the transfer.",
+          "description" : "Payload that identifies the managed deployment transfer to close, records the close reason code, and optionally controls update behavior.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -477,7 +477,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK",
+            "description" : "The transfer was closed successfully.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -518,7 +518,7 @@
             }
           },
           "400" : {
-            "description" : "Something went wrong.",
+            "description" : "The request was invalid or the transfer could not be closed.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -534,7 +534,7 @@
             }
           },
           "401" : {
-            "description" : "Not authorized.",
+            "description" : "The bearer token is missing, invalid, or expired.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -568,33 +568,33 @@
           "interfaceLevel" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "The interface level must be V17R1M0.",
+            "description" : "TD/OMS interface level required by this API. Use V17R1M0.",
             "default" : "V17R1M0",
             "enum" : [ "V17R1M0" ]
           },
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the application code.",
+            "description" : "Application code that owns the managed deployment transfer.",
             "default" : "XMP"
           },
           "transferCode" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "Specify the transfer code.   ",
+            "description" : "Transfer code of the managed deployment record to hold.",
             "default" : "OM050578"
           },
           "userAddressDistribution" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "Specify the address.   ",
+            "description" : "Distribution address that identifies the transfer target to hold.",
             "default" : "SPINOZA"
           },
           "deploymentProcessingOptions" : {
             "$ref" : "#/components/schemas/deploymentProcessingOptions"
           }
         },
-        "description" : "The request input to hold the transfer."
+        "description" : "Request payload for holding a specific managed deployment transfer."
       },
       "releaseDeploymentRequest" : {
         "type" : "object",
@@ -602,33 +602,33 @@
           "interfaceLevel" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "The interface level must be V17R1M0.",
+            "description" : "TD/OMS interface level required by this API. Use V17R1M0.",
             "default" : "V17R1M0",
             "enum" : [ "V17R1M0" ]
           },
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the application code.",
+            "description" : "Application code that owns the managed deployment transfer.",
             "default" : "XMP"
           },
           "transferCode" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "Specify the transfer code.   ",
+            "description" : "Transfer code of the managed deployment record to release.",
             "default" : "OM050578"
           },
           "userAddressDistribution" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "Specify the address.   ",
+            "description" : "Distribution address that identifies the transfer target to release.",
             "default" : "SPINOZA"
           },
           "deploymentProcessingOptions" : {
             "$ref" : "#/components/schemas/deploymentProcessingOptions"
           }
         },
-        "description" : "The request input to release the transfer."
+        "description" : "Request payload for releasing a specific managed deployment transfer."
       },
       "purgeDeploymentRequest" : {
         "type" : "object",
@@ -636,20 +636,20 @@
           "interfaceLevel" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "The interface level must be V17R1M0.",
+            "description" : "TD/OMS interface level required by this API. Use V17R1M0.",
             "default" : "V17R1M0",
             "enum" : [ "V17R1M0" ]
           },
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the application code.",
+            "description" : "Application code whose completed managed deployment transfers will be purged.",
             "default" : "XMP"
           },
           "transferCode" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "Specify the transfer code.   \r\n\r\n*ALL      \r\nUse this value to purge all transfers for the given  application. It is invalid for any other actions.   ",
+            "description" : "Transfer code to purge. Use *ALL to purge all completed transfers for the specified application. The *ALL value is valid only for the purge operation.",
             "default" : "*ALL",
             "enum" : [ "*ALL" ]
           },
@@ -657,7 +657,7 @@
             "$ref" : "#/components/schemas/deploymentProcessingOptions"
           }
         },
-        "description" : "The request input to purge the transfer."
+        "description" : "Request payload for purging completed managed deployment transfers."
       },
       "managedDeploymentData" : {
         "type" : "object",
@@ -665,35 +665,35 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Application code",
+            "description" : "Application code that owns the managed deployment transfer.",
             "x-column" : "DHAPPC",
             "x-sequence" : "10"
           },
           "transferCode" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "Transfer code",
+            "description" : "Managed deployment transfer code.",
             "x-column" : "DHTFRC",
             "x-sequence" : "20"
           },
           "userAddressDistribution" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "User address, distribution",
+            "description" : "Distribution address associated with the transfer.",
             "x-column" : "DHADDR",
             "x-sequence" : "30"
           },
           "mediumIndicator" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Medium Indicator",
+            "description" : "Indicator that identifies the transfer medium used by TD/OMS.",
             "x-column" : "DHMEDI",
             "x-sequence" : "40"
           },
           "incomeDate" : {
             "maxLength" : 7,
             "type" : "number",
-            "description" : "Income date",
+            "description" : "Date on which the transfer entered the managed deployment queue, in TD/OMS numeric date format.",
             "format" : "zoned(7:0)",
             "x-column" : "DHINDT",
             "x-sequence" : "50"
@@ -701,7 +701,7 @@
           "incomeTime" : {
             "maxLength" : 6,
             "type" : "number",
-            "description" : "Income time",
+            "description" : "Time at which the transfer entered the managed deployment queue, in HHMMSS numeric format.",
             "format" : "zoned(6:0)",
             "x-column" : "DHINTM",
             "x-sequence" : "60"
@@ -709,7 +709,7 @@
           "scheduleDate" : {
             "maxLength" : 7,
             "type" : "number",
-            "description" : "Schedule Date",
+            "description" : "Scheduled processing date for the transfer, in TD/OMS numeric date format.",
             "format" : "zoned(7:0)",
             "x-column" : "DHSCDT",
             "x-sequence" : "70"
@@ -717,7 +717,7 @@
           "scheduleTime" : {
             "maxLength" : 6,
             "type" : "number",
-            "description" : "Schedule Time",
+            "description" : "Scheduled processing time for the transfer, in HHMMSS numeric format.",
             "format" : "zoned(6:0)",
             "x-column" : "DHSCTM",
             "x-sequence" : "80"
@@ -725,7 +725,7 @@
           "realizedCompletionDate" : {
             "maxLength" : 7,
             "type" : "number",
-            "description" : "Realized completion date",
+            "description" : "Actual completion date of the transfer, in TD/OMS numeric date format.",
             "format" : "zoned(7:0)",
             "x-column" : "DHRCDT",
             "x-sequence" : "90"
@@ -733,7 +733,7 @@
           "realizedCompletionTime" : {
             "maxLength" : 6,
             "type" : "number",
-            "description" : "Realized completion time",
+            "description" : "Actual completion time of the transfer, in HHMMSS numeric format.",
             "format" : "zoned(6:0)",
             "x-column" : "DHRCTM",
             "x-sequence" : "100"
@@ -741,26 +741,26 @@
           "tableValueCharacter" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Table value character",
+            "description" : "Table-maintained reason or status-related value associated with the transfer record.",
             "x-column" : "DHVALC",
             "x-sequence" : "110"
           },
           "userWhoGaveConfirmation" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "User who gave Confirmation",
+            "description" : "User profile that last confirmed or updated the transfer action.",
             "x-column" : "DHCMUS",
             "x-sequence" : "120"
           },
           "status" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Status",
+            "description" : "Current TD/OMS status of the managed deployment transfer, such as *HOLD, *RDY, *SCHD, or *TERM.",
             "x-column" : "DHSTAT",
             "x-sequence" : "130"
           }
         },
-        "description" : "The response data for managed deployment .",
+        "description" : "Managed deployment transfer data returned by the service.",
         "x-pfname" : "OMMDH",
         "x-library" : "V17T0187",
         "x-host" : "plato",
@@ -772,7 +772,7 @@
           "status" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
+            "description" : "Overall API result. *NORM indicates success and *TERM indicates the request ended with one or more errors."
           },
           "message" : {
             "$ref" : "#/components/schemas/extendedMessage"
@@ -781,7 +781,7 @@
             "$ref" : "#/components/schemas/managedDeploymentData"
           }
         },
-        "description" : "The response data for managed deployment ."
+        "description" : "Successful response containing the overall result, a primary message, and the current managed deployment data."
       },
       "scheduleDeploymentRequest" : {
         "type" : "object",
@@ -789,37 +789,37 @@
           "interfaceLevel" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "The interface level must be V17R1M0.",
+            "description" : "TD/OMS interface level required by this API. Use V17R1M0.",
             "default" : "V17R1M0",
             "enum" : [ "V17R1M0" ]
           },
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the application code.",
+            "description" : "Application code that owns the managed deployment transfer.",
             "default" : "XMP"
           },
           "transferCode" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "Specify the transfer code.   ",
+            "description" : "Transfer code of the managed deployment record to schedule.",
             "default" : "OM050578"
           },
           "userAddressDistribution" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "Specify the address.   ",
+            "description" : "Distribution address that identifies the transfer target to schedule.",
             "default" : "SPINOZA"
           },
           "scheduleDate" : {
             "type" : "number",
-            "description" : "Specify the Schedule date. The date format should be *CYMD.",
+            "description" : "Target processing date for the transfer, expressed in TD/OMS *CYMD numeric date format.",
             "format" : "zoned(7:0)",
             "default" : 1250425.0
           },
           "scheduleTime" : {
             "type" : "number",
-            "description" : "Specify the schedule time. The time format should be in HHMMSS.",
+            "description" : "Target processing time for the transfer, expressed as HHMMSS.",
             "format" : "zoned(6:0)",
             "default" : 104537.0
           },
@@ -827,7 +827,7 @@
             "$ref" : "#/components/schemas/deploymentProcessingOptions"
           }
         },
-        "description" : "The request input to schedule the transfer."
+        "description" : "Request payload for scheduling a managed deployment transfer."
       },
       "extendedMessage" : {
         "type" : "object",
@@ -835,35 +835,35 @@
           "messageFile" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "The message file."
+            "description" : "IBM i message file that contains the returned message definition."
           },
           "messageId" : {
             "maxLength" : 7,
             "type" : "string",
-            "description" : "The message Idetifier."
+            "description" : "Identifier of the returned IBM i message."
           },
           "messageType" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "The message type 'E' indicates an error message,  while 'N' indicates a normal message with no error."
+            "description" : "Type of returned message. E indicates an error and N indicates a normal informational message."
           },
           "messageData" : {
             "maxLength" : 80,
             "type" : "string",
-            "description" : "The message substitution data."
+            "description" : "Substitution data associated with the returned message."
           },
           "field" : {
             "maxLength" : 50,
             "type" : "string",
-            "description" : "The field in error."
+            "description" : "Request field associated with the message when validation or business-rule processing fails."
           },
           "messageText" : {
             "maxLength" : 644,
             "type" : "string",
-            "description" : "The human readable message text."
+            "description" : "Human-readable message text returned by TD/OMS."
           }
         },
-        "description" : "The return messages information."
+        "description" : "Structured TD/OMS message returned by the API."
       },
       "managedDeploymentErrorResponse" : {
         "type" : "object",
@@ -871,7 +871,7 @@
           "status" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "The return status can be *NORM or *TERM. In the case of *TERM look at the messages for more information."
+            "description" : "Overall API result. *TERM indicates the request failed; inspect messages for details."
           },
           "messages" : {
             "maxItems" : 50,
@@ -881,7 +881,7 @@
             }
           }
         },
-        "description" : "This will return the error information."
+        "description" : "Error response containing one or more TD/OMS messages that explain why the request failed."
       },
       "deploymentProcessingOptions" : {
         "type" : "object",
@@ -889,19 +889,19 @@
           "updateDb" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify '1' to update the database or '0' to not update but check only.",
+            "description" : "Set to 1 to persist the requested action in TD/OMS, or 0 to validate without updating the database.",
             "default" : "1",
             "enum" : [ "0", "1" ]
           },
           "updateBuffer" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Specify '1' to update the returned data with the latest values or '0' to not return the latest data.",
+            "description" : "Set to 1 to return refreshed transfer data after processing, or 0 to skip the refresh.",
             "default" : "1",
             "enum" : [ "0", "1" ]
           }
         },
-        "description" : "Various flags to control the behavior of the API."
+        "description" : "Processing flags that control whether the service updates TD/OMS data and refreshes the response payload."
       },
       "closeDeploymentRequest" : {
         "type" : "object",
@@ -909,39 +909,39 @@
           "interfaceLevel" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "The interface level must be V17R1M0.",
+            "description" : "TD/OMS interface level required by this API. Use V17R1M0.",
             "default" : "V17R1M0",
             "enum" : [ "V17R1M0" ]
           },
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the application code.",
+            "description" : "Application code that owns the managed deployment transfer.",
             "default" : "XMP"
           },
           "transferCode" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "Specify the transfer code.  ",
+            "description" : "Transfer code of the managed deployment record to close.",
             "default" : "OM050578"
           },
           "userAddressDistribution" : {
             "maxLength" : 8,
             "type" : "string",
-            "description" : "Specify the address.  ",
+            "description" : "Distribution address that identifies the transfer target to close.",
             "default" : "SPINOZA"
           },
           "tableValueCharacter" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the reason code. It indicates the reason why the transfer was closed.   \r\n\r\nNote:  The reason code is maintained using the table\r\nmaintenance (STRTM) function.",
+            "description" : "Reason code that explains why the transfer is being closed. Maintain valid reason codes with the TD/OMS STRTM table maintenance function.",
             "default" : "FAIL"
           },
           "deploymentProcessingOptions" : {
             "$ref" : "#/components/schemas/deploymentProcessingOptions"
           }
         },
-        "description" : "Use this input to close the transfers. Only transfers with status **ERR or **DST can be forcefully closed."
+        "description" : "Request payload for force-closing a managed deployment transfer that is eligible for termination."
       }
     },
     "responses" : { },
@@ -975,7 +975,7 @@
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
-        "description" : "The HTTP API Token",
+        "description" : "Bearer token used to authorize requests to the Managed Deployment Service.",
         "scheme" : "bearer",
         "bearerFormat" : "JWT"
       }
