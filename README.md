@@ -591,7 +591,7 @@ curl -X 'POST' \
 * [New Object Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/NewObjectService.json)
 * [Object](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/ObjectAPI.json)
 * [Octo KanBan Provider](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/octo_kanban_provider.json)
-* [OMS Log Message](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/OMSLogMessageAPI.json)
+* [Log Message Service](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/LogMessageService.json)
 * [Program Call](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/programCall.json)
 * [Remain API Generator](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/main/apigenerator.json)
 * [Remote Job Monitor](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/RemainSoftware/tdomsapi/refs/heads/main/RemoteJobMonitorAPI.json)
