@@ -19,7 +19,7 @@
       "object" : "OMQRSF",
       "library" : "V16T0049",
       "srclibrary" : "V16T0049S",
-      "file" : "SpoolFileAPI.json"
+      "file" : "SpoolFileService.json"
     }
   },
   "servers" : [ {
