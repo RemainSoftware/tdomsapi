@@ -1,8 +1,8 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "newObjectAPI.",
-    "description" : "The new object API enables you to create new objects. New objects will be connected to the associated task.",
+    "title" : "OMS New Object Service",
+    "description" : "Provides operations for creating IBM i objects, object details such as source members and message entries, IFS stream files, and data areas in TD/OMS. The service also resolves target object, source, and IFS locations before creation. Created resources are associated with the specified task, but the required request fields vary by resource type.",
     "termsOfService" : "",
     "contact" : {
       "name" : "Remain Software",
@@ -10,7 +10,7 @@
       "email" : "helpdesk@remainsoftware.com"
     },
     "license" : {
-      "name" : "Remain Software Commercial License ",
+      "name" : "Remain Software Commercial License",
       "url" : "https://remainsoftware.com/software-licensing"
     },
     "version" : "0.0.1",
@@ -19,28 +19,28 @@
       "object" : "OMQRNO",
       "library" : "V19T0082",
       "srclibrary" : "V19T0082S",
-      "file" : "newObjectAPI.json"
+      "file" : "NewObjectService.json"
     }
   },
   "servers" : [ {
     "url" : "{protocol}://{host}:{port}/{library}/OMQRNO",
-    "description" : "",
+    "description" : "Base URL template for the TD/OMS New Object Service.",
     "variables" : {
       "host" : {
-        "description" : "The host serving the API",
+          "description" : "Host name of the TD/OMS server.",
         "default" : "plato.remainsoftware.com"
       },
       "library" : {
-        "description" : "The TD/OMS library",
+          "description" : "IBM i library containing the TD/OMS service program.",
         "default" : "OMS"
       },
       "protocol" : {
-        "description" : "Protocol",
+          "description" : "Transport protocol used to access the service.",
         "default" : "https",
         "enum" : [ "https", "http" ]
       },
       "port" : {
-        "description" : "The port to which the server is listening",
+          "description" : "TCP port on which the TD/OMS service is listening.",
         "default" : "45011"
       }
     }
@@ -50,14 +50,14 @@
   } ],
   "paths" : {
     "/add" : {
-      "summary" : "Use this path to create the new object.",
-      "description" : "Use this path to create the new object.",
+      "summary" : "Create an IBM i object",
+      "description" : "Creates an IBM i object or an object detail, such as a source member or message entry, and associates it with the specified task. The required request fields depend on the requested object type and whether the request creates a full object or only a detail within an existing object.",
       "post" : {
-        "summary" : "Use this operation to create the new object.",
-        "description" : "Use this operation to create the new object.",
+        "summary" : "Create an IBM i object",
+        "description" : "Creates an IBM i object or object detail in the requested application, environment, and task. Use this operation for full objects such as programs and physical files, and also for detail-style entries such as source members and message entries. Depending on the object type, the request can require detail fields, source fields, template information, or a combination of these values.",
         "operationId" : "add",
         "requestBody" : {
-          "description" : "addNewObject",
+          "description" : "Object creation details, including the target, task, and optional source template.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -79,7 +79,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK",
+            "description" : "The object was created and associated with the specified task.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -95,7 +95,7 @@
             }
           },
           "400" : {
-            "description" : "Bad Request from Client",
+            "description" : "The request is invalid or cannot be processed because of a client or business-rule error.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -105,7 +105,7 @@
             }
           },
           "401" : {
-            "description" : "not authorized",
+            "description" : "Authentication is missing, invalid, or expired.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -131,14 +131,14 @@
       }
     },
     "/location" : {
-      "summary" : "/location",
-      "description" : "Use this to retrieve the target library and target source library based on the object code and object type.",
+      "summary" : "Resolve object and source locations",
+      "description" : "Returns the target object library and source library for the requested application, environment, task, object type, and attribute. For IFS routes, the response can also include the target directory.",
       "post" : {
-        "summary" : "location",
-        "description" : "Use this operation to retrieve the target library and the source file of the object that you are going to create. It is used to prefill the target in the new object UI.",
+        "summary" : "Resolve object and source locations",
+        "description" : "Determines the target object library and source library for an object before creation. For requests using an IFS route, the response can include the corresponding IFS directory.",
         "operationId" : "location",
         "requestBody" : {
-          "description" : "getLocation",
+          "description" : "Application, environment, task, and object characteristics used to resolve target locations before a create request is submitted.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -150,23 +150,23 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK",
+            "description" : "The target object and source locations were resolved.",
             "content" : {
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/locationResponse"
                 },
                 "examples" : {
-                  "addObject200" : {
+                    "location200" : {
                     "value" : null,
-                    "$ref" : "#/components/examples/addObject200"
+                      "$ref" : "#/components/examples/location200"
                   }
                 }
               }
             }
           },
           "400" : {
-            "description" : "Bad Request from Client",
+            "description" : "The request is invalid or the target locations cannot be resolved because of a client or business-rule error.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -176,7 +176,7 @@
             }
           },
           "401" : {
-            "description" : "not authorized",
+            "description" : "Authentication is missing, invalid, or expired.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -202,13 +202,14 @@
       }
     },
     "/addIFSObject" : {
-      "summary" : "Use this path to create the new IFS object.",
-      "description" : "Use this path to create the new IFS object.",
+      "summary" : "Create an IFS object",
+      "description" : "Creates an IFS stream file and associates it with the specified TD/OMS task. The target directory is resolved from the application, environment, and route. An optional template file can be copied into the new file.",
       "post" : {
-        "summary" : "Use this operation to create the new IFS object.",
-        "description" : "Use this operation to create the new IFS object.",
+        "summary" : "Create an IFS object",
+        "description" : "Creates an IFS stream file at the location determined by the application, environment, route, and optional subdirectory. Use this operation instead of `/add` for IFS resources. If a template file is supplied, its contents are used to create the new file; otherwise TD/OMS creates an empty stream file.",
         "operationId" : "addIFSObject",
         "requestBody" : {
+          "description" : "Parameters for creating an IFS stream file, including the resolved route target, optional subdirectory, and optional template file.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -216,7 +217,7 @@
               },
               "examples" : {
                 "addIFSObject" : {
-                  "summary" : "How to specify the request input parameter value to add the IFS object.",
+                  "summary" : "Create an IFS file without a template",
                   "value" : {
                     "application" : "XMP",
                     "taskNumber" : "XT0022",
@@ -230,7 +231,7 @@
                   }
                 },
                 "addIFSObjectUsingSubDir" : {
-                  "summary" : "How to specify the request input parameter value to add the IFS object sub directory.",
+                  "summary" : "Create an IFS file in a subdirectory",
                   "value" : {
                     "application" : "XMP",
                     "taskNumber" : "XT0022",
@@ -244,7 +245,7 @@
                   }
                 },
                 "addIFSObjectUsingTemplate" : {
-                  "summary" : "How to specify the request input parameter value to add the IFS object using template.",
+                  "summary" : "Create an IFS file from a template",
                   "value" : {
                     "application" : "XMP",
                     "taskNumber" : "XT0022",
@@ -264,7 +265,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK",
+            "description" : "The IFS file was created and associated with the specified task.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -288,7 +289,7 @@
             }
           },
           "400" : {
-            "description" : "Bad Request from Client",
+            "description" : "The request is invalid or cannot be processed because of a client or business-rule error.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -298,7 +299,7 @@
             }
           },
           "401" : {
-            "description" : "not authorized",
+            "description" : "Authentication is missing, invalid, or expired.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -324,13 +325,14 @@
       }
     },
     "/addDataArea" : {
-      "summary" : "Use this operation to create the data area.",
-      "description" : "Use this operation to create the data area.",
+      "summary" : "Create a data area",
+      "description" : "Creates an IBM i data area in the specified library and associates it with the specified TD/OMS task.",
       "post" : {
-        "summary" : "Use this operation to create the data area.",
-        "description" : "Use this operation to create the data area.",
+        "summary" : "Create a data area",
+        "description" : "Creates an IBM i data area using the supplied type, length, decimal positions, initial value, and description. Use `/location` first when the target library must be derived from the application, environment, and task.",
         "operationId" : "addDataArea",
         "requestBody" : {
+          "description" : "Parameters for creating a data area and associating it with a TD/OMS task. The requested value type determines how `length`, `decimalPosition`, and `initialValue` are interpreted.",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -338,7 +340,7 @@
               },
               "examples" : {
                 "addDataArea" : {
-                  "summary" : "How to specify the request input parameter value to add data area.",
+                  "summary" : "Create a character data area",
                   "value" : {
                     "applicationCode" : "XMP",
                     "environment" : "*DEV",
@@ -359,7 +361,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "OK",
+            "description" : "The data area was created and associated with the specified task.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -383,7 +385,7 @@
             }
           },
           "400" : {
-            "description" : "Bad Request from Client",
+            "description" : "The request is invalid or cannot be processed because of a client or business-rule error.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -393,7 +395,7 @@
             }
           },
           "401" : {
-            "description" : "not authorized",
+            "description" : "Authentication is missing, invalid, or expired.",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -427,25 +429,25 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Input the application code required for creating a new object.",
+            "description" : "Application code in which the new object is created.",
             "example" : "XMP"
           },
           "task" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Input the task name required for creating a new object.",
+            "description" : "Task associated with the new object. Every created resource is connected to this task.",
             "example" : "T0014"
           },
           "environmentCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Input the environment code required for creating a new object.",
+            "description" : "Environment in which the new object is created. Use the environment that matches the resolved target libraries or route.",
             "example" : "DEV"
           },
           "copyObject" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Enter your choice if you wan to copy the source from the related object template.\r\n\r\n '0' - Enter '0' if you don't want to copy the source. \r\n\r\n'1' - Enter '1' if you want to copy the source. ",
+            "description" : "Indicates whether source is copied from the related template: `0` disables copying and `1` enables it. This only has meaning when a compatible template is supplied.",
             "nullable" : true,
             "example" : "1",
             "default" : "0",
@@ -457,78 +459,78 @@
           "newObjectTemplate" : {
             "maxLength" : 50,
             "type" : "string",
-            "description" : "Enter the template name.",
+            "description" : "Name of the TD/OMS template used to define the new object. This is commonly used when the request creates a detail-style resource such as a source member.",
             "example" : "Example RPG Program      Program"
           },
           "newObject" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Enter the new object name that you wish to create.",
+            "description" : "Name of the object to create or, for detail-style requests, the parent object that receives the new detail.",
             "example" : "NEWOBJ"
           },
           "newObjectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the new object library here.",
+            "description" : "IBM i library in which to create the object or in which the parent object resides. This is commonly obtained from `/location`.",
             "example" : "OMHD_DEV"
           },
           "newObjectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Enter the new object type here.",
+            "description" : "IBM i object type to create. For detail-style requests, this is the type of the parent object receiving the new detail.",
             "example" : "*PGM"
           },
           "newDetail" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the new object member name here."
+            "description" : "Name of the object detail to create, when applicable. This is typically required when the request creates a detail within an existing object, such as a source member or a message entry in a message file."
           },
           "newDescription" : {
             "maxLength" : 50,
             "type" : "string",
-            "description" : "Enter the new object description here.",
+            "description" : "Text description assigned to the created resource. For some detail-style requests, TD/OMS can store this text as the detail text instead of an object description.",
             "example" : "This is my new object"
           },
           "newAttribute" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the new object attribute here.",
+            "description" : "Attribute assigned to the created object. Whether this value is required depends on the object type. For detail-style requests, this value can describe the parent object rather than the detail itself.",
             "example" : "RPGLE"
           },
           "newSourceFile" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the source physical file name here for the new object.",
+            "description" : "Source physical file in which to create or locate the source member, when source-based creation is used. For object types backed by source, this can be required even when only a detail is being created.",
             "example" : "QRPGLESRC"
           },
           "newSourceLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the source library name.",
+            "description" : "IBM i library containing the source physical file, when source-based creation is used.",
             "example" : "OMHD_DEV"
           },
           "newSourceMember" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the source member name that has to be created.",
+            "description" : "Name of the source member or source-backed detail to create. Depending on object type, TD/OMS can require this value even when the created detail is also identified by `newDetail`.",
             "example" : "NEWOBJ"
           },
           "newSourceAttribute" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the attribute of the source member.",
+            "description" : "Attribute assigned to the source member when source-based creation is used. This can be required for member-style requests even if the parent object attribute is also supplied elsewhere in the request.",
             "example" : "RPGLE"
           },
           "temporaryOrVirtualObject" : {
             "maxLength" : 1,
             "type" : "string",
-            "description" : "Enter '1' if you want to create it as a virtual object otherwise '0'.",
+            "description" : "Indicates whether the object is virtual: `0` creates a regular object and `1` creates a virtual object.",
             "example" : "0",
             "default" : "0",
             "enum" : [ "0", "1" ]
           }
         },
-        "description" : "Use this input schema to create the new object."
+        "description" : "Request parameters for creating an IBM i object or object detail and associating it with a task. Required fields are conditional: standard objects generally use object, library, type, and attribute values; source-based objects can also require source file, source member, and source attribute values; detail-style requests can require `newDetail`, `newSourceMember`, `newObjectTemplate`, or other fields depending on the target object type."
       },
       "response" : {
         "type" : "object",
@@ -536,14 +538,14 @@
           "status" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "The return status which can be *NORM or *TERM. In case of *TERM look at the messages for more information.",
-            "enum" : [ "*TERM" ]
+            "description" : "Operation status. `*NORM` indicates success and `*TERM` indicates failure; consult `message` for details.",
+            "enum" : [ "*NORM", "*TERM" ]
           },
           "message" : {
             "$ref" : "#/components/schemas/extendedMessage"
           }
         },
-        "description" : "Output schema for newObjectApi."
+        "description" : "Result returned by an object-creation operation."
       },
       "extendedMessage" : {
         "type" : "object",
@@ -563,13 +565,13 @@
           "messageData" : {
             "maxLength" : 80,
             "type" : "string",
-            "description" : "The message substitution Data. ",
+            "description" : "Substitution data associated with the message.",
             "example" : "*FILE"
           },
           "messageText" : {
             "maxLength" : 512,
             "type" : "string",
-            "description" : "The humen readable messaget Text.",
+            "description" : "Human-readable text describing the message. Success responses can contain business-level details about the created object or detail, while failure responses explain why the request was rejected.",
             "example" : "Object of type *FILE not found."
           }
         },
@@ -581,29 +583,29 @@
           "templateObject" : {
             "maxLength" : 12,
             "type" : "string",
-            "description" : "Enter the name of the object you wish to use as a template for copying.",
+            "description" : "Name of the IBM i object used as the source template.",
             "example" : "TMPLOBJ"
           },
           "templateObjectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the name of the library which contains the template object.",
+            "description" : "IBM i library containing the template object.",
             "example" : "OMHD_PRD"
           },
           "templateObjectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Enter the template object type.",
+            "description" : "IBM i object type of the template object.",
             "example" : "*PGM"
           },
           "templateObjectDetail" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the name of the detail.",
+            "description" : "Name of the template object detail or source member, when applicable.",
             "example" : ""
           }
         },
-        "description" : "Use this schema if you want to copy the template from related object."
+        "description" : "Identifies the IBM i object and, when applicable, source member to use as a template."
       },
       "locationRequest" : {
         "type" : "object",
@@ -611,41 +613,41 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Enter the name of the application in which you want to create the new object.",
+            "description" : "Application in which the object will be created.",
             "example" : "XMP"
           },
           "environmentCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Enter the name of the environment in which you want to create the new object.",
+            "description" : "Environment in which the object will be created.",
             "example" : "DEV"
           },
           "task" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the name of the task in which you want to create the new object.",
+            "description" : "Task associated with the object being created.",
             "example" : "T0014"
           },
           "objectType" : {
             "maxLength" : 9,
             "type" : "string",
-            "description" : "Enter the object type of the new object.",
+            "description" : "IBM i object type whose target location is being resolved. This value determines which object and source defaults TD/OMS attempts to resolve.",
             "format" : "",
             "example" : "*PGM"
           },
           "objectAttribute" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the object attribute.",
+            "description" : "Attribute of the object whose target location is being resolved. For non-IFS requests this value is commonly needed to determine the target object and source libraries.",
             "example" : "RPGLE"
           },
           "routeCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Routes are defined to manage the transfer for files in the Integrated File System (IFS)."
+            "description" : "TD/OMS route used to resolve the target location. This is mainly used for IFS requests and can resolve an IFS directory instead of object and source libraries."
           }
         },
-        "description" : "Use this input schema to retrieve the object library and source library."
+        "description" : "Request parameters used to resolve the target object library, source library, and applicable IFS directory. This operation helps determine location values before calling a create operation, but it does not determine every conditional field needed by `/add`."
       },
       "locationResponse" : {
         "type" : "object",
@@ -653,31 +655,31 @@
           "status" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "The return status which can be *NORM or *TERM. In case of *TERM object and source libraries are not returned.",
+            "description" : "Location-resolution status. If the status is `*TERM`, the object and source libraries are not returned.",
             "example" : "*TERM"
           },
           "objectLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Contains the name of the object library.",
+            "description" : "Name of the target object library.",
             "example" : "OMHD_DEV"
           },
           "sourceLibrary" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "contains the name of the source library,",
+            "description" : "Name of the target source library.",
             "example" : "OMHD_DEV"
           },
           "directory" : {
             "maxLength" : 640,
             "type" : "string",
-            "description" : "The IFS directory code is the directory in which the object is located. This is a path from the root of the integrated file system (IFS)."
+            "description" : "Absolute path of the target directory in the Integrated File System (IFS), when the route resolves to an IFS location."
           },
           "message" : {
             "$ref" : "#/components/schemas/extendedMessage"
           }
         },
-        "description" : "Use this output schema to retrieve the object and source library."
+        "description" : "Resolved target locations and any associated status message."
       },
       "addIFSObjectRequest" : {
         "type" : "object",
@@ -685,37 +687,37 @@
           "application" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Enter the name of the application."
+            "description" : "Application associated with the new IFS file."
           },
           "taskNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the name of task number."
+            "description" : "Task associated with the new IFS file."
           },
           "environment" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Enter the name of environment."
+            "description" : "Environment in which the IFS file will be created."
           },
           "routeCode" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Enter the name of route code."
+            "description" : "TD/OMS route used to resolve the IFS file location. This is the primary location control for IFS creation requests."
           },
           "ifsFileName" : {
             "maxLength" : 255,
             "type" : "string",
-            "description" : "Enter the name of ifs file name.",
+            "description" : "Name of the IFS stream file to create.",
             "example" : ""
           },
           "subDirectory" : {
             "maxLength" : 640,
             "type" : "string",
-            "description" : "Enter the sub directory path."
+            "description" : "Optional path below the route's target directory in which to create the file. Supply an empty string to create the file directly in the resolved route directory."
           },
           "subEnvironmentSequence" : {
             "type" : "number",
-            "description" : "Enter the sub environment sequence number.",
+            "description" : "Sequence number identifying the sub-environment. Use `0` when no sub-environment is involved.",
             "format" : "packed(5:0)"
           },
           "templateDirectory" : {
@@ -729,7 +731,7 @@
             "description" : "Specifies the template file to copy when creating the new IFS object. If left empty, no template is used and a new, empty file is created instead."
           }
         },
-        "description" : "Use this input schema to create the new IFS object."
+        "description" : "Request parameters for creating an IFS stream file and optionally copying its contents from a template. Route information determines the base directory; subdirectory and template values further refine creation behavior."
       },
       "addDataAreaRequest" : {
         "type" : "object",
@@ -737,63 +739,63 @@
           "applicationCode" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the application name."
+            "description" : "Application associated with the data area."
           },
           "environment" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specify the environment name."
+            "description" : "Environment associated with the data area."
           },
           "taskNumber" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the task number."
+            "description" : "Task associated with the data area."
           },
           "dataArea" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the name of the data area being created"
+            "description" : "Name of the data area to create."
           },
           "library" : {
             "maxLength" : 10,
             "type" : "string",
-            "description" : "Specify the library where the data area is created."
+            "description" : "IBM i library in which to create the data area. This is commonly resolved by `/location` before the create request is submitted."
           },
           "type" : {
             "maxLength" : 5,
             "type" : "string",
-            "description" : "Specifies the type of value that the data area being created will contain. The value can be character, decimal, or logical (1 or 0)."
+            "description" : "Data area value type: character, decimal, or logical (1 or 0). This choice affects valid combinations of `length`, `decimalPosition`, and `initialValue`."
           },
           "length" : {
             "type" : "number",
-            "description" : "Specifies the length of the data area being created.",
+            "description" : "Length of the data area value. For character and decimal data areas, supply the exact storage length required by the data definition.",
             "format" : "packed(6:0)"
           },
           "decimalPosition" : {
             "type" : "number",
-            "description" : "If the type is numeric, specify the decimal position",
+            "description" : "Number of decimal positions for a decimal data area. Use `0` for character and logical data areas.",
             "format" : "packed(6:0)"
           },
           "initialValue" : {
             "maxLength" : 1024,
             "type" : "string",
-            "description" : "Specifies the value assigned to the data area at the time it is created."
+            "description" : "Initial value assigned to the data area when it is created. The provided value must be compatible with the selected data area type, length, and decimal positions."
           },
           "description" : {
             "maxLength" : 50,
             "type" : "string",
-            "description" : "Specify no more than 50 characters of text, enclosed in apostrophes."
+            "description" : "Text description for the data area, up to 50 characters."
           }
         },
-        "description" : "Use this operation to create the data area."
+        "description" : "Request parameters for creating a data area and associating it with a task. Unlike `/add`, this operation uses a dedicated structure because the data definition is driven by the value type and sizing fields rather than by object/source metadata."
       }
     },
     "responses" : { },
     "parameters" : { },
     "examples" : {
       "addObject" : {
-        "summary" : "How to add a new object with a template",
-        "description" : "The template object is the object that contains the source that you want to copy for this new object.",
+        "summary" : "Create an object from a template",
+        "description" : "The template object supplies the source copied to the new object.",
         "value" : {
           "template" : {
             "templateObjectType" : "*PGM",
@@ -820,14 +822,16 @@
         }
       },
       "newMember" : {
-        "summary" : "How to add a new member without a template",
-        "description" : "An empty member will be created and added to the task",
+        "summary" : "Create a source member without a template",
+        "description" : "Creates an empty source member and associates it with the specified task. Member-style requests can require both detail and source-member fields.",
         "value" : {
           "newObjectTemplate" : "Source Prototype         Member",
           "newAttribute" : "RPGLE",
           "task" : "T0014",
           "newObjectType" : "*FILE",
           "newDetail" : "NEWMEMBER",
+          "newSourceMember" : "NEWMEMBER",
+          "newSourceAttribute" : "RPGLE",
           "environmentCode" : "DEV",
           "temporaryOrVirtualObject" : "0",
           "newObject" : "QCPYLESRC",
@@ -837,10 +841,48 @@
           "newObjectLibrary" : "OMHD_DEV"
         }
       },
-      "addObject200" : {
-        "summary" : "Response for a successful call to the API",
+      "messageDetail" : {
+        "summary" : "Create a message entry in a message file",
+        "description" : "Creates a new message entry as a detail within an existing message file object and associates it with the specified task.",
         "value" : {
-          "status" : "*NORM"
+          "applicationCode" : "XMP",
+          "task" : "T0099",
+          "environmentCode" : "DEV",
+          "copyObject" : "0",
+          "newObject" : "APPMSG",
+          "newObjectLibrary" : "OMHD_DEV",
+          "newObjectType" : "*MSGF",
+          "newDetail" : "MSG0100",
+          "newSourceMember" : "MSG0100",
+          "newDescription" : "Order not found",
+          "temporaryOrVirtualObject" : "0"
+        }
+      },
+      "location200" : {
+        "summary" : "Successful location-resolution response",
+        "value" : {
+          "status" : "*NORM",
+          "objectLibrary" : "OMHD_DEV",
+          "sourceLibrary" : "OMHD_DEV",
+          "directory" : "",
+          "message" : {
+            "messageFile" : "",
+            "messageId" : "",
+            "messageData" : "",
+            "messageText" : ""
+          }
+        }
+      },
+      "addObject200" : {
+        "summary" : "Successful object-creation response",
+        "value" : {
+          "status" : "*NORM",
+          "message" : {
+            "messageFile" : "OMSAPI",
+            "messageId" : "OMQ1043",
+            "messageData" : "",
+            "messageText" : "Object created successfully."
+          }
         }
       },
       "response401" : {
@@ -860,7 +902,7 @@
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
-        "description" : "http token",
+        "description" : "Bearer token used to authenticate requests. The token must be a valid JWT.",
         "scheme" : "bearer",
         "bearerFormat" : "JWT"
       }
