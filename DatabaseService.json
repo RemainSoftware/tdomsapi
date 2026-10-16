@@ -15,9 +15,9 @@
     "version" : "1.0.0",
     "x-restgeninfo" : {
       "server" : "https://plato.remainsoftware.com:45111/generator",
-      "library" : "IRESTLIB",
+      "library" : "V19T0112",
       "file" : "DatabaseService.json",
-      "srclibrary" : "IRESTLIB",
+      "srclibrary" : "V19T0112S",
       "object" : "OMRDBA"
     }
   },
@@ -29,8 +29,8 @@
         "default" : "plato.remainsoftware.com"
       },
       "protocol" : {
-        "default" : "https",
-        "enum" : [ "https", "http" ]
+        "enum" : [ "https", "http" ],
+        "default" : "https"
       },
       "library" : {
         "description" : "",
@@ -344,7 +344,7 @@
             "example" : "Query executed successfully"
           },
           "messageID" : {
-            "maxLength" : 50,
+            "maxLength" : 7,
             "type" : "string",
             "description" : "Message ID for programmatic reference and documentation lookup. Format: OMQF#### or similar OMS message code.",
             "example" : "OMQF0000"
@@ -365,6 +365,7 @@
             "$ref" : "#/components/schemas/message"
           },
           "fieldName" : {
+            "maxLength" : 50,
             "type" : "string",
             "description" : "Name of the field that caused the error (from returnFields or fieldSelections)",
             "example" : "fixDescription"
@@ -397,6 +398,7 @@
         "type" : "object",
         "properties" : {
           "status" : {
+            "maxLength" : 5,
             "type" : "string",
             "description" : "Return status indicator. *NORM = successful query, *TERM = terminating error, *WARN = warning conditions encountered. Check messages and fieldMessages for details on non-*NORM statuses.",
             "example" : "*NORM",
@@ -426,15 +428,22 @@
         "type" : "object",
         "properties" : {
           "fieldName" : {
+            "maxLength" : 50,
             "type" : "string",
             "description" : "Field name to sort by (from OMXDataDictionary longColumnName). Use multiple sortField entries for multi-level sorting.",
             "example" : "fixNumber"
           },
           "sortBy" : {
+            "maxLength" : 5,
             "type" : "string",
             "description" : "Sort direction: ASC for ascending (A-Z, 0-9, oldest first), DESC for descending (Z-A, 9-0, newest first)",
             "default" : "ASC",
             "enum" : [ "ASC", "DESC" ]
+          },
+          "ignoreCase" : {
+            "type" : "boolean",
+            "description" : "When ignoreCase is turned on, capital and small letters are treated the same while sorting by the sortBy fields, and when it is turned off, they are treated as different",
+            "default" : false
           }
         },
         "description" : "Field sorting specification"
@@ -466,6 +475,7 @@
         "type" : "object",
         "properties" : {
           "field" : {
+            "maxLength" : 50,
             "type" : "string",
             "description" : "The field name to filter on (from OMXDataDictionary longColumnName). Examples: applicationCode, fixNumber, objectCode, fixStatus, environmentCode. Omit for logical operators (AND/OR) in group definitions.",
             "example" : "fixStatus"
@@ -518,6 +528,7 @@
             }
           },
           "fileName" : {
+            "maxLength" : 50,
             "type" : "string",
             "description" : "Friendly name of the queried table. Examples: FixExtended, ObjectExtended, Application, ObjectTransferHistory, DataDictionary",
             "example" : "FixExtended"
@@ -526,7 +537,7 @@
         "description" : "Complete query response including status, pagination info, and result records"
       },
       "record" : {
-        "maxLength" : 65535,
+        "maxLength" : 65536,
         "type" : "string",
         "description" : "A record object containing zero or more fields from the queried table. Field contents vary by table and returnFields selection. Each field is returned as its native JSON type (string, number, boolean). Date/Time fields are returned in their native format (e.g., YYYY-MM-DD, OS400Time, CenturyDate format). Null or empty fields may be omitted or returned as empty strings depending on configuration."
       }
@@ -573,7 +584,6 @@
         }
       }
     },
-    "parameters" : { },
     "examples" : {
       "IN operator example" : {
         "summary" : "Match any value in a list",
@@ -621,7 +631,6 @@
         }
       }
     },
-    "requestBodies" : { },
     "securitySchemes" : {
       "JWT" : {
         "type" : "http",
